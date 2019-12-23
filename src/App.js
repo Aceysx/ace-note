@@ -1,33 +1,33 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import {Avatar, Button} from "antd";
 
-const App = () => (
-  <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h2' color='teal' textAlign='center'>
-        <Image src='/logo.png' /> Log-in to your account
-      </Header>
-      <Form size='large'>
-        <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='Password'
-            type='password'
-          />
+const {ipcRenderer} = window.electron
 
-          <Button color='teal' fluid size='large'>
-            Login
-          </Button>
-        </Segment>
-      </Form>
-      <Message>
-        New to us? <a href='#'>Sign Up</a>
-      </Message>
-    </Grid.Column>
-  </Grid>
-)
+export default class App extends React.Component {
+  state = {
+    data: []
+  }
 
-export default App
+  componentDidMount() {
+    ipcRenderer.on('asynchronous-reply', (event, arg) => {
+      this.setState({data: arg})
+    })
+    ipcRenderer.send('asynchronous-message', 'to main')
+  }
+
+  render() {
+    const data = this.state.data.map(item => <p>{item.path}</p>)
+    console.log(data)
+    return <div>test
+      <Button type='primary'
+              onClick={() => console.log(this.state.data)}>alert</Button>
+      {data}
+      <div>
+        <Avatar size={64} icon="user" />
+        <Avatar size="large" icon="user" />
+        <Avatar icon="user" />
+        <Avatar size="small" icon="user" />
+      </div>
+    </div>
+  }
+}
