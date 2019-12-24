@@ -1,22 +1,7 @@
-const fs = require('fs')
+import path from 'path'
 
-const listFiles = (filePath, result) => {
-  fs.readdirSync(filePath)
-    .forEach(item => {
-      const itemPath = filePath + '/' + item
-      const file = fs.statSync(itemPath)
-      result.push({type: file.isFile() ? 'file' : 'dir', path: itemPath})
-      if (file.isDirectory()) {
-        listFiles(itemPath, result);
-      }
-    })
-}
 const Files = {
-  list: filePath => {
-    const files = []
-    listFiles(filePath, files)
-    return files
-  }
+  nameByPath: (filePath) => path.basename(filePath) + path.extname(filePath)
 }
+export default Files
 
-module.exports = Files
