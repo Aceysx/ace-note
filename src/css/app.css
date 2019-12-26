@@ -1,0 +1,31 @@
+.layout {
+    background-color: white;
+    height: 100%;
+}
+
+.layout_left_sider {
+    height: 100%;
+    padding: 0 10px;
+    background: #f9f7f3;
+    flex: none !important;
+    width: 230px !important;
+    max-width: 230px !important;
+}
+
+.layout_right_content_layout {
+    height: 100%;
+    background: #fff;
+    padding: 0 10px;
+}
+
+.layout_right_content_layout_left_menu {
+    width: 220px;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.layout_right_content_layout_right_content {
+    display: inline-block;
+    float: left;
+}

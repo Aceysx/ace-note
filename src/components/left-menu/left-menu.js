@@ -5,12 +5,8 @@ import Files from '../../utils/files'
 const {TreeNode, DirectoryTree} = Tree
 
 export default class LeftMenu extends React.Component {
-  onSelect = (keys, event) => {
-    console.log('Trigger Select', keys, event);
-  }
-
-  onExpand = () => {
-    console.log('Trigger Expand');
+  onSelect = keys => {
+    this.props.findSubFiles(keys[0])
   }
 
   listTree = dirs => {
@@ -30,15 +26,20 @@ export default class LeftMenu extends React.Component {
     const {leftMenu} = this.props
 
     return <div>
-      <DirectoryTree
-        defaultExpandAll multiple
-        onSelect={this.onSelect} onExpand={this.onExpand}>
-        <TreeNode title={'workspace'} key={'workspace'}>
-          {
-            this.listTree(leftMenu.sub)
-          }
-        </TreeNode>
-      </DirectoryTree>
+      {
+        leftMenu.path
+          ? <DirectoryTree
+              defaultExpandedKeys={[leftMenu.path]}
+            onSelect={this.onSelect}>
+
+            <TreeNode title={'我的文件夹'} key={leftMenu.path}>
+              {
+                this.listTree(leftMenu.sub)
+              }
+            </TreeNode>
+          </DirectoryTree>
+          : ''
+      }
     </div>
   }
 }

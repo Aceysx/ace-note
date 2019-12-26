@@ -16,8 +16,11 @@ function createWindow() {
 }
 
 ipcMain.on('init', (event, data) => {
-  // win.webContents.send('init-done', Files.list(process.cwd() + '/src'))
-  event.sender.send('init-done', Files.list(process.cwd() + '/src'))
+  event.sender.send('init-done', Files.listFilesDeep(process.cwd() + '/src'))
+})
+
+ipcMain.on('find-sub-files', (event, path) => {
+  event.returnValue = Files.listFiles(path)
 })
 
 ipcMain.on('open-file', (event, file) => {
