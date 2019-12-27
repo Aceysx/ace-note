@@ -1,5 +1,5 @@
 import React from 'react'
-import {Tree} from "antd"
+import {Divider, Tree} from "antd"
 import Files from '../../utils/files'
 
 const {TreeNode, DirectoryTree} = Tree

@@ -7,43 +7,34 @@ require("codemirror/mode/htmlmixed/htmlmixed")
 require("codemirror/mode/stex/stex")
 require("codemirror/mode/yaml/yaml")
 
-
+let md
 export default class Markdown extends React.Component {
   state = {
     myRef: React.createRef(),
-    markdownBoxRef: React.createRef(),
   }
 
   componentDidMount() {
     const node = this.state.myRef.current
-
-    HyperMD.fromTextArea(node, {
-      hmdModeLoader: false,
-    })
-   this.resize()
+    md = HyperMD.fromTextArea(node, )
   }
 
-  resize = () => {
-    const {markdownWidth} = this.state
-    const {clientWidth, clientHeight,offsetWidth,scrollWidth} = this.state.markdownBoxRef.current;
-    console.log(clientWidth,scrollWidth,offsetWidth)
-    if (markdownWidth !== clientWidth) {
-      this.setState({markdownWidth: clientWidth, markdownHeight: clientHeight});
-    }
-  }
 
   render() {
-    const {markdownBoxRef, myRef} = this.state
-    return <div className='layout_right_content_layout_right_content_markdown_scroll'
-                ref={markdownBoxRef}>
+    const {myRef} = this.state
+    const {file} = this.props
+    if (md) {
+      try {
+        md.setValue(file.content || '写点东西吧✏️')
+      }catch (e) {
+        md.setValue(file.content || '写点东西吧✏️')
+      }
+
+    }
+    return <div className='layout_right_content_layout_right_content_markdown_scroll'>
       <div style={{height: 50}}></div>
-      <Divider style={{display: 'inline-block'}}/>
-      <textarea id="myTextarea"
-                style={{minHeight: 4000}}
-                ref={myRef}>
-        # Hello World# Hello World tebie chang d
-        tebie chang de yiduanhua
-      </textarea>
-    </div>
+      <Divider style={{display: 'inline-block', marginLeft: 10}}/>
+      <textarea style={{minHeight: 4000}}
+                ref={myRef}/>
+    </div>;
   }
 }

@@ -25,20 +25,22 @@
     box-sizing: content-box;
     padding: 5px;
     float: left;
-    border: 1px solid #efebe4;
-    border-top: none;
-    border-bottom: none;
-
 }
-.layout_right_content_layout_left_menu_scroll{
+
+.layout_right_content_layout_left_menu_scroll {
     height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
     position: absolute;
 }
 .layout_right_content_layout_right_content_markdown {
-    overflow:hidden;
+    overflow: hidden;
 }
-.layout_right_content_layout_right_content_markdown_scroll{
-    height: 100%;
+
+.layout_right_content_layout_right_content_markdown_scroll {
     overflow-y: scroll;
+}
+
+.layout_right_content_layout_right_content_markdown_scroll::-webkit-scrollbar {
+    width: 0 !important
 }

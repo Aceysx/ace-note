@@ -40,7 +40,13 @@ const Files = {
     }
   },
   readFile: path => {
-    return fs.readFileSync(path, 'utf8')
+    const file = fs.statSync(path)
+    return {
+      path,
+      mtime: file.mtime,
+      type: 'file',
+      content: fs.readFileSync(path, 'utf-8')
+    }
   }
 }
 

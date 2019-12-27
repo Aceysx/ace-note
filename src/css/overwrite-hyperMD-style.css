@@ -1,8 +1,8 @@
-.CodeMirror{
-    height: 100%!important;
-    position: absolute;
-    overflow-y: scroll;
+.CodeMirror {
+    height: 100% !important;
+    margin-left: 10px;
 }
+
 .CodeMirror-gutters{
     background:none!important;
 }
