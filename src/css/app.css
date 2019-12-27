@@ -14,18 +14,31 @@
 
 .layout_right_content_layout {
     height: 100%;
+    width: 100%;
     background: #fff;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .layout_right_content_layout_left_menu {
-    width: 220px;
+    width: 250px;
     height: 100%;
-    display: inline-block;
+    box-sizing: content-box;
+    padding: 5px;
     float: left;
-}
+    border: 1px solid #efebe4;
+    border-top: none;
+    border-bottom: none;
 
-.layout_right_content_layout_right_content {
-    display: inline-block;
-    float: left;
+}
+.layout_right_content_layout_left_menu_scroll{
+    height: 100%;
+    overflow-y: scroll;
+    position: absolute;
+}
+.layout_right_content_layout_right_content_markdown {
+    overflow:hidden;
+}
+.layout_right_content_layout_right_content_markdown_scroll{
+    height: 100%;
+    overflow-y: scroll;
 }

@@ -5,7 +5,12 @@
   "main": "main.js",
   "dependencies": {
     "antd": "^3.26.4",
+    "codemirror": "^5.50.0",
     "electron": "^7.1.7",
+    "hypermd": "^0.3.11",
+    "katex": "^0.11.1",
+    "less-loader": "^5.0.0",
+    "marked": "^0.8.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

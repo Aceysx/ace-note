@@ -10,3 +10,10 @@
     margin-top: -5px;
     height: 35px;
 }
+
+.ant-divider-horizontal{
+    margin: 5px 0;
+}
+.ant-card-body{
+    padding: 15px;
+}

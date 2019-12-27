@@ -1,9 +1,11 @@
 import React from 'react'
-import {Row, Menu, Input, Layout, Divider} from "antd"
+import {Row, Menu, Input, Layout, Divider, Col} from "antd"
 import {connect} from 'react-redux'
 import {UPDATE_FILES, UPDATE_SELECTED_DIR} from "./dispatch-command/commands"
 import LeftMenu from "./components/left-menu/left-menu"
+import FileCard from './components/commons/file-card'
 import './css/app.css'
+import Markdown from "./components/commons/markdown/markdown";
 
 const {SubMenu} = Menu
 const {TextArea} = Input
@@ -33,13 +35,13 @@ class App extends React.Component {
   }
 
   findSubFiles = path => {
-    let files = ipcRenderer.sendSync('find-sub-files', path);
+    let files = ipcRenderer.sendSync('find-sub-files', '/Users/xinsi/demo/ace-editor/node_modules/.bin');
     this.props.updateSelectedDir(files)
   }
 
   listSubFiles = selectedDir => {
     return selectedDir.sub.map(file => {
-      return <p>{file.path}</p>
+      return <FileCard key={file.path} file={file}/>
     })
   }
 
@@ -51,7 +53,6 @@ class App extends React.Component {
         className='layout_left_sider'
         theme='light'
       >
-        {/*占位*/}
         <div style={{height: 50}}></div>
         <LeftMenu
           leftMenu={leftMenu}
@@ -60,76 +61,20 @@ class App extends React.Component {
       </Sider>
       <Layout className='layout_right_content_layout'>
         {/*占位*/}
-        <div style={{height: 20}}></div>
-        <Divider/>
         <Content>
           {
             selectedDir.path
               ? <div className='layout_right_content_layout_left_menu'>
-                {this.listSubFiles(selectedDir)}
+                <div className='layout_right_content_layout_left_menu_scroll'>
+                  {this.listSubFiles(selectedDir)}
+                </div>
               </div>
               : ''
           }
-
-          <div className='layout_right_content_layout_left_menu'>
-            Really
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            long
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
-            ...
-            <br/>
+          <div
+            className={`layout_right_content_layout_right_content_markdown `}>
+            <Markdown/>
           </div>
-
         </Content>
       </Layout>
     </Layout>
@@ -141,7 +86,7 @@ const mapDispatchToProps = dispatch => ({
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir))
 })
 
-const mapStateToProps = ({leftMenu,selectedDir}) => ({
+const mapStateToProps = ({leftMenu, selectedDir}) => ({
   leftMenu,
   selectedDir
 })
