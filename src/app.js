@@ -11,6 +11,9 @@ const {Sider, Content} = Layout
 const {ipcRenderer} = window.electron
 
 class App extends React.Component {
+  state={
+    selectedPath:''
+  }
   componentDidMount() {
     ipcRenderer.on('init-done', (event, data) => {
       this.props.updateDirs(data)
@@ -33,6 +36,7 @@ class App extends React.Component {
   }
 
   openFile = file => {
+    this.setState({selectedPath: file.path})
     if (file.type === 'dir') {
       this.findSubFiles(file.path)
       return
@@ -46,6 +50,7 @@ class App extends React.Component {
   listSubFiles = selectedDir => {
     return selectedDir.sub.map(file => {
       return <FileCard key={file.path}
+                       selectedPath={this.state.selectedPath}
                        file={file}
                        openFile={this.openFile}
       />
@@ -53,7 +58,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {leftMenu, selectedDir,currentEditFile} = this.props
+    const {leftMenu, selectedDir, currentEditFile} = this.props
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -94,7 +99,7 @@ const mapDispatchToProps = dispatch => ({
   updateCurrentEditFile: file => dispatch(UPDATE_CURRENT_EDIT_FILE(file)),
 })
 
-const mapStateToProps = ({leftMenu, selectedDir,currentEditFile}) => ({
+const mapStateToProps = ({leftMenu, selectedDir, currentEditFile}) => ({
   leftMenu,
   selectedDir,
   currentEditFile

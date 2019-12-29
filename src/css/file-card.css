@@ -1,6 +1,10 @@
-.file-card-box{
+.file-card-box {
     width: 250px;
     margin: 5px 0;
     height: 100px;
     cursor: pointer;
+}
+
+.file-card-box-selected {
+    background-color: #f9f7f3;
 }
