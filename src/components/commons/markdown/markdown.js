@@ -72,7 +72,7 @@ export default class Markdown extends React.Component {
       <Divider style={{display: 'inline-block', marginLeft: 10}}/>
       <Row type='flex'
            justify='space-between'>
-        <span>start</span>
+        <span></span>
         <div style={{color: 'black'}}>
           <span onClick={this.modifyFileContent}><Icon type="save"/>保存</span>
         </div>

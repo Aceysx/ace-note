@@ -6,6 +6,7 @@ import LeftMenu from "./components/left-menu/left-menu"
 import FileCard from './components/commons/file-card'
 import './css/app.css'
 import Markdown from "./components/commons/markdown/markdown";
+import Logo from './images/logo_transparent.png'
 
 const {Sider, Content} = Layout
 const {ipcRenderer} = window.electron
@@ -79,7 +80,11 @@ class App extends React.Component {
         className='layout_left_sider'
         theme='light'
       >
-        <div style={{height: 50}}></div>
+
+        <div style={{height:80}}>
+          <img src={Logo}
+               width={200} style={{marginTop: '-60px'}}/>
+        </div>
         <LeftMenu
           leftMenu={leftMenu}
           findSubFiles={this.findSubFiles}
