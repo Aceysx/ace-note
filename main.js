@@ -24,6 +24,14 @@ ipcMain.on('find-sub-files', (event, path) => {
 })
 
 ipcMain.on('open-file', (event, path) => {
-  event.returnValue =Files.readFile(path)
+  event.returnValue = Files.readFile(path)
+})
+ipcMain.on('modify-file-name', (event, data) => {
+  const {oldPath, newFileName} = data
+  event.returnValue = Files.modifyFileName(oldPath, newFileName)
+})
+ipcMain.on('modify-file-content', (event, data) => {
+  const {path, content} = data
+  event.returnValue = Files.modifyFileContent(path, content)
 })
 app.on('ready', createWindow)

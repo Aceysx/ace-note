@@ -11,9 +11,10 @@ const {Sider, Content} = Layout
 const {ipcRenderer} = window.electron
 
 class App extends React.Component {
-  state={
-    selectedPath:''
+  state = {
+    selectedPath: ''
   }
+
   componentDidMount() {
     ipcRenderer.on('init-done', (event, data) => {
       this.props.updateDirs(data)
@@ -45,6 +46,20 @@ class App extends React.Component {
       return
     }
     this.props.updateCurrentEditFile(ipcRenderer.sendSync('open-file', file.path));
+  }
+
+  modifyFileName = (oldPath, newFileName) => {
+    const {selectedDir} = this.props
+    let file = ipcRenderer.sendSync('modify-file-name', {oldPath, newFileName});
+    this.props.updateCurrentEditFile(file);
+    this.findSubFiles(selectedDir.path)
+  }
+
+  modifyFileContent = (path, content) => {
+    const {selectedDir} = this.props
+    let file = ipcRenderer.sendSync('modify-file-content', {path, content});
+    this.props.updateCurrentEditFile(file);
+    this.findSubFiles(selectedDir.path)
   }
 
   listSubFiles = selectedDir => {
@@ -85,7 +100,9 @@ class App extends React.Component {
               : ''
           }
           <div className={`layout_right_content_layout_right_content_markdown `}>
-            <Markdown file={currentEditFile}/>
+            <Markdown file={currentEditFile}
+                      modifyFileContent={this.modifyFileContent}
+                      modifyFileName={this.modifyFileName}/>
           </div>
         </Content>
       </Layout>
