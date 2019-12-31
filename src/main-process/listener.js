@@ -10,7 +10,7 @@ const Files = require("./utils/files")
 const {ipcMain} = require('electron')
 
 ipcMain.on(INIT_NOTEBOOK_EVENT, (event) => {
-  event.returnValue = Files.listFilesDeep('/Users/xinsi/Documents/Gridea')
+  event.returnValue = Files.listFilesDeep('/Users/xinsi/Documents/PERSONAL/notebook')
 })
 
 ipcMain.on(FIND_SUB_FILES, (event, path) => {

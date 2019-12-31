@@ -1,13 +1,13 @@
 import React from 'react'
-import {Divider, Layout} from "antd"
+import {Empty, Layout} from "antd"
 import {connect} from 'react-redux'
 import {UPDATE_CURRENT_EDIT_FILE, UPDATE_FILES, UPDATE_SELECTED_DIR} from "./reducers/dispatch-command/commands"
 import LeftMenu from "./components/left-menu/left-menu"
-import FileCard from './components/commons/file-card'
 import './css/app.css'
 import Markdown from "./components/commons/markdown/markdown";
 import Logo from './images/logo_transparent.png'
 import FileResource from './resources/file-resources'
+import SubMenu from "./components/left-menu/sub-menu/sub-menu";
 
 const {Sider, Content} = Layout
 
@@ -23,20 +23,6 @@ class App extends React.Component {
 
   findSubFiles = path => {
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
-  }
-
-  openFile = file => {
-    this.setState({selectedPath: file.path})
-    if (file.type === 'dir') {
-      this.findSubFiles(file.path)
-      return
-    }
-    if (file.path === this.props.currentEditFile.path) {
-      return
-    }
-    this.props.updateCurrentEditFile(
-      FileResource.findFile(file.path)
-    )
   }
 
   modifyFileName = (oldPath, newFileName) => {
@@ -55,18 +41,9 @@ class App extends React.Component {
     this.findSubFiles(selectedDir.path)
   }
 
-  listSubFiles = selectedDir => {
-    return selectedDir.sub.map(file => {
-      return <FileCard key={file.path}
-                       selectedPath={this.state.selectedPath}
-                       file={file}
-                       openFile={this.openFile}
-      />
-    })
-  }
-
   render() {
     const {leftMenu, selectedDir, currentEditFile} = this.props
+    console.log(selectedDir)
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -85,21 +62,27 @@ class App extends React.Component {
         <Content>
           {
             selectedDir.path
-              ? <div className='layout_right_content_layout_left_menu'>
-
-                <div className='layout_right_content_layout_left_menu_scroll'>
-                  <div style={{height: 50}}></div>
-                  <Divider/>
-                  {this.listSubFiles(selectedDir)}
-                </div>
-              </div>
+              ? <SubMenu
+                selectedDir={selectedDir}
+                currentEditFile={currentEditFile}
+                updateCurrentEditFile={this.props.updateCurrentEditFile}
+                findSubFiles={this.findSubFiles}
+              />
               : ''
           }
-          <div className={`layout_right_content_layout_right_content_markdown `}>
-            <Markdown file={currentEditFile}
-                      modifyFileContent={this.modifyFileContent}
-                      modifyFileName={this.modifyFileName}/>
-          </div>
+          {
+            currentEditFile.path
+              ? <div className={`layout_right_content_layout_right_content_markdown `}>
+                <Markdown file={currentEditFile}
+                          modifyFileContent={this.modifyFileContent}
+                          modifyFileName={this.modifyFileName}/>
+              </div>
+              : <Empty
+                style={{marginTop: '20%'}}
+                description={false}
+                image={Empty.PRESENTED_IMAGE_SIMPLE}/>
+          }
+
         </Content>
       </Layout>
     </Layout>

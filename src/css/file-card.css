@@ -8,3 +8,29 @@
 .file-card-box-selected {
     background-color: #f9f7f3;
 }
+
+.file-card-li-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-card-file-icon, .file-card-dir-icon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.file-card-dir-icon {
+    color: #b7906b;
+}
+
+.file-card-file-icon {
+    color: #2e99ff;
+}
+
+.file-card-time {
+    font-size: 12px;
+    opacity: .5;
+    position: absolute;
+    bottom: 0;
+}

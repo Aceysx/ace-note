@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Divider, Icon, Input, Row,notification} from "antd";
+import {Col, Divider, Icon, Input, Row, notification} from "antd";
 import '../../../css/overwrite-hyperMD-style.css'
 import '../../../css/markdown.css'
 import path from 'path'
@@ -8,7 +8,6 @@ const HyperMD = require('hypermd')
 require("codemirror/mode/htmlmixed/htmlmixed")
 require("codemirror/mode/stex/stex")
 require("codemirror/mode/yaml/yaml")
-
 
 let md
 export default class Markdown extends React.Component {
@@ -20,7 +19,14 @@ export default class Markdown extends React.Component {
 
   componentDidMount() {
     const node = this.state.mdRef.current
-    md = HyperMD.fromTextArea(node,)
+    const {file} = this.props
+    this.setState({
+      changedPath: path.basename(file.path),
+      changedContent: file.content
+    }, () => {
+      md = HyperMD.fromTextArea(node)
+      this._updateMarkdownContent(file.content)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,7 +35,15 @@ export default class Markdown extends React.Component {
       this.setState({changedPath: path.basename(file.path)})
     }
     if (this.props.file.content !== file.content) {
-      this.setState({changedContent: file.content})
+      this._updateMarkdownContent(file.content)
+    }
+  }
+
+  _updateMarkdownContent = data => {
+    try {
+      md.setValue(data)
+    } catch (e) {
+      md.setValue(data)
     }
   }
 
@@ -44,22 +58,16 @@ export default class Markdown extends React.Component {
     const {changedContent} = this.state
     const newlyValue = md.getValue()
     if (changedContent !== newlyValue) {
-      this.setState({changedContent:newlyValue})
+      this.setState({changedContent: newlyValue}, () => {
+        this._updateMarkdownContent(changedContent)
+      })
     }
     this.props.modifyFileContent(file.path, newlyValue);
-    notification.success({message:'更新成功'});
+    notification.success({message: '更新成功'});
   }
 
   render() {
-    const {mdRef, changedPath, changedContent} = this.state
-    if (md) {
-      try {
-        md.setValue(changedContent || '写点东西吧✏️')
-      } catch (e) {
-        md.setValue(changedContent || '写点东西吧✏️')
-      }
-
-    }
+    const {mdRef, changedPath} = this.state
     return <div className='layout_right_content_layout_markdown_scroll'>
       <Row style={{height: 50}}>
         <Col span={20}>
