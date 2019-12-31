@@ -17,3 +17,6 @@
 .ant-card-body{
     padding: 15px;
 }
+.ant-tree li{
+    overflow: hidden;
+}

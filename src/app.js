@@ -1,15 +1,16 @@
 import React from 'react'
 import {Divider, Layout} from "antd"
 import {connect} from 'react-redux'
-import {UPDATE_CURRENT_EDIT_FILE, UPDATE_FILES, UPDATE_SELECTED_DIR} from "./dispatch-command/commands"
+import {UPDATE_CURRENT_EDIT_FILE, UPDATE_FILES, UPDATE_SELECTED_DIR} from "./reducers/dispatch-command/commands"
 import LeftMenu from "./components/left-menu/left-menu"
 import FileCard from './components/commons/file-card'
 import './css/app.css'
 import Markdown from "./components/commons/markdown/markdown";
 import Logo from './images/logo_transparent.png'
+import FileResource from './resources/file-resources'
 
 const {Sider, Content} = Layout
-const {ipcRenderer} = window.electron
+
 
 class App extends React.Component {
   state = {
@@ -17,24 +18,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    ipcRenderer.on('init-done', (event, data) => {
-      this.props.updateDirs(data)
-    })
-
-    ipcRenderer.on('refresh-dirs-done', (event, files) => {
-      this.props.updateDirs(files)
-    })
-
-    ipcRenderer.on('open-file-done', (event, fileContent) => {
-      this.setState({fileContent})
-    })
-
-    ipcRenderer.send('init', 'init')
+    this.props.updateDirs(FileResource.initNoteBook())
   }
 
   findSubFiles = path => {
-    let files = ipcRenderer.sendSync('find-sub-files', path);
-    this.props.updateSelectedDir(files)
+    this.props.updateSelectedDir(FileResource.findSubFiles(path))
   }
 
   openFile = file => {
@@ -46,20 +34,24 @@ class App extends React.Component {
     if (file.path === this.props.currentEditFile.path) {
       return
     }
-    this.props.updateCurrentEditFile(ipcRenderer.sendSync('open-file', file.path));
+    this.props.updateCurrentEditFile(
+      FileResource.findFile(file.path)
+    )
   }
 
   modifyFileName = (oldPath, newFileName) => {
     const {selectedDir} = this.props
-    let file = ipcRenderer.sendSync('modify-file-name', {oldPath, newFileName});
-    this.props.updateCurrentEditFile(file);
+    this.props.updateCurrentEditFile(
+      FileResource.modifyFileName({oldPath, newFileName})
+    )
     this.findSubFiles(selectedDir.path)
   }
 
   modifyFileContent = (path, content) => {
     const {selectedDir} = this.props
-    let file = ipcRenderer.sendSync('modify-file-content', {path, content});
-    this.props.updateCurrentEditFile(file);
+    this.props.updateCurrentEditFile(
+      FileResource.modifyFileContent({path, content})
+    )
     this.findSubFiles(selectedDir.path)
   }
 
@@ -80,8 +72,7 @@ class App extends React.Component {
         className='layout_left_sider'
         theme='light'
       >
-
-        <div style={{height:80}}>
+        <div style={{height: 80}}>
           <img src={Logo}
                width={200} style={{marginTop: '-60px'}}/>
         </div>
