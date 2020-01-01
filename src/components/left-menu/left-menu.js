@@ -1,8 +1,12 @@
 import React from 'react'
-import {Divider, Tree} from "antd"
+import {Tree} from "antd"
 import Files from '../../utils/files'
+import {ContextMenu, ContextMenuTrigger, MenuItem, SubMenu} from "react-contextmenu";
+import '../../css/overwrite-react-contextmenu-style.css'
+import FileResource from "../../resources/file-resources";
 
 const {TreeNode, DirectoryTree} = Tree
+
 
 export default class LeftMenu extends React.Component {
   onSelect = keys => {
@@ -21,23 +25,39 @@ export default class LeftMenu extends React.Component {
         </TreeNode>
       })
   }
+  createFileOrDir = data => {
+    const {type, path} = data
+    const leftMenu = FileResource.createFileOrDir({type, path})
+    this.props.updateLeftMenu(leftMenu)
+  }
 
   render() {
     const {leftMenu} = this.props
 
     return <div>
+      <ContextMenu id="some_unique_identifier">
+        <SubMenu title='新建'>
+          <MenuItem onClick={(e, data) => this.createFileOrDir(e,data)}
+                    data={{type: 'dir', path: leftMenu.path}}>新建文件夹</MenuItem>
+          <MenuItem onClick={(e, data) => this.createFileOrDir(data)}
+                    data={{type: 'md', path: leftMenu.path}}>新建文件</MenuItem>
+        </SubMenu>
+      </ContextMenu>
       {
         leftMenu.path
-          ? <DirectoryTree
+          ?
+          <ContextMenuTrigger id="some_unique_identifier">
+            <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
-            onSelect={this.onSelect}>
+              onSelect={this.onSelect}>
+              <TreeNode title={'我的文件夹'} key={leftMenu.path}>
+                {
+                  this.listTree(leftMenu.sub)
+                }
+              </TreeNode>
 
-            <TreeNode title={'我的文件夹'} key={leftMenu.path}>
-              {
-                this.listTree(leftMenu.sub)
-              }
-            </TreeNode>
-          </DirectoryTree>
+            </DirectoryTree>
+          </ContextMenuTrigger>
           : ''
       }
     </div>

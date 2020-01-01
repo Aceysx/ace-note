@@ -1,9 +1,11 @@
+
 const {
   FIND_FILE,
   FIND_SUB_FILES,
   INIT_NOTEBOOK_EVENT,
   MODIFY_FILE_CONTENT,
-  MODIFY_FILE_NAME
+  MODIFY_FILE_NAME,
+  CREATE_FILE_OR_DIR
 } = require("../resources/listener-event")
 
 const Files = require("./utils/files")
@@ -29,4 +31,9 @@ ipcMain.on(MODIFY_FILE_NAME, (event, data) => {
 ipcMain.on(MODIFY_FILE_CONTENT, (event, data) => {
   const {path, content} = data
   event.returnValue = Files.modifyFileContent(path, content)
+})
+
+ipcMain.on(CREATE_FILE_OR_DIR, (event, data) => {
+  const {path, type} = data
+  event.returnValue = Files.createFileOrDir(path, type)
 })

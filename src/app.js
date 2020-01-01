@@ -13,10 +13,6 @@ const {Sider, Content} = Layout
 
 
 class App extends React.Component {
-  state = {
-    selectedPath: ''
-  }
-
   componentDidMount() {
     this.props.updateDirs(FileResource.initNoteBook())
   }
@@ -43,7 +39,6 @@ class App extends React.Component {
 
   render() {
     const {leftMenu, selectedDir, currentEditFile} = this.props
-    console.log(selectedDir)
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -56,6 +51,7 @@ class App extends React.Component {
         <LeftMenu
           leftMenu={leftMenu}
           findSubFiles={this.findSubFiles}
+          updateLeftMenu={this.props.updateDirs}
         />
       </Sider>
       <Layout className='layout_right_content_layout'>

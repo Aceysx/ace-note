@@ -59,7 +59,7 @@ export default class Markdown extends React.Component {
     const newlyValue = md.getValue()
     if (changedContent !== newlyValue) {
       this.setState({changedContent: newlyValue}, () => {
-        this._updateMarkdownContent(changedContent)
+        this._updateMarkdownContent(newlyValue)
       })
     }
     this.props.modifyFileContent(file.path, newlyValue);

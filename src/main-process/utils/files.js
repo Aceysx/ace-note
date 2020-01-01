@@ -4,49 +4,49 @@ const path = require('path')
 const listFilesDeep = (filePath, result) => {
   fs.readdirSync(filePath)
     .forEach(item => {
-      const path = filePath + '/' + item
-      const file = fs.statSync(path)
-      let temp = {mtime: file.mtime, path, type: file.isFile() ? 'file' : 'dir'};
+      const _path = filePath + '/' + item
+      const file = fs.statSync(_path)
+      let temp = {mtime: file.mtime, path: _path, type: file.isFile() ? 'file' : 'dir'};
       result.push(temp);
       if (file.isDirectory()) {
         temp.sub = []
-        listFilesDeep(path, temp.sub);
+        listFilesDeep(_path, temp.sub);
       }
     })
 }
 const listFiles = filePath => {
   return fs.readdirSync(filePath)
     .map(item => {
-      const path = filePath + '/' + item
-      const file = fs.statSync(path)
+      const _path = filePath + '/' + item
+      const file = fs.statSync(_path)
       return {
-        mtime: file.mtime, path,
+        mtime: file.mtime, path: _path,
         type: file.isFile() ? 'file' : 'dir',
         sub: []
       }
     })
 }
 const Files = {
-  listFilesDeep: path => {
-    const file = fs.statSync(path)
-    const dirs = {path, mtime: file.mtime, sub: [], type: file.isFile() ? 'file' : 'dir'}
-    listFilesDeep(path, dirs.sub)
+  listFilesDeep: _path => {
+    const file = fs.statSync(_path)
+    const dirs = {path: _path, mtime: file.mtime, sub: [], type: file.isFile() ? 'file' : 'dir'}
+    listFilesDeep(_path, dirs.sub)
     return dirs
   },
-  listFiles: path => {
-    const file = fs.statSync(path)
+  listFiles: _path => {
+    const file = fs.statSync(_path)
     return {
-      path, mtime: file.mtime, sub: listFiles(path),
+      path: _path, mtime: file.mtime, sub: listFiles(_path),
       type: file.isFile() ? 'file' : 'dir'
     }
   },
-  readFile: path => {
-    const file = fs.statSync(path)
+  readFile: _path => {
+    const file = fs.statSync(_path)
     return {
-      path,
+      path: _path,
       mtime: file.mtime,
       type: 'file',
-      content: fs.readFileSync(path, 'utf-8')
+      content: fs.readFileSync(_path, 'utf-8')
     }
   },
   modifyFileName: (oldPath, newFileName) => {
@@ -54,9 +54,19 @@ const Files = {
     fs.renameSync(oldPath, newFilePath)
     return Files.readFile(newFilePath)
   },
-  modifyFileContent: (path, content) => {
-    fs.writeFileSync(path, content, 'utf-8')
-    return Files.readFile(path)
+  modifyFileContent: (_path, content) => {
+    fs.writeFileSync(_path, content, 'utf-8')
+    return Files.readFile(_path)
+  },
+  createFileOrDir: (_path, type) => {
+    let fileName = path.join(_path, new Date().getTime().toString())
+    if (type === 'dir') {
+      fs.mkdirSync(fileName);
+      return Files.listFilesDeep(_path)
+    }
+    fileName += ('.' + type)
+    fs.writeFileSync(fileName, '');
+    return Files.listFilesDeep(_path)
   }
 }
 
