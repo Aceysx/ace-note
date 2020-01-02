@@ -1,8 +1,8 @@
 import React from 'react'
-import {Divider} from "antd"
+import {Divider,Empty} from "antd"
 import FileCard from "../../commons/file-card"
 import FileResource from "../../../resources/file-resources"
-import {Empty} from "antd/lib/index";
+import path from 'path'
 
 class SubMenu extends React.Component {
   state = {
@@ -40,7 +40,9 @@ class SubMenu extends React.Component {
     const subFiles = this.subFiles(selectedDir)
     return <div className='layout_right_content_layout_left_menu'>
       <div className='layout_right_content_layout_left_menu_scroll'>
-        <div style={{height: 50}}></div>
+        <div className='layout_right_content_layout_left_menu_tool'>
+          <div>{path.basename(selectedDir.path)}</div>
+        </div>
         <Divider/>
         {
           subFiles.length

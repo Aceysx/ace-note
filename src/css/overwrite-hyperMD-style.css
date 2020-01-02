@@ -3,6 +3,10 @@
     margin-left: 10px;
 }
 
-.CodeMirror-gutters{
-    background:none!important;
+.CodeMirror-gutters {
+    background: none !important;
+}
+
+.CodeMirror-code {
+    min-height: 1000px;
 }
