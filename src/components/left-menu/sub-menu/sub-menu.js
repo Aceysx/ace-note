@@ -12,7 +12,7 @@ class SubMenu extends React.Component {
   openFile = file => {
     this.setState({selectedDirPath: file.path})
     if (file.type === 'dir') {
-      this.props.findSubFiles(file.path)
+      this.props.updateSelectedDir(file.path)
       return
     }
     if (file.path === this.props.currentEditFile.path) {
@@ -23,10 +23,12 @@ class SubMenu extends React.Component {
     )
   }
 
+
   subFiles = selectedDir => {
     return selectedDir.sub.map(file => {
       return <FileCard key={file.path}
                        selectedPath={this.state.selectedDirPath}
+                       deleteFileOrDir={this.props.deleteFileOrDir}
                        file={file}
                        openFile={this.openFile}
       />

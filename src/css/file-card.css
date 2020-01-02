@@ -2,7 +2,6 @@
     width: 250px;
     margin: 5px 0;
     height: 100px;
-    cursor: pointer;
 }
 
 .file-card-box-selected {
@@ -10,6 +9,7 @@
 }
 
 .file-card-li-title {
+    cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -28,9 +28,17 @@
     color: #2e99ff;
 }
 
-.file-card-time {
+.file-card-extra {
     font-size: 12px;
     opacity: .5;
     position: absolute;
     bottom: 0;
+    width: 100%;
+}
+
+.file-card-extra-delete-icon {
+    margin-right: 30px;
+    float: right;
+    font-size: 14px;
+    color: #b7906b;
 }

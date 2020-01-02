@@ -26,6 +26,20 @@ const listFiles = filePath => {
       }
     })
 }
+const deleteDir = url => {
+  let files = fs.readdirSync(url);
+  files.forEach(function (file) {
+    const curPath = path.join(url, file)
+
+    if (fs.statSync(curPath).isDirectory()) {
+      deleteDir(curPath);
+    } else {
+      fs.unlinkSync(curPath)
+    }
+  })
+  fs.rmdirSync(url)
+}
+
 const Files = {
   listFilesDeep: _path => {
     const file = fs.statSync(_path)
@@ -58,15 +72,25 @@ const Files = {
     fs.writeFileSync(_path, content, 'utf-8')
     return Files.readFile(_path)
   },
+
   createFileOrDir: (_path, type) => {
     let fileName = path.join(_path, new Date().getTime().toString())
     if (type === 'dir') {
       fs.mkdirSync(fileName);
-      return Files.listFilesDeep(_path)
+      return fileName
     }
     fileName += ('.' + type)
     fs.writeFileSync(fileName, '');
-    return Files.listFilesDeep(_path)
+    return fileName
+  },
+
+  deleteFileOrDir: (_path, type) => {
+    if (type === 'dir') {
+      deleteDir(_path)
+    } else {
+      fs.unlinkSync(_path);
+    }
+    return _path
   }
 }
 

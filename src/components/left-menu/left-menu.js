@@ -1,16 +1,15 @@
 import React from 'react'
-import {Tree} from "antd"
+import {Divider, Dropdown, Icon, Menu, Tree} from "antd"
 import Files from '../../utils/files'
-import {ContextMenu, ContextMenuTrigger, MenuItem, SubMenu} from "react-contextmenu";
 import '../../css/overwrite-react-contextmenu-style.css'
-import FileResource from "../../resources/file-resources";
+import '../../css/left-menu.css'
 
 const {TreeNode, DirectoryTree} = Tree
 
 
 export default class LeftMenu extends React.Component {
   onSelect = keys => {
-    this.props.findSubFiles(keys[0])
+    this.props.updateSelectedDir(keys[0])
   }
 
   listTree = dirs => {
@@ -25,28 +24,37 @@ export default class LeftMenu extends React.Component {
         </TreeNode>
       })
   }
-  createFileOrDir = data => {
-    const {type, path} = data
-    const leftMenu = FileResource.createFileOrDir({type, path})
-    this.props.updateLeftMenu(leftMenu)
+
+  createFileOrDir = ({key}) => {
+    const {selectedDir, leftMenu} = this.props
+    const path = selectedDir.path || leftMenu.path
+    this.props.createFileOrDir({path,type:key})
   }
 
   render() {
     const {leftMenu} = this.props
+    const menu = (
+      <Menu onClick={this.createFileOrDir}>
+        <Menu.Item key='dir'>
+          <span>创建文件夹</span>
+        </Menu.Item>
+        <Menu.Item key='md'>
+          <span>创建markdown</span>
+        </Menu.Item>
+      </Menu>
+    );
 
     return <div>
-      <ContextMenu id="some_unique_identifier">
-        <SubMenu title='新建'>
-          <MenuItem onClick={(e, data) => this.createFileOrDir(e,data)}
-                    data={{type: 'dir', path: leftMenu.path}}>新建文件夹</MenuItem>
-          <MenuItem onClick={(e, data) => this.createFileOrDir(data)}
-                    data={{type: 'md', path: leftMenu.path}}>新建文件</MenuItem>
-        </SubMenu>
-      </ContextMenu>
       {
         leftMenu.path
           ?
-          <ContextMenuTrigger id="some_unique_identifier">
+          <div>
+            <Dropdown overlay={menu}>
+              <span className='left-menu-created'>
+                <Icon type="plus-circle"/> 新建
+              </span>
+            </Dropdown>
+            <Divider/>
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
               onSelect={this.onSelect}>
@@ -55,9 +63,8 @@ export default class LeftMenu extends React.Component {
                   this.listTree(leftMenu.sub)
                 }
               </TreeNode>
-
             </DirectoryTree>
-          </ContextMenuTrigger>
+          </div>
           : ''
       }
     </div>

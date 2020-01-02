@@ -17,8 +17,9 @@ class App extends React.Component {
     this.props.updateDirs(FileResource.initNoteBook())
   }
 
-  findSubFiles = path => {
+  updateSelectedDir = path => {
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
+    this.props.updateDirs(FileResource.initNoteBook())
   }
 
   modifyFileName = (oldPath, newFileName) => {
@@ -26,7 +27,7 @@ class App extends React.Component {
     this.props.updateCurrentEditFile(
       FileResource.modifyFileName({oldPath, newFileName})
     )
-    this.findSubFiles(selectedDir.path)
+    this.updateSelectedDir(selectedDir.path)
   }
 
   modifyFileContent = (path, content) => {
@@ -34,7 +35,18 @@ class App extends React.Component {
     this.props.updateCurrentEditFile(
       FileResource.modifyFileContent({path, content})
     )
-    this.findSubFiles(selectedDir.path)
+    this.updateSelectedDir(selectedDir.path)
+  }
+
+  createFileOrDir = ({path, type}) => {
+    FileResource.createFileOrDir({type, path})
+    this.updateSelectedDir(path)
+  }
+
+  deleteFileOrDir = ({path, type}) => {
+    const {selectedDir} = this.props
+    FileResource.delete({path, type})
+    this.updateSelectedDir(selectedDir.path)
   }
 
   render() {
@@ -50,8 +62,9 @@ class App extends React.Component {
         </div>
         <LeftMenu
           leftMenu={leftMenu}
-          findSubFiles={this.findSubFiles}
-          updateLeftMenu={this.props.updateDirs}
+          selectedDir={selectedDir}
+          createFileOrDir={this.createFileOrDir}
+          updateSelectedDir={this.updateSelectedDir}
         />
       </Sider>
       <Layout className='layout_right_content_layout'>
@@ -62,7 +75,8 @@ class App extends React.Component {
                 selectedDir={selectedDir}
                 currentEditFile={currentEditFile}
                 updateCurrentEditFile={this.props.updateCurrentEditFile}
-                findSubFiles={this.findSubFiles}
+                updateSelectedDir={this.updateSelectedDir}
+                deleteFileOrDir={this.deleteFileOrDir}
               />
               : ''
           }
