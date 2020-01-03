@@ -1,12 +1,17 @@
 import React from 'react'
-import {Divider,Empty} from "antd"
+import {Divider, Empty} from "antd"
 import FileCard from "../../commons/file-card"
 import FileResource from "../../../resources/file-resources"
 import path from 'path'
 
 class SubMenu extends React.Component {
   state = {
-    selectedDirPath: ''
+    selectedDirPath: '',
+    editedFileName: {
+      old: null,
+      now: '',
+      type: ''
+    }
   }
 
   openFile = file => {
@@ -23,13 +28,35 @@ class SubMenu extends React.Component {
     )
   }
 
+  changeFileName = now => {
+    const {editedFileName} = this.state
+    editedFileName.now = now
+    console.log(now)
+    this.setState({editedFileName})
+  }
 
+  updateFileName = () => {
+
+  }
+  change2EditModal = file => {
+    const editedFileName = {
+      old: file.path,
+      now: path.basename(file.path),
+      type: file.type
+    }
+    this.setState({editedFileName})
+  }
   subFiles = selectedDir => {
+    const {editedFileName, selectedDirPath} = this.state
     return selectedDir.sub.map(file => {
       return <FileCard key={file.path}
-                       selectedPath={this.state.selectedDirPath}
+                       selectedPath={selectedDirPath}
                        deleteFileOrDir={this.props.deleteFileOrDir}
                        file={file}
+                       editedFileName={editedFileName}
+                       changeFileName={this.changeFileName}
+                       updateFileName={this.updateFileName}
+                       change2EditModal={this.change2EditModal}
                        openFile={this.openFile}
       />
     })

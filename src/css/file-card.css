@@ -43,3 +43,11 @@
     color: #b7906b;
     cursor: pointer;
 }
+
+.file-card-extra-edit-icon {
+    margin-right: 10px;
+    float: right;
+    font-size: 14px;
+    color: #2e99ff;
+    cursor: pointer;
+}
