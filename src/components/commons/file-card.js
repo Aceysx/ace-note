@@ -5,16 +5,17 @@ import '../../css/file-card.css'
 
 const FileCard = ({
                     file, openFile, deleteFileOrDir, selectedPath, editedFileName, changeFileName,
-                    updateFileName, change2EditModal,cancelEditModal
+                    updateFileName, change2EditModal
                   }) => {
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
     {
       editedFileName.old === file.path
         ? <p><Input size="small"
+                    autoFocus
                     value={editedFileName.now}
                     onChange={e => changeFileName(e.target.value)}
-                    onBlur={cancelEditModal}
+                    onBlur={updateFileName}
                     onPressEnter={updateFileName}/>
         </p>
         : <p className='file-card-li-title'

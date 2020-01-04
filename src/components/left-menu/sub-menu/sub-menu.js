@@ -64,7 +64,6 @@ class SubMenu extends React.Component {
                        editedFileName={editedFileName}
                        changeFileName={this.changeFileName}
                        updateFileName={this.updateFileName}
-                       cancelEditModal={this.updateFileName}
                        change2EditModal={this.change2EditModal}
                        openFile={this.openFile}
       />
