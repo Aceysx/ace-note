@@ -4,14 +4,16 @@ import FileCard from "../../commons/file-card"
 import FileResource from "../../../resources/file-resources"
 import path from 'path'
 
+const DEFAULT_EDITED_FILE_NAME = {
+  old: null,
+  now: '',
+  type: ''
+}
+
 class SubMenu extends React.Component {
   state = {
     selectedDirPath: '',
-    editedFileName: {
-      old: null,
-      now: '',
-      type: ''
-    }
+    editedFileName: DEFAULT_EDITED_FILE_NAME
   }
 
   openFile = file => {
@@ -31,13 +33,18 @@ class SubMenu extends React.Component {
   changeFileName = now => {
     const {editedFileName} = this.state
     editedFileName.now = now
-    console.log(now)
     this.setState({editedFileName})
   }
 
   updateFileName = () => {
-
+    const {editedFileName} = this.state
+    const {old, now, type} = editedFileName
+    if (path.basename(old) !== now) {
+      this.props.modifyFileName(old, now, type)
+    }
+    this.setState({editedFileName: DEFAULT_EDITED_FILE_NAME})
   }
+
   change2EditModal = file => {
     const editedFileName = {
       old: file.path,
@@ -46,6 +53,7 @@ class SubMenu extends React.Component {
     }
     this.setState({editedFileName})
   }
+
   subFiles = selectedDir => {
     const {editedFileName, selectedDirPath} = this.state
     return selectedDir.sub.map(file => {
@@ -56,6 +64,7 @@ class SubMenu extends React.Component {
                        editedFileName={editedFileName}
                        changeFileName={this.changeFileName}
                        updateFileName={this.updateFileName}
+                       cancelEditModal={this.updateFileName}
                        change2EditModal={this.change2EditModal}
                        openFile={this.openFile}
       />

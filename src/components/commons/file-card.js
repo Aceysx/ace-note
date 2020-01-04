@@ -5,7 +5,7 @@ import '../../css/file-card.css'
 
 const FileCard = ({
                     file, openFile, deleteFileOrDir, selectedPath, editedFileName, changeFileName,
-                    updateFileName, change2EditModal
+                    updateFileName, change2EditModal,cancelEditModal
                   }) => {
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
@@ -14,6 +14,7 @@ const FileCard = ({
         ? <p><Input size="small"
                     value={editedFileName.now}
                     onChange={e => changeFileName(e.target.value)}
+                    onBlur={cancelEditModal}
                     onPressEnter={updateFileName}/>
         </p>
         : <p className='file-card-li-title'
@@ -35,7 +36,9 @@ const FileCard = ({
         <span className='file-card-extra-delete-icon'><Icon type="delete"/></span>
       </Popconfirm>
       <span className='file-card-extra-edit-icon'
-            onClick={() => change2EditModal(file)}><Icon type="edit"/></span>
+            onClick={() => change2EditModal(file)}>
+        <Icon type="edit"/>
+      </span>
     </p>
   </Card>
 }

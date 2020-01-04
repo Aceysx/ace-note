@@ -66,7 +66,7 @@ const Files = {
   modifyFileName: (oldPath, newFileName) => {
     const newFilePath = path.dirname(oldPath) + '/' + newFileName
     fs.renameSync(oldPath, newFilePath)
-    return Files.readFile(newFilePath)
+    return newFilePath
   },
   modifyFileContent: (_path, content) => {
     fs.writeFileSync(_path, content, 'utf-8')

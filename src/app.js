@@ -23,10 +23,13 @@ class App extends React.Component {
   }
 
   modifyFileName = (oldPath, newFileName) => {
-    const {selectedDir} = this.props
-    this.props.updateCurrentEditFile(
-      FileResource.modifyFileName({oldPath, newFileName})
-    )
+    const {selectedDir, currentEditFile} = this.props
+    let newPath = FileResource.modifyFileName({oldPath, newFileName});
+    if (currentEditFile.path === oldPath) {
+      this.props.updateCurrentEditFile(
+        FileResource.findFile(newPath)
+      )
+    }
     this.updateSelectedDir(selectedDir.path)
   }
 
@@ -76,6 +79,7 @@ class App extends React.Component {
                 currentEditFile={currentEditFile}
                 updateCurrentEditFile={this.props.updateCurrentEditFile}
                 updateSelectedDir={this.updateSelectedDir}
+                modifyFileName={this.modifyFileName}
                 deleteFileOrDir={this.deleteFileOrDir}
               />
               : ''
