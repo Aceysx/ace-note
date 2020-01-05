@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card, Icon, Input, Popconfirm} from 'antd'
-import path from 'path'
 import '../../css/file-card.css'
+import Files from "../../utils/files";
 
 const FileCard = ({
                     file, openFile, deleteFileOrDir, selectedPath, editedFileName, changeFileName,
@@ -25,7 +25,7 @@ const FileCard = ({
               ? <Icon type="folder" className='file-card-dir-icon'/>
               : <Icon type="file-markdown" className='file-card-file-icon'/>
           }
-          {path.basename(file.path)}
+          {Files.nameByPath(file.path)}
         </p>
     }
     <p className='file-card-extra'>

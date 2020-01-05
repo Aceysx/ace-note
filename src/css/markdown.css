@@ -5,3 +5,19 @@
     font-size: 18px;
     font-weight: bold;
 }
+.markdown_box_bar{
+    height: 28px;
+    box-shadow: 10px 5px 5px #f8f6f1;
+}
+.markdown_box_tool{
+    display: inline-block;
+    position: absolute;
+    right: 530px;
+}
+.markdown_box_header{
+    height: 120px;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    background: white;
+}

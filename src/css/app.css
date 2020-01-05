@@ -57,3 +57,7 @@
 .layout_right_content_layout_left_menu_tool > div {
     width: 200px;
 }
+
+.cursor_pointer{
+    cursor: pointer;
+}

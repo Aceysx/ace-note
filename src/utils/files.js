@@ -1,7 +1,7 @@
 import path from 'path'
 
 const Files = {
-  nameByPath: (filePath) => path.basename(filePath) + path.extname(filePath)
+  nameByPath: (filePath) => path.basename(filePath)
 }
 export default Files
 
