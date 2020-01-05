@@ -29,10 +29,12 @@ export default class Markdown extends React.Component {
           'Ctrl-S': this.modifyFileContent
         }
       })
-      md.on('change', (instance) => {
+      md.on('change', (instance, target) => {
         const {file} = this.props
-        const isContentChanged = instance.getValue() !== file.content
-        this.setState({isContentChanged})
+        if (target.origin !== 'setValue') {
+          const isContentChanged = instance.getValue() !== file.content;
+          this.setState({isContentChanged})
+        }
       })
 
       this._updateMarkdownContent(file.content)
@@ -47,6 +49,7 @@ export default class Markdown extends React.Component {
     if (this.props.file.content !== file.content) {
       this._updateMarkdownContent(file.content)
     }
+    this.setState({isContentChanged: false})
   }
 
   _updateMarkdownContent = data => {
@@ -67,8 +70,8 @@ export default class Markdown extends React.Component {
     const {file} = this.props
     const currentContent = md.getValue()
     if (file.content !== currentContent) {
-      this.props.modifyFileContent(file.path, currentContent);
-      notification.success({message: '更新成功'});
+      this.props.modifyFileContent(file.path, currentContent)
+      notification.success({message: '更新成功'})
     }
   }
 

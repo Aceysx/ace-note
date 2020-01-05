@@ -19,20 +19,6 @@
     padding: 0 5px;
 }
 
-.layout_right_content_layout_left_menu {
-    width: 250px;
-    height: 100%;
-    box-sizing: content-box;
-    padding: 5px;
-    float: left;
-}
-
-.layout_right_content_layout_left_menu_scroll {
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    position: absolute;
-}
 
 .layout_right_content_layout_right_content_markdown {
     overflow: hidden;

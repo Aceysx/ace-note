@@ -2,7 +2,8 @@ import React from 'react'
 import {Divider, Empty} from "antd"
 import FileCard from "../../commons/file-card"
 import FileResource from "../../../resources/file-resources"
-import path from 'path'
+import '../../../css/sub-menu.css'
+import Files from "../../../utils/files";
 
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
@@ -39,7 +40,7 @@ class SubMenu extends React.Component {
   updateFileName = () => {
     const {editedFileName} = this.state
     const {old, now, type} = editedFileName
-    if (path.basename(old) !== now) {
+    if (Files.nameByPath(old) !== now) {
       this.props.modifyFileName(old, now, type)
     }
     this.setState({editedFileName: DEFAULT_EDITED_FILE_NAME})
@@ -48,7 +49,7 @@ class SubMenu extends React.Component {
   change2EditModal = file => {
     const editedFileName = {
       old: file.path,
-      now: path.basename(file.path),
+      now: Files.nameByPath(file.path),
       type: file.type
     }
     this.setState({editedFileName})
@@ -76,7 +77,7 @@ class SubMenu extends React.Component {
     return <div className='layout_right_content_layout_left_menu'>
       <div className='layout_right_content_layout_left_menu_scroll'>
         <div className='layout_right_content_layout_left_menu_tool'>
-          <div>{path.basename(selectedDir.path)}</div>
+          <div>{Files.nameByPath(selectedDir.path)}</div>
         </div>
         <Divider/>
         {
@@ -87,6 +88,10 @@ class SubMenu extends React.Component {
               description={false}
               image={Empty.PRESENTED_IMAGE_SIMPLE}/>
         }
+      </div>
+      <div className='layout_right_content_layout_left_menu_bottom'>
+        <Divider/>
+        共 {selectedDir.sub.length} 项
       </div>
     </div>
   }
