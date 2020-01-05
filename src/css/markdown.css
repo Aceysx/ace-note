@@ -1,8 +1,7 @@
 .markdown_box_title{
-    height: 50px;
     border: none;
-    margin: 0 0 -10px 10px;
     font-size: 18px;
+    padding-top: 15px;
     font-weight: bold;
 }
 .markdown_box_bar{
@@ -15,7 +14,7 @@
     right: 530px;
 }
 .markdown_box_header{
-    height: 120px;
+    height: 90px;
     width: 100%;
     position: fixed;
     z-index: 1000;

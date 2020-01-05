@@ -9,6 +9,8 @@
 
 .layout_right_content_layout_left_menu_scroll {
     height: 100%;
+    border-right: 1px solid #f8f6f1;
+    padding-right: 4px;
     overflow-y: scroll;
     overflow-x: hidden;
     position: absolute;

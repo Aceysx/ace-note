@@ -80,7 +80,7 @@ export default class Markdown extends React.Component {
     const {mdRef, changedPath, isContentChanged} = this.state
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
-        <Row style={{height: 50}}>
+        <Row >
           <Col span={20}>
             <Input className='markdown_box_title'
                    onPressEnter={this.modifyFileName}
@@ -88,7 +88,7 @@ export default class Markdown extends React.Component {
                    size="large" value={changedPath || ''}/>
           </Col>
         </Row>
-        <Divider style={{display: 'inline-block', marginLeft: 10}}/>
+        <Divider style={{display: 'inline-block', margin: ' -2px 0 0 10px '}}/>
         <div className='markdown_box_bar'>
           <div className='markdown_box_tool'>
             {
@@ -103,7 +103,7 @@ export default class Markdown extends React.Component {
           </div>
         </div>
       </div>
-      <div style={{height: 120}}></div>
+      <div style={{height: 110}}></div>
       <textarea
         style={{minHeight: 4000}}
         ref={mdRef}/>
