@@ -45,10 +45,11 @@ export default class Markdown extends React.Component {
     const {file} = nextProps
     if (this.props.file.path !== file.path) {
       this.setState({changedPath: Files.nameByPath(file.path)})
+      if (this.props.file.content !== file.content) {
+        this._updateMarkdownContent(file.content)
+      }
     }
-    if (this.props.file.content !== file.content) {
-      this._updateMarkdownContent(file.content)
-    }
+
     this.setState({isContentChanged: false})
   }
 
