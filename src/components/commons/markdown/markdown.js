@@ -36,6 +36,9 @@ export default class Markdown extends React.Component {
           this.setState({isContentChanged})
         }
       })
+      md.on('blur', () => {
+        this.modifyFileContent()
+      })
 
       this._updateMarkdownContent(file.content)
     })
@@ -80,11 +83,12 @@ export default class Markdown extends React.Component {
     const {mdRef, changedPath, isContentChanged} = this.state
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
-        <Row >
+        <Row>
           <Col span={20}>
             <Input className='markdown_box_title'
                    onPressEnter={this.modifyFileName}
                    onChange={e => this.setState({changedPath: e.target.value})}
+                   onBlur={this.modifyFileName}
                    size="large" value={changedPath || ''}/>
           </Col>
         </Row>
