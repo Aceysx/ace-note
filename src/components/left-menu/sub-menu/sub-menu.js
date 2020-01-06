@@ -55,20 +55,33 @@ class SubMenu extends React.Component {
     this.setState({editedFileName})
   }
 
+  sort = (filesOrDirs) => {
+    let dirs = [], files = []
+    filesOrDirs.forEach(item => {
+      if (item.type === 'dir') dirs.push(item)
+      else files.push(item)
+    })
+
+    return [...dirs.sort((a, b) => a.mtime > b.mtime ? -1 : 1),
+      ...files.sort((a, b) => a.mtime > b.mtime ? -1 : 1)]
+  }
+
   subFiles = selectedDir => {
     const {editedFileName, selectedDirPath} = this.state
-    return selectedDir.sub.map(file => {
-      return <FileCard key={file.path}
-                       selectedPath={selectedDirPath}
-                       deleteFileOrDir={this.props.deleteFileOrDir}
-                       file={file}
-                       editedFileName={editedFileName}
-                       changeFileName={this.changeFileName}
-                       updateFileName={this.updateFileName}
-                       change2EditModal={this.change2EditModal}
-                       openFile={this.openFile}
-      />
-    })
+
+    return this.sort(selectedDir.sub)
+      .map(file => {
+        return <FileCard key={file.path}
+                         selectedPath={selectedDirPath}
+                         deleteFileOrDir={this.props.deleteFileOrDir}
+                         file={file}
+                         editedFileName={editedFileName}
+                         changeFileName={this.changeFileName}
+                         updateFileName={this.updateFileName}
+                         change2EditModal={this.change2EditModal}
+                         openFile={this.openFile}
+        />
+      })
   }
 
   render() {

@@ -5,9 +5,7 @@ import '../../../css/markdown.css'
 import Files from "../../../utils/files";
 
 const HyperMD = require('hypermd')
-require("codemirror/mode/htmlmixed/htmlmixed")
-require("codemirror/mode/stex/stex")
-require("codemirror/mode/yaml/yaml")
+require("codemirror/mode/javascript/javascript")
 
 let md
 export default class Markdown extends React.Component {
