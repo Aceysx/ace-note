@@ -1,5 +1,5 @@
 import React from 'react'
-import {Divider, Empty} from "antd"
+import {Divider, Empty, Icon} from "antd"
 import FileCard from "../../commons/file-card"
 import FileResource from "../../../resources/file-resources"
 import '../../../css/sub-menu.css'
@@ -15,6 +15,15 @@ class SubMenu extends React.Component {
   state = {
     selectedDirPath: '',
     editedFileName: DEFAULT_EDITED_FILE_NAME
+  }
+
+  back = () => {
+    const {selectedDirStack} = this.props
+    if (selectedDirStack.length > 1) {
+      selectedDirStack.pop();
+      this.openFile({path: selectedDirStack[selectedDirStack.length - 1], type: 'dir'})
+      this.props.updateSelectedDirStack(selectedDirStack)
+    }
   }
 
   openFile = file => {
@@ -90,7 +99,13 @@ class SubMenu extends React.Component {
     return <div className='layout_right_content_layout_left_menu'>
       <div className='layout_right_content_layout_left_menu_scroll'>
         <div className='layout_right_content_layout_left_menu_tool'>
-          <div>{Files.nameByPath(selectedDir.path)}</div>
+          <div className='back-icon cursor_pointer'
+               onClick={this.back}>
+            <Icon type="enter"/>
+          </div>
+          <div className='sub-menu-tool-title'>
+            {Files.nameByPath(selectedDir.path)}
+          </div>
         </div>
         <Divider/>
         {

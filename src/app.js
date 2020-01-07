@@ -1,7 +1,12 @@
 import React from 'react'
 import {Empty, Layout} from "antd"
 import {connect} from 'react-redux'
-import {UPDATE_CURRENT_EDIT_FILE, UPDATE_FILES, UPDATE_SELECTED_DIR} from "./reducers/dispatch-command/commands"
+import {
+  SELECTED_DIR_STACK,
+  UPDATE_CURRENT_EDIT_FILE,
+  UPDATE_FILES,
+  UPDATE_SELECTED_DIR
+} from "./reducers/dispatch-command/commands"
 import LeftMenu from "./components/left-menu/left-menu"
 import './css/app.css'
 import Markdown from "./components/commons/markdown/markdown";
@@ -15,9 +20,19 @@ const {Sider, Content} = Layout
 class App extends React.Component {
   componentDidMount() {
     this.props.updateDirs(FileResource.initNoteBook())
+    //todo 初始化时将 root path 加入到 selectedDirStack  中
+  }
+
+  pushPathToSelectedDirStack = path => {
+    const {selectedDirStack} = this.props
+    if (selectedDirStack[selectedDirStack.length - 1] !== path) {
+      selectedDirStack.push(path);
+      this.props.updateSelectedDirStack(selectedDirStack)
+    }
   }
 
   updateSelectedDir = path => {
+    this.pushPathToSelectedDirStack(path)
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
     this.props.updateDirs(FileResource.initNoteBook())
   }
@@ -53,7 +68,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {leftMenu, selectedDir, currentEditFile} = this.props
+    const {leftMenu, selectedDir, currentEditFile, selectedDirStack} = this.props
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -81,6 +96,8 @@ class App extends React.Component {
                 updateSelectedDir={this.updateSelectedDir}
                 modifyFileName={this.modifyFileName}
                 deleteFileOrDir={this.deleteFileOrDir}
+                selectedDirStack={selectedDirStack}
+                updateSelectedDirStack={this.props.updateSelectedDirStack}
               />
               : ''
           }
@@ -107,11 +124,13 @@ const mapDispatchToProps = dispatch => ({
   updateDirs: dirs => dispatch(UPDATE_FILES(dirs)),
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir)),
   updateCurrentEditFile: file => dispatch(UPDATE_CURRENT_EDIT_FILE(file)),
+  updateSelectedDirStack: selectedDirStack => dispatch(SELECTED_DIR_STACK(selectedDirStack)),
 })
 
-const mapStateToProps = ({leftMenu, selectedDir, currentEditFile}) => ({
+const mapStateToProps = ({leftMenu, selectedDir, currentEditFile, selectedDirStack}) => ({
   leftMenu,
   selectedDir,
+  selectedDirStack,
   currentEditFile
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

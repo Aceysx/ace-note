@@ -24,3 +24,22 @@
     background: white;
     width: 250px;
 }
+
+.layout_right_content_layout_left_menu_tool {
+    height: 40px;
+    padding: 0 10px;
+    border-left: 5px solid #b7906b;
+    line-height: 40px;
+}
+
+.back-icon{
+    width: 35px;
+    font-size: 20px;
+    opacity: .8;
+    color: #b7906b!important;
+    display: inline-block;
+}
+.sub-menu-tool-title{
+    width: 150px;
+    display: inline-block;
+}
