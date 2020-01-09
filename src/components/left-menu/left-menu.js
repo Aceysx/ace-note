@@ -9,7 +9,9 @@ const {TreeNode, DirectoryTree} = Tree
 
 export default class LeftMenu extends React.Component {
   onSelect = keys => {
-    this.props.updateSelectedDir(keys[0])
+    //todo
+    if(keys[0] === 'setting')return
+    this.props.updateMenu(keys[0])
   }
 
   listTree = dirs => {
@@ -28,7 +30,7 @@ export default class LeftMenu extends React.Component {
   createFileOrDir = ({key}) => {
     const {selectedDir, leftMenu} = this.props
     const path = selectedDir.path || leftMenu.path
-    this.props.createFileOrDir({path,type:key})
+    this.props.createFileOrDir({path, type: key})
   }
 
   render() {
@@ -62,6 +64,10 @@ export default class LeftMenu extends React.Component {
                 {
                   this.listTree(leftMenu.sub)
                 }
+              </TreeNode>
+              <TreeNode title='设置'
+                        key='setting'
+                        icon={<Icon type="setting"/>}>
               </TreeNode>
             </DirectoryTree>
           </div>

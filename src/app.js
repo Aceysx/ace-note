@@ -16,8 +16,16 @@ import SubMenu from "./components/left-menu/sub-menu/sub-menu";
 
 const {Sider, Content} = Layout
 
+const MENU = {
+  NOTE: 'note',
+  SETTING: 'setting'
+}
 
 class App extends React.Component {
+  state = {
+    current: MENU.NOTE
+  }
+
   componentDidMount() {
     this.props.updateDirs(FileResource.initNoteBook())
     //todo 初始化时将 root path 加入到 selectedDirStack  中
@@ -31,7 +39,7 @@ class App extends React.Component {
     }
   }
 
-  updateSelectedDir = path => {
+  updateMenu = path => {
     this.pushPathToSelectedDirStack(path)
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
     this.props.updateDirs(FileResource.initNoteBook())
@@ -82,7 +90,7 @@ class App extends React.Component {
           leftMenu={leftMenu}
           selectedDir={selectedDir}
           createFileOrDir={this.createFileOrDir}
-          updateSelectedDir={this.updateSelectedDir}
+          updateMenu={this.updateMenu}
         />
       </Sider>
       <Layout className='layout_right_content_layout'>
