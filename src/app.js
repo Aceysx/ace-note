@@ -12,7 +12,7 @@ import './css/app.css'
 import Markdown from "./components/commons/markdown/markdown";
 import Logo from './images/logo_transparent.png'
 import FileResource from './resources/file-resources'
-import SubMenu from "./components/left-menu/sub-menu/sub-menu";
+import SubMenu from "./components/note/sub-menu/sub-menu";
 
 const {Sider, Content} = Layout
 
@@ -39,7 +39,7 @@ class App extends React.Component {
     }
   }
 
-  updateMenu = path => {
+  updateSelectedDir = path => {
     this.pushPathToSelectedDirStack(path)
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
     this.props.updateDirs(FileResource.initNoteBook())
@@ -90,7 +90,7 @@ class App extends React.Component {
           leftMenu={leftMenu}
           selectedDir={selectedDir}
           createFileOrDir={this.createFileOrDir}
-          updateMenu={this.updateMenu}
+          updateMenu={this.updateSelectedDir}
         />
       </Sider>
       <Layout className='layout_right_content_layout'>
