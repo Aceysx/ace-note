@@ -1,5 +1,5 @@
 import React from 'react'
-import {Empty, Layout} from "antd"
+import {Layout} from "antd"
 import {connect} from 'react-redux'
 import {
   SELECTED_DIR_STACK,
@@ -9,10 +9,9 @@ import {
 } from "./reducers/dispatch-command/commands"
 import LeftMenu from "./components/left-menu/left-menu"
 import './css/app.css'
-import Markdown from "./components/commons/markdown/markdown";
 import Logo from './images/logo_transparent.png'
 import FileResource from './resources/file-resources'
-import SubMenu from "./components/note/sub-menu/sub-menu";
+import Note from "./components/note/note";
 
 const {Sider, Content} = Layout
 
@@ -76,6 +75,7 @@ class App extends React.Component {
   }
 
   render() {
+    const {current} = this.state
     const {leftMenu, selectedDir, currentEditFile, selectedDirStack} = this.props
     return <Layout className='layout'>
       <Sider
@@ -96,32 +96,20 @@ class App extends React.Component {
       <Layout className='layout_right_content_layout'>
         <Content>
           {
-            selectedDir.path
-              ? <SubMenu
+            current === MENU.NOTE
+              ? <Note
                 selectedDir={selectedDir}
                 currentEditFile={currentEditFile}
                 updateCurrentEditFile={this.props.updateCurrentEditFile}
                 updateSelectedDir={this.updateSelectedDir}
-                modifyFileName={this.modifyFileName}
                 deleteFileOrDir={this.deleteFileOrDir}
                 selectedDirStack={selectedDirStack}
                 updateSelectedDirStack={this.props.updateSelectedDirStack}
+                modifyFileContent={this.modifyFileContent}
+                modifyFileName={this.modifyFileName}
               />
               : ''
           }
-          {
-            currentEditFile.path
-              ? <div className={`layout_right_content_layout_right_content_markdown `}>
-                <Markdown file={currentEditFile}
-                          modifyFileContent={this.modifyFileContent}
-                          modifyFileName={this.modifyFileName}/>
-              </div>
-              : <Empty
-                style={{marginTop: '20%'}}
-                description={false}
-                image={Empty.PRESENTED_IMAGE_SIMPLE}/>
-          }
-
         </Content>
       </Layout>
     </Layout>
