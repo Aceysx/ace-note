@@ -9,8 +9,6 @@ const {TreeNode, DirectoryTree} = Tree
 
 export default class LeftMenu extends React.Component {
   onSelect = keys => {
-    //todo
-    if(keys[0] === 'setting')return
     this.props.updateMenu(keys[0])
   }
 

@@ -12,7 +12,7 @@ import './css/app.css'
 import Logo from './images/logo_transparent.png'
 import FileResource from './resources/file-resources'
 import Note from "./components/note/note";
-
+import Setting from './components/setting/setting'
 const {Sider, Content} = Layout
 
 const MENU = {
@@ -39,7 +39,12 @@ class App extends React.Component {
   }
 
   updateSelectedDir = path => {
-    this.pushPathToSelectedDirStack(path)
+    if (path === MENU.SETTING) {
+      this.setState({current: MENU.SETTING})
+      return
+    }
+    this.setState({current:MENU.NOTE})
+    this.pushPathToSelectedDirStack(path);
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
     this.props.updateDirs(FileResource.initNoteBook())
   }
@@ -108,6 +113,11 @@ class App extends React.Component {
                 modifyFileContent={this.modifyFileContent}
                 modifyFileName={this.modifyFileName}
               />
+              : ''
+          }
+          {
+            current === MENU.SETTING
+              ? <Setting/>
               : ''
           }
         </Content>

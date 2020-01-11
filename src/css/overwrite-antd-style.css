@@ -20,3 +20,7 @@
 .ant-tree li{
     overflow: hidden;
 }
+/*setting font color*/
+.ant-tabs-nav .ant-tabs-tab-active{
+    color: black;
+}
