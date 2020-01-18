@@ -71,8 +71,8 @@ class SubMenu extends React.Component {
       else files.push(item)
     })
 
-    return [...dirs.sort((a, b) => a.name > b.name ? -1 : 1),
-      ...files.sort((a, b) => a.name > b.name ? -1 : 1)]
+    return [...dirs.sort((a, b) => a.name > b.name ? 1 : -1),
+      ...files.sort((a, b) => a.name > b.name ? 1 : -1)]
   }
 
   subFiles = selectedDir => {
