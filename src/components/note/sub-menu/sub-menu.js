@@ -4,6 +4,8 @@ import FileCard from "../../commons/file-card"
 import FileResource from "../../../resources/file-resources"
 import '../../../css/sub-menu.css'
 import Files from "../../../utils/files";
+import {NoteTagModel} from "../../../model/note-tag";
+import {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} from "../../../constant/constant";
 
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
@@ -48,11 +50,17 @@ class SubMenu extends React.Component {
 
   updateFileName = () => {
     const {editedFileName} = this.state
+    const {notesTags} = this.props
     const {old, now, type} = editedFileName
     if (Files.nameByPath(old) !== now) {
       this.props.modifyFileName(old, now, type)
     }
-    this.setState({editedFileName: DEFAULT_EDITED_FILE_NAME})
+    if (type === 'file') {
+      const _path = old.split(NOTE_WORKSPACE_PATH)[1]
+      this.props.updateNotesTags(
+        NOTES_TAGS_FILE,
+        NoteTagModel.updateNoteTagPath(_path, now, notesTags))
+    }
   }
 
   change2EditModal = file => {

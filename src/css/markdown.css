@@ -20,3 +20,11 @@
     z-index: 1000;
     background: white;
 }
+.markdown_box_tag{
+    margin-top: -10px;
+    display: inline-block;
+}
+.markdown_box_tag .ant-select-selection{
+    border: none;
+    background:none;
+}

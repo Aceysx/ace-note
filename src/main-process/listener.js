@@ -5,14 +5,21 @@ const {
   MODIFY_FILE_CONTENT,
   MODIFY_FILE_NAME,
   CREATE_FILE_OR_DIR,
-  DELETE_FILE_OR_DIR
+  DELETE_FILE_OR_DIR,
+  GET_NOTES_TAGS
 } = require("../resources/listener-event")
-
+const {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} = require('../constant/constant')
 const Files = require("./utils/files")
 const {ipcMain} = require('electron')
 
 ipcMain.on(INIT_NOTEBOOK_EVENT, (event) => {
-  event.returnValue = Files.listFilesDeep('/Users/xinsi/Documents/PERSONAL/notebook')
+  event.returnValue = Files.listFilesDeep(NOTE_WORKSPACE_PATH)
+})
+
+ipcMain.on(GET_NOTES_TAGS, (event) => {
+  event.returnValue = JSON.parse(
+    Files.readFile(NOTES_TAGS_FILE).content || '[]'
+  )
 })
 
 ipcMain.on(FIND_SUB_FILES, (event, path) => {

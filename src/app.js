@@ -5,7 +5,8 @@ import {
   SELECTED_DIR_STACK,
   UPDATE_CURRENT_EDIT_FILE,
   UPDATE_FILES,
-  UPDATE_SELECTED_DIR
+  UPDATE_SELECTED_DIR,
+  UPDATE_NOTES_TAGS
 } from "./reducers/dispatch-command/commands"
 import LeftMenu from "./components/left-menu/left-menu"
 import './css/app.css'
@@ -13,6 +14,9 @@ import Logo from './images/logo_transparent.png'
 import FileResource from './resources/file-resources'
 import Note from "./components/note/note";
 import Setting from './components/setting/setting'
+import {NoteTagModel} from "./model/note-tag";
+import {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} from "./constant/constant";
+
 const {Sider, Content} = Layout
 
 const MENU = {
@@ -27,7 +31,13 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.updateDirs(FileResource.initNoteBook())
+    this.props.updateNotesTags(FileResource.getNotesTags())
     //todo 初始化时将 root path 加入到 selectedDirStack  中
+  }
+
+  updateNotesTags = (path, notesTags) => {
+    FileResource.modifyFileContent({path, content: JSON.stringify(notesTags)})
+    this.props.updateNotesTags([...notesTags])
   }
 
   pushPathToSelectedDirStack = path => {
@@ -43,7 +53,7 @@ class App extends React.Component {
       this.setState({current: MENU.SETTING})
       return
     }
-    this.setState({current:MENU.NOTE})
+    this.setState({current: MENU.NOTE})
     this.pushPathToSelectedDirStack(path);
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
     this.props.updateDirs(FileResource.initNoteBook())
@@ -74,14 +84,21 @@ class App extends React.Component {
   }
 
   deleteFileOrDir = ({path, type}) => {
-    const {selectedDir} = this.props
+    const {selectedDir, notesTags} = this.props
     FileResource.delete({path, type})
     this.updateSelectedDir(selectedDir.path)
+
+    if (type === 'file') {
+      const _path = path.split(NOTE_WORKSPACE_PATH)[1]
+      this.updateNotesTags(NOTES_TAGS_FILE,
+        NoteTagModel.delete(_path, notesTags))
+    }
   }
 
   render() {
     const {current} = this.state
-    const {leftMenu, selectedDir, currentEditFile, selectedDirStack} = this.props
+    const {leftMenu, selectedDir, currentEditFile, selectedDirStack, notesTags} = this.props
+    console.log(currentEditFile)
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -103,6 +120,7 @@ class App extends React.Component {
           {
             current === MENU.NOTE
               ? <Note
+                notesTags={notesTags}
                 selectedDir={selectedDir}
                 currentEditFile={currentEditFile}
                 updateCurrentEditFile={this.props.updateCurrentEditFile}
@@ -112,6 +130,7 @@ class App extends React.Component {
                 updateSelectedDirStack={this.props.updateSelectedDirStack}
                 modifyFileContent={this.modifyFileContent}
                 modifyFileName={this.modifyFileName}
+                updateNotesTags={this.updateNotesTags}
               />
               : ''
           }
@@ -128,15 +147,23 @@ class App extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   updateDirs: dirs => dispatch(UPDATE_FILES(dirs)),
+  updateNotesTags: noteTags => dispatch(UPDATE_NOTES_TAGS(noteTags)),
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir)),
   updateCurrentEditFile: file => dispatch(UPDATE_CURRENT_EDIT_FILE(file)),
   updateSelectedDirStack: selectedDirStack => dispatch(SELECTED_DIR_STACK(selectedDirStack)),
 })
 
-const mapStateToProps = ({leftMenu, selectedDir, currentEditFile, selectedDirStack}) => ({
+const mapStateToProps = ({
+                           leftMenu,
+                           selectedDir,
+                           currentEditFile,
+                           selectedDirStack,
+                           notesTags
+                         }) => ({
   leftMenu,
   selectedDir,
   selectedDirStack,
-  currentEditFile
+  currentEditFile,
+  notesTags
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

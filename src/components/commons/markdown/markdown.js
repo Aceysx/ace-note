@@ -1,11 +1,14 @@
 import React from 'react'
-import {Col, Divider, Icon, Input, Row, notification} from "antd";
+import {Col, Divider, Icon, Input, Row, notification} from "antd"
 import '../../../css/overwrite-hyperMD-style.css'
 import '../../../css/markdown.css'
-import Files from "../../../utils/files";
+import Files from "../../../utils/files"
+import NoteTag from '../../note/tag/note-tag'
+import {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} from '../../../constant/constant'
+import path from 'path'
+import {NoteTagModel} from "../../../model/note-tag";
 
 const HyperMD = require('hypermd')
-require("codemirror/mode/javascript/javascript")
 
 let md
 export default class Markdown extends React.Component {
@@ -63,9 +66,17 @@ export default class Markdown extends React.Component {
   }
 
   modifyFileName = () => {
-    const {file} = this.props
+    const {file, notesTags} = this.props
     const {changedPath} = this.state
     this.props.modifyFileName(file.path, changedPath)
+
+    const _path = file.path.split(NOTE_WORKSPACE_PATH)[1]
+
+    if (NoteTagModel.exist(_path, notesTags)) {
+      this.props.updateNotesTags(
+        NOTES_TAGS_FILE,
+        NoteTagModel.updateNoteTagPath(_path, changedPath, notesTags))
+    }
   }
 
   modifyFileContent = () => {
@@ -77,8 +88,24 @@ export default class Markdown extends React.Component {
     }
   }
 
+  findCurrentNoteTags = (file, notesTags) => {
+    const path = file.path.split(NOTE_WORKSPACE_PATH)[1]
+    return NoteTagModel.findNoteTagsByPath(notesTags, path)
+  }
+
+  findAllTags = notesTags => {
+    return NoteTagModel.findAllTags(notesTags)
+  }
+
+  updateNoteTags = tags => {
+    const {file, notesTags} = this.props
+    const path = file.path.split(NOTE_WORKSPACE_PATH)[1]
+    this.props.updateNotesTags(NOTES_TAGS_FILE, NoteTagModel.updateNoteTags(path, notesTags, tags))
+  }
+
   render() {
     const {mdRef, changedPath, isContentChanged} = this.state
+    const {notesTags, file} = this.props
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
         <Row>
@@ -92,6 +119,18 @@ export default class Markdown extends React.Component {
         </Row>
         <Divider style={{display: 'inline-block', margin: ' -2px 0 0 10px '}}/>
         <div className='markdown_box_bar'>
+          <div className='markdown_box_tag'>
+            <Icon type="tags" style={{
+              display: 'inline-block',
+              fontSize: 18,
+              margin: '0 10px',
+              color: '#b7906b'
+            }}/>
+            <NoteTag
+              currentNoteTags={this.findCurrentNoteTags(file, notesTags)}
+              updateNoteTags={this.updateNoteTags}
+              notesTags={this.findAllTags(notesTags)}/>
+          </div>
           <div className='markdown_box_tool'>
             {
               isContentChanged

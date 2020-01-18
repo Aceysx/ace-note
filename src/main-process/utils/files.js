@@ -55,7 +55,11 @@ const Files = {
     }
   },
   readFile: _path => {
-    const file = fs.statSync(_path)
+    const isExist = fs.existsSync(_path)
+    if (!isExist) {
+      fs.writeFileSync(_path, '');
+    }
+    const file = fs.statSync(_path);
     return {
       path: _path,
       mtime: file.mtime,
