@@ -20,13 +20,14 @@ import {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} from "./constant/constant";
 const {Sider, Content} = Layout
 
 const MENU = {
+  NONE: 'none',
   NOTE: 'note',
   SETTING: 'setting'
 }
 
 class App extends React.Component {
   state = {
-    current: MENU.NOTE
+    current: MENU.NONE
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ class App extends React.Component {
 
   updateNotesTags = (path, notesTags) => {
     FileResource.modifyFileContent({path, content: JSON.stringify(notesTags)})
-    this.props.updateNotesTags([...notesTags])
+    this.props.updateNotesTags(FileResource.getNotesTags())
   }
 
   pushPathToSelectedDirStack = path => {
@@ -98,7 +99,6 @@ class App extends React.Component {
   render() {
     const {current} = this.state
     const {leftMenu, selectedDir, currentEditFile, selectedDirStack, notesTags} = this.props
-    console.log(currentEditFile)
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
