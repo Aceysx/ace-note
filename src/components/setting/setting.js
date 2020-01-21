@@ -18,9 +18,7 @@ const Setting = ({}) => {
         <Row>
           <span>我的文件夹 </span>
           <span style={{display: 'inline-block', width: 300, marginLeft: 10}}>
-            <Upload action='null' beforeUpload={beforeUpload} directory>
             <Input/>
-            </Upload>
           </span>
         </Row>
       </TabPane>
