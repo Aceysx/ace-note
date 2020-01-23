@@ -32,10 +32,7 @@ const Note = ({
                     modifyFileName={modifyFileName}
                     updateNotesTags={updateNotesTags}/>
         </div>
-        : <Empty
-          style={{marginTop: '20%'}}
-          description={false}
-          image={Empty.PRESENTED_IMAGE_SIMPLE}/>
+        : <div></div>
     }
   </div>
 }
