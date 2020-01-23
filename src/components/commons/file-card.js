@@ -29,7 +29,7 @@ const FileCard = ({
         </p>
     }
     <p className='file-card-extra'>
-      <span><Icon type="clock-circle"/> {file.mtime.split('T')[0]}</span>
+      <span><Icon type="clock-circle"/> {file.ctime.split('T')[0]}</span>
       <Popconfirm title="确认删除？"
                   okText="是"
                   onConfirm={() => deleteFileOrDir(file)}

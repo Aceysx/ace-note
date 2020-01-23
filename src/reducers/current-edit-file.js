@@ -1,7 +1,8 @@
 export default (state = {
   path: null,
   content: null,
-  mtime: ''
+  mtime: '',
+  ctime: ''
 }, action) => {
   switch (action.type) {
     case 'UPDATE_CURRENT_EDIT_FILE':

@@ -2,7 +2,7 @@
 //   {
 //     path:'',
 //     tags:'a,b',
-//    mtime:timestamp，
+//    ctime:timestamp，
 //    color:''
 //   }
 // ]
