@@ -1,5 +1,8 @@
 const UpdateStoreToLocalStorageMiddleware = store => next => action => {
-  window.localStorage.setItem('store',JSON.stringify(store.getState()))
+  try {
+    window.localStorage.setItem('store', JSON.stringify(store.getState()))
+  } catch (e) {
+  }
   return next(action)
 }
 
