@@ -1,15 +1,14 @@
 import React from 'react'
-import {Col, Divider, Icon, Input, Row, notification} from "antd"
+import {Col, Divider, Icon, Input, notification, Row} from "antd"
 import '../../../css/overwrite-hyperMD-style.css'
 import '../../../css/markdown.css'
 import Files from "../../../utils/files"
 import NoteTag from '../../note/tag/note-tag'
-import {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} from '../../../constant/constant'
-import path from 'path'
-import {NoteTagModel} from "../../../model/note-tag";
+import {NoteTagModel} from "../../../model/note-tag"
 
 const HyperMD = require('hypermd')
-
+const NOTE_WORKSPACE_PATH = window.localStorage.getItem('workspace')
+const NOTES_TAGS_FILE = window.localStorage.getItem('workspace') + '/__tags'
 let md
 export default class Markdown extends React.Component {
   state = {

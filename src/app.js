@@ -46,7 +46,7 @@ class App extends React.Component {
 
   updateNotesTags = (path, notesTags) => {
     FileResource.modifyFileContent({path, content: JSON.stringify(notesTags)})
-    this.props.updateNotesTags(FileResource.getNotesTags())
+    this.props.updateNotesTags(FileResource.getNotesTags(NOTES_TAGS_FILE()))
   }
 
   pushPathToSelectedDirStack = path => {

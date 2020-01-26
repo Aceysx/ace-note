@@ -5,8 +5,8 @@ import FileResource from "../../../resources/file-resources"
 import '../../../css/sub-menu.css'
 import Files from "../../../utils/files";
 import {NoteTagModel} from "../../../model/note-tag";
-import {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} from "../../../constant/constant";
-
+const NOTE_WORKSPACE_PATH = window.localStorage.getItem('workspace')
+const NOTES_TAGS_FILE = window.localStorage.getItem('workspace') + '/__tags'
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
   now: '',
