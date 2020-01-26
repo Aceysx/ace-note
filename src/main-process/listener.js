@@ -6,19 +6,19 @@ const {
   MODIFY_FILE_NAME,
   CREATE_FILE_OR_DIR,
   DELETE_FILE_OR_DIR,
-  GET_NOTES_TAGS
+  GET_NOTES_TAGS,
+  OPEN_DIR
 } = require("../resources/listener-event")
-const {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} = require('../constant/constant')
 const Files = require("./utils/files")
-const {ipcMain} = require('electron')
+const {ipcMain, dialog} = require('electron')
 
-ipcMain.on(INIT_NOTEBOOK_EVENT, (event) => {
-  event.returnValue = Files.listFilesDeep(NOTE_WORKSPACE_PATH)
+ipcMain.on(INIT_NOTEBOOK_EVENT, (event, path) => {
+  event.returnValue = Files.listFilesDeep(path)
 })
 
-ipcMain.on(GET_NOTES_TAGS, (event) => {
+ipcMain.on(GET_NOTES_TAGS, (event, path) => {
   event.returnValue = JSON.parse(
-    Files.readFile(NOTES_TAGS_FILE).content || '[]'
+    Files.readFile(path).content || '[]'
   )
 })
 
@@ -47,4 +47,18 @@ ipcMain.on(CREATE_FILE_OR_DIR, (event, data) => {
 ipcMain.on(DELETE_FILE_OR_DIR, (event, data) => {
   const {path, type} = data
   event.returnValue = Files.deleteFileOrDir(path, type)
+})
+
+ipcMain.on(OPEN_DIR, (event) => {
+  let dir = openDialogSync()
+  while (!dir) {
+    dir = openDialogSync()
+  }
+  event.returnValue = dir[0]
+})
+
+
+const openDialogSync = () => dialog.showOpenDialogSync({
+  properties: ['createDirectory', 'openDirectory'],
+  message: '请选择工作目录'
 })

@@ -1,6 +1,5 @@
 import React from 'react'
 import SubMenu from "./sub-menu/sub-menu";
-import {Empty} from "antd/lib/index";
 import Markdown from "../commons/markdown/markdown";
 
 const Note = ({

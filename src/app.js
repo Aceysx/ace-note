@@ -15,7 +15,6 @@ import FileResource from './resources/file-resources'
 import Note from "./components/note/note";
 import Setting from './components/setting/setting'
 import {NoteTagModel} from "./model/note-tag";
-import {NOTE_WORKSPACE_PATH, NOTES_TAGS_FILE} from "./constant/constant";
 
 const {Sider, Content} = Layout
 
@@ -24,6 +23,8 @@ const MENU = {
   NOTE: 'note',
   SETTING: 'setting'
 }
+const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
+const NOTES_TAGS_FILE = () => window.localStorage.getItem('workspace') + '/__tags'
 
 class App extends React.Component {
   state = {
@@ -31,9 +32,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.updateDirs(FileResource.initNoteBook())
-    this.props.updateNotesTags(FileResource.getNotesTags())
-    //todo 初始化时将 root path 加入到 selectedDirStack  中
+    const {selectedDirStack} = this.props
+    let workspace = NOTE_WORKSPACE_PATH()
+    if (!workspace) {
+      workspace = FileResource.openDir()
+      window.localStorage.setItem('workspace', workspace)
+      window.localStorage.removeItem('note')
+      this.pushPathToSelectedDirStack(selectedDirStack)
+    }
+    this.props.updateDirs(FileResource.initNoteBook(workspace))
+    this.props.updateNotesTags(FileResource.getNotesTags(NOTES_TAGS_FILE()))
   }
 
   updateNotesTags = (path, notesTags) => {
@@ -57,7 +65,6 @@ class App extends React.Component {
     this.setState({current: MENU.NOTE})
     this.pushPathToSelectedDirStack(path);
     this.props.updateSelectedDir(FileResource.findSubFiles(path))
-    this.props.updateDirs(FileResource.initNoteBook())
   }
 
   modifyFileName = (oldPath, newFileName) => {
@@ -90,8 +97,8 @@ class App extends React.Component {
     this.updateSelectedDir(selectedDir.path)
 
     if (type === 'file') {
-      const _path = path.split(NOTE_WORKSPACE_PATH)[1]
-      this.updateNotesTags(NOTES_TAGS_FILE,
+      const _path = path.split(NOTE_WORKSPACE_PATH())[1]
+      this.updateNotesTags(NOTES_TAGS_FILE(),
         NoteTagModel.delete(_path, notesTags))
     }
   }
