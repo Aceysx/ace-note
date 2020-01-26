@@ -6,10 +6,10 @@ import {applyMiddleware, createStore} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import reducer from './reducers'
 import './css/overwrite-antd-style.css'
-import updateStoreToLocalStorageMiddleware from "./components/middleware/update-store-to-local-storage-middleware";
+import updateStoreToLocalStorageMiddleware from './components/middleware/update-store-to-local-storage-middleware';
 
 const initStore = () => {
-  let store = window.localStorage.getItem('store');
+  let store = window.localStorage.getItem('store')
   return store ? JSON.parse(store) : {}
 }
 

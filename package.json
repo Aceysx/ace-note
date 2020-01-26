@@ -28,26 +28,10 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "homepage": ".",
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "babel-plugin-import": "^1.12.0",
     "customize-cra": "^0.2.13",
-    "eslint": "^6.8.0",
     "less": "^3.10.3",
     "react-app-rewire-less": "^2.1.3",
     "react-app-rewired": "^2.1.3"

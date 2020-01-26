@@ -1,4 +1,4 @@
-const {app, BrowserWindow, dialog} = require('electron')
+const {app, BrowserWindow} = require('electron')
 require('./src/main-process/listener')
 let win
 
@@ -14,8 +14,5 @@ function createWindow() {
   win.loadURL('http://localhost:3000/')
   win.webContents.openDevTools()
 }
-
-let dir;
-
 
 app.on('ready', createWindow)
