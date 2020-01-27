@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {Layout} from "antd"
 import {connect} from 'react-redux'
 import {
@@ -7,13 +7,13 @@ import {
   UPDATE_FILES,
   UPDATE_SELECTED_DIR,
   UPDATE_NOTES_TAGS
-} from "./reducers/dispatch-command/commands"
-import LeftMenu from "./components/left-menu/left-menu"
-import './css/app.css'
-import Logo from './images/logo_transparent.png'
+} from "./redux/reducers/dispatch-command/commands"
+import LeftMenu from "./ui/left-menu/left-menu"
+import './resources/css/app.css'
+import Logo from './resources/images/logo_transparent.png'
 import FileResource from './resources/file-resources'
-import Note from "./components/note/note";
-import Setting from './components/setting/setting'
+import Note from "./ui/note/note";
+import Setting from './ui/setting/setting'
 import {NoteTagModel} from "./model/note-tag";
 
 const {Sider, Content} = Layout
@@ -28,7 +28,7 @@ const NOTES_TAGS_FILE = () => window.localStorage.getItem('workspace') + '/__tag
 
 class App extends React.Component {
   state = {
-    current: MENU.NONE
+    current: MENU.NOTE
   }
 
   componentDidMount() {
