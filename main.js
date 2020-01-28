@@ -1,5 +1,5 @@
 const {app, BrowserWindow} = require('electron')
-require('./src/main-process/listener')
+require('./src/infrastructure/main-process/listener')
 let win
 
 function createWindow() {

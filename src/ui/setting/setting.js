@@ -1,6 +1,6 @@
 import React from 'react'
 import {Input, Row, Tabs, Upload} from 'antd'
-import '../../css/setting.css'
+import '../../resources/css/setting.css'
 
 const {TabPane} = Tabs
 

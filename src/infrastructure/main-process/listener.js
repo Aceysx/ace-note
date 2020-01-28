@@ -8,7 +8,7 @@ const {
   DELETE_FILE_OR_DIR,
   GET_NOTES_TAGS,
   OPEN_DIR
-} = require("../resources/listener-event")
+} = require("../../resources/listener-event")
 const Files = require("./utils/files")
 const {ipcMain, dialog} = require('electron')
 

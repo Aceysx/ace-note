@@ -2,7 +2,7 @@ import React from 'react'
 import {Divider, Empty, Icon} from "antd"
 import FileCard from "../../commons/file-card"
 import FileResource from "../../../resources/file-resources"
-import '../../../css/sub-menu.css'
+import '../../../resources/css/sub-menu.css'
 import Files from "../../../utils/files";
 import {NoteTagModel} from "../../../model/note-tag";
 const NOTE_WORKSPACE_PATH = window.localStorage.getItem('workspace')
