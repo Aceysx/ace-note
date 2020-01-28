@@ -103,7 +103,7 @@ export default class Markdown extends React.Component {
   }
 
   render() {
-    const {mdRef, changedPath, isContentChanged} = this.state
+    const {mdRef, changedPath} = this.state
     const {notesTags, isSubMenuFold, file} = this.props
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
@@ -138,17 +138,6 @@ export default class Markdown extends React.Component {
               currentNoteTags={this.findCurrentNoteTags(file, notesTags)}
               updateNoteTags={this.updateNoteTags}
               notesTags={this.findAllTags(notesTags)}/>
-          </div>
-          <div className='markdown_box_tool'>
-            {
-              isContentChanged
-                ?
-                <span className='cursor_pointer'
-                      onClick={this.modifyFileContent}>
-                  <Icon type="save"/> 点击保存(CTRL+S)
-                </span>
-                : ''
-            }
           </div>
         </div>
       </div>
