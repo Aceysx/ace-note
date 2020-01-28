@@ -1,10 +1,10 @@
 import React from 'react'
-import {Col, Divider, Icon, Input, notification, Row} from "antd"
+import {Col, Divider, Icon, Input, notification, Row} from 'antd'
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
-import Files from "../../../utils/files"
+import Files from '../../../utils/files'
 import NoteTag from './note-tag'
-import {NoteTagModel} from "../../../model/note-tag"
+import {NoteTagModel} from '../../../model/note-tag'
 
 const HyperMD = require('hypermd')
 const NOTE_WORKSPACE_PATH = window.localStorage.getItem('workspace')
@@ -104,7 +104,7 @@ export default class Markdown extends React.Component {
 
   render() {
     const {mdRef, changedPath, isContentChanged} = this.state
-    const {notesTags, file} = this.props
+    const {notesTags, isSubMenuFold, file} = this.props
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
         <Row>
@@ -118,8 +118,14 @@ export default class Markdown extends React.Component {
         </Row>
         <Divider style={{display: 'inline-block', margin: ' -2px 0 0 10px '}}/>
         <div className='markdown_box_bar'>
-          <div className='markdown_box_tag'>
-            <Icon type="menu-fold" />
+          <div className='markdown_box_fold'
+               onClick={this.props.changeSubMenuFold}
+          >
+            {
+              isSubMenuFold
+                ? <Icon type="menu-unfold"/>
+                : <Icon type="menu-fold"/>
+            }
           </div>
           <div className='markdown_box_tag'>
             <Icon type="tags" style={{

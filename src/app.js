@@ -34,7 +34,6 @@ class App extends React.Component {
   componentDidMount() {
     const {selectedDirStack} = this.props
     let workspace = NOTE_WORKSPACE_PATH()
-    console.log(workspace)
     if (!workspace) {
       workspace = FileResource.openDir()
       window.localStorage.setItem('workspace', workspace)

@@ -20,11 +20,16 @@
     z-index: 1000;
     background: white;
 }
-.markdown_box_tag{
+.markdown_box_tag,.markdown_box_fold{
     margin-top: -10px;
     display: inline-block;
 }
 .markdown_box_tag .ant-select-selection{
     border: none;
     background:none;
+}
+.markdown_box_fold{
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
 }
