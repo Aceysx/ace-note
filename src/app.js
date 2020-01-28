@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Layout} from "antd"
+import {Layout} from 'antd'
 import {connect} from 'react-redux'
 import {
   SELECTED_DIR_STACK,
@@ -7,14 +7,14 @@ import {
   UPDATE_FILES,
   UPDATE_SELECTED_DIR,
   UPDATE_NOTES_TAGS
-} from "./redux/reducers/dispatch-command/commands"
-import LeftMenu from "./ui/left-menu/left-menu"
+} from './redux/reducers/dispatch-command/commands'
+import LeftMenu from './ui/left-menu/left-menu'
 import './resources/css/app.css'
 import Logo from './resources/images/logo_transparent.png'
 import FileResource from './resources/file-resources'
-import Note from "./ui/note/note";
+import Note from './ui/note/note';
 import Setting from './ui/setting/setting'
-import {NoteTagModel} from "./model/note-tag";
+import {NoteTagModel} from './model/note-tag'
 
 const {Sider, Content} = Layout
 
@@ -34,6 +34,7 @@ class App extends React.Component {
   componentDidMount() {
     const {selectedDirStack} = this.props
     let workspace = NOTE_WORKSPACE_PATH()
+    console.log(workspace)
     if (!workspace) {
       workspace = FileResource.openDir()
       window.localStorage.setItem('workspace', workspace)
@@ -125,7 +126,7 @@ class App extends React.Component {
       <Layout className='layout_right_content_layout'>
         <Content>
           {
-            current === MENU.NOTE
+            current === MENU.NOTE && selectedDir.sub !== undefined
               ? <Note
                 notesTags={notesTags}
                 selectedDir={selectedDir}
