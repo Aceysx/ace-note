@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Card, Icon, Input, Popconfirm} from 'antd'
-import '../../resources/css/file-card.css'
-import Files from "../../utils/files";
+import '../../../resources/css/file-card.css'
+import Files from "../../../utils/files";
 
 const FileCard = ({
                     file, openFile, deleteFileOrDir, selectedPath, editedFileName, changeFileName,

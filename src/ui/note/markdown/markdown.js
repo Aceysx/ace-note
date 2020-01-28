@@ -3,7 +3,7 @@ import {Col, Divider, Icon, Input, notification, Row} from "antd"
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
 import Files from "../../../utils/files"
-import NoteTag from '../../note/tag/note-tag'
+import NoteTag from './note-tag'
 import {NoteTagModel} from "../../../model/note-tag"
 
 const HyperMD = require('hypermd')
@@ -118,6 +118,9 @@ export default class Markdown extends React.Component {
         </Row>
         <Divider style={{display: 'inline-block', margin: ' -2px 0 0 10px '}}/>
         <div className='markdown_box_bar'>
+          <div className='markdown_box_tag'>
+            <Icon type="menu-fold" />
+          </div>
           <div className='markdown_box_tag'>
             <Icon type="tags" style={{
               display: 'inline-block',

@@ -1,6 +1,6 @@
 import React from 'react'
 import SubMenu from "./sub-menu/sub-menu";
-import Markdown from "../commons/markdown/markdown";
+import Markdown from "./markdown/markdown";
 
 const Note = ({
                 selectedDir, currentEditFile, selectedDirStack, updateCurrentEditFile,

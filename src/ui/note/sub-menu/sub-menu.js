@@ -1,6 +1,6 @@
 import React from 'react'
 import {Divider, Empty, Icon} from "antd"
-import FileCard from "../../commons/file-card"
+import FileCard from "./file-card"
 import FileResource from "../../../resources/file-resources"
 import '../../../resources/css/sub-menu.css'
 import Files from "../../../utils/files";
