@@ -18,7 +18,7 @@
     //禁用 刷新
     if ((event.ctrlKey === true || event.metaKey === true) &&
       (event.which === 82 || event.which === 114 || event.which === 116)) {
-      event.preventDefault();
+      event.preventDefault()
     }
   }
 </script>
@@ -26,5 +26,13 @@
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root" style="height: 100%"></div>
 </body>
-
+<script>
+  window.onload = function () {
+    //禁用鼠标选择
+    document.getElementById('root')
+      .onselectstart = function () {
+      return false
+    }
+  }
+</script>
 </html>
