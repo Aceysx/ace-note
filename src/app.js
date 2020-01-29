@@ -35,13 +35,25 @@ class App extends React.Component {
     const {selectedDirStack} = this.props
     let workspace = NOTE_WORKSPACE_PATH()
     if (!workspace) {
-      workspace = FileResource.openDir()
-      window.localStorage.setItem('workspace', workspace)
-      window.localStorage.removeItem('note')
+      workspace = this.initWorkspace()
       this.pushPathToSelectedDirStack(selectedDirStack)
     }
     this.props.updateDirs(FileResource.initNoteBook(workspace))
     this.props.updateNotesTags(FileResource.getNotesTags(NOTES_TAGS_FILE()))
+  }
+
+  resetWorkspace = () => {
+    const workspace = this.initWorkspace()
+    this.props.updateDirs(FileResource.initNoteBook(workspace))
+    this.props.updateNotesTags(FileResource.getNotesTags(NOTES_TAGS_FILE()))
+
+  }
+
+  initWorkspace = () => {
+    const workspace = FileResource.openDir()
+    window.localStorage.setItem('workspace', workspace)
+    window.localStorage.removeItem('note')
+    return workspace
   }
 
   updateNotesTags = (path, notesTags) => {
@@ -143,7 +155,10 @@ class App extends React.Component {
           }
           {
             current === MENU.SETTING
-              ? <Setting/>
+              ? <Setting
+                resetWorkspace={this.resetWorkspace}
+                workspace={leftMenu.path}
+              />
               : ''
           }
         </Content>

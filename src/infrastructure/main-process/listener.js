@@ -51,6 +51,7 @@ ipcMain.on(DELETE_FILE_OR_DIR, (event, data) => {
 
 ipcMain.on(OPEN_DIR, (event) => {
   let dir = openDialogSync()
+
   while (!dir) {
     dir = openDialogSync()
   }

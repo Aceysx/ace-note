@@ -1,24 +1,25 @@
 import React from 'react'
-import {Input, Row, Tabs, Upload} from 'antd'
+import {Input, Row, Tabs} from 'antd'
 import '../../resources/css/setting.css'
 
 const {TabPane} = Tabs
 
-const Setting = ({}) => {
+const Setting = ({workspace, resetWorkspace}) => {
   const callback = (key) => {
     console.log(key);
-  }
-
-  const beforeUpload = (file,fileList)=>{
-    return false
   }
   return <div className='setting_container'>
     <Tabs defaultActiveKey="1" onChange={callback}>
       <TabPane tab="setting" key="1">
         <Row>
           <span>我的文件夹 </span>
-          <span style={{display: 'inline-block', width: 300, marginLeft: 10}}>
-            <Input/>
+          <span style={{
+            display: 'inline-block',
+            width: 500,
+            marginLeft: 10
+          }}>
+            <Input value={workspace}
+                   onClick={resetWorkspace}/>
           </span>
         </Row>
       </TabPane>
