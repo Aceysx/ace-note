@@ -4,6 +4,8 @@ package-lock.json
 # dependencies
 /node_modules
 outputs
+build
+dist
 /.pnp
 .pnp.js
 
