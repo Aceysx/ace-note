@@ -17,7 +17,6 @@ export default class LeftMenu extends React.Component {
       .map(dir => {
         const subDirs = dir.sub.filter(item => item.type === 'dir')
         return <TreeNode
-          style={{paddingLeft: subDirs.length ? 0 : 25}}
           title={Files.nameByPath(dir.path)}
           key={dir.path}>
           {this.listTree(subDirs)}
