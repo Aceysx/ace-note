@@ -12,9 +12,10 @@ import LeftMenu from './ui/left-menu/left-menu'
 import './resources/css/app.css'
 import Logo from './resources/images/logo_transparent.png'
 import FileResource from './resources/file-resources'
-import Note from './ui/note/note';
+import Note from './ui/note/note'
 import Setting from './ui/setting/setting'
 import {NoteTagModel} from './model/note-tag'
+import path from 'path'
 
 const {Sider, Content} = Layout
 
@@ -80,9 +81,13 @@ class App extends React.Component {
   }
 
   modifyFileName = (oldPath, newFileName) => {
-    if (!this.check(newFileName)) {
-      message.warning('文件名不能包含【\\\\/:*?\"<>|】')
-      return false
+    if (this.exist(newFileName)) {
+      message.warning('文件已存在');
+      return false;
+    }
+    if (this.validate(newFileName)) {
+      message.warning('文件名不能包含【\\\\/:*?\"<>|】');
+      return false;
     }
     const {selectedDir, currentEditFile} = this.props
     let newPath = FileResource.modifyFileName({oldPath, newFileName});
@@ -94,9 +99,15 @@ class App extends React.Component {
     this.updateSelectedDir(selectedDir.path)
   }
 
-  check = fileName => {
+  exist = fileName => {
+    return this.props.selectedDir.sub.filter(file => {
+      return path.basename(file.path) === fileName
+    }).length === 1
+  }
+
+  validate = fileName => {
     const reg = new RegExp('[\\\\/:*?\"<>|]')
-    return !reg.test(fileName)
+    return reg.test(fileName)
   }
 
   modifyFileContent = (path, content) => {
