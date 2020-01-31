@@ -7,8 +7,8 @@ import NoteTag from './note-tag'
 import {NoteTagModel} from '../../../model/note-tag'
 
 const HyperMD = require('hypermd')
-const NOTE_WORKSPACE_PATH = window.localStorage.getItem('workspace')
-const NOTES_TAGS_FILE = window.localStorage.getItem('workspace') + '/__tags'
+const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
+const NOTES_TAGS_FILE = () => window.localStorage.getItem('workspace') + '/__tags'
 let md
 export default class Markdown extends React.Component {
   state = {
@@ -69,11 +69,11 @@ export default class Markdown extends React.Component {
     const {changedPath} = this.state
     this.props.modifyFileName(file.path, changedPath)
 
-    const _path = file.path.split(NOTE_WORKSPACE_PATH)[1]
+    const _path = file.path.split(NOTE_WORKSPACE_PATH())[1]
 
     if (NoteTagModel.exist(_path, notesTags)) {
       this.props.updateNotesTags(
-        NOTES_TAGS_FILE,
+        NOTES_TAGS_FILE(),
         NoteTagModel.updateNoteTagPath(_path, changedPath, notesTags))
     }
   }
@@ -88,7 +88,7 @@ export default class Markdown extends React.Component {
   }
 
   findCurrentNoteTags = (file, notesTags) => {
-    const path = file.path.split(NOTE_WORKSPACE_PATH)[1]
+    const path = file.path.split(NOTE_WORKSPACE_PATH())[1]
     return NoteTagModel.findNoteTagsByPath(notesTags, path)
   }
 
@@ -98,8 +98,8 @@ export default class Markdown extends React.Component {
 
   updateNoteTags = tags => {
     const {file, notesTags} = this.props
-    const path = file.path.split(NOTE_WORKSPACE_PATH)[1]
-    this.props.updateNotesTags(NOTES_TAGS_FILE, NoteTagModel.updateNoteTags(path, notesTags, tags))
+    const path = file.path.split(NOTE_WORKSPACE_PATH())[1]
+    this.props.updateNotesTags(NOTES_TAGS_FILE(), NoteTagModel.updateNoteTags(path, notesTags, tags))
   }
 
   render() {

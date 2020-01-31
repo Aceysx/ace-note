@@ -1,13 +1,13 @@
 import React from 'react'
-import {Divider, Empty, Icon} from 'antd'
+import {Divider, Empty, Icon, message} from 'antd'
 import FileCard from './file-card'
 import FileResource from '../../../resources/file-resources'
 import '../../../resources/css/sub-menu.css'
-import Files from '../../../utils/files';
-import {NoteTagModel} from '../../../model/note-tag';
+import Files from '../../../utils/files'
+import {NoteTagModel} from '../../../model/note-tag'
 
-const NOTE_WORKSPACE_PATH = window.localStorage.getItem('workspace')
-const NOTES_TAGS_FILE = window.localStorage.getItem('workspace') + '/__tags'
+const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
+const NOTES_TAGS_FILE = () => window.localStorage.getItem('workspace') + '/__tags'
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
   now: '',
@@ -51,17 +51,27 @@ class SubMenu extends React.Component {
 
   updateFileName = () => {
     const {editedFileName} = this.state
-    const {notesTags} = this.props
+    console.log(editedFileName, this.check(editedFileName.now))
+    if (!this.check(editedFileName.now)) {
+      message.warning('文件名不能包含【\\\\/:*?\"<>|】')
+      return false
+    }
+    const {notesTags} = this.props;
     const {old, now, type} = editedFileName
     if (Files.nameByPath(old) !== now) {
       this.props.modifyFileName(old, now, type)
     }
     if (type === 'file') {
-      const _path = old.split(NOTE_WORKSPACE_PATH)[1]
+      const _path = old.split(NOTE_WORKSPACE_PATH())[1]
       this.props.updateNotesTags(
-        NOTES_TAGS_FILE,
+        NOTES_TAGS_FILE(),
         NoteTagModel.updateNoteTagPath(_path, now, notesTags))
     }
+  }
+
+  check = fileName => {
+    const reg = new RegExp('[\\\\/:*?\"<>|]')
+    return !reg.test(fileName)
   }
 
   change2EditModal = file => {
