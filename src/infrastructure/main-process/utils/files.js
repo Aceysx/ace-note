@@ -6,7 +6,7 @@ const listFilesDeep = (filePath, result) => {
     .forEach(item => {
       const _path = filePath + '/' + item
       const file = fs.statSync(_path)
-      let temp = {mtime: file.mtime, ctime: file.ctime, path: _path, type: file.isFile() ? 'file' : 'dir'};
+      let temp = {mtime: file.ctime, ctime: file.mtime, path: _path, type: file.isFile() ? 'file' : 'dir'};
       result.push(temp);
       if (file.isDirectory()) {
         temp.sub = []
@@ -20,8 +20,8 @@ const listFiles = filePath => {
       const _path = filePath + '/' + item
       const file = fs.statSync(_path)
       return {
-        mtime: file.mtime,
-        ctime: file.ctime,
+        mtime: file.ctime,
+        ctime: file.mtime,
         path: _path,
         type: file.isFile() ? 'file' : 'dir',
         sub: []
