@@ -128,6 +128,7 @@ class App extends React.Component {
                width={200} style={{marginTop: '-60px'}}/>
         </div>
         <LeftMenu
+          isNoteMenuItem={current === MENU.NOTE}
           leftMenu={leftMenu}
           selectedDir={selectedDir}
           createFileOrDir={this.createFileOrDir}

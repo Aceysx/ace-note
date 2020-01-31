@@ -1,11 +1,10 @@
 import React from 'react'
-import {Divider, Dropdown, Icon, Menu, Tree} from "antd"
+import {Divider, Dropdown, Icon, Menu, Tree} from 'antd'
 import Files from '../../utils/files'
 import '../../resources/css/overwrite-react-contextmenu-style.css'
 import '../../resources/css/left-menu.css'
 
 const {TreeNode, DirectoryTree} = Tree
-
 
 export default class LeftMenu extends React.Component {
   onSelect = keys => {
@@ -31,7 +30,7 @@ export default class LeftMenu extends React.Component {
   }
 
   render() {
-    const {leftMenu} = this.props
+    const {leftMenu, isNoteMenuItem} = this.props
     const menu = (
       <Menu onClick={this.createFileOrDir}>
         <Menu.Item key='dir'>
@@ -48,10 +47,10 @@ export default class LeftMenu extends React.Component {
         leftMenu.path
           ?
           <div>
-            <Dropdown overlay={menu}>
-              <span className='left-menu-created'>
-                <Icon type="plus-circle"/> 新建
-              </span>
+            <Dropdown overlay={menu} disabled={!isNoteMenuItem}>
+                    <span className='left-menu-created'>
+                      <Icon type="plus-circle"/> 新建
+                    </span>
             </Dropdown>
             <Divider/>
             <DirectoryTree
