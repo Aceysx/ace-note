@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Layout} from 'antd'
+import {Layout, message} from 'antd'
 import {connect} from 'react-redux'
 import {
   SELECTED_DIR_STACK,
@@ -80,6 +80,10 @@ class App extends React.Component {
   }
 
   modifyFileName = (oldPath, newFileName) => {
+    if (!this.check(newFileName)) {
+      message.warning('文件名不能包含【\\\\/:*?\"<>|】')
+      return false
+    }
     const {selectedDir, currentEditFile} = this.props
     let newPath = FileResource.modifyFileName({oldPath, newFileName});
     if (currentEditFile.path === oldPath) {
@@ -88,6 +92,11 @@ class App extends React.Component {
       )
     }
     this.updateSelectedDir(selectedDir.path)
+  }
+
+  check = fileName => {
+    const reg = new RegExp('[\\\\/:*?\"<>|]')
+    return !reg.test(fileName)
   }
 
   modifyFileContent = (path, content) => {

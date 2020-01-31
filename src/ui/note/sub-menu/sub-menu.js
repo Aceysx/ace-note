@@ -1,5 +1,5 @@
 import React from 'react'
-import {Divider, Empty, Icon, message} from 'antd'
+import {Divider, Empty, Icon} from 'antd'
 import FileCard from './file-card'
 import FileResource from '../../../resources/file-resources'
 import '../../../resources/css/sub-menu.css'
@@ -51,11 +51,7 @@ class SubMenu extends React.Component {
 
   updateFileName = () => {
     const {editedFileName} = this.state
-    console.log(editedFileName, this.check(editedFileName.now))
-    if (!this.check(editedFileName.now)) {
-      message.warning('文件名不能包含【\\\\/:*?\"<>|】')
-      return false
-    }
+
     const {notesTags} = this.props;
     const {old, now, type} = editedFileName
     if (Files.nameByPath(old) !== now) {
@@ -67,11 +63,6 @@ class SubMenu extends React.Component {
         NOTES_TAGS_FILE(),
         NoteTagModel.updateNoteTagPath(_path, now, notesTags))
     }
-  }
-
-  check = fileName => {
-    const reg = new RegExp('[\\\\/:*?\"<>|]')
-    return !reg.test(fileName)
   }
 
   change2EditModal = file => {
