@@ -1,10 +1,11 @@
 import React from 'react'
-import {Divider, Empty, Icon} from "antd"
-import FileCard from "./file-card"
-import FileResource from "../../../resources/file-resources"
+import {Divider, Empty, Icon} from 'antd'
+import FileCard from './file-card'
+import FileResource from '../../../resources/file-resources'
 import '../../../resources/css/sub-menu.css'
-import Files from "../../../utils/files";
-import {NoteTagModel} from "../../../model/note-tag";
+import Files from '../../../utils/files';
+import {NoteTagModel} from '../../../model/note-tag';
+
 const NOTE_WORKSPACE_PATH = window.localStorage.getItem('workspace')
 const NOTES_TAGS_FILE = window.localStorage.getItem('workspace') + '/__tags'
 const DEFAULT_EDITED_FILE_NAME = {
@@ -79,13 +80,12 @@ class SubMenu extends React.Component {
       else files.push(item)
     })
 
-    return [...dirs.sort((a, b) => a.ctime > b.ctime ? -1 : 1),
-      ...files.sort((a, b) => a.ctime > b.ctime ? -1 : 1)]
+    return [...dirs.sort((a, b) => a.name > b.name ? 1 : -1),
+      ...files.sort((a, b) => a.name > b.name ? 1 : -1)]
   }
 
   subFiles = selectedDir => {
     const {editedFileName, selectedDirPath} = this.state
-
     return this.sort(selectedDir.sub)
       .map(file => {
         return <FileCard key={file.path}
