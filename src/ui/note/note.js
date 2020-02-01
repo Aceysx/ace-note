@@ -7,6 +7,13 @@ export default class Note extends React.Component {
     isSubMenuFold: false
   }
 
+  componentWillReceiveProps = nextProps => {
+    if (this.props.selectedDir === nextProps.selectedDir) {
+      return false
+    }
+    this.setState({isSubMenuFold: false})
+  }
+
   render() {
     const {
       selectedDir, currentEditFile, selectedDirStack, updateCurrentEditFile,
