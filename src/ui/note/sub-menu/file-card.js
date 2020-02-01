@@ -5,7 +5,7 @@ import Files from '../../../utils/files'
 
 const FileCard = ({
                     file, openFile, deleteFileOrDir, selectedPath, editedFileName, changeFileName,
-                    updateFileName, change2EditModal
+                    updateFileName, openEditInput,closeEditInput
                   }) => {
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
@@ -15,8 +15,12 @@ const FileCard = ({
                     autoFocus
                     value={editedFileName.now}
                     onChange={e => changeFileName(e.target.value)}
-                    onBlur={updateFileName}
-                    onPressEnter={updateFileName}/>
+                    onPressEnter={updateFileName}
+                    suffix={
+                      <Icon onClick={closeEditInput}
+                            type="close"
+                            style={{color: 'rgba(0,0,0,.45)'}}/>
+                    }/>
         </p>
         : <p className='file-card-li-title'
              onClick={() => openFile(file)}>
@@ -37,7 +41,7 @@ const FileCard = ({
         <span className='file-card-extra-delete-icon'><Icon type="delete"/></span>
       </Popconfirm>
       <span className='file-card-extra-edit-icon'
-            onClick={() => change2EditModal(file)}>
+            onClick={() => openEditInput(file)}>
         <Icon type="edit"/>
       </span>
     </p>

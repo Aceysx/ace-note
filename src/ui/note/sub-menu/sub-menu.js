@@ -20,6 +20,10 @@ class SubMenu extends React.Component {
     editedFileName: DEFAULT_EDITED_FILE_NAME
   }
 
+  closeEditInput = () => {
+    this.setState({editedFileName: DEFAULT_EDITED_FILE_NAME})
+  }
+
   back = () => {
     const {selectedDirStack} = this.props
     if (selectedDirStack.length > 1) {
@@ -65,7 +69,7 @@ class SubMenu extends React.Component {
     }
   }
 
-  change2EditModal = file => {
+  openEditInput = file => {
     const editedFileName = {
       old: file.path,
       now: Files.nameByPath(file.path),
@@ -96,8 +100,9 @@ class SubMenu extends React.Component {
                          editedFileName={editedFileName}
                          changeFileName={this.changeFileName}
                          updateFileName={this.updateFileName}
-                         change2EditModal={this.change2EditModal}
+                         openEditInput={this.openEditInput}
                          openFile={this.openFile}
+                         closeEditInput={this.closeEditInput}
         />
       })
   }
