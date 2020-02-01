@@ -120,11 +120,13 @@ class App extends React.Component {
   }
 
   createFileOrDir = ({path, type}) => {
-    FileResource.createFileOrDir({type, path})
+    let file = FileResource.createFileOrDir({type, path});
     this.updateSelectedDir(path)
     if (type === 'dir') {
       this.props.updateDirs(FileResource.initNoteBook(NOTE_WORKSPACE_PATH()))
+      return
     }
+    this.props.updateCurrentEditFile(file)
   }
 
   deleteFileOrDir = ({path, type}) => {
@@ -136,7 +138,9 @@ class App extends React.Component {
       const _path = path.split(NOTE_WORKSPACE_PATH())[1]
       this.updateNotesTags(NOTES_TAGS_FILE(),
         NoteTagModel.delete(_path, notesTags))
+      this.props.updateCurrentEditFile({})
     }
+
     if (type === 'dir') {
       this.props.updateDirs(FileResource.initNoteBook(NOTE_WORKSPACE_PATH()))
     }

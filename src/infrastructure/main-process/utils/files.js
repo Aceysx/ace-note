@@ -79,7 +79,6 @@ const Files = {
     fs.writeFileSync(_path, content, 'utf-8')
     return Files.readFile(_path)
   },
-
   createFileOrDir: (_path, type) => {
     let fileName = path.join(_path, new Date().getTime().toString())
     if (type === 'dir') {
@@ -87,8 +86,8 @@ const Files = {
       return fileName
     }
     fileName += ('.' + type)
-    fs.writeFileSync(fileName, '');
-    return fileName
+    fs.writeFileSync(fileName, '')
+    return Files.readFile(fileName)
   },
 
   deleteFileOrDir: (_path, type) => {
