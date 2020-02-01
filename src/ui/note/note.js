@@ -1,6 +1,7 @@
 import React from 'react'
 import SubMenu from './sub-menu/sub-menu';
 import Markdown from './markdown/markdown';
+import {Empty} from 'antd';
 
 export default class Note extends React.Component {
   state = {
@@ -39,20 +40,24 @@ export default class Note extends React.Component {
             updateSelectedDirStack={updateSelectedDirStack}
           />
       }
-      {
-        currentEditFile.path
-          ? <div className={`layout_right_content_layout_right_content_markdown `}>
-            <Markdown file={currentEditFile}
-                      notesTags={notesTags}
-                      modifyFileContent={modifyFileContent}
-                      modifyFileName={modifyFileName}
-                      updateNotesTags={updateNotesTags}
-                      isSubMenuFold={isSubMenuFold}
-                      changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}
+      <div className={`layout_right_content_layout_right_content_markdown `}>
+        {
+          currentEditFile.path
+            ? <Markdown file={currentEditFile}
+                        notesTags={notesTags}
+                        modifyFileContent={modifyFileContent}
+                        modifyFileName={modifyFileName}
+                        updateNotesTags={updateNotesTags}
+                        isSubMenuFold={isSubMenuFold}
+                        changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}
             />
-          </div>
-          : <div></div>
-      }
+            : <div style={{margin:'50%'}}>
+              <Empty
+                description={false}/>
+            </div>
+        }
+
+      </div>
     </div>
   }
 }

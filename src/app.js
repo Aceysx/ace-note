@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Layout, message} from 'antd'
+import {Empty, Layout, message} from 'antd'
 import {connect} from 'react-redux'
 import {
   SELECTED_DIR_STACK,
@@ -145,6 +145,9 @@ class App extends React.Component {
       this.props.updateDirs(FileResource.initNoteBook(NOTE_WORKSPACE_PATH()))
     }
   }
+  isEmpty = (current, selectedDir) => {
+    return current === MENU.NOTE && selectedDir.sub === undefined
+  }
 
   render() {
     const {current} = this.state
@@ -191,6 +194,13 @@ class App extends React.Component {
                 resetWorkspace={this.resetWorkspace}
                 workspace={leftMenu.path}
               />
+              : ''
+          }
+          {
+            this.isEmpty(current, selectedDir)
+              ? <div style={{margin: '50%'}}>
+                <Empty description={false}/>
+              </div>
               : ''
           }
         </Content>
