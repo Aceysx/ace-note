@@ -13,13 +13,13 @@ const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
 export default class LeftMenu extends React.Component {
 
   componentDidMount() {
-    window.electron.ipcRenderer.on(PUSH_TO_REPO_FINISHED, (e,result) => {
+    window.electron.ipcRenderer.on(PUSH_TO_REPO_FINISHED, (e, result) => {
       const {isSuccess, message} = result
       if (isSuccess) {
-        notification.success({message})
+        notification.success({message, duration: 2})
         return
       }
-      notification.error({message})
+      notification.error({message, duration: 2})
     })
   }
 
@@ -28,6 +28,7 @@ export default class LeftMenu extends React.Component {
   }
 
   pushToRepo = () => {
+    notification.info({message: '正在推送......', duration: 2})
     this.props.pushToRepo(NOTE_WORKSPACE_PATH())
   }
 
