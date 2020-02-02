@@ -162,6 +162,7 @@ class App extends React.Component {
         theme='light'
       >
         <LeftMenu
+          createFileOrDir={this.createFileOrDir}
           pushToRepo={this.pushToRepo}
           isNoteMenuItem={current === MENU.NOTE}
           selectedDir={selectedDir}

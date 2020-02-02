@@ -53,7 +53,7 @@ export default class LeftMenu extends React.Component {
           isNoteMenuItem={isNoteMenuItem}
           selectedDir={selectedDir}
           leftMenu={leftMenu}
-          createFileOrDir={this.createFileOrDir}
+          createFileOrDir={this.props.createFileOrDir}
         />
       </div>
       {
