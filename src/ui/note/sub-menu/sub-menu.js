@@ -131,6 +131,7 @@ class SubMenu extends React.Component {
               description={false}
               image={Empty.PRESENTED_IMAGE_SIMPLE}/>
         }
+        <div style={{height:40}}/>
       </div>
       <div className='layout_right_content_layout_left_menu_bottom'>
         <Divider/>
