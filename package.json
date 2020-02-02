@@ -27,24 +27,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "packager": "electron-packager .  AceNote --overwrite --platform=darwin --arch=x64  --prune=true --out=outputs",
-    "dist": "electron-builder --mac --x64"
-  },
-  "build": {
-    "appId": "com.acey.aceNote",
-    "productName": "AceNote",
-    "copyright": "Copyright © 2019 ${author}",
-    "mac": {
-      "target": [
-        "dmg"
-      ],
-      "category": "public.app-category.utilities"
-    },
-    "files": [
-      "dist/**/*",
-      "package.json"
-    ],
-    "extends": null
+    "packager": "npm run build && electron-packager .  AceNote --overwrite --platform=darwin --arch=x64 --out=outputs"
   },
   "homepage": ".",
   "devDependencies": {
