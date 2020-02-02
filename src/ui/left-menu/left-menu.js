@@ -1,5 +1,5 @@
 import React from 'react'
-import {Divider, Dropdown, Icon, Menu, Tree} from 'antd'
+import {Icon, Tree} from 'antd'
 import Files from '../../utils/files'
 import '../../resources/css/overwrite-react-contextmenu-style.css'
 import '../../resources/css/left-menu.css'
@@ -23,36 +23,14 @@ export default class LeftMenu extends React.Component {
       })
   }
 
-  createFileOrDir = ({key}) => {
-    const {selectedDir, leftMenu} = this.props
-    const path = selectedDir.path || leftMenu.path
-    this.props.createFileOrDir({path, type: key})
-  }
-
   render() {
-    const {leftMenu, isNoteMenuItem} = this.props
-    const menu = (
-      <Menu onClick={this.createFileOrDir}>
-        <Menu.Item key='dir'>
-          <span>创建文件夹</span>
-        </Menu.Item>
-        <Menu.Item key='md'>
-          <span>创建markdown</span>
-        </Menu.Item>
-      </Menu>
-    );
+    const {leftMenu} = this.props
 
     return <div>
       {
         leftMenu.path
           ?
           <div>
-            <Dropdown overlay={menu} disabled={!isNoteMenuItem}>
-                    <span className='left-menu-created'>
-                      <Icon type="plus-circle"/> 新建
-                    </span>
-            </Dropdown>
-            <Divider/>
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
               onSelect={this.onSelect}>

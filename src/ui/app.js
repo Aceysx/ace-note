@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Empty, Layout, message} from 'antd'
+import {Divider, Empty, Layout, message} from 'antd'
 import {connect} from 'react-redux'
 import {
   SELECTED_DIR_STACK,
@@ -7,15 +7,15 @@ import {
   UPDATE_FILES,
   UPDATE_SELECTED_DIR,
   UPDATE_NOTES_TAGS
-} from './redux/reducers/dispatch-command/commands'
-import LeftMenu from './ui/left-menu/left-menu'
-import './resources/css/app.css'
-import Logo from './resources/images/logo_transparent.png'
-import FileResource from './resources/file-resources'
-import Note from './ui/note/note'
-import Setting from './ui/setting/setting'
-import {NoteTagModel} from './model/note-tag'
+} from '../redux/reducers/dispatch-command/commands'
+import LeftMenu from './left-menu/left-menu'
+import '../resources/css/app.css'
+import FileResource from '../resources/file-resources'
+import Note from './note/note'
+import Setting from './setting/setting'
+import {NoteTagModel} from '../model/note-tag'
 import path from 'path'
+import SideBarHeader from './sidebar-header'
 
 const {Sider, Content} = Layout
 
@@ -157,15 +157,16 @@ class App extends React.Component {
         className='layout_left_sider'
         theme='light'
       >
-        <div style={{height: 80}}>
-          <img src={Logo}
-               width={200} style={{marginTop: '-60px'}}/>
+        <div style={{height: 125}}>
+          <SideBarHeader
+            isNoteMenuItem={current === MENU.NOTE}
+            selectedDir={selectedDir}
+            leftMenu={leftMenu}
+            createFileOrDir={this.createFileOrDir}
+          />
         </div>
         <LeftMenu
-          isNoteMenuItem={current === MENU.NOTE}
           leftMenu={leftMenu}
-          selectedDir={selectedDir}
-          createFileOrDir={this.createFileOrDir}
           updateMenu={this.updateSelectedDir}
         />
       </Sider>
