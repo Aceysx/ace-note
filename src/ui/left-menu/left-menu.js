@@ -48,7 +48,7 @@ export default class LeftMenu extends React.Component {
     const {leftMenu, selectedDir, isNoteMenuItem} = this.props
 
     return <div>
-      <div style={{height: 125}}>
+      <div style={{height: 140}}>
         <SideBarHeader
           isNoteMenuItem={isNoteMenuItem}
           selectedDir={selectedDir}
