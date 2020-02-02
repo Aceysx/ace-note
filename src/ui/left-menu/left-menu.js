@@ -76,6 +76,7 @@ export default class LeftMenu extends React.Component {
           </div>
           : ''
       }
+      <div style={{height: 30}}/>
       <SideBarBottom
         pushToRepo={this.pushToRepo}/>
     </div>

@@ -3,8 +3,12 @@ import {Divider, Icon, Tooltip, Badge} from 'antd'
 
 const SideBarBottom = ({pushToRepo}) => {
   return <div style={{
-    bottom: 10,
-    position: 'fixed'
+    bottom: 0,
+    height: 30,
+    position: 'fixed',
+    width: 220,
+    zIndex: 100,
+    background: '#f8f6f1'
   }}>
         <span>
           <Badge status="processing" text="1.0.0"/>
