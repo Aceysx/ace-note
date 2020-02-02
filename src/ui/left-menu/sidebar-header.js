@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../resources/images/logo_transparent.png'
+import Logo from '../../resources/images/logo_transparent.png'
 import {Icon, Menu, Dropdown, Divider} from 'antd'
 
 const SideBarHeader = ({isNoteMenuItem, selectedDir, leftMenu, createFileOrDir}) => {

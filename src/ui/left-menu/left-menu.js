@@ -1,14 +1,34 @@
 import React from 'react'
-import {Icon, Tree} from 'antd'
+import {Icon, Tree, notification} from 'antd'
 import Files from '../../utils/files'
 import '../../resources/css/overwrite-react-contextmenu-style.css'
 import '../../resources/css/left-menu.css'
+import SideBarHeader from './sidebar-header'
+import SideBarBottom from './sidebar-bottom'
+import {PUSH_TO_REPO_FINISHED} from '../../resources/listener-event';
 
 const {TreeNode, DirectoryTree} = Tree
+const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
 
 export default class LeftMenu extends React.Component {
+
+  componentDidMount() {
+    window.electron.ipcRenderer.on(PUSH_TO_REPO_FINISHED, (e,result) => {
+      const {isSuccess, message} = result
+      if (isSuccess) {
+        notification.success({message})
+        return
+      }
+      notification.error({message})
+    })
+  }
+
   onSelect = keys => {
     this.props.updateMenu(keys[0])
+  }
+
+  pushToRepo = () => {
+    this.props.pushToRepo(NOTE_WORKSPACE_PATH())
   }
 
   listTree = dirs => {
@@ -24,9 +44,17 @@ export default class LeftMenu extends React.Component {
   }
 
   render() {
-    const {leftMenu} = this.props
+    const {leftMenu, selectedDir, isNoteMenuItem} = this.props
 
     return <div>
+      <div style={{height: 125}}>
+        <SideBarHeader
+          isNoteMenuItem={isNoteMenuItem}
+          selectedDir={selectedDir}
+          leftMenu={leftMenu}
+          createFileOrDir={this.createFileOrDir}
+        />
+      </div>
       {
         leftMenu.path
           ?
@@ -47,6 +75,8 @@ export default class LeftMenu extends React.Component {
           </div>
           : ''
       }
+      <SideBarBottom
+        pushToRepo={this.pushToRepo}/>
     </div>
   }
 }

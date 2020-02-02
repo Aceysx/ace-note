@@ -7,9 +7,12 @@ const {
   CREATE_FILE_OR_DIR,
   DELETE_FILE_OR_DIR,
   GET_NOTES_TAGS,
-  OPEN_DIR
-} = require("../../resources/listener-event")
-const Files = require("./utils/files")
+  OPEN_DIR,
+  PUSH_TO_REPO_FINISHED,
+  PUSH_TO_REPO
+} = require('../../resources/listener-event')
+const Files = require('./utils/files')
+const Git = require('./utils/git')
 const {ipcMain, dialog} = require('electron')
 
 ipcMain.on(INIT_NOTEBOOK_EVENT, (event, path) => {
@@ -44,6 +47,7 @@ ipcMain.on(CREATE_FILE_OR_DIR, (event, data) => {
   const {path, type} = data
   event.returnValue = Files.createFileOrDir(path, type)
 })
+
 ipcMain.on(DELETE_FILE_OR_DIR, (event, data) => {
   const {path, type} = data
   event.returnValue = Files.deleteFileOrDir(path, type)
@@ -51,7 +55,6 @@ ipcMain.on(DELETE_FILE_OR_DIR, (event, data) => {
 
 ipcMain.on(OPEN_DIR, (event) => {
   let dir = openDialogSync()
-
   while (!dir) {
     dir = openDialogSync()
   }
@@ -62,4 +65,12 @@ ipcMain.on(OPEN_DIR, (event) => {
 const openDialogSync = () => dialog.showOpenDialogSync({
   properties: ['createDirectory', 'openDirectory'],
   message: '请选择工作目录'
+})
+
+
+// git resource
+ipcMain.on(PUSH_TO_REPO, (event, workspace) => {
+  Git.push(workspace).then(result => {
+    event.sender.send(PUSH_TO_REPO_FINISHED, result)
+  })
 })

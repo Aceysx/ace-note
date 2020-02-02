@@ -23,6 +23,7 @@ export default class Note extends React.Component {
       notesTags, updateNotesTags
     } = this.props
     const {isSubMenuFold} = this.state
+
     return <div>
       {
         isSubMenuFold

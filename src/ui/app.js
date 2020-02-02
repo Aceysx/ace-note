@@ -1,21 +1,21 @@
 import * as React from 'react'
-import {Divider, Empty, Layout, message} from 'antd'
+import {Empty, Layout, message} from 'antd'
 import {connect} from 'react-redux'
 import {
   SELECTED_DIR_STACK,
   UPDATE_CURRENT_EDIT_FILE,
   UPDATE_FILES,
-  UPDATE_SELECTED_DIR,
-  UPDATE_NOTES_TAGS
+  UPDATE_NOTES_TAGS,
+  UPDATE_SELECTED_DIR
 } from '../redux/reducers/dispatch-command/commands'
 import LeftMenu from './left-menu/left-menu'
 import '../resources/css/app.css'
-import FileResource from '../resources/file-resources'
+import FileResource from '../application/file-resource'
 import Note from './note/note'
 import Setting from './setting/setting'
 import {NoteTagModel} from '../model/note-tag'
 import path from 'path'
-import SideBarHeader from './sidebar-header'
+import GitResource from '../application/git-resource';
 
 const {Sider, Content} = Layout
 
@@ -149,6 +149,10 @@ class App extends React.Component {
     return current === MENU.NOTE && selectedDir.sub === undefined
   }
 
+  pushToRepo = (workspace) => {
+    GitResource.pushToRepo(workspace)
+  }
+
   render() {
     const {current} = this.state
     const {leftMenu, selectedDir, currentEditFile, selectedDirStack, notesTags} = this.props
@@ -157,15 +161,10 @@ class App extends React.Component {
         className='layout_left_sider'
         theme='light'
       >
-        <div style={{height: 125}}>
-          <SideBarHeader
-            isNoteMenuItem={current === MENU.NOTE}
-            selectedDir={selectedDir}
-            leftMenu={leftMenu}
-            createFileOrDir={this.createFileOrDir}
-          />
-        </div>
         <LeftMenu
+          pushToRepo={this.pushToRepo}
+          isNoteMenuItem={current === MENU.NOTE}
+          selectedDir={selectedDir}
           leftMenu={leftMenu}
           updateMenu={this.updateSelectedDir}
         />

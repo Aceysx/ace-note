@@ -1,7 +1,7 @@
 import React from 'react'
 import {Divider, Empty, Icon} from 'antd'
 import FileCard from './file-card'
-import FileResource from '../../../resources/file-resources'
+import FileResource from '../../../application/file-resource'
 import '../../../resources/css/sub-menu.css'
 import Files from '../../../utils/files'
 import {NoteTagModel} from '../../../model/note-tag'

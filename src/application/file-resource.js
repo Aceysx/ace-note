@@ -7,7 +7,7 @@ import {
   MODIFY_FILE_NAME,
   DELETE_FILE_OR_DIR,
   GET_NOTES_TAGS, OPEN_DIR
-} from "./listener-event"
+} from "../resources/listener-event"
 
 const {ipcRenderer} = window.electron
 
