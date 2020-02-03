@@ -86,7 +86,7 @@ export default class Markdown extends React.Component {
     const currentContent = md.getValue()
     if (file.content !== currentContent) {
       this.props.modifyFileContent(file.path, currentContent)
-      notification.success({message: '更新成功'})
+      notification.success({message: '更新成功', duration: 2})
     }
   }
 
@@ -144,6 +144,7 @@ export default class Markdown extends React.Component {
           </div>
         </div>
       </div>
+
       <div style={{height: 110}}></div>
       <textarea
         style={{minHeight: 4000}}
