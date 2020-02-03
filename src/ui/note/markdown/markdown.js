@@ -5,6 +5,9 @@ import '../../../resources/css/markdown.css'
 import Files from '../../../utils/files'
 import NoteTag from './note-tag'
 import {NoteTagModel} from '../../../model/note-tag'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/nginx/nginx'
+import 'codemirror/mode/clike/clike'
 
 const HyperMD = require('hypermd')
 const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
