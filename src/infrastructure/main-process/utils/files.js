@@ -1,5 +1,10 @@
 const fs = require('fs')
 const path = require('path')
+const _notFilterFile = file => {
+  const fileName = path.basename(file.path)
+  const filterFiles = ['__tags', '.git']
+  return !filterFiles.includes(fileName)
+}
 
 const listFilesDeep = (filePath, result) => {
   fs.readdirSync(filePath)
@@ -7,7 +12,9 @@ const listFilesDeep = (filePath, result) => {
       const _path = filePath + '/' + item
       const file = fs.statSync(_path)
       let temp = {mtime: file.ctime, ctime: file.mtime, path: _path, type: file.isFile() ? 'file' : 'dir'};
-      result.push(temp);
+      if (_notFilterFile(temp)) {
+        result.push(temp)
+      }
       if (file.isDirectory()) {
         temp.sub = []
         listFilesDeep(_path, temp.sub);
@@ -26,7 +33,7 @@ const listFiles = filePath => {
         type: file.isFile() ? 'file' : 'dir',
         sub: []
       }
-    })
+    }).filter(_notFilterFile)
 }
 const deleteDir = url => {
   let files = fs.readdirSync(url);
