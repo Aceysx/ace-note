@@ -9,7 +9,7 @@ export default class Note extends React.Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (this.props.selectedDir === nextProps.selectedDir) {
+    if (this.props.selectedDir.path === nextProps.selectedDir.path) {
       return false
     }
     this.setState({isSubMenuFold: false})
