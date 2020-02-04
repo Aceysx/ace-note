@@ -1,35 +1,57 @@
-.markdown_box_title{
+.markdown_box_title {
     border: none;
     font-size: 18px;
     padding-top: 15px;
     font-weight: bold;
 }
-.markdown_box_bar{
+
+.markdown_box_bar {
     height: 25px;
     box-shadow: 10px 5px 5px #f8f6f1;
 }
-.markdown_box_tool{
+
+.markdown_box_tool {
     display: inline-block;
     position: absolute;
     right: 530px;
 }
-.markdown_box_header{
+
+.markdown_box_header {
     height: 90px;
     width: 100%;
     position: fixed;
     z-index: 1000;
     background: white;
 }
-.markdown_box_tag,.markdown_box_fold{
+
+.markdown_box_tag {
     margin-top: -10px;
     display: inline-block;
 }
-.markdown_box_tag .ant-select-selection{
+
+.markdown_box_tag .ant-select-selection {
     border: none;
-    background:none;
+    background: none;
 }
-.markdown_box_fold{
-    font-size: 20px;
-    margin-left: 10px;
+
+.markdown_bottom_tool_icon {
+    margin-top: -10px;
     cursor: pointer;
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+.markdown_bottom_tool_record {
+    font-style: italic;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.markdown_bottom {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    background: white;
+    height: 35px;
+    width: 100%;
 }

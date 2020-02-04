@@ -121,15 +121,6 @@ export default class Markdown extends React.Component {
         </Row>
         <Divider style={{display: 'inline-block', margin: ' -2px 0 0 10px '}}/>
         <div className='markdown_box_bar'>
-          <div className='markdown_box_fold'
-               onClick={this.props.changeSubMenuFold}
-          >
-            {
-              isSubMenuFold
-                ? <Icon type="menu-unfold"/>
-                : <Icon type="menu-fold"/>
-            }
-          </div>
           <div className='markdown_box_tag'>
             <Icon type="tags" style={{
               display: 'inline-block',
@@ -149,6 +140,36 @@ export default class Markdown extends React.Component {
       <textarea
         style={{minHeight: 4000}}
         ref={mdRef}/>
+      <div style={{height: 35}}></div>
+      <div className='markdown_bottom'>
+        <Divider/>
+        <span className='markdown_bottom_tool_icon'
+              onClick={this.props.changeSubMenuFold}
+        >
+          {
+            isSubMenuFold
+              ? <Icon type="menu-unfold"/>
+              : <Icon type="menu-fold"/>
+          }
+        </span>
+        <span className='markdown_bottom_tool_icon'>
+        <Icon type="fullscreen"/>
+        </span>
+        <Divider type='vertical'/>
+        {
+          md
+            ? <span>
+                <span className='markdown_bottom_tool_record'>
+                  Words {md.getValue().length}
+                </span>
+                <span className='markdown_bottom_tool_record'>
+                  Line {md.lineCount()}
+                </span>
+          </span>
+            : ''
+        }
+
+      </div>
     </div>
   }
 }
