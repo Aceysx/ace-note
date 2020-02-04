@@ -21,6 +21,7 @@ const listFilesDeep = (filePath, result) => {
       }
     })
 }
+
 const listFiles = filePath => {
   return fs.readdirSync(filePath)
     .map(item => {
