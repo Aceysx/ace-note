@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+
 const _notFilterFile = file => {
   const fileName = path.basename(file.path)
   const filterFiles = ['__tags', '.git']
