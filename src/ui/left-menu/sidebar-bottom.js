@@ -7,7 +7,7 @@ const SideBarBottom = ({pushToRepo}) => {
     height: 30,
     position: 'fixed',
     width: 220,
-    zIndex: 100,
+    zIndex: 30,
     background: '#f8f6f1'
   }}>
         <span>
