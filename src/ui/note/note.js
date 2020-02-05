@@ -1,7 +1,8 @@
 import React from 'react'
-import SubMenu from './sub-menu/sub-menu';
-import Markdown from './markdown/markdown';
-import {Empty} from 'antd';
+import SubMenu from './sub-menu/sub-menu'
+import Markdown from './markdown/markdown'
+import {Empty} from 'antd'
+import SearchBar from './search-bar'
 
 export default class Note extends React.Component {
   state = {
@@ -57,8 +58,8 @@ export default class Note extends React.Component {
                 description={false}/>
             </div>
         }
-
       </div>
+      <SearchBar/>
     </div>
   }
 }

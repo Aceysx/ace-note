@@ -1,7 +1,6 @@
 import React from 'react'
 import Logo from '../../resources/images/logo.png'
 import {Icon, Menu, Dropdown, Divider} from 'antd'
-import SearchBar from './search-bar'
 
 const SideBarHeader = ({isNoteMenuItem, selectedDir, leftMenu, createFileOrDir}) => {
 
@@ -31,7 +30,6 @@ const SideBarHeader = ({isNoteMenuItem, selectedDir, leftMenu, createFileOrDir})
                       <Icon type="plus-circle"/> 新建
                     </span>
     </Dropdown>
-    <SearchBar/>
     <Divider/>
   </div>
 }
