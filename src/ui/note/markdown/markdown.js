@@ -138,7 +138,6 @@ export default class Markdown extends React.Component {
 
       <div style={{height: 110}}></div>
       <textarea
-        style={{minHeight: 4000}}
         ref={mdRef}/>
       <div style={{height: 35}}></div>
       <div className='markdown_bottom'>
@@ -151,9 +150,6 @@ export default class Markdown extends React.Component {
               ? <Icon type="menu-unfold"/>
               : <Icon type="menu-fold"/>
           }
-        </span>
-        <span className='markdown_bottom_tool_icon'>
-        <Icon type="fullscreen"/>
         </span>
         <Divider type='vertical'/>
         {
