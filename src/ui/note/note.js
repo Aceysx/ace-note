@@ -59,7 +59,8 @@ export default class Note extends React.Component {
             </div>
         }
       </div>
-      <SearchBar/>
+      <SearchBar
+        searchFiles={this.props.searchFiles}/>
     </div>
   }
 }

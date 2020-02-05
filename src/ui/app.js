@@ -153,6 +153,40 @@ class App extends React.Component {
     GitResource.pushToRepo(workspace)
   }
 
+  searchFiles = content => {
+    //设置selectedDir
+    const selectedDir = {
+      path: '搜索结果',
+      sub: this._searchByTitleOrTag(content)
+    }
+    this.props.updateSelectedDir(selectedDir)
+  }
+
+  _searchByTitleOrTag = content => {
+    const {leftMenu, notesTags} = this.props
+    const allFiles = this._formatAllFiles(leftMenu.sub)
+    const inFilesPath = allFiles.filter(file => {
+      return path.basename(file.path).includes(content)
+    })
+    const inTagPath = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
+      .map(tagFile => allFiles.find(file => file.path === tagFile.path))
+    inFilesPath.push(...inTagPath)
+    return inFilesPath
+  }
+
+  _formatAllFiles = sub => {
+    const files = []
+    sub.forEach(item => {
+      if (item.type === 'dir') {
+        files.push(...this._formatAllFiles(item.sub))
+      }
+      if (item.type === 'file') {
+        files.push(item)
+      }
+    })
+    return files
+  }
+
   render() {
     const {current} = this.state
     const {leftMenu, selectedDir, currentEditFile, selectedDirStack, notesTags} = this.props
@@ -186,6 +220,7 @@ class App extends React.Component {
                 modifyFileContent={this.modifyFileContent}
                 modifyFileName={this.modifyFileName}
                 updateNotesTags={this.updateNotesTags}
+                searchFiles={this.searchFiles}
               />
               : ''
           }
