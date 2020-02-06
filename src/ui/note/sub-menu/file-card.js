@@ -2,11 +2,19 @@ import * as React from 'react'
 import {Card, Icon, Input, Popconfirm} from 'antd'
 import '../../../resources/css/file-card.css'
 import Files from '../../../utils/files'
+import path from 'path'
 
 const FileCard = ({
                     file, openFile, deleteFileOrDir, selectedPath, editedFileName, changeFileName,
-                    updateFileName, openEditInput,closeEditInput
+                    updateFileName, openEditInput, closeEditInput
                   }) => {
+
+  const _getParentDir = file => {
+    return {
+      path: path.dirname(file.path),
+      type: 'dir'
+    }
+  }
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
     {
@@ -33,7 +41,12 @@ const FileCard = ({
         </p>
     }
     <p className='file-card-extra'>
-      <span><Icon type="clock-circle"/> {file.ctime.split('T')[0]}</span>
+      <Icon type="folder-open"
+            style={{fontSize: 14, color: '#b7906b'}}
+            onClick={() => openFile(_getParentDir(file))}
+      />
+      <label> {file.ctime.split('T')[0]}</label>
+
       <Popconfirm title="确认删除？"
                   okText="是"
                   onConfirm={() => deleteFileOrDir(file)}
