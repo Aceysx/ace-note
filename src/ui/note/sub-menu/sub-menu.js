@@ -5,6 +5,7 @@ import FileResource from '../../../application/file-resource'
 import '../../../resources/css/sub-menu.css'
 import Files from '../../../utils/files'
 import {NoteTagModel} from '../../../model/note-tag'
+import File from '../../../model/file'
 
 const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
 const NOTES_TAGS_FILE = () => window.localStorage.getItem('workspace') + '/__tags'
@@ -90,13 +91,21 @@ class SubMenu extends React.Component {
   }
 
   sort = (filesOrDirs) => {
-    let dirs = [], files = []
+    let dirs = [], files = [], pined = []
     filesOrDirs.forEach(item => {
-      if (item.type === 'dir') dirs.push(item)
-      else files.push(item)
+      if (item.type === 'dir') {
+        dirs.push(item)
+      }
+      if (File.isPined(item.path)) {
+        pined.push(item)
+      }
+      if (!File.isPined(item.path) && item.type === 'file') {
+        files.push(item)
+      }
     })
     return [
       ...dirs.sort((a, b) => a.name > b.name ? -1 : 1),
+      ...pined.sort((a, b) => a.name > b.name ? -1 : 1),
       ...files.sort((a, b) => a.name > b.name ? -1 : 1)
     ]
   }
