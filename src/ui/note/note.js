@@ -31,6 +31,7 @@ export default class Note extends React.Component {
           ? ''
           : <SubMenu
             notesTags={notesTags}
+            createFileOrDir={this.props.createFileOrDir}
             updateNotesTags={updateNotesTags}
             selectedDir={selectedDir}
             currentEditFile={currentEditFile}

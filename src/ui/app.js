@@ -196,10 +196,7 @@ class App extends React.Component {
         theme='light'
       >
         <LeftMenu
-          createFileOrDir={this.createFileOrDir}
           pushToRepo={this.pushToRepo}
-          isNoteMenuItem={current === MENU.NOTE}
-          selectedDir={selectedDir}
           leftMenu={leftMenu}
           updateMenu={this.updateSelectedDir}
         />
@@ -209,6 +206,7 @@ class App extends React.Component {
           {
             current === MENU.NOTE && selectedDir.sub !== undefined
               ? <Note
+                createFileOrDir={this.createFileOrDir}
                 notesTags={notesTags}
                 selectedDir={selectedDir}
                 currentEditFile={currentEditFile}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Divider, Empty, Icon} from 'antd'
+import {Divider, Empty, Icon, Menu, Dropdown} from 'antd'
 import FileCard from './file-card'
 import FileResource from '../../../application/file-resource'
 import '../../../resources/css/sub-menu.css'
@@ -108,7 +108,23 @@ class SubMenu extends React.Component {
       })
   }
 
+  create = ({key}) => {
+    const {selectedDir} = this.props
+    const path = selectedDir.path
+    this.props.createFileOrDir({path, type: key})
+  }
+
   render() {
+    const menu = (
+      <Menu onClick={this.create}>
+        <Menu.Item key='dir'>
+          <span>创建文件夹</span>
+        </Menu.Item>
+        <Menu.Item key='md'>
+          <span>创建markdown</span>
+        </Menu.Item>
+      </Menu>
+    )
     const {selectedDir} = this.props
     const subFiles = this.subFiles(selectedDir)
     return <div className='layout_right_content_layout_left_menu'>
@@ -121,6 +137,11 @@ class SubMenu extends React.Component {
           <div className='sub-menu-tool-title'>
             {Files.nameByPath(selectedDir.path)}
           </div>
+          <Dropdown overlay={menu}>
+                    <span className='left-menu-created'>
+                      <Icon type="plus"/>
+                    </span>
+          </Dropdown>
         </div>
         <Divider/>
         {
@@ -131,7 +152,7 @@ class SubMenu extends React.Component {
               description={false}
               image={Empty.PRESENTED_IMAGE_SIMPLE}/>
         }
-        <div style={{height:40}}/>
+        <div style={{height: 40}}/>
       </div>
       <div className='layout_right_content_layout_left_menu_bottom'>
         <Divider/>
