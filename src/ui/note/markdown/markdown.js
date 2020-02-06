@@ -7,6 +7,7 @@ import NoteTag from './note-tag'
 import {NoteTagModel} from '../../../model/note-tag'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/nginx/nginx'
+import 'codemirror/mode/shell/shell'
 import 'codemirror/mode/clike/clike'
 
 const HyperMD = require('hypermd')
