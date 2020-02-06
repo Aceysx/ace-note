@@ -27,7 +27,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "packager": "npm run build && electron-packager .  AceNote --overwrite --platform=darwin --arch=x64 --out=outputs --icon=./public/electron.icns  --asar --ignore=\"(dist|docs|.gitignore|LICENSE|README.md|webpack.config*)\" --extra-resource=\"./public\""
+    "packager": "npm run build && electron-packager .  AceNote --overwrite --platform=darwin --arch=x64 --out=outputs --icon=./assets/app.icns  --asar --ignore=\"(dist|docs|.gitignore|LICENSE|README.md|webpack.config*)\" --extra-resource=\"./assets\""
   },
   "homepage": ".",
   "devDependencies": {

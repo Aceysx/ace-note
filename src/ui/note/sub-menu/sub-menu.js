@@ -56,7 +56,7 @@ class SubMenu extends React.Component {
   updateFileName = () => {
     const {editedFileName} = this.state
 
-    const {notesTags} = this.props;
+    const {notesTags} = this.props
     const {old, now, type} = editedFileName
     if (Files.nameByPath(old) !== now) {
       this.props.modifyFileName(old, now, type)
@@ -67,6 +67,17 @@ class SubMenu extends React.Component {
         NOTES_TAGS_FILE(),
         NoteTagModel.updateNoteTagPath(_path, now, notesTags))
     }
+  }
+
+  pinFile = (old, now) => {
+    const type = 'file'
+    const {notesTags} = this.props
+
+    this.props.modifyFileName(old, now, type)
+    const _path = old.split(NOTE_WORKSPACE_PATH())[1]
+    this.props.updateNotesTags(
+      NOTES_TAGS_FILE(),
+      NoteTagModel.updateNoteTagPath(_path, now, notesTags))
   }
 
   openEditInput = file => {
@@ -98,6 +109,7 @@ class SubMenu extends React.Component {
                          selectedPath={selectedDirPath}
                          deleteFileOrDir={this.props.deleteFileOrDir}
                          file={file}
+                         pinFile={this.pinFile}
                          editedFileName={editedFileName}
                          changeFileName={this.changeFileName}
                          updateFileName={this.updateFileName}
