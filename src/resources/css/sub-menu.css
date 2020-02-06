@@ -1,6 +1,6 @@
 
 .layout_right_content_layout_left_menu {
-    width: 250px;
+    width: 220px;
     height: 100%;
     box-sizing: content-box;
     padding: 5px;
@@ -23,10 +23,11 @@
     font-size: 12px;
     z-index: 100;
     background: white;
-    width: 250px;
+    width: 222px;
 }
 
 .layout_right_content_layout_left_menu_tool {
+    width: 220px;
     height: 40px;
     padding: 0 10px;
     border-left: 5px solid #b7906b;
@@ -34,13 +35,23 @@
 }
 
 .back-icon{
-    width: 35px;
+    width: 40px;
     font-size: 20px;
     opacity: .8;
     color: #b7906b!important;
     display: inline-block;
 }
 .sub-menu-tool-title{
-    width: 150px;
+    width: 110px;
+    font-weight: bold;
     display: inline-block;
+}
+.create-icon{
+    width: 40px;
+    font-size: 20px;
+    color: #b7906b;
+    display: inline-block;
+    cursor: pointer;
+    float: right;
+    text-align: right;
 }

@@ -6,7 +6,8 @@ const SideBarBottom = ({pushToRepo}) => {
     bottom: 0,
     height: 30,
     position: 'fixed',
-    width: 220,
+    width: 200,
+    padding:5,
     zIndex: 30,
     background: '#f8f6f1'
   }}>

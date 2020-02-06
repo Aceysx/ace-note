@@ -2,7 +2,6 @@ import React from 'react'
 import {Icon, Tree, notification} from 'antd'
 import Files from '../../utils/files'
 import '../../resources/css/overwrite-react-contextmenu-style.css'
-import '../../resources/css/left-menu.css'
 import SideBarHeader from './sidebar-header'
 import SideBarBottom from './sidebar-bottom'
 import {PUSH_TO_REPO_FINISHED} from '../../resources/listener-event'
@@ -48,7 +47,7 @@ export default class LeftMenu extends React.Component {
     const {leftMenu} = this.props
 
     return <div>
-      <div style={{height: 140}}>
+      <div style={{height: 80}}>
         <SideBarHeader/>
       </div>
       {

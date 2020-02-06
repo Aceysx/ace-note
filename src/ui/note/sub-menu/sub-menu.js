@@ -138,7 +138,7 @@ class SubMenu extends React.Component {
             {Files.nameByPath(selectedDir.path)}
           </div>
           <Dropdown overlay={menu}>
-                    <span className='left-menu-created'>
+                    <span className='create-icon'>
                       <Icon type="plus"/>
                     </span>
           </Dropdown>

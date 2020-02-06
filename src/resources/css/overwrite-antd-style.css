@@ -24,3 +24,7 @@
 .ant-tabs-nav .ant-tabs-tab-active{
     color: black;
 }
+
+.ant-tree-node-content-wrapper{
+    margin-left: -15px!important;
+}
