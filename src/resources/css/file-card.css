@@ -52,8 +52,8 @@
     cursor: pointer;
 }
 .file-card-pined-icon{
-    font-size: 25px;
-    margin: -20px;
+    font-size: 30px;
+    margin: -35px 0 0 -15px;
     position: absolute;
     color: #b7906b;
 }
