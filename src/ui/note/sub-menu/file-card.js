@@ -26,10 +26,15 @@ const FileCard = ({
   }
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
-    <Icon type="pushpin"
-          theme={File.isPined(file.path) ? 'filled' : ''}
-          onClick={_clickPinedIcon}
-          className='file-card-pined-icon'/>
+    {
+      file.type === 'file'
+        ? <Icon type="pushpin"
+                theme={File.isPined(file.path) ? 'filled' : ''}
+                onClick={_clickPinedIcon}
+                className='file-card-pined-icon'/>
+        : ''
+    }
+
     {
       editedFileName.old === file.path
         ? <p><Input size="small"
