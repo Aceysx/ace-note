@@ -154,7 +154,6 @@ class App extends React.Component {
   }
 
   searchFiles = content => {
-    //设置selectedDir
     const selectedDir = {
       path: '搜索结果',
       sub: this._searchByTitleOrTag(content)
