@@ -15,7 +15,7 @@ import Note from './note/note'
 import Setting from './setting/setting'
 import {NoteTagModel} from '../model/note-tag'
 import path from 'path'
-import GitResource from '../application/git-resource';
+import GitResource from '../application/git-resource'
 
 const {Sider, Content} = Layout
 
@@ -85,15 +85,15 @@ class App extends React.Component {
 
   modifyFileName = (oldPath, newFileName) => {
     if (this.exist(newFileName)) {
-      message.warning('文件已存在');
+      message.warning('文件已存在')
       return false;
     }
     if (this.validate(newFileName)) {
-      message.warning('文件名不能包含【\\\\/:*?\"<>|】');
+      message.warning('文件名不能包含【\\\\/:*?\"<>|】')
       return false;
     }
     const {selectedDir, currentEditFile} = this.props
-    let newPath = FileResource.modifyFileName({oldPath, newFileName});
+    let newPath = FileResource.modifyFileName({oldPath, newFileName})
     if (currentEditFile.path === oldPath) {
       this.props.updateCurrentEditFile(
         FileResource.findFile(newPath)
