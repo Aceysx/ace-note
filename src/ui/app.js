@@ -168,8 +168,8 @@ class App extends React.Component {
     const inFilesPath = allFiles.filter(file => {
       return path.basename(file.path).includes(content)
     })
-    const inTagPath = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
-      .map(tagFile => allFiles.find(file => file.path === tagFile.path))
+    const foundInTags = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
+    const inTagPath = allFiles.filter(file => foundInTags.find(tagFile => file.path.includes(tagFile.path)))
     inFilesPath.push(...inTagPath)
     return inFilesPath
   }
