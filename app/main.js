@@ -1,7 +1,7 @@
 const {app, BrowserWindow} = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
-require('./src/infrastructure/main-process/listener')
+require('../src/infrastructure/main-process/listener')
 let win
 
 function createWindow() {
