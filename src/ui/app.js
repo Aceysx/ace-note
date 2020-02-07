@@ -63,7 +63,10 @@ class App extends React.Component {
   }
 
   pushPathToSelectedDirStack = path => {
-    const {selectedDirStack} = this.props
+    if (path === '搜索结果') {
+      return
+    }
+    const {selectedDirStack} = this.props;
     if (selectedDirStack[selectedDirStack.length - 1] !== path) {
       selectedDirStack.push(path);
       this.props.updateSelectedDirStack(selectedDirStack)
@@ -112,11 +115,9 @@ class App extends React.Component {
   }
 
   modifyFileContent = (path, content) => {
-    const {selectedDir} = this.props
     this.props.updateCurrentEditFile(
       FileResource.modifyFileContent({path, content})
     )
-    this.updateSelectedDir(selectedDir.path)
   }
 
   createFileOrDir = ({path, type}) => {
