@@ -39,7 +39,7 @@
       "build/**/*"
     ],
     "mac": {
-      "icon": "icons/icon.icns"
+      "icon": "build/icons/icon.icns"
     },
     "extraMetadata": {
       "main": "build/main.js"
