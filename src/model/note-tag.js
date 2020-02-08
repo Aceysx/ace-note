@@ -1,6 +1,6 @@
 import path from 'path'
 
-export const NoteTagModel = {
+const NoteTagModel = {
   findNoteTagsByPath: (notesTags, _path) => {
     const note = notesTags.find(note => note.path === _path) || {}
     return (note.tags || [])
@@ -34,3 +34,5 @@ export const NoteTagModel = {
     return notesTags.filter(item => item.path !== path)
   }
 }
+
+export default NoteTagModel

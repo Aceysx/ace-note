@@ -13,7 +13,8 @@ import '../resources/css/app.css'
 import FileResource from '../infrastructure/file-resource'
 import Note from './note/note'
 import Setting from './setting/setting'
-import {NoteTagModel} from '../model/note-tag'
+import NoteTagModel from '../model/note-tag'
+import File from '../model/file'
 import path from 'path'
 import GitResource from '../infrastructure/git-resource'
 
@@ -105,7 +106,7 @@ class App extends React.Component {
 
   exist = fileName => {
     return this.props.selectedDir.sub.filter(file => {
-      return path.basename(file.path) === fileName
+      return File.name(file.path) === fileName
     }).length === 1
   }
 
