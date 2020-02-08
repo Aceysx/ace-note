@@ -1,4 +1,4 @@
-import {PUSH_TO_REPO} from '../resources/listener-event'
+import {PUSH_TO_REPO} from '../model/listener-event'
 
 const {ipcRenderer} = window.electron
 
@@ -8,7 +8,6 @@ const send = (event, data = {}) => {
 
 const GitResource = {
   pushToRepo: (workspace) => send(PUSH_TO_REPO, workspace),
-
 }
 
 export default GitResource

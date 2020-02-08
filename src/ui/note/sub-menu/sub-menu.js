@@ -1,9 +1,8 @@
 import React from 'react'
 import {Divider, Empty, Icon, Menu, Dropdown} from 'antd'
 import FileCard from './file-card'
-import FileResource from '../../../application/file-resource'
+import FileResource from '../../../infrastructure/file-resource'
 import '../../../resources/css/sub-menu.css'
-import Files from '../../../utils/files'
 import {NoteTagModel} from '../../../model/note-tag'
 import File from '../../../model/file'
 
@@ -59,7 +58,7 @@ class SubMenu extends React.Component {
 
     const {notesTags} = this.props
     const {old, now, type} = editedFileName
-    if (Files.nameByPath(old) !== now) {
+    if (File.name(old) !== now) {
       this.props.modifyFileName(old, now, type)
     }
     if (type === 'file') {
@@ -84,7 +83,7 @@ class SubMenu extends React.Component {
   openEditInput = file => {
     const editedFileName = {
       old: file.path,
-      now: Files.nameByPath(file.path),
+      now: File.name(file.path),
       type: file.type
     }
     this.setState({editedFileName})
@@ -156,7 +155,7 @@ class SubMenu extends React.Component {
             <Icon type="enter"/>
           </div>
           <div className='sub-menu-tool-title'>
-            {Files.nameByPath(selectedDir.path)}
+            {File.name(selectedDir.path)}
           </div>
           <Dropdown overlay={menu}>
                     <span className='create-icon'>

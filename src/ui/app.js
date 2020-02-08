@@ -10,12 +10,12 @@ import {
 } from '../redux/reducers/dispatch-command/commands'
 import LeftMenu from './left-menu/left-menu'
 import '../resources/css/app.css'
-import FileResource from '../application/file-resource'
+import FileResource from '../infrastructure/file-resource'
 import Note from './note/note'
 import Setting from './setting/setting'
 import {NoteTagModel} from '../model/note-tag'
 import path from 'path'
-import GitResource from '../application/git-resource'
+import GitResource from '../infrastructure/git-resource'
 
 const {Sider, Content} = Layout
 

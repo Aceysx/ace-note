@@ -1,10 +1,10 @@
 import React from 'react'
 import {Icon, Tree, notification} from 'antd'
-import Files from '../../utils/files'
+import File from '../../model/file'
 import '../../resources/css/overwrite-react-contextmenu-style.css'
 import SideBarHeader from './sidebar-header'
 import SideBarBottom from './sidebar-bottom'
-import {PUSH_TO_REPO_FINISHED} from '../../resources/listener-event'
+import {PUSH_TO_REPO_FINISHED} from '../../model/listener-event'
 
 const {TreeNode, DirectoryTree} = Tree
 const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
@@ -36,7 +36,7 @@ export default class LeftMenu extends React.Component {
       .map(dir => {
         const subDirs = dir.sub.filter(item => item.type === 'dir')
         return <TreeNode
-          title={Files.nameByPath(dir.path)}
+          title={File.name(dir.path)}
           key={dir.path}>
           {this.listTree(subDirs)}
         </TreeNode>

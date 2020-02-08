@@ -2,7 +2,7 @@ import React from 'react'
 import {Col, Divider, Icon, Input, notification, Row} from 'antd'
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
-import Files from '../../../utils/files'
+import File from '../../../model/file'
 import NoteTag from './note-tag'
 import {NoteTagModel} from '../../../model/note-tag'
 import 'codemirror/mode/javascript/javascript'
@@ -25,7 +25,7 @@ export default class Markdown extends React.Component {
     const node = this.state.mdRef.current
     const {file} = this.props
     this.setState({
-      changedPath: Files.nameByPath(file.path)
+      changedPath: File.name(file.path)
     }, () => {
       md = HyperMD.fromTextArea(node, {
         extraKeys: {
@@ -51,7 +51,7 @@ export default class Markdown extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {file} = nextProps
     if (this.props.file.path !== file.path) {
-      this.setState({changedPath: Files.nameByPath(file.path)})
+      this.setState({changedPath: File.name(file.path)})
       if (this.props.file.content !== file.content) {
         this._updateMarkdownContent(file.content)
       }

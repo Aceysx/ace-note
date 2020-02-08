@@ -12,7 +12,8 @@ const File = {
     const dirName = path.dirname(_path)
     const fileName = path.basename(_path)
     return path.join(dirName, PINED + fileName)
-  }
+  },
+  name: _path => path.basename(_path)
 }
 
 export default File
