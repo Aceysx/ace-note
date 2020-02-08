@@ -15,7 +15,6 @@ import Note from './note/note'
 import Setting from './setting/setting'
 import NoteTagModel from '../model/note-tag'
 import File from '../model/file'
-import path from 'path'
 import GitResource from '../infrastructure/git-resource'
 
 const {Sider, Content} = Layout
@@ -167,7 +166,7 @@ class App extends React.Component {
     const {leftMenu, notesTags} = this.props
     const allFiles = this._formatAllFiles(leftMenu.sub)
     const inFilesPath = allFiles.filter(file => {
-      return path.basename(file.path).includes(content)
+      return File.name(file.path).includes(content)
     })
     const foundInTags = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
     const inTagPath = allFiles.filter(file => foundInTags.find(tagFile => file.path.includes(tagFile.path)))

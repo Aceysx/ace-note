@@ -3,7 +3,7 @@ import {Divider, Empty, Icon, Menu, Dropdown} from 'antd'
 import FileCard from './file-card'
 import FileResource from '../../../infrastructure/file-resource'
 import '../../../resources/css/sub-menu.css'
-import {NoteTagModel} from '../../../model/note-tag'
+import NoteTagModel from '../../../model/note-tag'
 import File from '../../../model/file'
 
 const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
