@@ -6,8 +6,6 @@ import '../../../resources/css/sub-menu.css'
 import NoteTagModel from '../../../model/note-tag'
 import File from '../../../model/file'
 
-const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
-const NOTES_TAGS_FILE = () => window.localStorage.getItem('workspace') + '/__tags'
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
   now: '',
@@ -62,9 +60,9 @@ class SubMenu extends React.Component {
       this.props.modifyFileName(old, now, type)
     }
     if (type === 'file') {
-      const _path = old.split(NOTE_WORKSPACE_PATH())[1]
+      const _path = old.split(window.getNoteWorkspacePath())[1]
       this.props.updateNotesTags(
-        NOTES_TAGS_FILE(),
+        window.getNoteTagsPath(),
         NoteTagModel.updateNoteTagPath(_path, now, notesTags))
     }
   }
@@ -74,9 +72,9 @@ class SubMenu extends React.Component {
     const {notesTags} = this.props
 
     this.props.modifyFileName(old, now, type)
-    const _path = old.split(NOTE_WORKSPACE_PATH())[1]
+    const _path = old.split(window.getNoteWorkspacePath())[1]
     this.props.updateNotesTags(
-      NOTES_TAGS_FILE(),
+      window.getNoteTagsPath(),
       NoteTagModel.updateNoteTagPath(_path, now, notesTags))
   }
 

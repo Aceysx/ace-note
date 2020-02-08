@@ -13,6 +13,9 @@ const initStore = () => {
   return store ? JSON.parse(store) : {}
 }
 
+window.getNoteWorkspacePath = () => window.localStorage.getItem('workspace')
+window.getNoteTagsPath = () => window.localStorage.getItem('workspace') + '/__tags'
+
 const store = createStore(reducer, initStore(), applyMiddleware(thunkMiddleware, updateStoreToLocalStorageMiddleware))
 
 

@@ -24,8 +24,6 @@ const MENU = {
   NOTE: 'note',
   SETTING: 'setting'
 }
-const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
-const NOTES_TAGS_FILE = () => window.localStorage.getItem('workspace') + '/__tags'
 
 class App extends React.Component {
   state = {
@@ -34,19 +32,19 @@ class App extends React.Component {
 
   componentDidMount() {
     const {selectedDirStack} = this.props
-    let workspace = NOTE_WORKSPACE_PATH()
+    let workspace = window.getNoteWorkspacePath()
     if (!workspace) {
       workspace = this.initWorkspace()
       this.pushPathToSelectedDirStack(selectedDirStack)
     }
     this.props.updateDirs(FileResource.initNoteBook(workspace))
-    this.props.updateNotesTags(FileResource.getNotesTags(NOTES_TAGS_FILE()))
+    this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
   }
 
   resetWorkspace = () => {
     const workspace = this.initWorkspace()
     this.props.updateDirs(FileResource.initNoteBook(workspace))
-    this.props.updateNotesTags(FileResource.getNotesTags(NOTES_TAGS_FILE()))
+    this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
 
   }
 
@@ -59,7 +57,7 @@ class App extends React.Component {
 
   updateNotesTags = (path, notesTags) => {
     FileResource.modifyFileContent({path, content: JSON.stringify(notesTags)})
-    this.props.updateNotesTags(FileResource.getNotesTags(NOTES_TAGS_FILE()))
+    this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
   }
 
   pushPathToSelectedDirStack = path => {
@@ -100,7 +98,7 @@ class App extends React.Component {
       )
     }
     this.updateSelectedDir(selectedDir.path)
-    this.props.updateDirs(FileResource.initNoteBook(NOTE_WORKSPACE_PATH()))
+    this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
   }
 
   exist = fileName => {
@@ -124,7 +122,7 @@ class App extends React.Component {
     let file = FileResource.createFileOrDir({type, path});
     this.updateSelectedDir(path)
     if (type === 'dir') {
-      this.props.updateDirs(FileResource.initNoteBook(NOTE_WORKSPACE_PATH()))
+      this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
       return
     }
     this.props.updateCurrentEditFile(file)
@@ -136,14 +134,14 @@ class App extends React.Component {
     this.updateSelectedDir(selectedDir.path)
 
     if (type === 'file') {
-      const _path = path.split(NOTE_WORKSPACE_PATH())[1]
-      this.updateNotesTags(NOTES_TAGS_FILE(),
+      const _path = path.split(window.getNoteWorkspacePath())[1]
+      this.updateNotesTags(window.getNoteTagsPath(),
         NoteTagModel.delete(_path, notesTags))
       this.props.updateCurrentEditFile({})
     }
 
     if (type === 'dir') {
-      this.props.updateDirs(FileResource.initNoteBook(NOTE_WORKSPACE_PATH()))
+      this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
     }
   }
   isEmpty = (current, selectedDir) => {
@@ -188,6 +186,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(window.getNoteWorkspacePath())
     const {current} = this.state
     const {leftMenu, selectedDir, currentEditFile, selectedDirStack, notesTags} = this.props
     return <Layout className='layout'>

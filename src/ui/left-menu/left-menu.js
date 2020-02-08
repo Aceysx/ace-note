@@ -7,7 +7,6 @@ import SideBarBottom from './sidebar-bottom'
 import {PUSH_TO_REPO_FINISHED} from '../../model/listener-event'
 
 const {TreeNode, DirectoryTree} = Tree
-const NOTE_WORKSPACE_PATH = () => window.localStorage.getItem('workspace')
 
 export default class LeftMenu extends React.Component {
 
@@ -28,7 +27,7 @@ export default class LeftMenu extends React.Component {
 
   pushToRepo = () => {
     notification.info({message: '正在推送......', duration: 2})
-    this.props.pushToRepo(NOTE_WORKSPACE_PATH())
+    this.props.pushToRepo(window.getNoteWorkspacePath())
   }
 
   listTree = dirs => {
