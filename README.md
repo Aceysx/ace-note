@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/Platform-mac-default.svg)
 ![](https://img.shields.io/badge/License-MIT-blue.svg)
 
-AceNote is a customized personal note system. You can open your local directory or a git repo as note to management, take tag... also, of course AceNote is so flexible and Non-invasive, that mean you can push your note to your remote repository like github,gitee...
+AceNote is a customized personal note system. You can open your local directory or a git repo as note to management, take tag...  of course AceNote is so flexible and Non-invasive, that mean you can push your note to your remote repository like github,gitee...
 
 ## Feature & todos
 ### version 1.0.0
