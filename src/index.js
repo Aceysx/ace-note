@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './ui/app'
+import thunkMiddleware from 'redux-thunk'
 import {Provider} from 'react-redux'
 import {applyMiddleware, createStore} from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import App from './ui/app'
 import reducer from './redux/reducers'
-import './resources/css/overwrite-antd-style.css'
 import updateStoreToLocalStorageMiddleware from './ui/middleware/update-store-to-local-storage-middleware';
+
+import './resources/css/overwrite-antd-style.css'
 
 const initStore = () => {
   let store = window.localStorage.getItem('store')
@@ -17,7 +18,6 @@ window.getNoteWorkspacePath = () => window.localStorage.getItem('workspace')
 window.getNoteTagsPath = () => window.localStorage.getItem('workspace') + '/__tags'
 
 const store = createStore(reducer, initStore(), applyMiddleware(thunkMiddleware, updateStoreToLocalStorageMiddleware))
-
 
 ReactDOM.render(
   <Provider store={store}>

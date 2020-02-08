@@ -1,21 +1,22 @@
 import * as React from 'react'
 import {Card, Icon, Input, Popconfirm} from 'antd'
-import '../../../resources/css/file-card.css'
 import File from '../../../model/file'
+
+import '../../../resources/css/file-card.css'
 
 const FileCard = ({
                     file, openFile, deleteFileOrDir, selectedPath, editedFileName, changeFileName,
                     updateFileName, openEditInput, closeEditInput, pinFile
                   }) => {
 
-  const _getParentDir = file => {
+  const getParentDir = file => {
     return {
       path: file.dir(file.path),
       type: 'dir'
     }
   }
 
-  const _clickPinedIcon = () => {
+  const clickPinedIcon = () => {
     if (File.isPined(file.path)) {
       pinFile(file.path, file.name(File.unPin(file.path)))
       return
@@ -27,7 +28,7 @@ const FileCard = ({
     {
       file.type === 'file'
         ? <span
-          onClick={_clickPinedIcon}
+          onClick={clickPinedIcon}
           className='file-card-pined-icon'>
           {File.isPined(file.path) ? '⚑' : '⚐'}
         </span>
@@ -60,7 +61,7 @@ const FileCard = ({
     <p className='file-card-extra'>
       <Icon type="folder-open"
             style={{fontSize: 14, color: '#b7906b'}}
-            onClick={() => openFile(_getParentDir(file))}
+            onClick={() => openFile(getParentDir(file))}
       />
       <label> {file.ctime.split('T')[0]}</label>
 

@@ -1,17 +1,19 @@
 import React from 'react'
 import {Col, Divider, Icon, Input, notification, Row} from 'antd'
-import '../../../resources/css/overwrite-hyperMD-style.css'
-import '../../../resources/css/markdown.css'
-import File from '../../../model/file'
-import NoteTag from './note-tag'
-import NoteTagModel from '../../../model/note-tag'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/nginx/nginx'
 import 'codemirror/mode/shell/shell'
 import 'codemirror/mode/clike/clike'
+import File from '../../../model/file'
+import NoteTag from './note-tag'
+import NoteTagModel from '../../../model/note-tag'
+
+import '../../../resources/css/overwrite-hyperMD-style.css'
+import '../../../resources/css/markdown.css'
 
 const HyperMD = require('hypermd')
 let md
+
 export default class Markdown extends React.Component {
   state = {
     mdRef: React.createRef(),

@@ -1,10 +1,11 @@
 import React from 'react'
 import {Icon, Tree, notification} from 'antd'
 import File from '../../model/file'
-import '../../resources/css/overwrite-react-contextmenu-style.css'
 import SideBarHeader from './sidebar-header'
 import SideBarBottom from './sidebar-bottom'
 import {PUSH_TO_REPO_FINISHED} from '../../model/listener-event'
+
+import '../../resources/css/overwrite-react-contextmenu-style.css'
 
 const {TreeNode, DirectoryTree} = Tree
 

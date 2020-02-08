@@ -1,6 +1,13 @@
 import * as React from 'react'
 import {Empty, Layout, message} from 'antd'
 import {connect} from 'react-redux'
+import FileResource from '../infrastructure/file-resource'
+import Note from './note/note'
+import Setting from './setting/setting'
+import NoteTagModel from '../model/note-tag'
+import File from '../model/file'
+import GitResource from '../infrastructure/git-resource'
+import LeftMenu from './left-menu/left-menu'
 import {
   SELECTED_DIR_STACK,
   UPDATE_CURRENT_EDIT_FILE,
@@ -8,14 +15,8 @@ import {
   UPDATE_NOTES_TAGS,
   UPDATE_SELECTED_DIR
 } from '../redux/reducers/dispatch-command/commands'
-import LeftMenu from './left-menu/left-menu'
+
 import '../resources/css/app.css'
-import FileResource from '../infrastructure/file-resource'
-import Note from './note/note'
-import Setting from './setting/setting'
-import NoteTagModel from '../model/note-tag'
-import File from '../model/file'
-import GitResource from '../infrastructure/git-resource'
 
 const {Sider, Content} = Layout
 
@@ -82,11 +83,11 @@ class App extends React.Component {
   }
 
   modifyFileName = (oldPath, newFileName) => {
-    if (this.exist(newFileName)) {
+    if (this._exist(newFileName)) {
       message.warning('文件已存在')
       return false;
     }
-    if (this.validate(newFileName)) {
+    if (this._validate(newFileName)) {
       message.warning('文件名不能包含【\\\\/:*?\"<>|】')
       return false;
     }
@@ -99,17 +100,6 @@ class App extends React.Component {
     }
     this.updateSelectedDir(selectedDir.path)
     this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
-  }
-
-  exist = fileName => {
-    return this.props.selectedDir.sub.filter(file => {
-      return File.name(file.path) === fileName
-    }).length === 1
-  }
-
-  validate = fileName => {
-    const reg = new RegExp('[\\\\/:*?\"<>|]')
-    return reg.test(fileName)
   }
 
   modifyFileContent = (path, content) => {
@@ -183,6 +173,17 @@ class App extends React.Component {
       }
     })
     return files
+  }
+
+  _exist = fileName => {
+    return this.props.selectedDir.sub.filter(file => {
+      return File.name(file.path) === fileName
+    }).length === 1
+  }
+
+  _validate = fileName => {
+    const reg = new RegExp('[\\\\/:*?\"<>|]')
+    return reg.test(fileName)
   }
 
   render() {

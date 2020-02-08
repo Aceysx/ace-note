@@ -2,9 +2,10 @@ import React from 'react'
 import {Divider, Empty, Icon, Menu, Dropdown} from 'antd'
 import FileCard from './file-card'
 import FileResource from '../../../infrastructure/file-resource'
-import '../../../resources/css/sub-menu.css'
 import NoteTagModel from '../../../model/note-tag'
 import File from '../../../model/file'
+
+import '../../../resources/css/sub-menu.css'
 
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,

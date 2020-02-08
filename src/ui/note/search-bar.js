@@ -1,4 +1,5 @@
 import React from 'react'
+
 import '../../resources/css/search_bar.css'
 
 export default class SearchBar extends React.Component {
@@ -6,7 +7,7 @@ export default class SearchBar extends React.Component {
     content: ''
   }
 
-  _onKeyUp = e => {
+  onKeyUp = e => {
     if (e.keyCode === 13) {
       this.props.searchFiles(this.state.content)
     }
@@ -15,7 +16,7 @@ export default class SearchBar extends React.Component {
   render() {
     return <div className="container">
       <input type="text"
-             onKeyUp={this._onKeyUp}
+             onKeyUp={this.onKeyUp}
              onChange={e => this.setState({content: e.target.value})}
              placeholder="Search by tag | file "/>
       <div className="search"></div>
