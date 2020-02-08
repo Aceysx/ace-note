@@ -11,17 +11,17 @@ const FileCard = ({
 
   const getParentDir = file => {
     return {
-      path: file.dir(file.path),
+      path: File.dir(file.path),
       type: 'dir'
     }
   }
 
   const clickPinedIcon = () => {
     if (File.isPined(file.path)) {
-      pinFile(file.path, file.name(File.unPin(file.path)))
+      pinFile(file.path, File.name(File.unPin(file.path)))
       return
     }
-    pinFile(file.path, file.name(File.pin(file.path)))
+    pinFile(file.path, File.name(File.pin(file.path)))
   }
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
