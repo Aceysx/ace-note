@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {Card, Icon, Input, Popconfirm} from 'antd'
 import '../../../resources/css/file-card.css'
-import path from 'path'
 import File from '../../../model/file'
 
 const FileCard = ({
@@ -11,17 +10,17 @@ const FileCard = ({
 
   const _getParentDir = file => {
     return {
-      path: path.dirname(file.path),
+      path: file.dir(file.path),
       type: 'dir'
     }
   }
 
   const _clickPinedIcon = () => {
     if (File.isPined(file.path)) {
-      pinFile(file.path, path.basename(File.unPin(file.path)))
+      pinFile(file.path, file.name(File.unPin(file.path)))
       return
     }
-    pinFile(file.path, path.basename(File.pin(file.path)))
+    pinFile(file.path, file.name(File.pin(file.path)))
   }
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>

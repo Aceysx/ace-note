@@ -17,7 +17,7 @@ export default class SearchBar extends React.Component {
       <input type="text"
              onKeyUp={this._onKeyUp}
              onChange={e => this.setState({content: e.target.value})}
-             placeholder="Search...from tag | file "/>
+             placeholder="Search by tag | file "/>
       <div className="search"></div>
     </div>
   }

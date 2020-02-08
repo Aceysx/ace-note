@@ -1,4 +1,4 @@
-import path from 'path'
+import File from './file'
 
 const NoteTagModel = {
   findNoteTagsByPath: (notesTags, _path) => {
@@ -23,7 +23,7 @@ const NoteTagModel = {
   updateNoteTagPath: (oldPath, newName, notesTags) => {
     let noteTag = notesTags.find(item => item.path === oldPath)
     if (noteTag) {
-      noteTag.path = path.dirname(oldPath) + '/' + newName
+      noteTag.path = File.dir(oldPath) + '/' + newName
     }
     return notesTags
   },
@@ -31,7 +31,7 @@ const NoteTagModel = {
     return !!notesTags.find(item => item.path === _path)
   },
   delete: (_path, notesTags) => {
-    return notesTags.filter(item => item.path !== path)
+    return notesTags.filter(item => item.path !== _path)
   }
 }
 

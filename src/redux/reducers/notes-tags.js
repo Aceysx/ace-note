@@ -1,6 +1,6 @@
 // notesTags:[
 //   {
-//     path:'',
+//     path:'', // file relative path
 //     tags:'a,b',
 //    ctime:timestamp，
 //    color:''
