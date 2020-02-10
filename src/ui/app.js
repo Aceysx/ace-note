@@ -25,7 +25,8 @@ const MENU = {
 
 class App extends React.Component {
   state = {
-    current: MENU.NOTE
+    current: MENU.NOTE,
+    leftMenuVisible: true
   }
 
   componentDidMount() {
@@ -92,11 +93,12 @@ class App extends React.Component {
   }
 
   render() {
-    const {current} = this.state
+    const {current, leftMenuVisible} = this.state
     const {leftMenu, selectedDir, notesTags, selectedDirStack} = this.props
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
+        hidden={!leftMenuVisible}
         theme='light'
       >
         <LeftMenu
@@ -110,6 +112,7 @@ class App extends React.Component {
           {
             current === MENU.NOTE && selectedDir.sub !== undefined
               ? <Note
+                leftMenuVisible={leftMenuVisible}
                 leftMenu={leftMenu}
                 updateNotesTags={this.updateNotesTags}
                 notesTags={notesTags}
@@ -118,6 +121,7 @@ class App extends React.Component {
                 selectedDir={selectedDir}
                 updateSelectedDirStack={this.props.updateSelectedDirStack}
                 selectedDirStack={selectedDirStack}
+                changeLeftMenuVisible={() => this.setState({leftMenuVisible: !this.state.leftMenuVisible})}
               />
               : ''
           }

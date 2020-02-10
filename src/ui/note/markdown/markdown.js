@@ -108,7 +108,7 @@ export default class Markdown extends React.Component {
 
   render() {
     const {mdRef, changedPath} = this.state
-    const {notesTags, isSubMenuFold, file} = this.props
+    const {notesTags, file} = this.props
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
         <Row>
@@ -144,13 +144,14 @@ export default class Markdown extends React.Component {
       <div className='markdown_bottom'>
         <Divider/>
         <span className='markdown_bottom_tool_icon'
+              onClick={this.props.changeFullMarkdown}
+        >
+          <Icon type="border-outer"/>
+        </span>
+        <span className='markdown_bottom_tool_icon'
               onClick={this.props.changeSubMenuFold}
         >
-          {
-            isSubMenuFold
-              ? <Icon type="menu-unfold"/>
-              : <Icon type="menu-fold"/>
-          }
+          <Icon type="border-horizontal"/>
         </span>
         <Divider type='vertical'/>
         {

@@ -108,6 +108,14 @@ class Note extends React.Component {
     })
     return files
   }
+  changeLeftMenuVisible = () => {
+    this.props.changeLeftMenuVisible()
+    if (this.props.leftMenuVisible) {
+      this.setState({isSubMenuFold: true})
+    }else{
+      this.setState({isSubMenuFold: false})
+    }
+  }
 
   _exist = fileName => {
     return this.props.selectedDir.sub.filter(file => {
@@ -153,7 +161,7 @@ class Note extends React.Component {
                         modifyFileContent={this.modifyFileContent}
                         modifyFileName={this.modifyFileName}
                         updateNotesTags={updateNotesTags}
-                        isSubMenuFold={isSubMenuFold}
+                        changeFullMarkdown={this.changeLeftMenuVisible}
                         changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}
             />
             : <div style={{margin: '50%'}}>
