@@ -20,6 +20,14 @@
         cursor: url(default.cur), auto !important
     }
 
+    body {
+        -webkit-app-region: drag;
+        height: 100%;
+        overflow: hidden;
+    }
+    .layout_right_content_layout_markdown_scroll{
+        -webkit-app-region: no-drag;
+    }
 </style>
 <script>
   window.electron = require('electron')
@@ -36,7 +44,7 @@
     }
   }
 </script>
-<body style="height: 100%;overflow:hidden;-webkit-app-region: drag;">
+<body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root" style="height: 100%"></div>
 </body>
