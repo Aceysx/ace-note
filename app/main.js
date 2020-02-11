@@ -9,7 +9,8 @@ function createWindow() {
     show: false,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    titleBarStyle: 'hidden'
   })
   win.maximize()
   win.show()
