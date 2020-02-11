@@ -12,14 +12,14 @@
     <title>AceNote</title>
 </head>
 <style>
+    .cursor_pointer, a, li, p, span, button, .container, .search, .search::before, .search::after, input {
+        cursor: url(pointer.cur), auto !important;
+    }
 
-    body,label {
+    body, label {
         cursor: url(default.cur), auto !important
     }
 
-    a, li, p, span, i, button.container, .search, .search::before, .search::after, input {
-        cursor: url(pointer.cur), auto !important;
-    }
 </style>
 <script>
   window.electron = require('electron')

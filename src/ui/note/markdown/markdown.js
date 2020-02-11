@@ -117,7 +117,7 @@ export default class Markdown extends React.Component {
                    onPressEnter={this.modifyFileName}
                    onChange={e => this.setState({changedPath: e.target.value})}
                    onBlur={this.modifyFileName}
-                   size="large" value={changedPath || ''}/>
+                   value={changedPath || ''}/>
           </Col>
         </Row>
         <Divider style={{display: 'inline-block', margin: ' -2px 0 0 10px '}}/>
@@ -125,9 +125,8 @@ export default class Markdown extends React.Component {
           <div className='markdown_box_tag'>
             <Icon type="tags" style={{
               display: 'inline-block',
-              fontSize: 18,
-              margin: '0 10px',
-              color: '#b7906b'
+              fontSize: 16,
+              marginLeft: '10px'
             }}/>
             <NoteTag
               currentNoteTags={this.findCurrentNoteTags(file, notesTags)}

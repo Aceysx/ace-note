@@ -153,11 +153,12 @@ class SubMenu extends React.Component {
                onClick={this.back}>
             <Icon type="enter"/>
           </div>
+
           <div className='sub-menu-tool-title'>
             {File.name(selectedDir.path)}
           </div>
           <Dropdown overlay={menu}>
-                    <span className='create-icon'>
+                    <span className='create-icon cursor_pointer'>
                       <Icon type="plus"/>
                     </span>
           </Dropdown>

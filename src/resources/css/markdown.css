@@ -1,13 +1,15 @@
 .markdown_box_title {
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 15px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .markdown_box_bar {
-    height: 25px;
+    margin-top: -10px;
+    height: 30px;
     box-shadow: 10px 5px 5px #f8f6f1;
+    line-height: 30px;
 }
 
 .markdown_box_tool {
@@ -25,7 +27,6 @@
 }
 
 .markdown_box_tag {
-    margin-top: -10px;
     display: inline-block;
 }
 

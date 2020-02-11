@@ -36,7 +36,3 @@
 .layout_right_content_layout_markdown_scroll::-webkit-scrollbar {
     width: 0 !important
 }
-
-.cursor_pointer {
-    cursor: pointer;
-}
