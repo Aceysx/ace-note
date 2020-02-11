@@ -136,7 +136,7 @@ export default class Markdown extends React.Component {
         </div>
       </div>
 
-      <div style={{height: 110}}></div>
+      <div style={{height: 90}}></div>
       <textarea
         ref={mdRef}/>
       <div style={{height: 35}}></div>

@@ -11,6 +11,7 @@
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding: 0 5px;
     background: #f9f7f3;
     flex: none !important;
     width: 210px !important;

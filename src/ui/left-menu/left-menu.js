@@ -37,15 +37,11 @@ export default class LeftMenu extends React.Component {
       .map(dir => {
         const subDirs = dir.sub.filter(item => item.type === 'dir')
         return <TreeNode
-          title={this.buildSubItem(File.name(dir.path))}
+          title={File.name(dir.path)}
           key={dir.path}>
           {this.listTree(subDirs)}
         </TreeNode>
       })
-  }
-
-  buildSubItem = title => {
-    return <span style={{fontWeight: 550, color: 'rgba(25, 23, 17, 0.6)'}}>{title}</span>
   }
 
   buildTopItem = (icon, title) => {
@@ -64,7 +60,6 @@ export default class LeftMenu extends React.Component {
       <div style={{height: 80}}>
         <SideBarHeader/>
       </div>
-      <div style={{height: 30}}/>
       <span>{this.buildTopItem('search', 'Quick Find')}</span>
       <span
         onClick={() => this.props.switchToMenu(MENU.SETTING)}

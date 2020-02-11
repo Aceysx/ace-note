@@ -168,7 +168,7 @@ class SubMenu extends React.Component {
           subFiles.length
             ? subFiles
             : <Empty
-              style={{marginTop: '20%', width: '250px'}}
+              style={{marginTop: '20%', width: '220px'}}
               description={false}
               image={Empty.PRESENTED_IMAGE_SIMPLE}/>
         }
