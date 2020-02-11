@@ -93,7 +93,7 @@ class Note extends React.Component {
     const foundInTags = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
     const inTagPath = allFiles.filter(file => foundInTags.find(tagFile => file.path.includes(tagFile.path)))
     inFilesPath.push(...inTagPath)
-    return inFilesPath
+    return [...new Set(inFilesPath)]
   }
 
   _formatAllFiles = sub => {
