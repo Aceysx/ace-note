@@ -54,13 +54,13 @@ class App extends React.Component {
       this.props.updateSelectedDir(selectedDir)
       return
     }
-    if (selectedDir === MENU.SETTING) {
-      this.setState({current: MENU.SETTING})
-      return
-    }
-    this.setState({current: MENU.NOTE})
+    this.switchToMenu(MENU.NOTE)
     this.pushPathToSelectedDirStack(selectedDir);
     this.props.updateSelectedDir(FileResource.findSubFiles(selectedDir))
+  }
+
+  switchToMenu = current => {
+    this.setState({current})
   }
 
   pushPathToSelectedDirStack = path => {
@@ -102,6 +102,7 @@ class App extends React.Component {
         theme='light'
       >
         <LeftMenu
+          switchToMenu={this.switchToMenu}
           pushToRepo={this.pushToRepo}
           leftMenu={leftMenu}
           updateMenu={this.updateSelectedDir}

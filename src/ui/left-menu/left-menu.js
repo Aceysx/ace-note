@@ -36,14 +36,24 @@ export default class LeftMenu extends React.Component {
       .map(dir => {
         const subDirs = dir.sub.filter(item => item.type === 'dir')
         return <TreeNode
-          title={this.buildItem(File.name(dir.path))}
+          title={this.buildSubItem(File.name(dir.path))}
           key={dir.path}>
           {this.listTree(subDirs)}
         </TreeNode>
       })
   }
-  buildItem = title => {
+
+  buildSubItem = title => {
     return <span style={{fontWeight: 550, color: 'rgba(25, 23, 17, 0.6)'}}>{title}</span>
+  }
+
+  buildTopItem = (icon, title) => {
+    return <span style={{
+      display: 'block',
+      margin: '5px 0 10px 10px',
+      fontWeight: 700,
+      color: 'rgba(25, 23, 17, 0.5)'
+    }}><Icon type={icon}/> {title}</span>
   }
 
   render() {
@@ -53,22 +63,26 @@ export default class LeftMenu extends React.Component {
       <div style={{height: 80}}>
         <SideBarHeader/>
       </div>
+      <div style={{height: 30}}/>
+      <span>{this.buildTopItem('search', 'Quick Find')}</span>
+      <span
+        onClick={() => this.props.switchToMenu('setting')}
+      >{this.buildTopItem('setting', 'Settings')}</span>
+
       {
         leftMenu.path
           ?
           <div>
+            <span
+              onClick={() => {
+                this.props.switchToMenu('note')
+                this.props.updateMenu(leftMenu.path)
+              }}
+            >{this.buildTopItem('book', 'Notebook')}</span>
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
               onSelect={this.onSelect}>
-              <TreeNode title={this.buildItem('我的文件夹')} key={leftMenu.path}>
-                {
-                  this.listTree(leftMenu.sub)
-                }
-              </TreeNode>
-              <TreeNode title={this.buildItem('设置')}
-                        key='setting'
-                        icon={<Icon type="setting"/>}>
-              </TreeNode>
+              {this.listTree(leftMenu.sub)}
             </DirectoryTree>
           </div>
           : ''

@@ -37,3 +37,14 @@
 .ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper {
     height: auto !important;
 }
+.ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper::before, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper::before{
+    height: 30px!important;
+    margin-top: -2px!important;
+}
+.ant-tree > li:first-child{
+    margin-top: 0!important;
+    padding-top: 0!important;
+}
+.ant-tree li{
+    padding-top: -10px!important;
+}

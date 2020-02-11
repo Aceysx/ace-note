@@ -18,7 +18,7 @@ const SideBarBottom = ({pushToRepo}) => {
     <Tooltip title="push to remote repo">
       <Icon type="github"
             onClick={pushToRepo}
-            style={{fontSize: 18, color: '#b7906b'}}/>
+            style={{fontSize: 18}}/>
     </Tooltip>
   </div>
 }

@@ -13,7 +13,7 @@ const Setting = ({workspace, resetWorkspace}) => {
     <Tabs defaultActiveKey="1" onChange={callback}>
       <TabPane tab="setting" key="1">
         <Row>
-          <span>我的文件夹 </span>
+          <span>Open Notebook </span>
           <span style={{
             display: 'inline-block',
             width: 500,
