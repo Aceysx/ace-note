@@ -3,28 +3,37 @@
 .ant-tree.ant-tree-directory > li.ant-tree-treenode-selected > span.ant-tree-switcher, .ant-tree.ant-tree-directory .ant-tree-child-tree > li.ant-tree-treenode-selected > span.ant-tree-switcher {
     color: black;
 }
-.ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper{
+
+.ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper {
     height: 30px;
 }
-.ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper::before, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper::before{
+
+.ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper::before, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper::before {
     margin-top: -5px;
     height: 35px;
 }
 
-.ant-divider-horizontal{
+.ant-divider-horizontal {
     margin: 5px 0;
 }
-.ant-card-body{
+
+.ant-card-body {
     padding: 15px;
 }
-.ant-tree li{
+
+.ant-tree li {
     overflow: hidden;
 }
+
 /*setting font color*/
-.ant-tabs-nav .ant-tabs-tab-active{
+.ant-tabs-nav .ant-tabs-tab-active {
     color: black;
 }
 
-.ant-tree-node-content-wrapper{
-    margin-left: -15px!important;
+.ant-tree-node-content-wrapper {
+    margin-left: -15px !important;
+}
+
+.ant-tree.ant-tree-directory > li span.ant-tree-node-content-wrapper, .ant-tree.ant-tree-directory .ant-tree-child-tree > li span.ant-tree-node-content-wrapper {
+    height: auto !important;
 }

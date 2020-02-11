@@ -1,3 +1,7 @@
+*{
+    font-family: "Open Sans","Microsoft YaHei","Hiragino Sans GB","Hiragino Sans GB W3","微软雅黑","Helvetica Neue",Arial,sans-serif;
+}
+
 .layout {
     background-color: white;
     height: 100%;
