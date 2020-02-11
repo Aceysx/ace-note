@@ -6,6 +6,7 @@ import SideBarBottom from './sidebar-bottom'
 import {PUSH_TO_REPO_FINISHED} from '../../model/listener-event'
 
 import '../../resources/css/overwrite-react-contextmenu-style.css'
+import MENU from '../note/menu-item';
 
 const {TreeNode, DirectoryTree} = Tree
 
@@ -66,7 +67,7 @@ export default class LeftMenu extends React.Component {
       <div style={{height: 30}}/>
       <span>{this.buildTopItem('search', 'Quick Find')}</span>
       <span
-        onClick={() => this.props.switchToMenu('setting')}
+        onClick={() => this.props.switchToMenu(MENU.SETTING)}
       >{this.buildTopItem('setting', 'Settings')}</span>
 
       {
@@ -75,7 +76,7 @@ export default class LeftMenu extends React.Component {
           <div>
             <span
               onClick={() => {
-                this.props.switchToMenu('note')
+                this.props.switchToMenu(MENU.note)
                 this.props.updateMenu(leftMenu.path)
               }}
             >{this.buildTopItem('book', 'Notebook')}</span>

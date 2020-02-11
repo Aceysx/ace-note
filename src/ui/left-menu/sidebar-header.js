@@ -1,5 +1,4 @@
 import React from 'react'
-import {Divider} from 'antd'
 import Logo from '../../resources/images/logo.png'
 
 const SideBarHeader = () => {
@@ -9,7 +8,6 @@ const SideBarHeader = () => {
            width={200}
            style={{marginTop: '-65px'}}/>
     </div>
-    <Divider/>
   </div>
 }
 export default SideBarHeader

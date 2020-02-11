@@ -14,14 +14,10 @@ import {
 } from '../redux/reducers/dispatch-command/commands'
 
 import '../resources/css/app.css'
+import MENU from './note/menu-item';
 
 const {Sider, Content} = Layout
 
-const MENU = {
-  NONE: 'none',
-  NOTE: 'note',
-  SETTING: 'setting'
-}
 
 class App extends React.Component {
   state = {
