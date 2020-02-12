@@ -1,9 +1,8 @@
 import React from 'react'
-import {notification, Tree} from 'antd'
+import {Tree} from 'antd'
 import File from '../../model/file'
 import SideBarHeader from './sidebar-header'
 import MENU from '../note/menu-item'
-import FoldLeftMenuButton from './fold-left-menu-button'
 
 import '../../resources/css/overwrite-react-contextmenu-style.css'
 
@@ -39,9 +38,6 @@ export default class LeftMenu extends React.Component {
     const {leftMenu} = this.props
 
     return <div>
-      <FoldLeftMenuButton
-        changeLeftMenuVisible={this.props.changeLeftMenuVisible}/>
-
       <div style={{height: 100, paddingTop: 10}}>
         <SideBarHeader/>
       </div>

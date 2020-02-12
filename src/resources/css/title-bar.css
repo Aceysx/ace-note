@@ -11,12 +11,6 @@
     background: rgba(25, 23, 17, 0.1);
 }
 
-.fold-left-menu-icon {
-    position: absolute;
-    padding: 4px;
-    margin-left: 180px;
-    z-index: 200;
-}
 .title-bar-box{
     background: white;
     z-index: 1000;
