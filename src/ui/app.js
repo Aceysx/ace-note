@@ -8,6 +8,7 @@ import GitResource from '../infrastructure/git-resource'
 import LeftMenu from './left-menu/left-menu'
 import SearchBar from './search-bar/search-bar'
 import MENU from './note/menu-item'
+import File from '../model/file';
 import {
   SELECTED_DIR_STACK,
   UPDATE_FILES,
@@ -16,10 +17,8 @@ import {
 } from '../redux/reducers/dispatch-command/commands'
 
 import '../resources/css/app.css'
-import File from '../model/file';
 
 const {Sider, Content} = Layout
-
 
 class App extends React.Component {
   state = {
@@ -134,6 +133,7 @@ class App extends React.Component {
         theme='light'
       >
         <LeftMenu
+          changeLeftMenuVisible={leftMenuVisible => this.setState({leftMenuVisible})}
           switchToMenu={this.switchToMenu}
           pushToRepo={this.pushToRepo}
           leftMenu={leftMenu}
@@ -146,6 +146,7 @@ class App extends React.Component {
             current === MENU.NOTE && selectedDir.sub !== undefined
               ? <Note
                 leftMenuVisible={leftMenuVisible}
+                changeLeftMenuVisible={leftMenuVisible => this.setState({leftMenuVisible})}
                 leftMenu={leftMenu}
                 updateNotesTags={this.updateNotesTags}
                 notesTags={notesTags}
@@ -154,7 +155,6 @@ class App extends React.Component {
                 selectedDir={selectedDir}
                 updateSelectedDirStack={this.props.updateSelectedDirStack}
                 selectedDirStack={selectedDirStack}
-                changeLeftMenuVisible={() => this.setState({leftMenuVisible: !this.state.leftMenuVisible})}
               />
               : ''
           }

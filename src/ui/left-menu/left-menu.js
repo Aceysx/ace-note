@@ -6,7 +6,8 @@ import SideBarBottom from './sidebar-bottom'
 import {PUSH_TO_REPO_FINISHED} from '../../model/listener-event'
 
 import '../../resources/css/overwrite-react-contextmenu-style.css'
-import MENU from '../note/menu-item';
+import MENU from '../note/menu-item'
+import FoldIcon from './fold-icon'
 
 const {TreeNode, DirectoryTree} = Tree
 
@@ -56,8 +57,11 @@ export default class LeftMenu extends React.Component {
   render() {
     const {leftMenu} = this.props
 
-    return <div style={{paddingTop: 10}}>
-      <div style={{height: 80}}>
+    return <div>
+      <FoldIcon
+        changeLeftMenuVisible={this.props.changeLeftMenuVisible}/>
+
+      <div style={{height: 80, paddingTop: 10}}>
         <SideBarHeader/>
       </div>
       <span

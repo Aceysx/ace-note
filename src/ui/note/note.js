@@ -1,14 +1,16 @@
 import React from 'react'
-import {Empty, message} from 'antd'
+import {Empty, Icon, message} from 'antd'
 import SubMenu from './sub-menu/sub-menu'
 import Markdown from './markdown/markdown'
 import {connect} from 'react-redux'
 import NoteTagModel from '../../model/note-tag'
 import File from '../../model/file'
 import FileResource from '../../infrastructure/file-resource'
+import TitleBar from '../title-bar/title-bar'
 import {
   UPDATE_CURRENT_EDIT_FILE,
 } from '../../redux/reducers/dispatch-command/commands'
+
 
 class Note extends React.Component {
   state = {
@@ -95,14 +97,25 @@ class Note extends React.Component {
     return reg.test(fileName)
   }
 
+  formatMenus = (current) => {
+    const workspace = window.getNoteWorkspacePath()
+    return current.path.substring(workspace.length + 1).split('/')
+  }
+
   render() {
     const {
       selectedDir, currentEditFile, selectedDirStack,
-      notesTags, updateNotesTags
+      notesTags, updateNotesTags, leftMenuVisible
     } = this.props
     const {isSubMenuFold} = this.state
 
     return <div>
+      <TitleBar
+        changeLeftMenuVisible={this.props.changeLeftMenuVisible}
+        title={<span><Icon type='book'/> Notebook</span>}
+        menus={this.formatMenus(selectedDir)}
+        leftMenuVisible={leftMenuVisible}/>
+      <div style={{height: 35}}></div>
       {
         isSubMenuFold
           ? ''
