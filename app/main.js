@@ -10,17 +10,19 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true
     },
-    titleBarStyle: 'hidden'
+    titleBarStyle: 'hiddenInset'
   })
   win.maximize()
-  win.show()
+
   win.loadURL(isDev
     ? 'http://localhost:3000/'
     : `file://${path.join(__dirname, './index.html')}`)
   if (isDev) {
     win.webContents.openDevTools();
   }
-
+  win.once('ready-to-show', () => {
+    win.show()
+  })
 }
 
 app.on('ready', createWindow)
