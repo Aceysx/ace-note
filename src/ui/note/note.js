@@ -1,15 +1,15 @@
 import React from 'react'
-import { Divider, Empty, message } from 'antd'
+import {Divider, Empty, message} from 'antd'
 import SubMenu from './sub-menu/sub-menu'
 import Markdown from './markdown/markdown'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import NoteTagModel from '../../model/note-tag'
 import File from '../../model/file'
 import FileResource from '../../infrastructure/file-resource'
 import TitleBar from '../title-bar/title-bar'
 import FileCreatorButton from '../title-bar/file-creator-button'
 import FoldSubMenuButton from '../title-bar/fold-sub-menu-button'
-import { UPDATE_CURRENT_EDIT_FILE, } from '../../redux/reducers/dispatch-command/commands'
+import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/commands'
 import MENU from '../note/menu-item'
 
 class Note extends React.Component {
@@ -21,7 +21,7 @@ class Note extends React.Component {
     if (this.props.selectedDir.path === nextProps.selectedDir.path) {
       return false
     }
-    this.setState({ isSubMenuFold: false })
+    this.setState({isSubMenuFold: false})
   }
 
   modifyFileName = (oldPath, newFileName) => {
@@ -33,8 +33,8 @@ class Note extends React.Component {
       message.warning('file name could not includes 【\\\\/:*?\"<>|】')
       return false;
     }
-    const { selectedDir, currentEditFile } = this.props
-    let newPath = FileResource.modifyFileName({ oldPath, newFileName })
+    const {selectedDir, currentEditFile} = this.props
+    let newPath = FileResource.modifyFileName({oldPath, newFileName})
     if (currentEditFile.path === oldPath) {
       this.props.updateCurrentEditFile(
         FileResource.findFile(newPath)
@@ -49,12 +49,12 @@ class Note extends React.Component {
 
   modifyFileContent = (path, content) => {
     this.props.updateCurrentEditFile(
-      FileResource.modifyFileContent({ path, content })
+      FileResource.modifyFileContent({path, content})
     )
   }
 
-  createFileOrDir = ({ path, type }) => {
-    let file = FileResource.createFileOrDir({ type, path });
+  createFileOrDir = ({path, type}) => {
+    let file = FileResource.createFileOrDir({type, path});
     this.props.updateSelectedDir(path)
     if (type === 'dir') {
       this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
@@ -63,9 +63,9 @@ class Note extends React.Component {
     this.props.updateCurrentEditFile(file)
   }
 
-  deleteFileOrDir = ({ path, type }) => {
-    const { selectedDir, notesTags } = this.props
-    FileResource.delete({ path, type })
+  deleteFileOrDir = ({path, type}) => {
+    const {selectedDir, notesTags} = this.props
+    FileResource.delete({path, type})
     if (type === 'file') {
       const _path = path.split(window.getNoteWorkspacePath())[1]
       this.props.updateNotesTags(window.getNoteTagsPath(),
@@ -86,9 +86,9 @@ class Note extends React.Component {
   changeLeftMenuVisible = () => {
     this.props.changeLeftMenuVisible()
     if (this.props.leftMenuVisible) {
-      this.setState({ isSubMenuFold: true })
+      this.setState({isSubMenuFold: true})
     } else {
-      this.setState({ isSubMenuFold: false })
+      this.setState({isSubMenuFold: false})
     }
   }
 
@@ -105,7 +105,12 @@ class Note extends React.Component {
 
   formatMenus = (current) => {
     const workspace = window.getNoteWorkspacePath()
-    return current.path.substring(workspace.length + 1).split('/')
+    const {currentEditFile} = this.props
+    const menus = current.path.substring(workspace.length + 1).split('/')
+    if (currentEditFile) {
+      menus.push(File.name(currentEditFile.path))
+    }
+    return menus
   }
 
   render() {
@@ -113,7 +118,7 @@ class Note extends React.Component {
       selectedDir, currentEditFile, selectedDirStack,
       notesTags, updateNotesTags, leftMenuVisible
     } = this.props
-    const { isSubMenuFold } = this.state
+    const {isSubMenuFold} = this.state
 
     return <div>
       <TitleBar
@@ -123,16 +128,16 @@ class Note extends React.Component {
         changeLeftMenuVisible={this.props.changeLeftMenuVisible}
         operateComponents={[
           <FoldSubMenuButton
-            changeSubMenuFold={() => this.setState({ isSubMenuFold: !isSubMenuFold })}
+            changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}
           />,
           <FileCreatorButton
             createFileOrDir={this.createFileOrDir}
             selectedDir={selectedDir}
           />,
-          <Divider type='vertical' />
-        ]} />
+          <Divider type='vertical'/>
+        ]}/>
 
-      <div style={{ height: 35 }}></div>
+      <div style={{height: 35}}></div>
       {
         isSubMenuFold
           ? ''
@@ -153,14 +158,14 @@ class Note extends React.Component {
         {
           currentEditFile.path
             ? <Markdown file={currentEditFile}
-              notesTags={notesTags}
-              modifyFileContent={this.modifyFileContent}
-              modifyFileName={this.modifyFileName}
-              updateNotesTags={updateNotesTags}
+                        notesTags={notesTags}
+                        modifyFileContent={this.modifyFileContent}
+                        modifyFileName={this.modifyFileName}
+                        updateNotesTags={updateNotesTags}
             />
-            : <div style={{ margin: '50%' }}>
+            : <div style={{margin: '50%'}}>
               <Empty
-                description={false} />
+                description={false}/>
             </div>
         }
       </div>
@@ -172,7 +177,7 @@ const mapDispatchToProps = dispatch => ({
   updateCurrentEditFile: file => dispatch(UPDATE_CURRENT_EDIT_FILE(file))
 })
 
-const mapStateToProps = ({ currentEditFile }) => ({
+const mapStateToProps = ({currentEditFile}) => ({
   currentEditFile
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Note)
