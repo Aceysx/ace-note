@@ -22,6 +22,7 @@ class TitleBar extends React.Component {
         operateComponents={operateComponents}
         title={title}
         menus={menus}
+        onClickMenuItem={this.props.onClickMenuItem}
       />
     </div>
   }

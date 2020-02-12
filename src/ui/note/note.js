@@ -107,10 +107,15 @@ class Note extends React.Component {
     const workspace = window.getNoteWorkspacePath()
     const {currentEditFile} = this.props
     const menus = current.path.substring(workspace.length + 1).split('/')
-    if (currentEditFile) {
+    if (currentEditFile.path) {
       menus.push(File.name(currentEditFile.path))
     }
     return menus
+  }
+
+  updateSelectedDir = _path => {
+    this.props.updateCurrentEditFile({})
+    this.props.updateSelectedDir(_path)
   }
 
   render() {
@@ -126,6 +131,7 @@ class Note extends React.Component {
         leftMenuVisible={leftMenuVisible}
         menus={this.formatMenus(selectedDir)}
         changeLeftMenuVisible={this.props.changeLeftMenuVisible}
+        onClickMenuItem={this.updateSelectedDir}
         operateComponents={[
           <FoldSubMenuButton
             changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}
@@ -148,7 +154,7 @@ class Note extends React.Component {
             updateCurrentEditFile={this.props.updateCurrentEditFile}
             updateNotesTags={this.props.updateNotesTags}
             notesTags={notesTags}
-            updateSelectedDir={this.props.updateSelectedDir}
+            updateSelectedDir={this.updateSelectedDir}
             selectedDir={selectedDir}
             updateSelectedDirStack={this.props.updateSelectedDirStack}
             selectedDirStack={selectedDirStack}

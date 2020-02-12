@@ -49,7 +49,7 @@ class App extends React.Component {
 
   updateSelectedDir = (selectedDir) => {
     this.switchToMenu(MENU.NOTE)
-    this.pushPathToSelectedDirStack(selectedDir);
+    this.pushPathToSelectedDirStack(selectedDir)
     this.props.updateSelectedDir(FileResource.findSubFiles(selectedDir))
   }
 
