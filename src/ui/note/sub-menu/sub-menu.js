@@ -23,15 +23,6 @@ class SubMenu extends React.Component {
     this.setState({editedFileName: DEFAULT_EDITED_FILE_NAME})
   }
 
-  back = () => {
-    const {selectedDirStack} = this.props
-    if (selectedDirStack.length > 1) {
-      selectedDirStack.pop();
-      this.openFile({path: selectedDirStack[selectedDirStack.length - 1], type: 'dir'})
-      this.props.updateSelectedDirStack(selectedDirStack)
-    }
-  }
-
   openFile = file => {
     this.setState({selectedDirPath: file.path})
     if (file.type === 'dir') {
@@ -126,44 +117,12 @@ class SubMenu extends React.Component {
         />
       })
   }
-
-  create = ({key}) => {
-    const {selectedDir} = this.props
-    const path = selectedDir.path
-    this.props.createFileOrDir({path, type: key})
-  }
-
+  
   render() {
-    const menu = (
-      <Menu onClick={this.create}>
-        <Menu.Item key='dir'>
-          <span>创建文件夹</span>
-        </Menu.Item>
-        <Menu.Item key='md'>
-          <span>创建markdown</span>
-        </Menu.Item>
-      </Menu>
-    )
     const {selectedDir} = this.props
     const subFiles = this.subFiles(selectedDir)
     return <div className='layout_right_content_layout_left_menu'>
       <div className='layout_right_content_layout_left_menu_scroll'>
-        <div className='layout_right_content_layout_left_menu_tool'>
-          <div className='back-icon cursor_pointer'
-               onClick={this.back}>
-            <Icon type="enter"/>
-          </div>
-
-          <div className='sub-menu-tool-title'>
-            {File.name(selectedDir.path)}
-          </div>
-          <Dropdown overlay={menu}>
-                    <span className='create-icon cursor_pointer'>
-                      <Icon type="plus"/>
-                    </span>
-          </Dropdown>
-        </div>
-        <Divider/>
         {
           subFiles.length
             ? subFiles
@@ -172,7 +131,7 @@ class SubMenu extends React.Component {
               description={false}
               image={Empty.PRESENTED_IMAGE_SIMPLE}/>
         }
-        <div style={{height: 40}}/>
+        <div style={{height: 100}}/>
       </div>
       <div className='layout_right_content_layout_left_menu_bottom'>
         <Divider/>

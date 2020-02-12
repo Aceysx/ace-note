@@ -18,8 +18,10 @@
     z-index: 200;
 }
 .title-bar-box{
+    background: white;
+    z-index: 1000;
+    width: 100%;
     position: fixed;
-    box-sizing: padding-box;
     height: 35px;
     line-height: 35px;
 }

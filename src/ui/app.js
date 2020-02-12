@@ -1,6 +1,6 @@
 import * as React from 'react'
-import {Empty, Layout} from 'antd'
-import {connect} from 'react-redux'
+import { Empty, Layout } from 'antd'
+import { connect } from 'react-redux'
 import FileResource from '../infrastructure/file-resource'
 import Note from './note/note'
 import Setting from './setting/setting'
@@ -8,7 +8,7 @@ import GitResource from '../infrastructure/git-resource'
 import LeftMenu from './left-menu/left-menu'
 import SearchBar from './search-bar/search-bar'
 import MENU from './note/menu-item'
-import File from '../model/file';
+import File from '../model/file'
 import {
   SELECTED_DIR_STACK,
   UPDATE_FILES,
@@ -18,7 +18,7 @@ import {
 
 import '../resources/css/app.css'
 
-const {Sider, Content} = Layout
+const { Sider, Content } = Layout
 
 class App extends React.Component {
   state = {
@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const {selectedDirStack} = this.props
+    const { selectedDirStack } = this.props
     let workspace = window.getNoteWorkspacePath()
     if (!workspace) {
       workspace = this.initWorkspace()
@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 
   updateNotesTags = (path, notesTags) => {
-    FileResource.modifyFileContent({path, content: JSON.stringify(notesTags)})
+    FileResource.modifyFileContent({ path, content: JSON.stringify(notesTags) })
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
   }
 
@@ -55,17 +55,14 @@ class App extends React.Component {
 
   switchToMenu = current => {
     if (current === MENU.SEARCH) {
-      this.setState({isSearchModalVisible: true})
+      this.setState({ isSearchModalVisible: true })
       return
     }
-    this.setState({current})
+    this.setState({ current })
   }
 
   pushPathToSelectedDirStack = path => {
-    if (path === '搜索结果') {
-      return
-    }
-    const {selectedDirStack} = this.props;
+    const { selectedDirStack } = this.props;
     if (selectedDirStack[selectedDirStack.length - 1] !== path) {
       selectedDirStack.push(path);
       this.props.updateSelectedDirStack(selectedDirStack)
@@ -92,14 +89,14 @@ class App extends React.Component {
 
   searchFiles = content => {
     const selectedDir = {
-      path: '搜索结果',
+      path: MENU.SEARCH_RESULT,
       sub: this._searchByTitleOrTag(content)
     }
     this.props.updateSelectedDir(selectedDir)
   }
 
   _searchByTitleOrTag = content => {
-    const {leftMenu, notesTags} = this.props
+    const { leftMenu, notesTags } = this.props
     const allFiles = this._formatAllFiles(leftMenu.sub)
     const inFilesPath = allFiles.filter(file => {
       return File.name(file.path).includes(content)
@@ -124,8 +121,8 @@ class App extends React.Component {
   }
 
   render() {
-    const {current, leftMenuVisible, isSearchModalVisible} = this.state
-    const {leftMenu, selectedDir, notesTags, selectedDirStack} = this.props
+    const { current, leftMenuVisible, isSearchModalVisible } = this.state
+    const { leftMenu, selectedDir, notesTags, selectedDirStack } = this.props
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -133,7 +130,7 @@ class App extends React.Component {
         theme='light'
       >
         <LeftMenu
-          changeLeftMenuVisible={leftMenuVisible => this.setState({leftMenuVisible})}
+          changeLeftMenuVisible={leftMenuVisible => this.setState({ leftMenuVisible })}
           switchToMenu={this.switchToMenu}
           pushToRepo={this.pushToRepo}
           leftMenu={leftMenu}
@@ -146,7 +143,7 @@ class App extends React.Component {
             current === MENU.NOTE && selectedDir.sub !== undefined
               ? <Note
                 leftMenuVisible={leftMenuVisible}
-                changeLeftMenuVisible={leftMenuVisible => this.setState({leftMenuVisible})}
+                changeLeftMenuVisible={leftMenuVisible => this.setState({ leftMenuVisible })}
                 leftMenu={leftMenu}
                 updateNotesTags={this.updateNotesTags}
                 notesTags={notesTags}
@@ -168,8 +165,8 @@ class App extends React.Component {
           }
           {
             this.isEmpty(current, selectedDir)
-              ? <div style={{margin: '50%'}}>
-                <Empty description={false}/>
+              ? <div style={{ margin: '50%' }}>
+                <Empty description={false} />
               </div>
               : ''
           }
@@ -178,7 +175,7 @@ class App extends React.Component {
       <SearchBar
         isSearchModalVisible={isSearchModalVisible}
         searchFiles={this.searchFiles}
-        closeSearchModal={() => this.setState({isSearchModalVisible: false})}
+        closeSearchModal={() => this.setState({ isSearchModalVisible: false })}
       />
     </Layout>
   }
@@ -192,11 +189,11 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = ({
-                           leftMenu,
-                           selectedDir,
-                           selectedDirStack,
-                           notesTags
-                         }) => ({
+  leftMenu,
+  selectedDir,
+  selectedDirStack,
+  notesTags
+}) => ({
   leftMenu,
   selectedDir,
   selectedDirStack,

@@ -35,13 +35,6 @@
     background: none;
 }
 
-.markdown_bottom_tool_icon {
-    margin-top: -10px;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 15px;
-}
-
 .markdown_bottom_tool_record {
     font-style: italic;
     margin-left: 10px;

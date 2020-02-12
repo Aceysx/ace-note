@@ -142,17 +142,6 @@ export default class Markdown extends React.Component {
       <div style={{height: 35}}></div>
       <div className='markdown_bottom'>
         <Divider/>
-        <span className='markdown_bottom_tool_icon'
-              onClick={this.props.changeFullMarkdown}
-        >
-          <Icon type="border-outer"/>
-        </span>
-        <span className='markdown_bottom_tool_icon'
-              onClick={this.props.changeSubMenuFold}
-        >
-          <Icon type="border-horizontal"/>
-        </span>
-        <Divider type='vertical'/>
         {
           md
             ? <span>
