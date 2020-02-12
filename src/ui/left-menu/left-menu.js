@@ -1,13 +1,13 @@
 import React from 'react'
-import {Icon, Tree, notification} from 'antd'
+import {notification, Tree} from 'antd'
 import File from '../../model/file'
 import SideBarHeader from './sidebar-header'
 import SideBarBottom from './sidebar-bottom'
 import {PUSH_TO_REPO_FINISHED} from '../../model/listener-event'
+import MENU from '../note/menu-item'
+import FoldLeftMenuButton from './fold-left-menu-button'
 
 import '../../resources/css/overwrite-react-contextmenu-style.css'
-import MENU from '../note/menu-item'
-import FoldIcon from './fold-icon'
 
 const {TreeNode, DirectoryTree} = Tree
 
@@ -58,7 +58,7 @@ export default class LeftMenu extends React.Component {
     const {leftMenu} = this.props
 
     return <div>
-      <FoldIcon
+      <FoldLeftMenuButton
         changeLeftMenuVisible={this.props.changeLeftMenuVisible}/>
 
       <div style={{height: 80, paddingTop: 10}}>

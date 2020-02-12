@@ -1,8 +1,11 @@
 import React from 'react'
 
-const HeaderMenu = ({title, menus}) => {
+const HeaderMenu = ({title, menus, operateComponents = []}) => {
   return <span>
-    <span style={{fontWeight: 'bold', paddingRight: 5}}>{title}</span>
+    {
+      operateComponents
+    }
+    <span style={{fontWeight: '600'}}>{title} / </span>
     {
       menus.map((item, index) => {
         return <span>
@@ -12,7 +15,6 @@ const HeaderMenu = ({title, menus}) => {
               ? ''
               : ' / '
           }
-
         </span>
       })
     }

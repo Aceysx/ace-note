@@ -53,3 +53,7 @@
 .ant-tree.ant-tree-directory{
     margin-left: 15px;
 }
+
+.ant-divider-vertical{
+    margin: 0 2px!important;
+}

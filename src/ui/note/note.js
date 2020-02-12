@@ -1,5 +1,5 @@
 import React from 'react'
-import {Empty, Icon, message} from 'antd'
+import {Divider, Empty, message} from 'antd'
 import SubMenu from './sub-menu/sub-menu'
 import Markdown from './markdown/markdown'
 import {connect} from 'react-redux'
@@ -7,10 +7,9 @@ import NoteTagModel from '../../model/note-tag'
 import File from '../../model/file'
 import FileResource from '../../infrastructure/file-resource'
 import TitleBar from '../title-bar/title-bar'
-import {
-  UPDATE_CURRENT_EDIT_FILE,
-} from '../../redux/reducers/dispatch-command/commands'
-
+import FileCreatorButton from '../title-bar/file-creator-button'
+import FoldSubMenuButton from '../title-bar/fold-sub-menu-button'
+import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/commands'
 
 class Note extends React.Component {
   state = {
@@ -111,10 +110,21 @@ class Note extends React.Component {
 
     return <div>
       <TitleBar
-        changeLeftMenuVisible={this.props.changeLeftMenuVisible}
-        title='📒 NoteBook'
+        title='📒NoteBook'
+        leftMenuVisible={leftMenuVisible}
         menus={this.formatMenus(selectedDir)}
-        leftMenuVisible={leftMenuVisible}/>
+        changeLeftMenuVisible={this.props.changeLeftMenuVisible}
+        operateComponents={[
+          <FoldSubMenuButton
+            changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}
+          />,
+          <FileCreatorButton
+            createFileOrDir={this.createFileOrDir}
+            selectedDir={selectedDir}
+          />,
+          <Divider type='vertical'/>
+        ]}/>
+
       <div style={{height: 35}}></div>
       {
         isSubMenuFold
