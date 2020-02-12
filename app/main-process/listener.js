@@ -64,7 +64,7 @@ ipcMain.on(OPEN_DIR, (event) => {
 
 const openDialogSync = () => dialog.showOpenDialogSync({
   properties: ['createDirectory', 'openDirectory'],
-  message: '请选择工作目录'
+  message: 'please select a directory'
 })
 
 

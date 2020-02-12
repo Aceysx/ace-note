@@ -135,6 +135,7 @@ class Note extends React.Component {
         menus={this.formatMenus(selectedDir)}
         changeLeftMenuVisible={this.props.changeLeftMenuVisible}
         onClickMenuItem={this.updateSelectedDir}
+        pushToRepo={this.props.pushToRepo}
         operateComponents={[
           <FoldSubMenuButton
             changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}

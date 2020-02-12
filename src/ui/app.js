@@ -122,7 +122,6 @@ class App extends React.Component {
         <LeftMenu
           changeLeftMenuVisible={leftMenuVisible => this.setState({ leftMenuVisible })}
           switchToMenu={this.switchToMenu}
-          pushToRepo={this.pushToRepo}
           leftMenu={leftMenu}
           updateMenu={this.updateSelectedDir}
         />
@@ -132,6 +131,7 @@ class App extends React.Component {
           {
             current === MENU.NOTE && selectedDir.sub !== undefined
               ? <Note
+                pushToRepo={this.pushToRepo}
                 leftMenuVisible={leftMenuVisible}
                 changeLeftMenuVisible={leftMenuVisible => this.setState({ leftMenuVisible })}
                 leftMenu={leftMenu}

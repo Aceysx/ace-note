@@ -2,6 +2,7 @@ import React from 'react'
 import UnFoldIcon from '../left-menu/unfold-icon'
 import HeaderMenu from './header-menu'
 import {Badge, Divider, Icon, Tooltip} from 'antd'
+import GitPusher from './git-pusher';
 
 class TitleBar extends React.Component {
   render() {
@@ -25,13 +26,9 @@ class TitleBar extends React.Component {
         onClickMenuItem={this.props.onClickMenuItem}
       />
 
-      <span style={{position: 'fixed', right: 80}}>
-        <Tooltip title="push to remote repo"
-                 placement='bottom'>
-          <Icon type="github"
-                style={{fontSize: 18}}/>
-        </Tooltip>
-      </span>
+      <GitPusher
+        pushToRepo={this.props.pushToRepo}/>
+
       <span style={{position: 'fixed', right: 10}}>
         <Badge status="processing" text="v1.0.0"/>
       </span>
