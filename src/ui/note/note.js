@@ -106,7 +106,10 @@ class Note extends React.Component {
   formatMenus = (current) => {
     const workspace = window.getNoteWorkspacePath()
     const {currentEditFile} = this.props
-    const menus = current.path.substring(workspace.length + 1).split('/')
+    if (workspace === current.path) {
+      return []
+    }
+    const menus = current.path.substring(workspace.length + 1).split('/');
     if (currentEditFile.path) {
       menus.push(File.name(currentEditFile.path))
     }
