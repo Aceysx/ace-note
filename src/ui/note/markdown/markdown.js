@@ -121,6 +121,7 @@ export default class Markdown extends React.Component {
           </Col>
         </Row>
         <Divider style={{display: 'inline-block', margin: ' -2px 0 0 10px '}}/>
+
         <div className='markdown_box_bar'>
           <div className='markdown_box_tag'>
             <Icon type="tags" style={{
@@ -133,18 +134,10 @@ export default class Markdown extends React.Component {
               updateNoteTags={this.updateNoteTags}
               notesTags={this.findAllTags(notesTags)}/>
           </div>
-        </div>
-      </div>
-
-      <div style={{height: 90}}></div>
-      <textarea
-        ref={mdRef}/>
-      <div style={{height: 35}}></div>
-      <div className='markdown_bottom'>
-        <Divider/>
-        {
-          md
-            ? <span>
+          <span style={{position: 'fixed', right: 30}}>
+          {
+            md
+              ? <span>
                 <span className='markdown_bottom_tool_record'>
                   Words {md.getValue().length}
                 </span>
@@ -152,10 +145,15 @@ export default class Markdown extends React.Component {
                   Line {md.lineCount()}
                 </span>
           </span>
-            : ''
-        }
-
+              : ''
+          }
+        </span>
+        </div>
       </div>
+
+      <div style={{height: 90}}></div>
+      <textarea
+        ref={mdRef}/>
     </div>
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import UnFoldIcon from '../left-menu/unfold-icon'
 import HeaderMenu from './header-menu'
-import {Divider} from 'antd'
+import {Badge, Divider, Icon, Tooltip} from 'antd'
 
 class TitleBar extends React.Component {
   render() {
@@ -24,6 +24,17 @@ class TitleBar extends React.Component {
         menus={menus}
         onClickMenuItem={this.props.onClickMenuItem}
       />
+
+      <span style={{position: 'fixed', right: 80}}>
+        <Tooltip title="push to remote repo"
+                 placement='bottom'>
+          <Icon type="github"
+                style={{fontSize: 18}}/>
+        </Tooltip>
+      </span>
+      <span style={{position: 'fixed', right: 10}}>
+        <Badge status="processing" text="v1.0.0"/>
+      </span>
     </div>
   }
 }

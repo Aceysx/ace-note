@@ -2,7 +2,6 @@ import React from 'react'
 import {notification, Tree} from 'antd'
 import File from '../../model/file'
 import SideBarHeader from './sidebar-header'
-import SideBarBottom from './sidebar-bottom'
 import {PUSH_TO_REPO_FINISHED} from '../../model/listener-event'
 import MENU from '../note/menu-item'
 import FoldLeftMenuButton from './fold-left-menu-button'
@@ -61,7 +60,7 @@ export default class LeftMenu extends React.Component {
       <FoldLeftMenuButton
         changeLeftMenuVisible={this.props.changeLeftMenuVisible}/>
 
-      <div style={{height: 80, paddingTop: 10}}>
+      <div style={{height: 100, paddingTop: 10}}>
         <SideBarHeader/>
       </div>
       <span
@@ -89,9 +88,6 @@ export default class LeftMenu extends React.Component {
           </div>
           : ''
       }
-      <div style={{height: 30}}/>
-      <SideBarBottom
-        pushToRepo={this.pushToRepo}/>
     </div>
   }
 }

@@ -135,7 +135,7 @@ class SubMenu extends React.Component {
       </div>
       <div className='layout_right_content_layout_left_menu_bottom'>
         <Divider/>
-        共 {selectedDir.sub.length} 项
+         {selectedDir.sub.length} items
       </div>
     </div>
   }
