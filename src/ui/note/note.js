@@ -2,7 +2,6 @@ import React from 'react'
 import {Empty, message} from 'antd'
 import SubMenu from './sub-menu/sub-menu'
 import Markdown from './markdown/markdown'
-import SearchBar from './search-bar'
 import {connect} from 'react-redux'
 import NoteTagModel from '../../model/note-tag'
 import File from '../../model/file'
@@ -76,43 +75,11 @@ class Note extends React.Component {
     }
   }
 
-  searchFiles = content => {
-    const selectedDir = {
-      path: '搜索结果',
-      sub: this._searchByTitleOrTag(content)
-    }
-    this.props.updateSelectedDir(selectedDir, 'search')
-  }
-
-  _searchByTitleOrTag = content => {
-    const {leftMenu, notesTags} = this.props
-    const allFiles = this._formatAllFiles(leftMenu.sub)
-    const inFilesPath = allFiles.filter(file => {
-      return File.name(file.path).includes(content)
-    })
-    const foundInTags = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
-    const inTagPath = allFiles.filter(file => foundInTags.find(tagFile => file.path.includes(tagFile.path)))
-    inFilesPath.push(...inTagPath)
-    return [...new Set(inFilesPath)]
-  }
-
-  _formatAllFiles = sub => {
-    const files = []
-    sub.forEach(item => {
-      if (item.type === 'dir') {
-        files.push(...this._formatAllFiles(item.sub))
-      }
-      if (item.type === 'file') {
-        files.push(item)
-      }
-    })
-    return files
-  }
   changeLeftMenuVisible = () => {
     this.props.changeLeftMenuVisible()
     if (this.props.leftMenuVisible) {
       this.setState({isSubMenuFold: true})
-    }else{
+    } else {
       this.setState({isSubMenuFold: false})
     }
   }
@@ -170,8 +137,6 @@ class Note extends React.Component {
             </div>
         }
       </div>
-      <SearchBar
-        searchFiles={this.searchFiles}/>
     </div>
   }
 }

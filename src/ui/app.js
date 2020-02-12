@@ -6,6 +6,8 @@ import Note from './note/note'
 import Setting from './setting/setting'
 import GitResource from '../infrastructure/git-resource'
 import LeftMenu from './left-menu/left-menu'
+import SearchBar from './search-bar/search-bar'
+import MENU from './note/menu-item'
 import {
   SELECTED_DIR_STACK,
   UPDATE_FILES,
@@ -14,7 +16,7 @@ import {
 } from '../redux/reducers/dispatch-command/commands'
 
 import '../resources/css/app.css'
-import MENU from './note/menu-item';
+import File from '../model/file';
 
 const {Sider, Content} = Layout
 
@@ -22,7 +24,8 @@ const {Sider, Content} = Layout
 class App extends React.Component {
   state = {
     current: MENU.NOTE,
-    leftMenuVisible: true
+    leftMenuVisible: true,
+    isSearchModalVisible: false
   }
 
   componentDidMount() {
@@ -45,17 +48,17 @@ class App extends React.Component {
     return current === MENU.NOTE && selectedDir.sub === undefined
   }
 
-  updateSelectedDir = (selectedDir, type) => {
-    if (type === 'search') {
-      this.props.updateSelectedDir(selectedDir)
-      return
-    }
+  updateSelectedDir = (selectedDir) => {
     this.switchToMenu(MENU.NOTE)
     this.pushPathToSelectedDirStack(selectedDir);
     this.props.updateSelectedDir(FileResource.findSubFiles(selectedDir))
   }
 
   switchToMenu = current => {
+    if (current === MENU.SEARCH) {
+      this.setState({isSearchModalVisible: true})
+      return
+    }
     this.setState({current})
   }
 
@@ -88,8 +91,41 @@ class App extends React.Component {
     return workspace
   }
 
+  searchFiles = content => {
+    const selectedDir = {
+      path: '搜索结果',
+      sub: this._searchByTitleOrTag(content)
+    }
+    this.props.updateSelectedDir(selectedDir)
+  }
+
+  _searchByTitleOrTag = content => {
+    const {leftMenu, notesTags} = this.props
+    const allFiles = this._formatAllFiles(leftMenu.sub)
+    const inFilesPath = allFiles.filter(file => {
+      return File.name(file.path).includes(content)
+    })
+    const foundInTags = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
+    const inTagPath = allFiles.filter(file => foundInTags.find(tagFile => file.path.includes(tagFile.path)))
+    inFilesPath.push(...inTagPath)
+    return [...new Set(inFilesPath)]
+  }
+
+  _formatAllFiles = sub => {
+    const files = []
+    sub.forEach(item => {
+      if (item.type === 'dir') {
+        files.push(...this._formatAllFiles(item.sub))
+      }
+      if (item.type === 'file') {
+        files.push(item)
+      }
+    })
+    return files
+  }
+
   render() {
-    const {current, leftMenuVisible} = this.state
+    const {current, leftMenuVisible, isSearchModalVisible} = this.state
     const {leftMenu, selectedDir, notesTags, selectedDirStack} = this.props
     return <Layout className='layout'>
       <Sider
@@ -139,6 +175,11 @@ class App extends React.Component {
           }
         </Content>
       </Layout>
+      <SearchBar
+        isSearchModalVisible={isSearchModalVisible}
+        searchFiles={this.searchFiles}
+        closeSearchModal={() => this.setState({isSearchModalVisible: false})}
+      />
     </Layout>
   }
 }

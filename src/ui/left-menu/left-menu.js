@@ -60,7 +60,9 @@ export default class LeftMenu extends React.Component {
       <div style={{height: 80}}>
         <SideBarHeader/>
       </div>
-      <span>{this.buildTopItem('search', 'Quick Find')}</span>
+      <span
+        onClick={() => this.props.switchToMenu(MENU.SEARCH)}
+      >{this.buildTopItem('search', 'Quick Find')}</span>
       <span
         onClick={() => this.props.switchToMenu(MENU.SETTING)}
       >{this.buildTopItem('setting', 'Settings')}</span>
