@@ -32,7 +32,6 @@ class App extends React.Component {
     let workspace = window.getNoteWorkspacePath()
     if (!workspace) {
       workspace = this.initWorkspace()
-      this.pushPathToSelectedDirStack(selectedDirStack)
     }
     this.props.updateDirs(FileResource.initNoteBook(workspace))
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
@@ -49,7 +48,6 @@ class App extends React.Component {
 
   updateSelectedDir = (selectedDir) => {
     this.switchToMenu(MENU.NOTE)
-    this.pushPathToSelectedDirStack(selectedDir)
     this.props.updateSelectedDir(FileResource.findSubFiles(selectedDir))
   }
 
@@ -59,14 +57,6 @@ class App extends React.Component {
       return
     }
     this.setState({ current })
-  }
-
-  pushPathToSelectedDirStack = path => {
-    const { selectedDirStack } = this.props;
-    if (selectedDirStack[selectedDirStack.length - 1] !== path) {
-      selectedDirStack.push(path);
-      this.props.updateSelectedDirStack(selectedDirStack)
-    }
   }
 
   pushToRepo = (workspace) => {
@@ -122,7 +112,7 @@ class App extends React.Component {
 
   render() {
     const { current, leftMenuVisible, isSearchModalVisible } = this.state
-    const { leftMenu, selectedDir, notesTags, selectedDirStack } = this.props
+    const { leftMenu, selectedDir, notesTags } = this.props
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -150,8 +140,6 @@ class App extends React.Component {
                 updateDirs={this.props.updateDirs}
                 updateSelectedDir={this.updateSelectedDir}
                 selectedDir={selectedDir}
-                updateSelectedDirStack={this.props.updateSelectedDirStack}
-                selectedDirStack={selectedDirStack}
               />
               : ''
           }
@@ -185,18 +173,15 @@ const mapDispatchToProps = dispatch => ({
   updateDirs: dirs => dispatch(UPDATE_FILES(dirs)),
   updateNotesTags: noteTags => dispatch(UPDATE_NOTES_TAGS(noteTags)),
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir)),
-  updateSelectedDirStack: selectedDirStack => dispatch(SELECTED_DIR_STACK(selectedDirStack)),
 })
 
 const mapStateToProps = ({
   leftMenu,
   selectedDir,
-  selectedDirStack,
   notesTags
 }) => ({
   leftMenu,
   selectedDir,
-  selectedDirStack,
   notesTags
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

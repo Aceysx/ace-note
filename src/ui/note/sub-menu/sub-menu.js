@@ -1,5 +1,5 @@
 import React from 'react'
-import {Divider, Empty, Icon, Menu, Dropdown} from 'antd'
+import {Divider, Empty} from 'antd'
 import FileCard from './file-card'
 import FileResource from '../../../infrastructure/file-resource'
 import NoteTagModel from '../../../model/note-tag'

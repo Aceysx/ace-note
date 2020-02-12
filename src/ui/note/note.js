@@ -120,7 +120,7 @@ class Note extends React.Component {
 
   render() {
     const {
-      selectedDir, currentEditFile, selectedDirStack,
+      selectedDir, currentEditFile,
       notesTags, updateNotesTags, leftMenuVisible
     } = this.props
     const {isSubMenuFold} = this.state
@@ -156,8 +156,6 @@ class Note extends React.Component {
             notesTags={notesTags}
             updateSelectedDir={this.updateSelectedDir}
             selectedDir={selectedDir}
-            updateSelectedDirStack={this.props.updateSelectedDirStack}
-            selectedDirStack={selectedDirStack}
           />
       }
       <div className={`layout_right_content_layout_right_content_markdown `}>
