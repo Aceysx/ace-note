@@ -112,7 +112,7 @@ class Note extends React.Component {
     return <div>
       <TitleBar
         changeLeftMenuVisible={this.props.changeLeftMenuVisible}
-        title={<span><Icon type='book'/> Notebook</span>}
+        title='📒 NoteBook'
         menus={this.formatMenus(selectedDir)}
         leftMenuVisible={leftMenuVisible}/>
       <div style={{height: 35}}></div>

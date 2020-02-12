@@ -51,7 +51,7 @@ export default class LeftMenu extends React.Component {
       margin: '5px 0 10px 10px',
       fontWeight: 700,
       color: 'rgba(25, 23, 17, 0.5)'
-    }}><Icon type={icon}/> {title}</span>
+    }}>{icon} {title}</span>
   }
 
   render() {
@@ -66,10 +66,10 @@ export default class LeftMenu extends React.Component {
       </div>
       <span
         onClick={() => this.props.switchToMenu(MENU.SEARCH)}
-      >{this.buildTopItem('search', 'Quick Find')}</span>
+      >{this.buildTopItem('🔍 ', 'Quick Find')}</span>
       <span
         onClick={() => this.props.switchToMenu(MENU.SETTING)}
-      >{this.buildTopItem('setting', 'Settings')}</span>
+      >{this.buildTopItem('⚙️ ', 'Settings')}</span>
 
       {
         leftMenu.path
@@ -80,7 +80,7 @@ export default class LeftMenu extends React.Component {
                 this.props.switchToMenu(MENU.note)
                 this.props.updateMenu(leftMenu.path)
               }}
-            >{this.buildTopItem('book', 'Notebook')}</span>
+            >{this.buildTopItem('📒 ', 'Notebook')}</span>
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
               onSelect={this.onSelect}>
