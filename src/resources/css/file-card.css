@@ -15,7 +15,8 @@
     white-space: nowrap;
 }
 
-.file-card-file-icon, .file-card-dir-icon {
+.file-card-file-icon,
+.file-card-dir-icon {
     font-size: 18px;
     margin-right: 5px;
 }
@@ -51,9 +52,19 @@
     color: #2e99ff;
     cursor: pointer;
 }
-.file-card-pined-icon{
-    font-size: 30px;
-    margin: -35px 0 0 -15px;
+
+.file-card-pin-icon {
+    font-size: 20px;
+    opacity: 0;
+    margin: -25px 0 0px -20px;
     position: absolute;
     color: #b7906b;
+}
+
+.file-card-box:hover .file-card-pin-icon{
+    opacity: 0.3;
+}
+
+.file-card-pined-icon {
+    opacity: 1!important;
 }
