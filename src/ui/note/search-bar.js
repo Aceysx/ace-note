@@ -14,12 +14,12 @@ export default class SearchBar extends React.Component {
   }
 
   render() {
-    return <div className="container">
+    return <div className="container cursor_pointer">
       <input type="text"
              onKeyUp={this.onKeyUp}
              onChange={e => this.setState({content: e.target.value})}
              placeholder="Search by tag | file "/>
-      <div className="search"></div>
+      <div className="search cursor_pointer"></div>
     </div>
   }
 }

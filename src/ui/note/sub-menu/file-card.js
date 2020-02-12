@@ -60,6 +60,7 @@ const FileCard = ({
     }
     <p className='file-card-extra'>
       <Icon type="folder-open"
+            className='cursor_pointer'
             style={{fontSize: 14, color: '#b7906b'}}
             onClick={() => openFile(getParentDir(file))}
       />
