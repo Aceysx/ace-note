@@ -1,11 +1,20 @@
-const {app, BrowserWindow, globalShortcut, ipcMain} = require('electron')
+const {app, BrowserWindow, globalShortcut} = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
 const SHORTCUTS = require('../src/model/shortcuts')
 require('./main-process/listener')
 let win
 
-function createWindow() {
+const registerAllShortcuts = () => {
+  Object.values(SHORTCUTS)
+    .forEach(cmd => {
+      globalShortcut.register(cmd, () => {
+        win.webContents.send(cmd, cmd)
+      })
+    })
+}
+
+const createWindow = () => {
   win = new BrowserWindow({
     show: false,
     webPreferences: {
@@ -25,14 +34,15 @@ function createWindow() {
     win.show()
   })
 
-
-//shortcut
-  Object.values(SHORTCUTS)
-    .forEach(cmd => {
-      globalShortcut.register(cmd, () => {
-        win.webContents.send(cmd, cmd)
-      })
-    })
+  registerAllShortcuts()
 }
 
 app.on('ready', createWindow)
+
+app.on('browser-window-blur', () => {
+  globalShortcut.unregisterAll()
+})
+
+app.on('browser-window-focus', () => {
+  registerAllShortcuts()
+})
