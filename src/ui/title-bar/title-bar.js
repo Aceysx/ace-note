@@ -1,6 +1,6 @@
 import React from 'react'
 import HeaderMenu from './header-menu'
-import {Badge, Divider, Icon} from 'antd'
+import {Badge, Divider, Icon, Tooltip} from 'antd'
 import GitPusher from './git-pusher'
 import '../../resources/css/title-bar.css'
 
@@ -13,8 +13,8 @@ class TitleBar extends React.Component {
                 onClick={() => this.props.changeLeftMenuVisible({leftMenuVisible: !leftMenuVisible})}>
             {
               leftMenuVisible
-                ? <span><Icon type="double-left"/></span>
-                : <span><Icon type="double-right"/></span>
+                ? <Tooltip title='⌘+1'><Icon type="double-left"/></Tooltip>
+                : <Tooltip title='⌘+2'><Icon type="double-right"/></Tooltip>
             }
           </span>
       <Divider type='vertical'/>

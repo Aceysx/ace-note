@@ -1,5 +1,5 @@
 import React from 'react'
-import {Tree} from 'antd'
+import {Tooltip, Tree} from 'antd'
 import File from '../../model/file'
 import SideBarHeader from './sidebar-header'
 import MENU from '../note/menu-item'
@@ -41,9 +41,11 @@ export default class LeftMenu extends React.Component {
       <div style={{height: 100}}>
         <SideBarHeader/>
       </div>
+      <Tooltip title='⌘+f'>
       <span
         onClick={() => this.props.switchToMenu(MENU.SEARCH)}
       >{this.buildTopItem('🔍 ', 'Quick Find')}</span>
+      </Tooltip>
       <span
         onClick={() => this.props.switchToMenu(MENU.SETTING)}
       >{this.buildTopItem('⚙️ ', 'Settings')}</span>
