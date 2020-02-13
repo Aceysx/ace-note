@@ -2,24 +2,22 @@ import React from 'react'
 import HeaderMenu from './header-menu'
 import {Badge, Divider, Icon} from 'antd'
 import GitPusher from './git-pusher'
+import '../../resources/css/title-bar.css'
 
 class TitleBar extends React.Component {
   render() {
     const {leftMenuVisible, menus, title, operateComponents} = this.props
     return <div className='title-bar-box'
                 style={{marginLeft: `${leftMenuVisible ? 0 : '70px'}`}}>
-      <span>
           <span className='title-icon'
                 onClick={() => this.props.changeLeftMenuVisible(!leftMenuVisible)}>
             {
               leftMenuVisible
-                ? <Icon type="double-left"/>
-                : <Icon type="double-right"/>
+                ? <span><Icon type="double-left"/></span>
+                : <span><Icon type="double-right"/></span>
             }
-
           </span>
-          <Divider type='vertical'/>
-        </span>
+      <Divider type='vertical'/>
 
       <HeaderMenu
         operateComponents={operateComponents}
