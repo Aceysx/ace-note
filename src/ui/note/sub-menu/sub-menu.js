@@ -44,18 +44,29 @@ class SubMenu extends React.Component {
   }
 
   updateFileName = () => {
+    let noteWorkspacePath = window.getNoteWorkspacePath()
     const {editedFileName} = this.state
-
     const {notesTags} = this.props
     const {old, now, type} = editedFileName
     if (File.name(old) !== now) {
       this.props.modifyFileName(old, now, type)
     }
+    const relativePath = old.split(noteWorkspacePath)[1]
     if (type === 'file') {
-      const _path = old.split(window.getNoteWorkspacePath())[1]
       this.props.updateNotesTags(
         window.getNoteTagsPath(),
-        NoteTagModel.updateNoteTagPath(_path, now, notesTags))
+        NoteTagModel.updateNoteTagPath(relativePath, now, notesTags))
+    }
+    if (type === 'dir') {
+      const parent = File.dir(relativePath)
+      const newPath = parent + '/' + now
+      this.props.updateNotesTags(
+        window.getNoteTagsPath(),
+        NoteTagModel.updateNoteTagDirPath(
+          relativePath,
+          newPath,
+          notesTags
+        ))
     }
   }
 
@@ -117,7 +128,7 @@ class SubMenu extends React.Component {
         />
       })
   }
-  
+
   render() {
     const {selectedDir} = this.props
     const subFiles = this.subFiles(selectedDir)
@@ -135,7 +146,7 @@ class SubMenu extends React.Component {
       </div>
       <div className='layout_right_content_layout_left_menu_bottom'>
         <Divider/>
-         {selectedDir.sub.length} items
+        {selectedDir.sub.length} items
       </div>
     </div>
   }

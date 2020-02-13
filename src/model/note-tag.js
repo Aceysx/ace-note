@@ -27,6 +27,14 @@ const NoteTagModel = {
     }
     return notesTags
   },
+  updateNoteTagDirPath: (oldPath, newPath, notesTags) => {
+    return notesTags.map(tag => {
+      if (tag.path.startsWith(oldPath)) {
+        return {...tag, path: tag.path.replace(oldPath, newPath)}
+      }
+      return tag
+    })
+  },
   exist: (_path, notesTags) => {
     return !!notesTags.find(item => item.path === _path)
   },

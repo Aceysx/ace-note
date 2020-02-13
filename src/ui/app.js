@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Empty, Layout } from 'antd'
-import { connect } from 'react-redux'
+import {Empty, Layout} from 'antd'
+import {connect} from 'react-redux'
 import FileResource from '../infrastructure/file-resource'
 import Note from './note/note'
 import Setting from './setting/setting'
@@ -9,12 +9,7 @@ import LeftMenu from './left-menu/left-menu'
 import SearchBar from './search-bar/search-bar'
 import MENU from './note/menu-item'
 import File from '../model/file'
-import {
-  SELECTED_DIR_STACK,
-  UPDATE_FILES,
-  UPDATE_NOTES_TAGS,
-  UPDATE_SELECTED_DIR
-} from '../redux/reducers/dispatch-command/commands'
+import {UPDATE_FILES, UPDATE_NOTES_TAGS, UPDATE_SELECTED_DIR} from '../redux/reducers/dispatch-command/commands'
 
 import '../resources/css/app.css'
 
@@ -28,7 +23,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { selectedDirStack } = this.props
     let workspace = window.getNoteWorkspacePath()
     if (!workspace) {
       workspace = this.initWorkspace()
