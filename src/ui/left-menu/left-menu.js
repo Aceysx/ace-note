@@ -38,7 +38,7 @@ export default class LeftMenu extends React.Component {
     const {leftMenu} = this.props
 
     return <div>
-      <div style={{height: 100, paddingTop: 10}}>
+      <div style={{height: 100}}>
         <SideBarHeader/>
       </div>
       <span

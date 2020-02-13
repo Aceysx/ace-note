@@ -8,7 +8,7 @@ class TitleBar extends React.Component {
   render() {
     const {leftMenuVisible, menus, title, operateComponents} = this.props
     return <div className='title-bar-box'
-                style={{marginLeft: `${leftMenuVisible ? 0 : '70px'}`}}>
+                style={{paddingLeft: `${leftMenuVisible ? 0 : '70px'}`}}>
           <span className='title-icon'
                 onClick={() => this.props.changeLeftMenuVisible(!leftMenuVisible)}>
             {
