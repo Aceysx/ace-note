@@ -17,7 +17,7 @@ class Note extends React.Component {
     if (this.props.selectedDir.path === nextProps.selectedDir.path) {
       return false
     }
-    this.props.updateStatus({subMenuVisible: false})
+    this.props.updateStatus({subMenuVisible: true})
   }
 
   modifyFileName = (oldPath, newFileName) => {

@@ -55,6 +55,7 @@ class App extends React.Component {
       this.setState({isSearchModalVisible: true})
       return
     }
+
     this.updateStatus({current})
   }
 
@@ -111,6 +112,7 @@ class App extends React.Component {
 
   updateStatus = data => {
     const {status} = this.props
+    console.log({...status},data)
     this.props.updateStatus({...status, ...data})
   }
 
