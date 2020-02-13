@@ -10,7 +10,7 @@ const {
   OPEN_DIR,
   PUSH_TO_REPO_FINISHED,
   PUSH_TO_REPO
-} = require('./listener-event')
+} = require('./constants/listener-event')
 const Files = require('./utils/files')
 const Git = require('./utils/git')
 const {ipcMain, dialog} = require('electron')
@@ -74,3 +74,5 @@ ipcMain.on(PUSH_TO_REPO, (event, workspace) => {
     event.sender.send(PUSH_TO_REPO_FINISHED, result)
   })
 })
+
+

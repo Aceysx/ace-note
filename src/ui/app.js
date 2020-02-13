@@ -15,6 +15,7 @@ import {
   UPDATE_SELECTED_DIR,
   UPDATE_STATUS
 } from '../redux/reducers/dispatch-command/commands'
+import registerShortcuts from '../infrastructure/shortcut-resource'
 
 import '../resources/css/app.css'
 
@@ -22,12 +23,16 @@ const {Sider, Content} = Layout
 
 class App extends React.Component {
   state = {
-    current: MENU.NOTE,
-    leftMenuVisible: true,
     isSearchModalVisible: false
   }
 
+  registerShortcuts = () => {
+    registerShortcuts.leftMenuVisible(() => this.updateStatus({leftMenuVisible: !this.props.status.leftMenuVisible}))
+    registerShortcuts.subMenuVisible(() => this.updateStatus({subMenuVisible: !this.props.status.subMenuVisible}))
+  }
+
   componentDidMount() {
+    this.registerShortcuts()
     let workspace = window.getNoteWorkspacePath()
     if (!workspace) {
       workspace = this.initWorkspace()
@@ -111,6 +116,7 @@ class App extends React.Component {
   }
 
   updateStatus = data => {
+    console.log(data)
     const {status} = this.props
     this.props.updateStatus({...status, ...data})
   }
