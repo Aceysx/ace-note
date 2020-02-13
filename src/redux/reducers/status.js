@@ -3,7 +3,8 @@ import MENU from '../../ui/note/menu-item'
 export default (state = {
   current: MENU.NOTE,
   leftMenuVisible: true,
-  subMenuVisible: true
+  subMenuVisible: true,
+  searchModalVisible:false
 }, action) => {
   if (action.type === 'UPDATE_STATUS') {
     return action.data

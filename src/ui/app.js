@@ -22,13 +22,10 @@ import '../resources/css/app.css'
 const {Sider, Content} = Layout
 
 class App extends React.Component {
-  state = {
-    isSearchModalVisible: false
-  }
-
   registerShortcuts = () => {
     registerShortcuts.leftMenuVisible(() => this.updateStatus({leftMenuVisible: !this.props.status.leftMenuVisible}))
     registerShortcuts.subMenuVisible(() => this.updateStatus({subMenuVisible: !this.props.status.subMenuVisible}))
+    registerShortcuts.searchModalVisible(() => this.updateStatus({searchModalVisible: !this.props.status.searchModalVisible}))
   }
 
   componentDidMount() {
@@ -57,7 +54,7 @@ class App extends React.Component {
 
   switchToMenu = current => {
     if (current === MENU.SEARCH) {
-      this.setState({isSearchModalVisible: true})
+      this.updateStatus({searchModalVisible: true})
       return
     }
 
@@ -116,15 +113,13 @@ class App extends React.Component {
   }
 
   updateStatus = data => {
-    console.log(data)
     const {status} = this.props
     this.props.updateStatus({...status, ...data})
   }
 
   render() {
-    const {isSearchModalVisible} = this.state
     const {leftMenu, selectedDir, notesTags, status} = this.props
-    const {current, leftMenuVisible} = status
+    const {current, leftMenuVisible, searchModalVisible} = status
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -173,9 +168,9 @@ class App extends React.Component {
         </Content>
       </Layout>
       <SearchBar
-        isSearchModalVisible={isSearchModalVisible}
+        searchModalVisible={searchModalVisible}
         searchFiles={this.searchFiles}
-        closeSearchModal={() => this.setState({isSearchModalVisible: false})}
+        closeSearchModal={() => this.updateStatus({searchModalVisible: false})}
       />
     </Layout>
   }

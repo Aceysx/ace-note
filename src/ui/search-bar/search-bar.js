@@ -3,7 +3,7 @@ import {Modal, Input, Icon} from 'antd'
 
 import '../../resources/css/search_bar.css'
 
-const SearchBar = ({isSearchModalVisible, searchFiles, closeSearchModal}) => {
+const SearchBar = ({searchModalVisible, searchFiles, closeSearchModal}) => {
   const validate = value => {
     if (value === '') {
       return
@@ -16,7 +16,7 @@ const SearchBar = ({isSearchModalVisible, searchFiles, closeSearchModal}) => {
     closable={false}
     destroyOnClose={true}
     footer={null}
-    visible={isSearchModalVisible}
+    visible={searchModalVisible}
     onCancel={closeSearchModal}
     width='50%'
     style={{marginTop: '10%', height: 100}}

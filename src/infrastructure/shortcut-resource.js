@@ -13,6 +13,9 @@ const registerShortcuts = {
   subMenuVisible: event => {
     register(SHORTCUTS.SWITCH_SUB_MENU_VISIBLE_CMD, event)
   },
+  searchModalVisible: event => {
+    register(SHORTCUTS.SWITCH_SEARCH_BAR_VISIBLE_CMD, event)
+  }
 }
 
 export default registerShortcuts
