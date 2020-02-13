@@ -10,7 +10,7 @@ class TitleBar extends React.Component {
     return <div className='title-bar-box'
                 style={{paddingLeft: `${leftMenuVisible ? 0 : '70px'}`}}>
           <span className='title-icon'
-                onClick={() => this.props.changeLeftMenuVisible(!leftMenuVisible)}>
+                onClick={() => this.props.changeLeftMenuVisible({leftMenuVisible: !leftMenuVisible})}>
             {
               leftMenuVisible
                 ? <span><Icon type="double-left"/></span>

@@ -9,11 +9,16 @@ import LeftMenu from './left-menu/left-menu'
 import SearchBar from './search-bar/search-bar'
 import MENU from './note/menu-item'
 import File from '../model/file'
-import {UPDATE_FILES, UPDATE_NOTES_TAGS, UPDATE_SELECTED_DIR} from '../redux/reducers/dispatch-command/commands'
+import {
+  UPDATE_FILES,
+  UPDATE_NOTES_TAGS,
+  UPDATE_SELECTED_DIR,
+  UPDATE_STATUS
+} from '../redux/reducers/dispatch-command/commands'
 
 import '../resources/css/app.css'
 
-const { Sider, Content } = Layout
+const {Sider, Content} = Layout
 
 class App extends React.Component {
   state = {
@@ -32,7 +37,7 @@ class App extends React.Component {
   }
 
   updateNotesTags = (path, notesTags) => {
-    FileResource.modifyFileContent({ path, content: JSON.stringify(notesTags) })
+    FileResource.modifyFileContent({path, content: JSON.stringify(notesTags)})
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
   }
 
@@ -47,10 +52,10 @@ class App extends React.Component {
 
   switchToMenu = current => {
     if (current === MENU.SEARCH) {
-      this.setState({ isSearchModalVisible: true })
+      this.setState({isSearchModalVisible: true})
       return
     }
-    this.setState({ current })
+    this.updateStatus({current})
   }
 
   pushToRepo = (workspace) => {
@@ -80,7 +85,7 @@ class App extends React.Component {
   }
 
   _searchByTitleOrTag = content => {
-    const { leftMenu, notesTags } = this.props
+    const {leftMenu, notesTags} = this.props
     const allFiles = this._formatAllFiles(leftMenu.sub)
     const inFilesPath = allFiles.filter(file => {
       return File.name(file.path).includes(content)
@@ -104,9 +109,15 @@ class App extends React.Component {
     return files
   }
 
+  updateStatus = data => {
+    const {status} = this.props
+    this.props.updateStatus({...status, ...data})
+  }
+
   render() {
-    const { current, leftMenuVisible, isSearchModalVisible } = this.state
-    const { leftMenu, selectedDir, notesTags } = this.props
+    const {isSearchModalVisible} = this.state
+    const {leftMenu, selectedDir, notesTags, status} = this.props
+    const {current, leftMenuVisible} = status
     return <Layout className='layout'>
       <Sider
         className='layout_left_sider'
@@ -114,7 +125,6 @@ class App extends React.Component {
         theme='light'
       >
         <LeftMenu
-          changeLeftMenuVisible={leftMenuVisible => this.setState({ leftMenuVisible })}
           switchToMenu={this.switchToMenu}
           leftMenu={leftMenu}
           updateMenu={this.updateSelectedDir}
@@ -127,7 +137,8 @@ class App extends React.Component {
               ? <Note
                 pushToRepo={this.pushToRepo}
                 leftMenuVisible={leftMenuVisible}
-                changeLeftMenuVisible={leftMenuVisible => this.setState({ leftMenuVisible })}
+                updateStatus={this.updateStatus}
+                status={status}
                 leftMenu={leftMenu}
                 updateNotesTags={this.updateNotesTags}
                 notesTags={notesTags}
@@ -147,8 +158,8 @@ class App extends React.Component {
           }
           {
             this.isEmpty(current, selectedDir)
-              ? <div style={{ margin: '50%' }}>
-                <Empty description={false} />
+              ? <div style={{margin: '50%'}}>
+                <Empty description={false}/>
               </div>
               : ''
           }
@@ -157,7 +168,7 @@ class App extends React.Component {
       <SearchBar
         isSearchModalVisible={isSearchModalVisible}
         searchFiles={this.searchFiles}
-        closeSearchModal={() => this.setState({ isSearchModalVisible: false })}
+        closeSearchModal={() => this.setState({isSearchModalVisible: false})}
       />
     </Layout>
   }
@@ -167,15 +178,18 @@ const mapDispatchToProps = dispatch => ({
   updateDirs: dirs => dispatch(UPDATE_FILES(dirs)),
   updateNotesTags: noteTags => dispatch(UPDATE_NOTES_TAGS(noteTags)),
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir)),
+  updateStatus: status => dispatch(UPDATE_STATUS(status)),
 })
 
 const mapStateToProps = ({
+                           leftMenu,
+                           selectedDir,
+                           notesTags,
+                           status
+                         }) => ({
   leftMenu,
   selectedDir,
-  notesTags
-}) => ({
-  leftMenu,
-  selectedDir,
-  notesTags
+  notesTags,
+  status
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

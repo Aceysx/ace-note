@@ -1,10 +1,10 @@
 import React from 'react'
 import {Icon} from 'antd'
 
-const FoldSubMenuButton = ({changeSubMenuFold}) => {
+const FoldSubMenuButton = ({changeSubMenuVisible}) => {
 
   return <span className='title-bar-menu-item'
-               onClick={changeSubMenuFold}>
+               onClick={changeSubMenuVisible}>
           <Icon type="border-horizontal"/>
         </span>
 }

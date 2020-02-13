@@ -13,15 +13,11 @@ import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/c
 import MENU from '../note/menu-item'
 
 class Note extends React.Component {
-  state = {
-    isSubMenuFold: false
-  }
-
   componentWillReceiveProps = nextProps => {
     if (this.props.selectedDir.path === nextProps.selectedDir.path) {
       return false
     }
-    this.setState({isSubMenuFold: false})
+    this.props.updateStatus({subMenuVisible: false})
   }
 
   modifyFileName = (oldPath, newFileName) => {
@@ -83,15 +79,6 @@ class Note extends React.Component {
 
   }
 
-  changeLeftMenuVisible = () => {
-    this.props.changeLeftMenuVisible()
-    if (this.props.leftMenuVisible) {
-      this.setState({isSubMenuFold: true})
-    } else {
-      this.setState({isSubMenuFold: false})
-    }
-  }
-
   _exist = fileName => {
     return this.props.selectedDir.sub.filter(file => {
       return File.name(file.path) === fileName
@@ -124,21 +111,21 @@ class Note extends React.Component {
   render() {
     const {
       selectedDir, currentEditFile,
-      notesTags, updateNotesTags, leftMenuVisible
+      notesTags, updateNotesTags, leftMenuVisible, status
     } = this.props
-    const {isSubMenuFold} = this.state
+    const {subMenuVisible} = status
 
     return <div>
       <TitleBar
         title='📒NoteBook'
         leftMenuVisible={leftMenuVisible}
         menus={this.formatMenus(selectedDir)}
-        changeLeftMenuVisible={this.props.changeLeftMenuVisible}
+        changeLeftMenuVisible={this.props.updateStatus}
         onClickMenuItem={this.updateSelectedDir}
         pushToRepo={this.props.pushToRepo}
         operateComponents={[
           <FoldSubMenuButton
-            changeSubMenuFold={() => this.setState({isSubMenuFold: !isSubMenuFold})}
+            changeSubMenuVisible={() => this.props.updateStatus({subMenuVisible: !subMenuVisible})}
           />,
           <FileCreatorButton
             createFileOrDir={this.createFileOrDir}
@@ -149,9 +136,8 @@ class Note extends React.Component {
 
       <div style={{height: 35}}></div>
       {
-        isSubMenuFold
-          ? ''
-          : <SubMenu
+        subMenuVisible
+          ? <SubMenu
             modifyFileName={this.modifyFileName}
             deleteFileOrDir={this.deleteFileOrDir}
             currentEditFile={currentEditFile}
@@ -161,6 +147,7 @@ class Note extends React.Component {
             updateSelectedDir={this.updateSelectedDir}
             selectedDir={selectedDir}
           />
+          : ''
       }
       <div className={`layout_right_content_layout_right_content_markdown `}>
         {
