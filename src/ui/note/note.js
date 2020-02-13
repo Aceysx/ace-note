@@ -171,10 +171,10 @@ class Note extends React.Component {
                         modifyFileName={this.modifyFileName}
                         updateNotesTags={updateNotesTags}
             />
-            : <div style={{margin: '50%'}}>
-              <Empty
-                description={false}/>
-            </div>
+            :
+            <Empty
+              style={{marginTop: 300}}
+              description={false}/>
         }
       </div>
     </div>
