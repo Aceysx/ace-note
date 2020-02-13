@@ -1,7 +1,7 @@
 const {app, BrowserWindow, globalShortcut} = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
-const SHORTCUTS = require('../src/model/shortcuts')
+const SHORTCUTS = require('./main-process/constants/shortcuts')
 require('./main-process/listener')
 let win
 
