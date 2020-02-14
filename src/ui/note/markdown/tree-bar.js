@@ -28,6 +28,14 @@ const TreeBar = ({content, turnTo}) => {
 
   const tree = convert(content)
   return <span className='markdown-tree-bar'>
+    <span style={{
+      fontSize: 12,
+      display:'block',
+      marginBottom:5,
+      fontWeight:'bold',
+      fontStyle: 'italic',
+      color: 'rgba(25, 23, 17, 0.8)'
+    }}>outline</span>
     {tree.length
       ?
       tree.map(item => {

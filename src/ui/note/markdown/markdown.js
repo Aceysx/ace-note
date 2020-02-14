@@ -163,7 +163,7 @@ export default class Markdown extends React.Component {
             width: 200,
             shapeOutside: 'none',
             float: 'left',
-            marginTop: 90,
+            marginTop: 80,
             height: '100px'
           }}>
             <TreeBar content={content}

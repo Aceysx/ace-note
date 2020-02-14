@@ -67,6 +67,7 @@
     display: block;
     padding-bottom: 5px;
     position: relative;
+    color: rgba(25, 23, 17, 0.5)
 }
 
 .markdown-outline-item:hover {
