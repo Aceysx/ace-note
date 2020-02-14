@@ -7,6 +7,7 @@ import 'codemirror/mode/clike/clike'
 import File from '../../../model/file'
 import NoteTag from './note-tag'
 import NoteTagModel from '../../../model/note-tag'
+import TreeBar from "./tree-bar"
 
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
@@ -18,7 +19,9 @@ export default class Markdown extends React.Component {
   state = {
     mdRef: React.createRef(),
     changedPath: '',
-    isContentChanged: false
+    isContentChanged: false,
+    content: '',
+    outlineVisible: false
   }
 
   componentDidMount() {
@@ -35,6 +38,7 @@ export default class Markdown extends React.Component {
       })
       md.on('change', (instance, target) => {
         const {file} = this.props
+        this.setState({content: md.getValue()})
         if (target.origin !== 'setValue') {
           const isContentChanged = instance.getValue() !== file.content;
           this.setState({isContentChanged})
@@ -61,6 +65,7 @@ export default class Markdown extends React.Component {
   }
 
   _updateMarkdownContent = data => {
+    this.setState({content: data})
     try {
       md.setValue(data)
     } catch (e) {
@@ -107,8 +112,9 @@ export default class Markdown extends React.Component {
   }
 
   render() {
-    const {mdRef, changedPath} = this.state
+    const {mdRef, changedPath, content, outlineVisible} = this.state
     const {notesTags, file} = this.props
+
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
         <Row>
@@ -124,11 +130,10 @@ export default class Markdown extends React.Component {
 
         <div className='markdown_box_bar'>
           <div className='markdown_box_tag'>
-            <Icon type="tags" style={{
-              display: 'inline-block',
-              fontSize: 16,
-              marginLeft: '10px'
-            }}/>
+            <Icon type='ordered-list'
+                  className='markdown_box_tag_item cursor_pointer'
+                  onClick={() => this.setState({outlineVisible: !outlineVisible})}/>
+            <Icon type="tags" className='markdown_box_tag_item'/>
             <NoteTag
               currentNoteTags={this.findCurrentNoteTags(file, notesTags)}
               updateNoteTags={this.updateNoteTags}
@@ -147,11 +152,26 @@ export default class Markdown extends React.Component {
           </span>
               : ''
           }
+            <span>
+          </span>
         </span>
         </div>
       </div>
 
       <div style={{height: 90}}></div>
+      {
+        outlineVisible
+          ? <div style={{
+            width: 200,
+            shapeOutside: 'none',
+            float: 'left',
+            height:'100px'
+          }}>
+            <TreeBar content={content}/>
+          </div>
+          : ''
+      }
+
       <textarea
         ref={mdRef}/>
     </div>

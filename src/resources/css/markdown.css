@@ -30,6 +30,12 @@
     display: inline-block;
 }
 
+.markdown_box_tag_item {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
 .markdown_box_tag .ant-select-selection {
     border: none;
     background: none;
@@ -39,4 +45,48 @@
     font-style: italic;
     margin-left: 10px;
     font-size: 13px;
+}
+
+.markdown-tree-bar {
+    padding: 5px;
+    border-right: 1px solid #f8f6f1;
+    width: 200px;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1000;
+    background: white;
+    position: fixed;
+}
+
+.markdown-outline-item {
+    height: 25px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.markdown-outline-item:hover {
+    background: #f8f6f1;
+    border-radius: 5px;
+}
+
+.markdown-outline-item::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #b7906b;
+    transform-origin: bottom right;
+    transition: transform 0.5s ease-out;
+}
+
+.markdown-outline-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
