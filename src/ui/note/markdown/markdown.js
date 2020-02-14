@@ -21,7 +21,7 @@ export default class Markdown extends React.Component {
     changedPath: '',
     isContentChanged: false,
     content: '',
-    outlineVisible: false
+    outlineVisible: true
   }
 
   componentDidMount() {
@@ -47,7 +47,6 @@ export default class Markdown extends React.Component {
       md.on('blur', () => {
         this.modifyFileContent()
       })
-
       this._updateMarkdownContent(file.content)
     })
   }
@@ -158,16 +157,26 @@ export default class Markdown extends React.Component {
         </div>
       </div>
 
-      <div style={{height: 90}}></div>
       {
         outlineVisible
           ? <div style={{
             width: 200,
             shapeOutside: 'none',
             float: 'left',
-            height:'100px'
+            marginTop: 90,
+            height: '100px'
           }}>
-            <TreeBar content={content}/>
+            <TreeBar content={content}
+                     turnTo={line => {
+                       const {layer, origin} = line
+                       const doms = window.document.querySelectorAll(`.HyperMD-header-${layer}`)
+                       for (const dom of doms) {
+                         if (dom.textContent === origin) {
+                           dom.scrollIntoView()
+                           dom.style.paddingTop = '140px'
+                         }
+                       }
+                     }}/>
           </div>
           : ''
       }

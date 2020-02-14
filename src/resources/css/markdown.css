@@ -43,8 +43,9 @@
 
 .markdown_bottom_tool_record {
     font-style: italic;
+    text-decoration: underline;
     margin-left: 10px;
-    font-size: 13px;
+    font-size: 10px;
 }
 
 .markdown-tree-bar {

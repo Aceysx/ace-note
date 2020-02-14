@@ -149,7 +149,6 @@ class Note extends React.Component {
           />
           : ''
       }
-      <div className={`layout_right_content_layout_right_content_markdown `}>
         {
           currentEditFile.path
             ? <Markdown file={currentEditFile}
@@ -163,7 +162,6 @@ class Note extends React.Component {
               style={{marginTop: 300}}
               description={false}/>
         }
-      </div>
     </div>
   }
 }
