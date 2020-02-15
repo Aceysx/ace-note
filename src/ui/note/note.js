@@ -111,9 +111,9 @@ class Note extends React.Component {
   render() {
     const {
       selectedDir, currentEditFile,
-      notesTags, updateNotesTags, leftMenuVisible, status
+      notesTags, updateNotesTags, status
     } = this.props
-    const {subMenuVisible} = status
+    const {subMenuVisible, leftMenuVisible} = status
 
     return <div>
       <TitleBar
@@ -149,20 +149,20 @@ class Note extends React.Component {
           />
           : ''
       }
-        {
-          currentEditFile.path
-            ? <Markdown file={currentEditFile}
-                        status={status}
-                        notesTags={notesTags}
-                        modifyFileContent={this.modifyFileContent}
-                        modifyFileName={this.modifyFileName}
-                        updateNotesTags={updateNotesTags}
-            />
-            :
-            <Empty
-              style={{marginTop: 300}}
-              description={false}/>
-        }
+      {
+        currentEditFile.path
+          ? <Markdown file={currentEditFile}
+                      status={status}
+                      notesTags={notesTags}
+                      modifyFileContent={this.modifyFileContent}
+                      modifyFileName={this.modifyFileName}
+                      updateNotesTags={updateNotesTags}
+          />
+          :
+          <Empty
+            style={{marginTop: 300}}
+            description={false}/>
+      }
     </div>
   }
 }
