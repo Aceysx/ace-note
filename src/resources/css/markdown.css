@@ -7,8 +7,8 @@
 
 .markdown_box_content {
     position: fixed;
-    overflow-y: scroll;
     height: 100%;
+    width: auto;
     top: 120px;
 }
 
