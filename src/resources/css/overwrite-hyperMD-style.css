@@ -4,7 +4,7 @@
 }
 
 .CodeMirror-vscrollbar {
-    width: 0px!important;
+    width: 0px !important;
 }
 
 .CodeMirror-gutters {
@@ -13,4 +13,9 @@
 
 .CodeMirror-code {
     min-height: 1000px;
+}
+
+.cm-s-hypermd-light img.hmd-image {
+    max-height: 500px !important;
+    display: block;
 }
