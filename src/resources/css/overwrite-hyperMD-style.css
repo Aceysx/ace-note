@@ -2,7 +2,6 @@
 .CodeMirror {
     height: 100% !important;
     overflow: scroll !important;
-    margin-top: 90px !important;
 }
 
 .CodeMirror-gutters {

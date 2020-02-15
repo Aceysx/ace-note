@@ -5,6 +5,13 @@
     font-weight: 600;
 }
 
+.markdown_box_content {
+    position: fixed;
+    overflow-y: scroll;
+    height: 100%;
+    top: 120px;
+}
+
 .markdown_box_bar {
     margin-top: -10px;
     height: 30px;

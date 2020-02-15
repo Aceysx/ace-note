@@ -173,16 +173,23 @@ export default class Markdown extends React.Component {
                        for (const dom of doms) {
                          if (dom.textContent === origin) {
                            dom.scrollIntoView()
-                           dom.style.paddingTop = '140px'
                          }
                        }
                      }}/>
           </div>
           : ''
       }
-
+      <div className='markdown_box_content'
+           style={{
+             marginLeft: `${
+               outlineVisible
+                 ? 200
+                 : 0}px`
+           }}>
       <textarea
         ref={mdRef}/>
+      </div>
+
     </div>
   }
 }
