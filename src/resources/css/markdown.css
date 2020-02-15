@@ -6,9 +6,10 @@
 }
 
 .markdown_box_content {
+    padding-bottom: 120px;
     position: fixed;
     height: 100%;
-    width: auto;
+    width: 100%;
     top: 120px;
 }
 

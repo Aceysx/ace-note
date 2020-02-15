@@ -110,6 +110,15 @@ export default class Markdown extends React.Component {
     this.props.updateNotesTags(window.getNoteTagsPath(), NoteTagModel.updateNoteTags(path, notesTags, tags))
   }
 
+  calculate = () => {
+    const {status: {leftMenuVisible, subMenuVisible}} = this.props
+    const {outlineVisible} = this.state
+
+    return (leftMenuVisible ? 200 : 0) +
+      (subMenuVisible ? 230 : 0) +
+      (outlineVisible ? 200 : 0)
+  }
+
   render() {
     const {mdRef, changedPath, content, outlineVisible} = this.state
     const {notesTags, file} = this.props
@@ -184,7 +193,10 @@ export default class Markdown extends React.Component {
              marginLeft: `${
                outlineVisible
                  ? 200
-                 : 0}px`
+                 : 0}px`,
+             paddingRight: `${
+               this.calculate()
+             }px`
            }}>
       <textarea
         ref={mdRef}/>

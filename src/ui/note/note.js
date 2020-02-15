@@ -152,6 +152,7 @@ class Note extends React.Component {
         {
           currentEditFile.path
             ? <Markdown file={currentEditFile}
+                        status={status}
                         notesTags={notesTags}
                         modifyFileContent={this.modifyFileContent}
                         modifyFileName={this.modifyFileName}
