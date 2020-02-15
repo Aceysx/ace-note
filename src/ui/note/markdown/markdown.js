@@ -21,7 +21,7 @@ export default class Markdown extends React.Component {
     changedPath: '',
     isContentChanged: false,
     content: '',
-    outlineVisible: true
+    outlineVisible: false
   }
 
   componentDidMount() {
