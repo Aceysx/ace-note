@@ -106,6 +106,7 @@ class Note extends React.Component {
   updateSelectedDir = _path => {
     this.props.updateCurrentEditFile({})
     this.props.updateSelectedDir(_path)
+    this.props.updateStatus({subMenuVisible: true})
   }
 
   render() {
