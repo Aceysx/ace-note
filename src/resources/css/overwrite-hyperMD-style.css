@@ -19,3 +19,6 @@
     max-height: 500px !important;
     display: block;
 }
+.CodeMirror-foldgutter{
+    width: 0px!important;
+}

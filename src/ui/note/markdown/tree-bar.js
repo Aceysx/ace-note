@@ -1,5 +1,5 @@
 import React from "react"
-import {Empty} from "antd";
+import {Empty, Tooltip} from "antd";
 
 const TITLE = [
   {layer: 1, start: '# '},
@@ -30,20 +30,23 @@ const TreeBar = ({content, turnTo}) => {
   return <span className='markdown-tree-bar'>
     <span style={{
       fontSize: 12,
-      display:'block',
-      marginBottom:5,
-      fontWeight:'bold',
+      display: 'block',
+      marginBottom: 5,
+      fontWeight: 'bold',
       fontStyle: 'italic',
       color: 'rgba(25, 23, 17, 0.8)'
     }}>outline</span>
     {tree.length
       ?
       tree.map(item => {
-        return <span className='markdown-outline-item'
-                     onClick={() => turnTo(item)}
-                     style={{
-                       paddingLeft: `${5 * item.layer}px`
-                     }}>{item.content}</span>
+        return <Tooltip title={item.content} placement='rightTop'>
+        <span className='markdown-outline-item'
+              onClick={() => turnTo(item)}
+              style={{
+                paddingLeft: `${8 * item.layer}px`,
+                opacity: `${(1 - (2 + item.layer) / 10) < 0.5 ? 0.5 :(1 - (2 + item.layer) / 10)}`
+              }}>{item.content}</span>
+        </Tooltip>
       })
       : <Empty/>
     }
