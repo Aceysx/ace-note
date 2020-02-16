@@ -43,8 +43,8 @@ const TreeBar = ({content, turnTo}) => {
         <span className='markdown-outline-item'
               onClick={() => turnTo(item)}
               style={{
-                paddingLeft: `${8 * item.layer}px`,
-                opacity: `${(1 - (2 + item.layer) / 10) < 0.5 ? 0.5 :(1 - (2 + item.layer) / 10)}`
+                paddingLeft: `${8 * (item.layer - 1)}px`,
+                opacity: `${(1 - (2 + item.layer) / 10) < 0.5 ? 0.5 : (1 - (2 + item.layer) / 10)}`
               }}>{item.content}</span>
         </Tooltip>
       })
