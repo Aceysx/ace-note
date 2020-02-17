@@ -12,7 +12,7 @@ const listFilesDeep = (filePath, result) => {
     .forEach(item => {
       const _path = filePath + '/' + item
       const file = fs.statSync(_path)
-      let temp = {mtime: file.ctime, ctime: file.mtime, path: _path, type: file.isFile() ? 'file' : 'dir'};
+      let temp = {mtime: file.mtime, ctime: file.birthtime, path: _path, type: file.isFile() ? 'file' : 'dir'};
       if (_notFilterFile(temp)) {
         result.push(temp)
       }
@@ -29,8 +29,8 @@ const listFiles = filePath => {
       const _path = filePath + '/' + item
       const file = fs.statSync(_path)
       return {
-        mtime: file.ctime,
-        ctime: file.mtime,
+        mtime: file.mtime,
+        ctime: file.birthtime,
         path: _path,
         type: file.isFile() ? 'file' : 'dir',
         sub: []
@@ -60,14 +60,14 @@ const deleteDir = url => {
 const Files = {
   listFilesDeep: _path => {
     const file = fs.statSync(_path)
-    const dirs = {path: _path, mtime: file.mtime, sub: [], type: file.isFile() ? 'file' : 'dir'}
+    const dirs = {path: _path, ctime: file.birthtime, sub: [], type: file.isFile() ? 'file' : 'dir'}
     listFilesDeep(_path, dirs.sub)
     return dirs
   },
   listFiles: _path => {
     const file = fs.statSync(_path)
     return {
-      path: _path, mtime: file.mtime, sub: listFiles(_path),
+      path: _path, ctime: file.birthtime, sub: listFiles(_path),
       type: file.isFile() ? 'file' : 'dir'
     }
   },
@@ -80,7 +80,7 @@ const Files = {
     return {
       path: _path,
       mtime: file.mtime,
-      ctime: file.ctime,
+      ctime: file.birthtime,
       type: 'file',
       content: fs.readFileSync(_path, 'utf-8')
     }
