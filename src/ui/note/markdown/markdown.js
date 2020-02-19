@@ -153,7 +153,7 @@ export default class Markdown extends React.Component {
               ? <span>
                 <span className='markdown_bottom_tool_record'>
                   Words {md.getValue()
-                  ? md.getValue().match(/[\u4E00-\u9FA5]/g).length
+                  ? (md.getValue().match(/[\u4E00-\u9FA5]/g) || '').length
                   : ''}
                 </span>
                 <span className='markdown_bottom_tool_record'>
