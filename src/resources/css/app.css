@@ -1,5 +1,5 @@
-*{
-    font-family: "Open Sans","Microsoft YaHei","Hiragino Sans GB","Hiragino Sans GB W3","微软雅黑","Helvetica Neue",Arial,sans-serif;
+* {
+    font-family: "Open Sans", "Microsoft YaHei", "Hiragino Sans GB", "Hiragino Sans GB W3", "微软雅黑", "Helvetica Neue", Arial, sans-serif;
 }
 
 .layout {
@@ -16,6 +16,10 @@
     flex: none !important;
     width: 210px !important;
     max-width: 210px !important;
+}
+
+.layout_left_sider::-webkit-scrollbar {
+    width: 0px;
 }
 
 .layout_right_content_layout {
