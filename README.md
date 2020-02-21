@@ -22,7 +22,7 @@ AceNote is a customized personal note system. You can open your local directory 
 [AceNote v1.1.0](https://github.com/Aceysx/ace-note/releases)
 
 ## Screenshot
-![UTOOLS1582280893498.png](https://user-gold-cdn.xitu.io/2020/2/21/170674a6a1220a06?w=3000&h=1874&f=png&s=403966)
+![UTOOLS1582281300384.png](https://user-gold-cdn.xitu.io/2020/2/21/17067509e5d22251?w=3000&h=1874&f=png&s=433758)
 
 ## Local Development
 1. git clone https://github.com/Aceysx/ace-note.git
