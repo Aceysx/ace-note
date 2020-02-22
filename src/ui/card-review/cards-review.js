@@ -83,8 +83,12 @@ class CardsReview extends React.Component {
           onSelect={this.onSelect}
           onPanelChange={this.onPanelChange}/>
       </div>
+
       <div className='cards-review-bottom'
-           style={{height: `${bottomVisible ? 200 : 20}px`}}>
+           style={{
+             height: `${bottomVisible ? 200 : 20}px`,
+             paddingRight: `${leftMenuVisible ? 215 : 0}px`
+           }}>
         <div className='cards-review-bottom-visible-icon cursor_pointer'
              onClick={() => this.setState({bottomVisible: !bottomVisible})}>
           <span style={{float: 'left'}}>

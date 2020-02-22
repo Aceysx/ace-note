@@ -7,7 +7,7 @@
 .cards-review-bottom {
     border: 1px solid gray;
     transition:height .5s ease-in;
-    position: fixed;
+    position: absolute;
     z-index: 10;
     background: white;
     bottom: 0;
@@ -29,7 +29,6 @@
     width: 250px;
     height: 160px;
     margin: 10px 5px 5px 5px;
-    border: 1px solid red;
 }
 .cards-review-bottom-card-item header span{
     display: inline-block;
