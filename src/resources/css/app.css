@@ -11,13 +11,21 @@
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    white-space: nowrap;
     padding: 0 5px;
     background: #f9f7f3;
     flex: none !important;
-    width: 210px !important;
+    min-width: 0px!important;
     max-width: 210px !important;
+    transition: width 100ms ease-in;
+}
+.layout_left_sider_hide{
+    width: 0px!important;
 }
 
+.layout_left_sider_display {
+    width: 210px !important;
+}
 .layout_left_sider::-webkit-scrollbar {
     width: 0px;
 }

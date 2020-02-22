@@ -123,8 +123,7 @@ class App extends React.Component {
     const {current, leftMenuVisible, searchModalVisible} = status
     return <Layout className='layout'>
       <Sider
-        className='layout_left_sider'
-        hidden={!leftMenuVisible}
+        className={`layout_left_sider ${leftMenuVisible ? 'layout_left_sider_display' : 'layout_left_sider_hide'}`}
         theme='light'
       >
         <LeftMenu
