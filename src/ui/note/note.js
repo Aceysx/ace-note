@@ -118,7 +118,7 @@ class Note extends React.Component {
 
     return <div>
       <TitleBar
-        title='📒NoteBook'
+        title='📔NoteBook'
         leftMenuVisible={leftMenuVisible}
         menus={this.formatMenus(selectedDir)}
         changeLeftMenuVisible={this.props.updateStatus}

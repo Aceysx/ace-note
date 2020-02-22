@@ -28,10 +28,12 @@ export default class LeftMenu extends React.Component {
   buildTopItem = (icon, title) => {
     return <span style={{
       display: 'block',
-      margin: '5px 0 10px 10px',
-      fontWeight: 700,
-      color: 'rgba(25, 23, 17, 0.5)'
-    }}>{icon} {title}</span>
+      margin: '5px 0 5px 10px',
+    }}>
+      <span style={{fontSize: 18}}>{icon}</span>
+      <span style={{fontWeight: 700, color: 'rgba(25, 23, 17, 0.5)'}}>
+      {title}
+    </span></span>
   }
 
   render() {
@@ -43,12 +45,18 @@ export default class LeftMenu extends React.Component {
       </div>
       <Tooltip title='⌘+f'>
       <span
-        onClick={() => this.props.switchToMenu(MENU.SEARCH)}
-      >{this.buildTopItem('🔍 ', 'Quick Find')}</span>
+        onClick={() => this.props.switchToMenu(MENU.SEARCH)}>
+        {this.buildTopItem('🔍 ', MENU.SEARCH)}
+      </span>
       </Tooltip>
       <span
-        onClick={() => this.props.switchToMenu(MENU.SETTING)}
-      >{this.buildTopItem('⚙️ ', 'Settings')}</span>
+        onClick={() => this.props.switchToMenu(MENU.SETTING)}>
+        {this.buildTopItem('⚙️ ', MENU.SETTING)}
+      </span>
+      <span
+        onClick={() => this.props.switchToMenu(MENU.CardsReview)}>
+        {this.buildTopItem(' 📑️ ', MENU.CardsReview)}
+      </span>
 
       {
         leftMenu.path
@@ -59,7 +67,7 @@ export default class LeftMenu extends React.Component {
                 this.props.switchToMenu(MENU.note)
                 this.props.updateMenu(leftMenu.path)
               }}
-            >{this.buildTopItem('📒 ', 'Notebook')}</span>
+            >{this.buildTopItem('📔 ', 'Notebook')}</span>
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
               onSelect={this.onSelect}>

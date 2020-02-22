@@ -1,8 +1,9 @@
 const MENU = {
   NONE: 'none',
   NOTE: 'note',
-  SETTING: 'setting',
-  SEARCH: 'search',
+  SETTING: 'Settings',
+  SEARCH: 'Quick Find',
+  CardsReview: 'Cards Review',
   SEARCH_RESULT: 'Search Result'
 }
 
