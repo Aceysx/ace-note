@@ -6,7 +6,7 @@ import '../../resources/css/title-bar.css'
 
 class TitleBar extends React.Component {
   render() {
-    const {leftMenuVisible, menus, title, operateComponents} = this.props
+    const {leftMenuVisible, menus = [], title, operateComponents = []} = this.props
     return <div className='title-bar-box'
                 style={{paddingLeft: `${leftMenuVisible ? 0 : '70px'}`}}>
           <span className='title-icon'

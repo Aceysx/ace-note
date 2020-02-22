@@ -18,6 +18,7 @@ import {
 import registerShortcuts from '../infrastructure/shortcut-resource'
 
 import '../resources/css/app.css'
+import CardsReview from "./card-review/cards-review";
 
 const {Sider, Content} = Layout
 
@@ -155,6 +156,15 @@ class App extends React.Component {
               ? <Setting
                 resetWorkspace={this.resetWorkspace}
                 workspace={leftMenu.path}
+              />
+              : ''
+          }
+          {
+            current === MENU.CARDS_REVIEW
+              ? <CardsReview
+                pushToRepo={this.pushToRepo}
+                leftMenuVisible={leftMenuVisible}
+                updateStatus={this.updateStatus}
               />
               : ''
           }

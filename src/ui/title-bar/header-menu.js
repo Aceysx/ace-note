@@ -10,15 +10,9 @@ const HeaderMenu = ({title, menus, operateComponents = [], onClickMenuItem}) => 
     {
       operateComponents
     }
-    <span>
-      <span style={{fontWeight: '600'}}
-            className='title-bar-menu-item'
-            onClick={() => onClickMenuItem(window.getNoteWorkspacePath())}>
+    <span style={{fontWeight: '600'}}>
         {title}
       </span>
-       /
-    </span>
-
     {
       menus.map((item, index) => {
         return <span>
