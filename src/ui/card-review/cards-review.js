@@ -1,7 +1,7 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
 import moment from "moment"
-import {Calendar, Drawer, Icon} from "antd";
+import {Calendar, Card, Divider, Drawer, Icon, Tag} from "antd";
 
 import '../../resources/css/cards-review.css'
 
@@ -26,7 +26,7 @@ const data = [
 
 class CardsReview extends React.Component {
   state = {
-    bottomVisible: false,
+    bottomVisible: true,
     current: moment(new Date().getTime())
   }
 
@@ -59,7 +59,9 @@ class CardsReview extends React.Component {
 
   getNeedReviewCards = () => {
     const {current} = this.state
-    return data.filter(item => moment(item.nextReviewTime).isSame(current, 'day'))
+    console.log(data)
+    return [...data, ...data, ...data]
+    // data.filter(item => moment(item.nextReviewTime).isSame(current, 'day'))
   }
 
   render() {
@@ -71,7 +73,7 @@ class CardsReview extends React.Component {
         leftMenuVisible={leftMenuVisible}
         changeLeftMenuVisible={this.props.updateStatus}
         pushToRepo={this.props.pushToRepo}/>
-      <div style={{height: 35}}></div>
+      <div style={{height: 35}}/>
 
       <div className='cards-review-body'>
         <Calendar
@@ -85,16 +87,41 @@ class CardsReview extends React.Component {
            style={{height: `${bottomVisible ? 200 : 20}px`}}>
         <div className='cards-review-bottom-visible-icon cursor_pointer'
              onClick={() => this.setState({bottomVisible: !bottomVisible})}>
+          <span style={{float: 'left'}}>
+          💔 ❣️ 💘 💖 🕳
+            </span>
           <Icon type={
             bottomVisible
               ? 'vertical-align-bottom'
               : 'vertical-align-top'}/>
         </div>
 
-        <div>
+        <div className='cards-review-bottom-item-box'>
           {
             this.getNeedReviewCards().map(item => {
-              return <span>{item.path}</span>
+              return <Card
+                className='cards-review-bottom-card-item'
+                hoverable>
+                <header>
+                  <span style={{borderBottom: '2px solid #f8f6f1'}}>last status</span> 💖
+                  <span style={{float: 'right', color: '#b7906b'}}>
+                    let's review
+                  </span>
+                </header>
+                <div style={{
+                  fontSize: 14,
+                  fontWeight: 700,
+                  margin: '5px 0 '
+                }}>
+                  {item.path}
+                </div>
+                <div style={{margin: 6}}>
+                  <Tag> 语法</Tag>
+                  <Tag> 英语</Tag>
+                </div>
+                <Divider orientation="left">history review</Divider>
+                <div>💔 ❣️ 💘 💖 🕳 🕳 🕳 🕳</div>
+              </Card>
             })
           }
         </div>

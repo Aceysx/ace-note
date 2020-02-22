@@ -57,3 +57,11 @@
 .ant-divider-vertical{
     margin: 0 2px!important;
 }
+.ant-divider-horizontal.ant-divider-with-text-left{
+    font-size: 12px;
+    opacity: .5;
+    margin: 15px 0 5px 0;
+}
+.ant-card-body{
+    padding: 10px;
+}

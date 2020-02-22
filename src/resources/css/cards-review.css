@@ -24,3 +24,20 @@
 .cards-review-bottom-visible-icon svg {
     font-size: 20px;
 }
+.cards-review-bottom-card-item{
+    display: inline-block;
+    width: 250px;
+    height: 160px;
+    margin: 10px 5px 5px 5px;
+    border: 1px solid red;
+}
+.cards-review-bottom-card-item header span{
+    display: inline-block;
+    font-style: italic;
+    font-size: 12px;
+}
+.cards-review-bottom-item-box{
+    white-space: nowrap;
+    width: 100%;
+    overflow-x: scroll;
+}

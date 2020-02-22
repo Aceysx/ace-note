@@ -15,18 +15,18 @@
     overflow-x: hidden;
     position: absolute;
 }
-.layout_right_content_layout_left_menu_scroll::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 5px;
     height: 10px;
 }
 
-.layout_right_content_layout_left_menu_scroll::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #b7906b;
     border: 71px none #ffffff;
     border-radius: 31px;
 }
 
-.layout_right_content_layout_left_menu_scroll::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #b7901f;
 }
 
