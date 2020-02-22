@@ -1,0 +1,26 @@
+.cards-review-body {
+    margin: 5px;
+    text-align: center;
+    border: 1px solid red;
+}
+
+.cards-review-bottom {
+    border: 1px solid gray;
+    transition:height .5s ease-in;
+    position: fixed;
+    z-index: 10;
+    background: white;
+    bottom: 0;
+    width: 100%;
+}
+
+.cards-review-bottom-visible-icon {
+    background:#f8f6f1 ;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.cards-review-bottom-visible-icon svg {
+    font-size: 20px;
+}
