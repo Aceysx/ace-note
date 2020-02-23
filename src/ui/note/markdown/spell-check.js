@@ -8,6 +8,7 @@ const addIgnoreDict = token => {
   ignoreDict[token] = true
   window.localStorage.setItem('ignoreDict', JSON.stringify(ignoreDict))
 }
+
 const getIgnoreDict = () => {
   return JSON.parse(window.localStorage.getItem('ignoreDict') || `{}`)
 }
@@ -147,19 +148,14 @@ const getSuggestionBox = (typo) => {
       let results = [];
 // async
       typo.suggest(token, null, all => {
-//console.log('done');
         sboxShow(cm, sbox, results, e.pageX, e.pageY);
       }, next => {
-//console.log('found '+next);
         results.push(next);
         sboxShow(cm, sbox, results, e.pageX, e.pageY, true);
       });
-
 // non async
 //sboxShow(cm, sbox, typo.suggest(token), e.pageX, e.pageY);
-
       e.preventDefault();
-
       return false;
     });
 
@@ -188,7 +184,6 @@ const getSuggestionBox = (typo) => {
 
     document.body.appendChild(sbox);
   }
-
   return sbox;
 }
 
