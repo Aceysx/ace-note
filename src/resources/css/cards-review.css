@@ -1,11 +1,9 @@
 .cards-review-body {
     margin: 5px;
     text-align: center;
-    border: 1px solid red;
 }
 
 .cards-review-bottom {
-    border: 1px solid gray;
     transition:height .5s ease-in;
     position: absolute;
     z-index: 10;
@@ -24,6 +22,7 @@
 .cards-review-bottom-visible-icon svg {
     font-size: 20px;
 }
+
 .cards-review-bottom-card-item{
     display: inline-block;
     width: 250px;
