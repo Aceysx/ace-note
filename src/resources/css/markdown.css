@@ -112,3 +112,23 @@
     transform: scaleX(1);
     transform-origin: bottom left;
 }
+
+.CodeMirror .cm-spell-error {
+    background-image: url("https://raw.githubusercontent.com/jwulf/typojs-project/master/public/images/red-wavy-underline.gif");
+    background-position: bottom;
+    background-repeat: repeat-x;
+}
+
+#suggestBox {
+    display: inline-block;
+}
+
+#suggestBox > select {
+    padding: 5px;
+    font-size: 12px!important;
+}
+
+#suggestBox > select > option:hover {
+    box-shadow: 0 0 10px 100px #b7906b inset;
+    color: white;
+}

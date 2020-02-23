@@ -8,6 +8,7 @@ import File from '../../../model/file'
 import NoteTag from './note-tag'
 import NoteTagModel from '../../../model/note-tag'
 import TreeBar from "./tree-bar"
+import {typoLoaded, startSpellCheck} from "./spell-check"
 
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
@@ -64,6 +65,8 @@ export default class Markdown extends React.Component {
   }
 
   _updateMarkdownContent = data => {
+    typoLoaded.then(typo => startSpellCheck(md, typo));
+
     this.setState({content: data})
     try {
       md.setValue(data)
