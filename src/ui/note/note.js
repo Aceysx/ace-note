@@ -109,6 +109,24 @@ class Note extends React.Component {
     this.props.updateStatus({subMenuVisible: true})
   }
 
+  getOperateComponents = () => {
+    const {selectedDir,status} = this.props
+    if (selectedDir.path !== MENU.SEARCH_RESULT) {
+      return [
+        <FoldSubMenuButton
+          changeSubMenuVisible={() => this.props.updateStatus({subMenuVisible: !status.subMenuVisible})}
+        />,
+        <FileCreatorButton
+          createFileOrDir={this.createFileOrDir}
+          selectedDir={selectedDir}
+        />, <Divider type='vertical'/>
+      ]
+    }
+    return [<FoldSubMenuButton
+      changeSubMenuVisible={() => this.props.updateStatus({subMenuVisible: !status.subMenuVisible})}
+    />]
+  }
+
   render() {
     const {
       selectedDir, currentEditFile,
@@ -118,22 +136,13 @@ class Note extends React.Component {
 
     return <div>
       <TitleBar
-        title='📔NoteBook'
+        title='📔NoteBook  '
         leftMenuVisible={leftMenuVisible}
         menus={this.formatMenus(selectedDir)}
         changeLeftMenuVisible={this.props.updateStatus}
         onClickMenuItem={this.updateSelectedDir}
         pushToRepo={this.props.pushToRepo}
-        operateComponents={[
-          <FoldSubMenuButton
-            changeSubMenuVisible={() => this.props.updateStatus({subMenuVisible: !subMenuVisible})}
-          />,
-          <FileCreatorButton
-            createFileOrDir={this.createFileOrDir}
-            selectedDir={selectedDir}
-          />,
-          <Divider type='vertical'/>
-        ]}/>
+        operateComponents={this.getOperateComponents()}/>
 
       <div style={{height: 35}}></div>
       {
@@ -164,7 +173,7 @@ class Note extends React.Component {
             style={{marginTop: 300}}
             description={false}/>
       }
-    </div>
+    </div>;
   }
 }
 
