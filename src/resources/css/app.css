@@ -38,6 +38,7 @@
 
 .layout_right_content_layout_markdown_scroll {
     overflow-y: scroll;
+    padding-left: 10px;
 }
 
 .layout_right_content_layout_markdown_scroll::-webkit-scrollbar {
