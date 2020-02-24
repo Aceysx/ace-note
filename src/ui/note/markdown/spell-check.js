@@ -41,7 +41,7 @@ export const startSpellCheck = (cm, typo) => {
   if (!cm || !typo) return; // sanity
   startSpellCheck.ignoreDict = getIgnoreDict(); // dictionary of ignored words
 
-  let rx_word = '!\'\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ；，。（）「」：';
+  let rx_word = '!\'\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~ ；，。（）「」：、《》？——～·#¥%……&*';
 
   cm.spellcheckOverlay = {
     token: (stream) => {
