@@ -5,6 +5,7 @@ import currentEditFile from './current-edit-file'
 import selectedDirStack from './selected_dir_stack'
 import notesTags from './notes-tags'
 import status from './status'
+import cardsReview from './cards-review'
 
 export default combineReducers({
   leftMenu,
@@ -12,5 +13,6 @@ export default combineReducers({
   currentEditFile,
   selectedDirStack,
   notesTags,
+  cardsReview,
   status
 })

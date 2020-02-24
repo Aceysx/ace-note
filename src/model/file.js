@@ -16,6 +16,9 @@ const File = {
   name: _path => path.basename(_path),
   dir: _path => path.dirname(_path),
   join: _paths => path.join(..._paths),
+  relativePath: _path => {
+    return _path.split(window.getNoteWorkspacePath())[1]
+  }
 
 }
 

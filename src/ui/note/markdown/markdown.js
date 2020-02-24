@@ -81,8 +81,7 @@ export default class Markdown extends React.Component {
     const {changedPath} = this.state
     this.props.modifyFileName(file.path, changedPath)
 
-    const _path = file.path.split(window.getNoteWorkspacePath())[1]
-
+    const _path = File.relativePath(file.path)
     if (NoteTagModel.exist(_path, notesTags)) {
       this.props.updateNotesTags(
         window.getNoteTagsPath(),
@@ -100,7 +99,7 @@ export default class Markdown extends React.Component {
   }
 
   findCurrentNoteTags = (file, notesTags) => {
-    const path = file.path.split(window.getNoteWorkspacePath())[1]
+    const path = File.relativePath(file.path)
     return NoteTagModel.findNoteTagsByPath(notesTags, path)
   }
 
@@ -110,7 +109,7 @@ export default class Markdown extends React.Component {
 
   updateNoteTags = tags => {
     const {file, notesTags} = this.props
-    const path = file.path.split(window.getNoteWorkspacePath())[1]
+    const path = File.relativePath(file.path)
     this.props.updateNotesTags(window.getNoteTagsPath(), NoteTagModel.updateNoteTags(path, notesTags, tags))
   }
 
@@ -145,6 +144,10 @@ export default class Markdown extends React.Component {
             <Icon type='ordered-list'
                   className='markdown_box_tag_item cursor_pointer'
                   onClick={() => this.setState({outlineVisible: !outlineVisible})}/>
+
+            <Icon type='plus'
+                  className='markdown_box_tag_item cursor_pointer'
+                  onClick={() => this.props.updateToCardsReview(file.path)}/>
             <Icon type="tags" className='markdown_box_tag_item'/>
             <NoteTag
               currentNoteTags={this.findCurrentNoteTags(file, notesTags)}

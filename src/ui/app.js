@@ -9,16 +9,18 @@ import LeftMenu from './left-menu/left-menu'
 import SearchBar from './search-bar/search-bar'
 import MENU from './note/menu-item'
 import File from '../model/file'
+import CardsReview from "./card-review/cards-review"
+import CardReview from "../model/card-review"
+import registerShortcuts from '../infrastructure/shortcut-resource'
 import {
+  UPDATE_CARDS_REVIEW,
   UPDATE_FILES,
   UPDATE_NOTES_TAGS,
   UPDATE_SELECTED_DIR,
   UPDATE_STATUS
 } from '../redux/reducers/dispatch-command/commands'
-import registerShortcuts from '../infrastructure/shortcut-resource'
 
 import '../resources/css/app.css'
-import CardsReview from "./card-review/cards-review";
 
 const {Sider, Content} = Layout
 
@@ -37,6 +39,7 @@ class App extends React.Component {
     }
     this.props.updateDirs(FileResource.initNoteBook(workspace))
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
+    this.props.updateCardsReview(FileResource.getCardsReview(window.getCardsPath()))
   }
 
   updateNotesTags = (path, notesTags) => {
@@ -70,7 +73,7 @@ class App extends React.Component {
     const workspace = this.initWorkspace()
     this.props.updateDirs(FileResource.initNoteBook(workspace))
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
-
+    this.props.updateCardsReview(FileResource.getCardsReview((window.getCardsPath())))
   }
 
   initWorkspace = () => {
@@ -118,8 +121,14 @@ class App extends React.Component {
     this.props.updateStatus({...status, ...data})
   }
 
+  updateToCardsReview = filePath => {
+    const {cardsReview} = this.props
+    const relativePath = File.relativePath(filePath)
+    this.props.updateCardsReview(CardReview.updateToCardsReview(cardsReview, relativePath))
+  }
+
   render() {
-    const {leftMenu, selectedDir, notesTags, status} = this.props
+    const {leftMenu, selectedDir, notesTags, status, cardsReview} = this.props
     const {current, leftMenuVisible, searchModalVisible} = status
     return <Layout className='layout'>
       <Sider
@@ -147,6 +156,7 @@ class App extends React.Component {
                 updateDirs={this.props.updateDirs}
                 updateSelectedDir={this.updateSelectedDir}
                 selectedDir={selectedDir}
+                updateToCardsReview={this.updateToCardsReview}
               />
               : ''
           }
@@ -189,6 +199,7 @@ const mapDispatchToProps = dispatch => ({
   updateDirs: dirs => dispatch(UPDATE_FILES(dirs)),
   updateNotesTags: noteTags => dispatch(UPDATE_NOTES_TAGS(noteTags)),
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir)),
+  updateCardsReview: cardsReview => dispatch(UPDATE_CARDS_REVIEW(cardsReview)),
   updateStatus: status => dispatch(UPDATE_STATUS(status)),
 })
 
@@ -196,11 +207,13 @@ const mapStateToProps = ({
                            leftMenu,
                            selectedDir,
                            notesTags,
-                           status
+                           status,
+                           cardsReview
                          }) => ({
   leftMenu,
   selectedDir,
   notesTags,
+  cardsReview,
   status
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

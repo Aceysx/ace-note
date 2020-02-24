@@ -9,6 +9,7 @@ const {
   GET_NOTES_TAGS,
   OPEN_DIR,
   PUSH_TO_REPO_FINISHED,
+  GET_CARDS_REVIEW,
   PUSH_TO_REPO
 } = require('./constants/listener-event')
 const Files = require('./utils/files')
@@ -20,6 +21,13 @@ ipcMain.on(INIT_NOTEBOOK_EVENT, (event, path) => {
 })
 
 ipcMain.on(GET_NOTES_TAGS, (event, path) => {
+  event.returnValue = JSON.parse(
+    Files.readFile(path).content || '[]'
+  )
+})
+
+ipcMain.on(GET_CARDS_REVIEW, (event, path) => {
+  Files.createDirIfNotExist(Files.parentPath(path))
   event.returnValue = JSON.parse(
     Files.readFile(path).content || '[]'
   )

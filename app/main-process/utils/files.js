@@ -97,14 +97,13 @@ const Files = {
   createFileOrDir: (_path, type) => {
     let fileName = path.join(_path, new Date().getTime().toString())
     if (type === 'dir') {
-      fs.mkdirSync(fileName);
+      fs.mkdirSync(fileName)
       return fileName
     }
     fileName += ('.' + type)
     fs.writeFileSync(fileName, '')
     return Files.readFile(fileName)
   },
-
   deleteFileOrDir: (_path, type) => {
     if (type === 'dir') {
       deleteDir(_path)
@@ -112,6 +111,15 @@ const Files = {
       fs.unlinkSync(_path);
     }
     return _path
+  },
+  createDirIfNotExist: dir => {
+    let isExist = fs.existsSync(dir)
+    if (!isExist) {
+      fs.mkdirSync(dir)
+    }
+  },
+  parentPath : _path =>{
+    return path.dirname(_path)
   }
 }
 

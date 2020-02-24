@@ -167,6 +167,7 @@ class Note extends React.Component {
                       modifyFileContent={this.modifyFileContent}
                       modifyFileName={this.modifyFileName}
                       updateNotesTags={updateNotesTags}
+                      updateToCardsReview={this.props.updateToCardsReview}
           />
           :
           <Empty
