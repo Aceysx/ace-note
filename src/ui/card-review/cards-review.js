@@ -1,11 +1,11 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
 import moment from "moment"
-import {Calendar, Card, Divider, Drawer, Icon, Tag} from "antd";
-
+import {Calendar, Card, Divider, Icon, Tag} from "antd";
+import File from '../../model/file'
 import '../../resources/css/cards-review.css'
+import Time from "../../model/time";
 
-const INTERVAL = [0, 1, 2, 4, 7, 15, 30, 60]
 const data = [
   {
     path: 'a/b/c.txt',
@@ -42,15 +42,16 @@ class CardsReview extends React.Component {
   }
 
   dateCellRender = (value) => {
-    const renderData = data.filter(item => {
-      return moment(item.nextReviewTime).isSame(value, 'day')
+    const {cardsReview} = this.props
+    const renderData = cardsReview.filter(card => {
+      return Time.isSameDay(value, card.nextReviewTime) ||
+        card.history.find(item => Time.isSameDay(item.reviewTime, value))
     })
-
     return (
       <ul className="events">
         {renderData.map(item => (
           <li key={item.path}>
-            {item.path}
+            {File.name(item.path)}
           </li>
         ))}
       </ul>
@@ -58,14 +59,12 @@ class CardsReview extends React.Component {
   }
 
   getNeedReviewCards = () => {
-    const {current} = this.state
-    console.log(data)
-    return [...data, ...data, ...data]
-    // data.filter(item => moment(item.nextReviewTime).isSame(current, 'day'))
+    const {cardsReview} = this.props
+    return cardsReview.filter(item => Time.isSameDay(item.nextReviewTime, new Date().getTime()))
   }
 
   render() {
-    const {leftMenuVisible} = this.props
+    const {leftMenuVisible, cardsReview} = this.props
     const {current, bottomVisible} = this.state
     return <div>
       <TitleBar
@@ -117,7 +116,7 @@ class CardsReview extends React.Component {
                   fontWeight: 700,
                   margin: '5px 0 '
                 }}>
-                  {item.path}
+                  {File.name(item.path)}
                 </div>
                 <div style={{margin: 6}}>
                   <Tag> 语法</Tag>

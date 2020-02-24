@@ -19,7 +19,6 @@ const File = {
   relativePath: _path => {
     return _path.split(window.getNoteWorkspacePath())[1]
   }
-
 }
 
 export default File
