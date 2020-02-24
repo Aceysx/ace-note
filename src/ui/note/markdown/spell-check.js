@@ -67,7 +67,7 @@ export const startSpellCheck = (cm, typo) => {
 
 // initialize the suggestion box
   let sbox = getSuggestionBox(typo);
-  cm.getWrapperElement().onmousemove = (e => {
+  cm.getWrapperElement().oncontextmenu = (e => {
     e.preventDefault();
     e.stopPropagation();
     sbox.suggest(cm, e);
