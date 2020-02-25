@@ -125,10 +125,14 @@ class App extends React.Component {
     const {cardsReview} = this.props
     const relativePath = File.relativePath(filePath)
     let toCardsReview = CardReview.updateToCardsReview(cardsReview, relativePath);
+    this.updateCardsReview(toCardsReview)
+  }
+
+  updateCardsReview = (cardsReview)=>{
     const updateCardsReview = FileResource.modifyFileContent(
       {
         path: window.getCardsPath(),
-        content: JSON.stringify(toCardsReview)
+        content: JSON.stringify(cardsReview)
       }
     ).content
     this.props.updateCardsReview(JSON.parse(updateCardsReview))
@@ -178,6 +182,7 @@ class App extends React.Component {
           {
             current === MENU.CARDS_REVIEW
               ? <CardsReview
+                updateCardsReview={this.updateCardsReview}
                 cardsReview={cardsReview}
                 pushToRepo={this.pushToRepo}
                 leftMenuVisible={leftMenuVisible}

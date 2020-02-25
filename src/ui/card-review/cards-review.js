@@ -4,14 +4,17 @@ import moment from "moment"
 import {Calendar, Card, Divider, Icon, Tag} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
-import Time from "../../model/time"
-
+import FileResource from "../../infrastructure/file-resource"
+import ReviewBody from "./review-body"
 
 import '../../resources/css/cards-review.css'
+
+const EMPTY_ITEM = undefined
 
 class CardsReview extends React.Component {
   state = {
     bottomVisible: true,
+    reviewItem: EMPTY_ITEM,
     current: moment(new Date().getTime())
   }
 
@@ -28,7 +31,7 @@ class CardsReview extends React.Component {
 
   getParseRenderData = current => {
     const {cardsReview} = this.props
-     const result = cardsReview.filter(card => {
+    const result = cardsReview.filter(card => {
       return CardReview.isTodayInReviewRange(card, current)
     })
     return result
@@ -51,12 +54,22 @@ class CardsReview extends React.Component {
   getNeedReviewCards = () => {
     const {cardsReview} = this.props
     const {current} = this.state
-    return cardsReview.filter(item => Time.isSameDay(item.nextReviewTime, current))
+    return cardsReview.filter(item => CardReview.isTodayInReviewRange(item, current))
+  }
+
+  getCardDetail = (reviewItem) => {
+    return FileResource.findFile(window.getNoteWorkspacePath() + reviewItem.path)
+  }
+
+  submitReview = (_path, status) => {
+    const {cardsReview} = this.props
+    let reviewCard = CardReview.reviewCard(cardsReview, File.relativePath(_path), status);
+    this.props.updateCardsReview(reviewCard)
   }
 
   render() {
-    const {leftMenuVisible, cardsReview} = this.props
-    const {current, bottomVisible} = this.state
+    const {leftMenuVisible} = this.props
+    const {current, bottomVisible, reviewItem} = this.state
 
     return <div>
       <TitleBar
@@ -67,12 +80,19 @@ class CardsReview extends React.Component {
       <div style={{height: 35}}/>
 
       <div className='cards-review-body'>
-        <Calendar
-          className='cards-review-calendar-box'
-          value={current}
-          dateCellRender={this.dateCellRender}
-          onSelect={this.onSelect}
-          onPanelChange={this.onPanelChange}/>
+        {
+          reviewItem
+            ? <ReviewBody
+              submitReview={this.submitReview}
+              cardDetail={this.getCardDetail(reviewItem)}
+            />
+            : <Calendar
+              className='cards-review-calendar-box'
+              value={current}
+              dateCellRender={this.dateCellRender}
+              onSelect={this.onSelect}
+              onPanelChange={this.onPanelChange}/>
+        }
       </div>
 
       <div className='cards-review-bottom'
@@ -100,7 +120,9 @@ class CardsReview extends React.Component {
                 hoverable>
                 <header>
                   <span style={{borderBottom: '2px solid #f8f6f1'}}>last status</span> 💖
-                  <span style={{float: 'right', color: '#b7906b'}}>
+                  <span
+                    onClick={() => this.setState({reviewItem: item, bottomVisible: false})}
+                    style={{float: 'right', color: '#b7906b'}}>
                     let's review
                   </span>
                 </header>

@@ -6,7 +6,7 @@ const CardReview = {
   updateToCardsReview: (cardsReview, filePath) => {
     const afterFilter = cardsReview.filter(item => item.path !== filePath)
     if (afterFilter.length === cardsReview.length) {
-      return [...cardsReview, CardReview._create(filePath)]
+      return [...cardsReview, CardReview._createCard(filePath)]
     }
     return afterFilter
   },
@@ -23,23 +23,49 @@ const CardReview = {
     const lastReviewTime = card.history.length
       ? card.history[card.history.length - 1]
       : card
-    const planIntervals = CardReview.INTERVAL.slice(CardReview.INTERVAL.indexOf(lastReviewTime.interval || 0)+1)
+    const planIntervals = CardReview.INTERVAL.slice(CardReview.INTERVAL.indexOf(lastReviewTime.interval || 0) + 1)
     const intervalTimes =
       planIntervals
-      .map((interval, index) => {
-        return eval(planIntervals.slice(0, index + 1).join("+"))
-      })
+        .map((interval, index) => {
+          return eval(planIntervals.slice(0, index + 1).join("+"))
+        })
     return intervalTimes.some(interval => {
       const nextReviewTime = lastReviewTime.nextReviewTime || lastReviewTime.reviewTime
       return Time.diff(nextReviewTime, current, interval)
     })
+  },
+  reviewCard: (cardsReview, _path, status) => {
+    return cardsReview.map(card => {
+      if (card.path === _path) {
+        const lastReviewInterval = card.history.length
+          ? card.history[card.history.length - 1].interval
+          : 0
+        const nextInterval = CardReview._nextInterval(status, lastReviewInterval)
+        const isFinish = nextInterval === CardReview.INTERVAL[CardReview.INTERVAL.length - 1]
+        return Object.assign({},
+          {...card, isFinish},
+          {history: [...card.history, CardReview._createReviewHistory(status, nextInterval)]})
+      }
+      return card
+    })
+  },
+  _nextInterval: (status, interval) => {
+    const intervals = CardReview.INTERVAL
+    const index = intervals.indexOf(interval)
+    if (status === CardReview.STATUS.WELL) {
+      return index === intervals.length ? interval : intervals[index + 1]
+    }
+    if (status === CardReview.STATUS.JUST_SO_SO) {
+      return interval
+    }
+    return index === 0 ? interval : intervals[index - 1]
   },
   _isTodayInHistoryReview: (card, current) => {
     return card.history.find(item => {
       return Time.isSameDay(item.reviewTime, current)
     })
   },
-  _create: filePath => {
+  _createCard: filePath => {
     const current = new Date().getTime()
     return {
       path: filePath,
@@ -47,6 +73,13 @@ const CardReview = {
       nextReviewTime: current,
       isFinish: false,
       history: []
+    }
+  },
+  _createReviewHistory: (status, interval) => {
+    return {
+      reviewTime: new Date().getTime,
+      status,
+      interval
     }
   }
 }
