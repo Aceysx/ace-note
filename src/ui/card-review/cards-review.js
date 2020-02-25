@@ -1,28 +1,13 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
 import moment from "moment"
-import {Calendar, Card, Divider, Icon, Tag} from "antd";
+import {Calendar, Card, Divider, Icon, Tag} from "antd"
+import CardReview from "../../model/card-review"
 import File from '../../model/file'
-import '../../resources/css/cards-review.css'
-import Time from "../../model/time";
+import Time from "../../model/time"
 
-const data = [
-  {
-    path: 'a/b/c.txt',
-    startReviewTime: new Date().getTime(),
-    nextReviewTime: moment('2020-02-22').valueOf(),
-    type: 'review',
-    isFinish: false,
-    history: []
-  }, {
-    path: 'a/b/d.txt',
-    startReviewTime: new Date().getTime(),
-    nextReviewTime: moment('2020-02-23').valueOf(),
-    type: 'review',
-    isFinish: false,
-    history: []
-  },
-]
+
+import '../../resources/css/cards-review.css'
 
 class CardsReview extends React.Component {
   state = {
@@ -41,12 +26,17 @@ class CardsReview extends React.Component {
     this.setState({current});
   }
 
-  dateCellRender = (value) => {
+  getParseRenderData = current => {
     const {cardsReview} = this.props
-    const renderData = cardsReview.filter(card => {
-      return Time.isSameDay(value, card.nextReviewTime) ||
-        card.history.find(item => Time.isSameDay(item.reviewTime, value))
+     const result = cardsReview.filter(card => {
+      return CardReview.isTodayInReviewRange(card, current)
     })
+    return result
+  }
+
+  dateCellRender = current => {
+    const renderData = this.getParseRenderData(current)
+
     return (
       <ul className="events">
         {renderData.map(item => (
@@ -60,12 +50,14 @@ class CardsReview extends React.Component {
 
   getNeedReviewCards = () => {
     const {cardsReview} = this.props
-    return cardsReview.filter(item => Time.isSameDay(item.nextReviewTime, new Date().getTime()))
+    const {current} = this.state
+    return cardsReview.filter(item => Time.isSameDay(item.nextReviewTime, current))
   }
 
   render() {
     const {leftMenuVisible, cardsReview} = this.props
     const {current, bottomVisible} = this.state
+
     return <div>
       <TitleBar
         title=' 📑️ Cards Review'
@@ -101,8 +93,9 @@ class CardsReview extends React.Component {
 
         <div className='cards-review-bottom-item-box'>
           {
-            this.getNeedReviewCards().map(item => {
+            this.getNeedReviewCards().map((item, index) => {
               return <Card
+                key={index}
                 className='cards-review-bottom-card-item'
                 hoverable>
                 <header>
