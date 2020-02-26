@@ -29,16 +29,15 @@ class CardsReview extends React.Component {
     this.setState({current});
   }
 
-  getParseRenderData = current => {
-    const {cardsReview} = this.props
+  getParseRenderData = (current, cardsReview) => {
     const result = cardsReview.filter(card => {
       return CardReview.isTodayInReviewRange(card, current)
     })
     return result
   }
 
-  dateCellRender = current => {
-    const renderData = this.getParseRenderData(current)
+  dateCellRender = (current, cardsReview) => {
+    const renderData = this.getParseRenderData(current, cardsReview)
 
     return (
       <ul className="events">
@@ -51,8 +50,7 @@ class CardsReview extends React.Component {
     );
   }
 
-  getNeedReviewCards = () => {
-    const {cardsReview} = this.props
+  getNeedReviewCards = cardsReview => {
     const {current} = this.state
     return cardsReview.filter(item => CardReview.isTodayInReviewRange(item, current))
   }
@@ -61,14 +59,13 @@ class CardsReview extends React.Component {
     return FileResource.findFile(window.getNoteWorkspacePath() + reviewItem.path)
   }
 
-  submitReview = (_path, status) => {
-    const {cardsReview} = this.props
+  submitReview = (_path, status, cardsReview) => {
     let reviewCard = CardReview.reviewCard(cardsReview, File.relativePath(_path), status);
     this.props.updateCardsReview(reviewCard)
   }
 
   render() {
-    const {leftMenuVisible} = this.props
+    const {leftMenuVisible, cardsReview} = this.props
     const {current, bottomVisible, reviewItem} = this.state
 
     return <div>
@@ -83,15 +80,18 @@ class CardsReview extends React.Component {
         {
           reviewItem
             ? <ReviewBody
+              isReviewed={CardReview.isTodayReviewed(
+                cardsReview.find(item => item.path === reviewItem.path),
+                current)}
               bottomVisible={bottomVisible}
               back={() => this.setState({reviewItem: EMPTY_ITEM})}
-              submitReview={this.submitReview}
+              submitReview={(_path, status) => this.submitReview(_path, status, cardsReview)}
               cardDetail={this.getCardDetail(reviewItem)}
             />
             : <Calendar
               className='cards-review-calendar-box'
               value={current}
-              dateCellRender={this.dateCellRender}
+              dateCellRender={current => this.dateCellRender(current, cardsReview)}
               onSelect={this.onSelect}
               onPanelChange={this.onPanelChange}/>
         }
@@ -115,7 +115,7 @@ class CardsReview extends React.Component {
 
         <div className='cards-review-bottom-item-box'>
           {
-            this.getNeedReviewCards().map((item, index) => {
+            this.getNeedReviewCards(cardsReview).map((item, index) => {
               return <Card
                 key={index}
                 className='cards-review-bottom-card-item'

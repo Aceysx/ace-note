@@ -7,7 +7,7 @@ export default (state = [
     history: [{
       reviewTime: 1,
       status: 'strange',
-      interval: 1
+      interval: 1 //距离上一次 review 间隔天数
     }]
   }
 ], action) => {

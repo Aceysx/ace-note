@@ -1,4 +1,5 @@
 import Time from "./time"
+import moment from "moment";
 
 const CardReview = {
   INTERVAL: [0, 1, 2, 4, 7, 15, 30, 60],
@@ -40,14 +41,32 @@ const CardReview = {
         const lastReviewInterval = card.history.length
           ? card.history[card.history.length - 1].interval
           : 0
-        const nextInterval = CardReview._nextInterval(status, lastReviewInterval)
+        const nextInterval = CardReview._nextInterval(status, lastReviewInterval);
+        const nextReviewTime = Time.add(card.nextReviewTime, nextInterval)
         const isFinish = nextInterval === CardReview.INTERVAL[CardReview.INTERVAL.length - 1]
+
+        if (card.history.length === 0) {
+          return Object.assign({},
+            {
+              ...card,
+              nextReviewTime: Time.add(card.nextReviewTime, 1)
+            },
+            {history: [...card.history, CardReview._createReviewHistory(status, 0)]})
+        }
         return Object.assign({},
-          {...card, isFinish},
+          {...card, isFinish, nextReviewTime},
           {history: [...card.history, CardReview._createReviewHistory(status, nextInterval)]})
       }
       return card
     })
+  },
+  isTodayReviewed: (card, current) => {
+    if (Time.isSameDay(current, new Date().getTime())) {
+      const lastReviewTime = card.history.length
+        ? card.history[card.history.length - 1].nextReviewTime : 0
+      return Time.isSameDay(lastReviewTime, current)
+    }
+    return true
   },
   _nextInterval: (status, interval) => {
     const intervals = CardReview.INTERVAL

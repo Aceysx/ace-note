@@ -1,18 +1,43 @@
 import React from "react"
 import CardReview from "../../model/card-review";
-import {Icon} from "antd";
+import {Icon, Popconfirm} from "antd";
 
-const ReviewTool = ({submitReview, back, bottomVisible}) => {
+const ReviewTool = ({submitReview, back, bottomVisible, isReviewed}) => {
   return <div className='review-tool-box'
               style={{
                 bottom: bottomVisible ? 190 : 10
               }}>
-    <p className='review-tool-icon'
-       onClick={() => submitReview(CardReview.STATUS.WELL)}>💖</p>
-    <p className='review-tool-icon'
-       onClick={() => submitReview(CardReview.STATUS.JUST_SO_SO)}>💘</p>
-    <p className='review-tool-icon'
-       onClick={() => submitReview(CardReview.STATUS.STRANGE)}>💔</p>
+    {
+      isReviewed
+        ? ''
+        : <div>
+          <Popconfirm
+            title="Are you sure review this card?"
+            onConfirm={()=>submitReview(CardReview.STATUS.WELL)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <p className='review-tool-icon'>💖</p>
+          </Popconfirm>
+          <Popconfirm
+            title="Are you sure review this card?"
+            onConfirm={()=>submitReview(CardReview.STATUS.JUST_SO_SO)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <p className='review-tool-icon'>💘</p>
+          </Popconfirm>
+          <Popconfirm
+            title="Are you sure review this card?"
+            onConfirm={()=>submitReview(CardReview.STATUS.STRANGE)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <p className='review-tool-icon'>💔</p>
+          </Popconfirm>
+        </div>
+    }
+
     <p onClick={back} className='review-tool-icon'>
       <Icon type="arrow-left"/>
     </p>
