@@ -83,6 +83,8 @@ class CardsReview extends React.Component {
         {
           reviewItem
             ? <ReviewBody
+              bottomVisible={bottomVisible}
+              back={() => this.setState({reviewItem: EMPTY_ITEM})}
               submitReview={this.submitReview}
               cardDetail={this.getCardDetail(reviewItem)}
             />

@@ -12,7 +12,7 @@ class ReviewBody extends React.Component {
   componentDidMount() {
     const node = this.state.ref.current
     const {cardDetail} = this.props
-    md = HyperMD.fromTextArea(node, {readOnly: true})
+    md = HyperMD.fromTextArea(node, {readOnly: true, lineNumbers: false})
     this._updateMarkdownContent(cardDetail.content)
 
   }
@@ -33,15 +33,18 @@ class ReviewBody extends React.Component {
   }
 
   render() {
-    const {cardDetail} = this.props
-    return <div>
+    const {cardDetail, bottomVisible} = this.props
+
+    return <div style={{marginBottom: '30px'}}>
+      <ReviewTool
+        bottomVisible={bottomVisible}
+        back={this.props.back}
+        submitReview={status => this.props.submitReview(cardDetail.path, status)}
+      />
       <div>
       <textarea
         ref={this.state.ref}/>
       </div>
-      <ReviewTool
-        submitReview={status => this.props.submitReview(cardDetail.path, status)}
-      />
     </div>
   }
 }

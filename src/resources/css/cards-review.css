@@ -38,3 +38,23 @@
     width: 100%;
     overflow-x: scroll;
 }
+.review-tool-box{
+    position: absolute;
+    z-index: 1000;
+    right: 20px;
+    transition: bottom .5s ease-in-out;
+}
+.review-tool-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 25px;
+    background: #f8f6f1;
+    line-height: 43px;
+    text-align: center;
+    cursor: pointer;
+    opacity: .5;
+}
+.review-tool-icon:hover{
+    opacity: 1;
+}
