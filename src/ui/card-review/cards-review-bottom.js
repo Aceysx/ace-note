@@ -7,14 +7,14 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
   return <div>
     <div className='cards-review-bottom-visible-icon cursor_pointer'
          onClick={updateBottomVisible}>
-          <span style={{float: 'left'}}>
+          <span style={{position: 'absolute', left: 0}}>
             <Icon type="question-circle"
-                  style={{fontSize: 18, color: 'gray'}}/><Divider type='vertical'/>
+                  style={{fontSize: 18, color: 'gray'}}/> <Divider type='vertical'/>
 
-            <span>{CardReview.ICONS["not-review"]}not review</span> <Divider type='vertical'/>
-            <span>{CardReview.ICONS["oblivious"]}oblivious</span> <Divider type='vertical'/>
-            <span>{CardReview.ICONS["hard"]}hard</span> <Divider type='vertical'/>
-            <span>{CardReview.ICONS["easy"]}easy</span>
+            <span> {CardReview.ICONS["not-review"]}not review </span> <Divider type='vertical'/>
+            <span> {CardReview.ICONS["oblivious"]}oblivious </span> <Divider type='vertical'/>
+            <span> {CardReview.ICONS["hard"]}hard </span> <Divider type='vertical'/>
+            <span> {CardReview.ICONS["easy"]}easy </span>
 
           </span>
       <Icon style={{fontSize: 22}} type={
