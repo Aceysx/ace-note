@@ -5,11 +5,17 @@ const Time = {
     return moment(one).isSame(another, 'day')
   },
   diff: (one, another, intervalDay) => {
-    return moment(moment(another).format("YYYY-MM-DD"))
-      .diff(moment(moment(one).format("YYYY-MM-DD")), 'days') === intervalDay
+    return Time.interval(one, another) === intervalDay
+  },
+  interval: (one, another) => {
+    return moment(Time.format(another)).diff(
+      moment(Time.format(one)), 'days')
   },
   add: (current, days) => {
-    return moment(current).add('days',days).valueOf()
+    return moment(current).add('days', days).valueOf()
+  },
+  format: timestamps => {
+    return moment(timestamps).format("YYYY-MM-DD")
   }
 }
 export default Time

@@ -2,15 +2,14 @@ import React from "react"
 import CardReview from "../../model/card-review";
 import {Icon, Popconfirm} from "antd";
 
-const ReviewTool = ({submitReview, back, bottomVisible, isReviewed}) => {
+const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible}) => {
   return <div className='review-tool-box'
               style={{
                 bottom: bottomVisible ? 190 : 10
               }}>
     {
-      isReviewed
-        ? ''
-        : <div>
+      reviewToolVisible
+        ? <div>
           <Popconfirm
             title="Are you sure review this card?"
             onConfirm={()=>submitReview(CardReview.STATUS.WELL)}
@@ -36,6 +35,7 @@ const ReviewTool = ({submitReview, back, bottomVisible, isReviewed}) => {
             <p className='review-tool-icon'>💔</p>
           </Popconfirm>
         </div>
+        : ''
     }
 
     <p onClick={back} className='review-tool-icon'>

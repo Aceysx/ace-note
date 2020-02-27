@@ -1,5 +1,4 @@
 import Time from "./time"
-import moment from "moment";
 
 const CardReview = {
   INTERVAL: [0, 1, 2, 4, 7, 15, 30, 60],
@@ -11,8 +10,15 @@ const CardReview = {
     }
     return afterFilter
   },
-  isTodayInReviewRange: (card, current) => {
+  isReviewOver: (card, current) => {
     if (card.isFinish) {
+      const lastReview = card.history[card.history.length - 1]
+      return Time.interval(lastReview.reviewTime, current) > 0
+    }
+    return false
+  },
+  isTodayInReviewRange: (card, current) => {
+    if (CardReview.isReviewOver(card, current)) {
       return false
     }
     if (Time.isSameDay(current, card.nextReviewTime)) {
@@ -21,17 +27,15 @@ const CardReview = {
     if (CardReview._isTodayInHistoryReview(card, current)) {
       return true;
     }
-    const lastReviewTime = card.history.length
+    const lastReviewHistory = card.history.length
       ? card.history[card.history.length - 1]
       : card
-    const planIntervals = CardReview.INTERVAL.slice(CardReview.INTERVAL.indexOf(lastReviewTime.interval || 0) + 1)
-    const intervalTimes =
-      planIntervals
-        .map((interval, index) => {
-          return eval(planIntervals.slice(0, index + 1).join("+"))
-        })
+    const planIntervals = CardReview.INTERVAL.slice(CardReview.INTERVAL.indexOf(lastReviewHistory.interval || 0) + 1)
+    const intervalTimes = planIntervals.map((interval, index) => {
+      return eval(planIntervals.slice(0, index + 1).join("+"))
+    })
     return intervalTimes.some(interval => {
-      const nextReviewTime = lastReviewTime.nextReviewTime || lastReviewTime.reviewTime
+      const nextReviewTime = lastReviewHistory.nextReviewTime || lastReviewHistory.reviewTime
       return Time.diff(nextReviewTime, current, interval)
     })
   },
@@ -41,8 +45,8 @@ const CardReview = {
         const lastReviewInterval = card.history.length
           ? card.history[card.history.length - 1].interval
           : 0
-        const nextInterval = CardReview._nextInterval(status, lastReviewInterval);
-        const nextReviewTime = Time.add(card.nextReviewTime, nextInterval)
+        const nextInterval = CardReview._nextInterval(status, lastReviewInterval)
+        const nextReviewTime = Time.add(card.nextReviewTime, nextInterval === 0 ? 1 : nextInterval)
         const isFinish = nextInterval === CardReview.INTERVAL[CardReview.INTERVAL.length - 1]
 
         if (card.history.length === 0) {
@@ -61,12 +65,8 @@ const CardReview = {
     })
   },
   isTodayReviewed: (card, current) => {
-    if (Time.isSameDay(current, new Date().getTime())) {
-      const lastReviewTime = card.history.length
-        ? card.history[card.history.length - 1].nextReviewTime : 0
-      return Time.isSameDay(lastReviewTime, current)
-    }
-    return true
+    return Time.isSameDay(current, card.nextReviewTime)
+      && Time.isSameDay(card.nextReviewTime, new Date().getTime())
   },
   _nextInterval: (status, interval) => {
     const intervals = CardReview.INTERVAL
@@ -96,7 +96,7 @@ const CardReview = {
   },
   _createReviewHistory: (status, interval) => {
     return {
-      reviewTime: new Date().getTime,
+      reviewTime: new Date().getTime(),
       status,
       interval
     }

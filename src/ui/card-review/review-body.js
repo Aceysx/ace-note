@@ -32,12 +32,11 @@ class ReviewBody extends React.Component {
   }
 
   render() {
-    const {cardDetail, bottomVisible, isReviewed} = this.props
-    console.log(isReviewed)
+    const {cardDetail, bottomVisible, reviewToolVisible} = this.props
     return <div style={{marginBottom: '30px'}}>
       <ReviewTool
         bottomVisible={bottomVisible}
-        isReviewed={isReviewed}
+        reviewToolVisible={reviewToolVisible}
         back={this.props.back}
         submitReview={status => this.props.submitReview(cardDetail.path, status)}
       />
