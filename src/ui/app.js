@@ -128,7 +128,7 @@ class App extends React.Component {
     this.updateCardsReview(toCardsReview)
   }
 
-  updateCardsReview = (cardsReview)=>{
+  updateCardsReview = (cardsReview) => {
     const updateCardsReview = FileResource.modifyFileContent(
       {
         path: window.getCardsPath(),
@@ -183,6 +183,7 @@ class App extends React.Component {
           {
             current === MENU.CARDS_REVIEW
               ? <CardsReviewBody
+                notesTags={notesTags}
                 updateCardsReview={this.updateCardsReview}
                 cardsReview={cardsReview}
                 pushToRepo={this.pushToRepo}

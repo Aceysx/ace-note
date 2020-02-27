@@ -1,7 +1,7 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
 import moment from "moment"
-import {Calendar, Card, Divider, Icon, Tag} from "antd"
+import {Calendar} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
 import FileResource from "../../infrastructure/file-resource"
@@ -42,7 +42,7 @@ class CardsReviewBody extends React.Component {
       <div className='card-cell-item'>
         {renderData.map(card => (
           <span className='card-cell-content' key={card.path}>
-            {CardReview.status(card, current)}
+            {CardReview.getStatusIcon(CardReview.status(card, current))}
             {File.name(card.path)}
           </span>
         ))}
@@ -65,8 +65,9 @@ class CardsReviewBody extends React.Component {
   }
 
   render() {
-    const {leftMenuVisible, cardsReview} = this.props
+    const {notesTags, leftMenuVisible, cardsReview} = this.props
     const {current, bottomVisible, reviewCard} = this.state
+
     return <div>
       <TitleBar
         title=' 📑️ Cards Review'
@@ -102,6 +103,8 @@ class CardsReviewBody extends React.Component {
              paddingRight: `${leftMenuVisible ? 215 : 0}px`
            }}>
         <CardsReviewBottom
+          current={current}
+          tags={notesTags}
           cards={this.getNeedReviewCards(cardsReview)}
           bottomVisible={bottomVisible}
           reviewCard={reviewCard => this.setState({reviewCard, bottomVisible: false})}

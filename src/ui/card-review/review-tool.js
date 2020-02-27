@@ -12,7 +12,7 @@ const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible}) => {
         ? <div>
           <Popconfirm
             title="Are you sure review this card?"
-            onConfirm={()=>submitReview(CardReview.STATUS.WELL)}
+            onConfirm={()=>submitReview(CardReview.STATUS.EASY)}
             okText="Yes"
             cancelText="No"
           >
@@ -20,7 +20,7 @@ const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible}) => {
           </Popconfirm>
           <Popconfirm
             title="Are you sure review this card?"
-            onConfirm={()=>submitReview(CardReview.STATUS.JUST_SO_SO)}
+            onConfirm={()=>submitReview(CardReview.STATUS.HARD)}
             okText="Yes"
             cancelText="No"
           >
@@ -28,7 +28,7 @@ const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible}) => {
           </Popconfirm>
           <Popconfirm
             title="Are you sure review this card?"
-            onConfirm={()=>submitReview(CardReview.STATUS.STRANGE)}
+            onConfirm={()=>submitReview(CardReview.STATUS.OBLIVIOUS)}
             okText="Yes"
             cancelText="No"
           >

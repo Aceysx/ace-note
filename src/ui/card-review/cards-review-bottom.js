@@ -3,7 +3,7 @@ import {Card, Divider, Icon, Tag} from "antd"
 import File from "../../model/file";
 import CardReview from "../../model/card-review";
 
-const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisible}) => {
+const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisible, current, tags}) => {
   return <div>
     <div className='cards-review-bottom-visible-icon cursor_pointer'
          onClick={updateBottomVisible}>
@@ -26,17 +26,19 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
     <div className='cards-review-bottom-item-box'>
       {
         cards.map((item, index) => {
+          const itemTags = tags.find(tag => tag.path === item.path)
           return <Card
             key={index}
             className='cards-review-bottom-card-item'
             hoverable>
             <header>
-              <span style={{borderBottom: '2px solid #f8f6f1'}}>last status</span> 💖
-              <span
-                onClick={() => reviewCard(item)}
-                style={{float: 'right', color: '#b7906b'}}>
+              <span style={{borderBottom: '2px solid #f8f6f1', fontSize: 10, fontWeight: "lighter"}}>
+                today status {CardReview.getStatusIcon(CardReview.status(item, current))}
+              </span>
+              <span onClick={() => reviewCard(item)}
+                    style={{float: 'right', color: '#b7906b'}}>
                     let's review
-                  </span>
+              </span>
             </header>
             <div style={{
               fontSize: 14,
@@ -46,11 +48,23 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
               {File.name(item.path)}
             </div>
             <div style={{margin: 6}}>
-              <Tag> 语法</Tag>
-              <Tag> 英语</Tag>
+              {
+                itemTags
+                  ? itemTags.tags.map(tag => {
+                    return <Tag>{tag}</Tag>
+                  })
+                  : <Tag>there is no tag</Tag>
+              }
             </div>
             <Divider orientation="left">history review</Divider>
-            <div>💔 ❣️ 💘 💖 🕳 🕳 🕳 🕳</div>
+            <div>{
+              item.history.length
+                ? item.history.map(his => {
+                  return CardReview.getStatusIcon(his.status)
+                })
+                : CardReview.getStatusIcon(CardReview.STATUS.NOT_REVIEW)
+
+            }</div>
           </Card>
         })
       }
