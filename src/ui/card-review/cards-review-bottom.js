@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, Divider, Icon, Tag} from "antd"
 import File from "../../model/file";
+import CardReview from "../../model/card-review";
 
 const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisible}) => {
   return <div>
@@ -8,12 +9,12 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
          onClick={updateBottomVisible}>
           <span style={{float: 'left'}}>
             <Icon type="question-circle"
-            style={{fontSize:18,color:'gray'}}/><Divider type='vertical'/>
+                  style={{fontSize: 18, color: 'gray'}}/><Divider type='vertical'/>
 
-            <span>🕳not review</span> <Divider type='vertical'/>
-            <span>💔oblivious</span> <Divider type='vertical'/>
-            <span>💘hard</span> <Divider type='vertical'/>
-            <span>💖easy </span>
+            <span>{CardReview.ICONS["not-review"]}not review</span> <Divider type='vertical'/>
+            <span>{CardReview.ICONS["oblivious"]}oblivious</span> <Divider type='vertical'/>
+            <span>{CardReview.ICONS["hard"]}hard</span> <Divider type='vertical'/>
+            <span>{CardReview.ICONS["easy"]}easy</span>
 
           </span>
       <Icon style={{fontSize: 22}} type={

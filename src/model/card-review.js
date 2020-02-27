@@ -2,7 +2,8 @@ import Time from "./time"
 
 const CardReview = {
   INTERVAL: [0, 1, 2, 4, 7, 15, 30, 60],
-  STATUS: {NO_REVIEW: 'no-review', STRANGE: 'strange', JUST_SO_SO: 'just-so-so', WELL: 'well'},
+  STATUS: {NO_REVIEW: 'not-review', STRANGE: 'oblivious', JUST_SO_SO: 'hard', WELL: 'easy'},
+  ICONS: {'not-review': '🕳', 'oblivious': '💔', 'hard': '💘', 'easy': '💖'},
   updateToCardsReview: (cardsReview, filePath) => {
     const afterFilter = cardsReview.filter(item => item.path !== filePath)
     if (afterFilter.length === cardsReview.length) {
@@ -67,6 +68,15 @@ const CardReview = {
   isTodayReviewed: (card, current) => {
     return Time.isSameDay(current, card.nextReviewTime)
       && Time.isSameDay(card.nextReviewTime, new Date().getTime())
+  },
+  status: (card, current) => {
+    if (Time.interval(Time.today(), current) > 0 || Time.isSameDay(card.nextReviewTime, current)) {
+      return CardReview.ICONS["not-review"]
+    }
+    const found = card.history.find(item => {
+      return Time.isSameDay(item.reviewTime, current)
+    })
+    return CardReview.ICONS[found.status]
   },
   _nextInterval: (status, interval) => {
     const intervals = CardReview.INTERVAL

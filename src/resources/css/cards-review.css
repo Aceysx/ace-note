@@ -62,3 +62,21 @@
 .review-tool-icon:hover {
     opacity: 1;
 }
+
+.card-cell-content {
+    font-size: 11px;
+    width: 100%;
+    display: inline-block;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card-cell-item {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.card-cell-item::-webkit-scrollbar {
+    width: 0px !important;
+}

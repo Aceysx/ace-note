@@ -38,15 +38,15 @@ class CardsReviewBody extends React.Component {
 
   dateCellRender = (current, cardsReview) => {
     const renderData = this.getParseRenderData(current, cardsReview)
-
     return (
-      <ul className="events">
-        {renderData.map(item => (
-          <li key={item.path}>
-            {File.name(item.path)}
-          </li>
+      <div className='card-cell-item'>
+        {renderData.map(card => (
+          <span className='card-cell-content' key={card.path}>
+            {CardReview.status(card, current)}
+            {File.name(card.path)}
+          </span>
         ))}
-      </ul>
+      </div>
     );
   }
 

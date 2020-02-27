@@ -16,6 +16,7 @@ const Time = {
   },
   format: timestamps => {
     return moment(timestamps).format("YYYY-MM-DD")
-  }
+  },
+  today: () => new Date().getTime()
 }
 export default Time
