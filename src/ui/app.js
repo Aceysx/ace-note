@@ -9,7 +9,7 @@ import LeftMenu from './left-menu/left-menu'
 import SearchBar from './search-bar/search-bar'
 import MENU from './note/menu-item'
 import File from '../model/file'
-import CardsReview from "./card-review/cards-review"
+import CardsReviewBody from "./card-review/cards-review-body"
 import CardReview from "../model/card-review"
 import registerShortcuts from '../infrastructure/shortcut-resource'
 import {
@@ -182,7 +182,7 @@ class App extends React.Component {
           }
           {
             current === MENU.CARDS_REVIEW
-              ? <CardsReview
+              ? <CardsReviewBody
                 updateCardsReview={this.updateCardsReview}
                 cardsReview={cardsReview}
                 pushToRepo={this.pushToRepo}

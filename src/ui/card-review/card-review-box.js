@@ -4,7 +4,7 @@ import ReviewTool from "./review-tool";
 const HyperMD = require('hypermd')
 let md
 
-class ReviewBody extends React.Component {
+class CardReviewBox extends React.Component {
   state = {
     ref: React.createRef()
   }
@@ -48,4 +48,4 @@ class ReviewBody extends React.Component {
   }
 }
 
-export default ReviewBody
+export default CardReviewBox

@@ -5,14 +5,14 @@ import {Calendar, Card, Divider, Icon, Tag} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
 import FileResource from "../../infrastructure/file-resource"
-import ReviewBody from "./review-body"
+import CardReviewBox from "./card-review-box"
 
 import '../../resources/css/cards-review.css'
 import CardsReviewBottom from "./cards-review-bottom";
 
 const EMPTY_ITEM = undefined
 
-class CardsReview extends React.Component {
+class CardsReviewBody extends React.Component {
   state = {
     bottomVisible: true,
     reviewCard: EMPTY_ITEM,
@@ -78,7 +78,7 @@ class CardsReview extends React.Component {
       <div className='cards-review-body'>
         {
           reviewCard
-            ? <ReviewBody
+            ? <CardReviewBox
               reviewToolVisible={CardReview.isTodayReviewed(
                 cardsReview.find(item => item.path === reviewCard.path),
                 current)}
@@ -112,4 +112,4 @@ class CardsReview extends React.Component {
   }
 }
 
-export default CardsReview
+export default CardsReviewBody
