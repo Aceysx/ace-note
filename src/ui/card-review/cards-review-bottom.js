@@ -68,7 +68,8 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
               }</div>
             </Card>
           })
-          : <Empty description='there is no card need to review'/>
+          : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}
+                   description='there is no card need to review'/>
       }
     </div>
   </div>
