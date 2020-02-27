@@ -18,7 +18,7 @@ export default class LeftMenu extends React.Component {
       .map(dir => {
         const subDirs = dir.sub.filter(item => item.type === 'dir')
         return <TreeNode
-          title={File.name(dir.path)}
+          title={<span className='cursor_pointer'>{File.name(dir.path)}</span> }
           key={dir.path}>
           {this.listTree(subDirs)}
         </TreeNode>
@@ -31,7 +31,7 @@ export default class LeftMenu extends React.Component {
       margin: '5px 0 5px 10px',
     }}>
       <span style={{fontSize: 18}}>{icon}</span>
-      <span style={{fontWeight: 700, color: 'rgba(25, 23, 17, 0.5)'}}>
+      <span className='cursor_pointer' style={{fontWeight: 700, color: 'rgba(25, 23, 17, 0.5)'}}>
       {title}
     </span></span>
   }
@@ -45,6 +45,7 @@ export default class LeftMenu extends React.Component {
       </div>
       <Tooltip title='⌘+f'>
       <span
+
         onClick={() => this.props.switchToMenu(MENU.SEARCH)}>
         {this.buildTopItem('🔍 ', MENU.SEARCH)}
       </span>
