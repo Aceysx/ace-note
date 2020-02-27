@@ -39,7 +39,7 @@ class CardsReviewBody extends React.Component {
   dateCellRender = (current, cardsReview) => {
     const renderData = this.getParseRenderData(current, cardsReview)
     return (
-      <div className='card-cell-item'>
+      <div className='card-cell-item cursor_pointer'>
         {renderData.map(card => (
           <span className='card-cell-content' key={card.path}>
             {CardReview.getStatusIcon(CardReview.status(card, current))}
