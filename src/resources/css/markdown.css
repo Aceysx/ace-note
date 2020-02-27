@@ -39,15 +39,8 @@
 }
 
 .markdown_box_tag_item {
-    display: inline-block;
     font-size: 16px;
-    margin-left: 10px;
-    padding: 4px;
-}
-
-.markdown_box_tag_item:first-child:hover {
-    background: rgba(25, 23, 17, 0.1);
-    border-radius: 5px;
+    padding: 5px;
 }
 
 .markdown_box_tag .ant-select-selection {

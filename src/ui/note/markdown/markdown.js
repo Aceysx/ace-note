@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Divider, Icon, Input, notification, Row} from 'antd'
+import {Col, Divider, Icon, Input, notification, Popconfirm, Row} from 'antd'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/nginx/nginx'
 import 'codemirror/mode/shell/shell'
@@ -124,7 +124,7 @@ export default class Markdown extends React.Component {
 
   render() {
     const {mdRef, changedPath, content, outlineVisible} = this.state
-    const {notesTags, file} = this.props
+    const {notesTags, file, isInReviewed} = this.props
 
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
@@ -142,12 +142,18 @@ export default class Markdown extends React.Component {
         <div className='markdown_box_bar'>
           <div className='markdown_box_tag'>
             <Icon type='ordered-list'
-                  className='markdown_box_tag_item cursor_pointer'
+                  className='markdown_box_tag_item bg-color-hover cursor_pointer'
                   onClick={() => this.setState({outlineVisible: !outlineVisible})}/>
-
-            <Icon type='plus'
-                  className='markdown_box_tag_item cursor_pointer'
-                  onClick={() => this.props.updateToCardsReview(file.path)}/>
+            <Popconfirm
+              title={`${isInReviewed ? 'remove from' : 'add to'} Cards Review?`}
+              onConfirm={() => this.props.updateToCardsReview(file.path)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Icon type={isInReviewed ? 'carry-out' : 'calendar'}
+                    className='markdown_box_tag_item cursor_pointer bg-color-hover'/>
+            </Popconfirm>
+            <Divider type='vertical'/>
             <Icon type="tags" className='markdown_box_tag_item'/>
             <NoteTag
               currentNoteTags={this.findCurrentNoteTags(file, notesTags)}

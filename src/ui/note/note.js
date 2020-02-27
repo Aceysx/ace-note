@@ -110,7 +110,7 @@ class Note extends React.Component {
   }
 
   getOperateComponents = () => {
-    const {selectedDir,status} = this.props
+    const {selectedDir, status} = this.props
     if (selectedDir.path !== MENU.SEARCH_RESULT) {
       return [
         <FoldSubMenuButton
@@ -130,7 +130,7 @@ class Note extends React.Component {
   render() {
     const {
       selectedDir, currentEditFile,
-      notesTags, updateNotesTags, status
+      notesTags, updateNotesTags, status, cardsReview
     } = this.props
     const {subMenuVisible, leftMenuVisible} = status
 
@@ -162,6 +162,8 @@ class Note extends React.Component {
       {
         currentEditFile.path
           ? <Markdown file={currentEditFile}
+                      isInReviewed={
+                        !!cardsReview.find(item => item.path === File.relativePath(currentEditFile.path))}
                       status={status}
                       notesTags={notesTags}
                       modifyFileContent={this.modifyFileContent}

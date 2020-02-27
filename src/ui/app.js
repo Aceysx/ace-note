@@ -158,16 +158,17 @@ class App extends React.Component {
           {
             current === MENU.NOTE && selectedDir.sub !== undefined
               ? <Note
-                pushToRepo={this.pushToRepo}
+                cardsReview={cardsReview}
                 leftMenuVisible={leftMenuVisible}
-                updateStatus={this.updateStatus}
                 status={status}
                 leftMenu={leftMenu}
-                updateNotesTags={this.updateNotesTags}
                 notesTags={notesTags}
+                selectedDir={selectedDir}
+                pushToRepo={this.pushToRepo}
+                updateStatus={this.updateStatus}
+                updateNotesTags={this.updateNotesTags}
                 updateDirs={this.props.updateDirs}
                 updateSelectedDir={this.updateSelectedDir}
-                selectedDir={selectedDir}
                 updateToCardsReview={this.updateToCardsReview}
               />
               : ''
