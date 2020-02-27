@@ -15,6 +15,7 @@
     overflow-x: hidden;
     position: absolute;
 }
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 10px;
@@ -38,6 +39,8 @@
     z-index: 100;
     background: white;
     width: 222px;
+    font-style: italic;
+    font-weight: lighter;
 }
 
 .layout_right_content_layout_left_menu_tool {

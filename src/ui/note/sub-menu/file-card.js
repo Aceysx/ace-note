@@ -29,7 +29,7 @@ const FileCard = ({
       file.type === 'file'
         ? <span
           onClick={clickPinedIcon}
-          className={`file-card-pin-icon ${File.isPined(file.path) ? 'file-card-pined-icon' : ''} `}>
+          className={`cursor_pointer file-card-pin-icon ${File.isPined(file.path) ? 'file-card-pined-icon' : ''} `}>
           📌 
         </span>
         : ''
