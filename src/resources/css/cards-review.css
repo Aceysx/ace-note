@@ -80,3 +80,14 @@
 .card-cell-item::-webkit-scrollbar {
     width: 0px !important;
 }
+
+.card-review-box-left-pane {
+    border: 1px solid red;
+}
+.wrap_blur {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
