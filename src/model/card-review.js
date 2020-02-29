@@ -114,11 +114,10 @@ const CardReview = {
     })
   },
   _createCard: filePath => {
-    const current = new Date().getTime()
     return {
       path: filePath,
-      startReviewTime: current,
-      nextReviewTime: current,
+      startReviewTime: Time.today(),
+      nextReviewTime: Time.today(),
       isFinish: false,
       history: []
     }
