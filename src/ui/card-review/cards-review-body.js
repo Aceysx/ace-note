@@ -1,6 +1,6 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
-import moment from "moment"
+import moment, {now} from "moment"
 import {Calendar} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
@@ -9,6 +9,7 @@ import CardReviewBox from "./card-review-box"
 
 import '../../resources/css/cards-review.css'
 import CardsReviewBottom from "./cards-review-bottom";
+import Time from "../../model/time";
 
 const EMPTY_ITEM = undefined
 
@@ -67,7 +68,7 @@ class CardsReviewBody extends React.Component {
   render() {
     const {notesTags, leftMenuVisible, cardsReview} = this.props
     const {current, bottomVisible, reviewCard} = this.state
-
+    console.log(Time.add(now(), 1))
     return <div>
       <TitleBar
         title=' 📑️ Cards Review'

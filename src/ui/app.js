@@ -31,6 +31,11 @@ class App extends React.Component {
     registerShortcuts.searchModalVisible(() => this.updateStatus({searchModalVisible: !this.props.status.searchModalVisible}))
   }
 
+  expiredCardsReaperAndUpdate = () => {
+    let cards = CardReview.expireCardsReaper(FileResource.getCardsReview(window.getCardsPath()));
+    this.updateCardsReview(cards)
+  }
+
   componentDidMount() {
     this.registerShortcuts()
     let workspace = window.getNoteWorkspacePath()
@@ -39,7 +44,7 @@ class App extends React.Component {
     }
     this.props.updateDirs(FileResource.initNoteBook(workspace))
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
-    this.props.updateCardsReview(FileResource.getCardsReview(window.getCardsPath()))
+    this.expiredCardsReaperAndUpdate()
   }
 
   updateNotesTags = (path, notesTags) => {
@@ -73,7 +78,7 @@ class App extends React.Component {
     const workspace = this.initWorkspace()
     this.props.updateDirs(FileResource.initNoteBook(workspace))
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
-    this.props.updateCardsReview(FileResource.getCardsReview((window.getCardsPath())))
+    this.expiredCardsReaperAndUpdate()
   }
 
   initWorkspace = () => {

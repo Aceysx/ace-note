@@ -47,7 +47,7 @@ const CardReview = {
           ? card.history[card.history.length - 1].interval
           : 0
         const nextInterval = CardReview._nextInterval(status, lastReviewInterval)
-        const nextReviewTime = Time.add(card.nextReviewTime, nextInterval === 0 ? 1 : nextInterval)
+        const nextReviewTime = Time.add(card.nextReviewTime, nextInterval === 0 ? 1 : nextInterval + 1)
         const isFinish = nextInterval === CardReview.INTERVAL[CardReview.INTERVAL.length - 1]
 
         if (card.history.length === 0) {
@@ -56,18 +56,18 @@ const CardReview = {
               ...card,
               nextReviewTime: Time.add(card.nextReviewTime, 1)
             },
-            {history: [...card.history, CardReview._createReviewHistory(status, 0)]})
+            {history: [...card.history, CardReview._createReviewHistory(status, 0, Time.today())]})
         }
         return Object.assign({},
           {...card, isFinish, nextReviewTime},
-          {history: [...card.history, CardReview._createReviewHistory(status, nextInterval)]})
+          {history: [...card.history, CardReview._createReviewHistory(status, nextInterval, Time.today())]})
       }
       return card
     })
   },
   isTodayReviewed: (card, current) => {
     return Time.isSameDay(current, card.nextReviewTime)
-      && Time.isSameDay(card.nextReviewTime, new Date().getTime())
+      && Time.isSameDay(card.nextReviewTime, Time.today())
   },
   getStatusIcon: status => {
     return CardReview.ICONS[status]
@@ -80,6 +80,22 @@ const CardReview = {
       return Time.isSameDay(item.reviewTime, current)
     })
     return found.status
+  },
+  expireCardsReaper: cards => {
+    return cards.map(card => {
+      if (Time.interval(card.nextReviewTime, Time.today()) > 0) {
+        return Object.assign({},
+          {...card, nextReviewTime: Time.today()},
+          {
+            history: [...card.history,
+              CardReview._createReviewHistory(
+                CardReview.STATUS.NOT_REVIEW,
+                0, card.nextReviewTime
+              )]
+          })
+      }
+      return card
+    })
   },
   _nextInterval: (status, interval) => {
     const intervals = CardReview.INTERVAL
@@ -107,9 +123,9 @@ const CardReview = {
       history: []
     }
   },
-  _createReviewHistory: (status, interval) => {
+  _createReviewHistory: (status, interval, reviewTime) => {
     return {
-      reviewTime: new Date().getTime(),
+      reviewTime,
       status,
       interval
     }
