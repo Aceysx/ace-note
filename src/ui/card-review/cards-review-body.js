@@ -1,5 +1,6 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
+import moment from "moment"
 import {Calendar} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
@@ -16,7 +17,7 @@ class CardsReviewBody extends React.Component {
   state = {
     bottomVisible: true,
     reviewCard: EMPTY_ITEM,
-    current: Time.today()
+    current: moment(Time.today())
   }
 
   onSelect = current => {
