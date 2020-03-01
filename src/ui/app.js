@@ -94,6 +94,7 @@ class App extends React.Component {
       sub: this._searchByTitleOrTag(content)
     }
     this.props.updateSelectedDir(selectedDir)
+
   }
 
   _searchByTitleOrTag = content => {
@@ -122,6 +123,7 @@ class App extends React.Component {
   }
 
   updateStatus = data => {
+    console.log(data)
     const {status} = this.props
     this.props.updateStatus({...status, ...data})
   }
@@ -210,7 +212,11 @@ class App extends React.Component {
       <SearchBar
         searchModalVisible={searchModalVisible}
         searchFiles={this.searchFiles}
-        closeSearchModal={() => this.updateStatus({searchModalVisible: false})}
+        closeSearchModal={() => this.updateStatus({
+          current: MENU.NOTE,
+          subMenuVisible: true,
+          searchModalVisible: false
+        })}
       />
     </Layout>
   }
