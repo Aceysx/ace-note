@@ -1,18 +1,35 @@
 import React from "react"
-import ReviewTool from "./review-tool"
-import {Col, Row} from "antd"
-import marked from 'marked'
-import hljs from "highlight.js"
-import 'highlight.js/styles/github.css'
+import ReviewTool from "./review-tool";
 
-marked.setOptions({
-  langPrefix: "hljs language-",
-  highlight: (code, language) => {
-    return hljs.highlightAuto(code, [language]).value
-  }
-})
+const HyperMD = require('hypermd')
+let md
 
 class CardReviewBox extends React.Component {
+  state = {
+    ref: React.createRef()
+  }
+
+  componentDidMount() {
+    const node = this.state.ref.current
+    const {cardDetail} = this.props
+    md = HyperMD.fromTextArea(node, {readOnly: true, lineNumbers: false})
+    this._updateMarkdownContent(cardDetail.content)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {cardDetail} = nextProps
+    if (this.props.cardDetail.path !== cardDetail.path) {
+      this._updateMarkdownContent(cardDetail.content)
+    }
+  }
+
+  _updateMarkdownContent = data => {
+    try {
+      md.setValue(data)
+    } catch (e) {
+      md.setValue(data)
+    }
+  }
 
   render() {
     const {cardDetail, bottomVisible, reviewToolVisible} = this.props
@@ -23,18 +40,10 @@ class CardReviewBox extends React.Component {
         back={this.props.back}
         submitReview={status => this.props.submitReview(cardDetail.path, status)}
       />
-
-      <Row className='card-review-box'>
-        <Col span={4}>
-          <div className='card-review-box-left-pane'>
-            left
-          </div>
-        </Col>
-        <Col span={16} offset={1}>
-          <div className='card-review-box-content-render markdown-init'
-               dangerouslySetInnerHTML={{__html: marked(cardDetail.content)}}/>
-        </Col>
-      </Row>
+      <div>
+      <textarea
+        ref={this.state.ref}/>
+      </div>
     </div>
   }
 }
