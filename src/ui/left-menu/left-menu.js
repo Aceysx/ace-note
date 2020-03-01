@@ -1,5 +1,5 @@
 import React from 'react'
-import {Tooltip, Tree} from 'antd'
+import {Badge, Tooltip, Tree} from 'antd'
 import File from '../../model/file'
 import SideBarHeader from './sidebar-header'
 import MENU from '../note/menu-item'
@@ -18,7 +18,7 @@ export default class LeftMenu extends React.Component {
       .map(dir => {
         const subDirs = dir.sub.filter(item => item.type === 'dir')
         return <TreeNode
-          title={<span className='cursor_pointer'>{File.name(dir.path)}</span> }
+          title={<span className='cursor_pointer'>{File.name(dir.path)}</span>}
           key={dir.path}>
           {this.listTree(subDirs)}
         </TreeNode>
@@ -58,7 +58,6 @@ export default class LeftMenu extends React.Component {
         onClick={() => this.props.switchToMenu(MENU.CARDS_REVIEW)}>
         {this.buildTopItem(' 📑️ ', MENU.CARDS_REVIEW)}
       </span>
-
       {
         leftMenu.path
           ?

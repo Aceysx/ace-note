@@ -1,6 +1,6 @@
 import React from "react"
-import CardReview from "../../model/card-review";
-import {Icon, Popconfirm} from "antd";
+import CardReview from "../../model/card-review"
+import {Icon, Popconfirm} from "antd"
 
 const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible, hideOutline}) => {
   return <div className='review-tool-box'
@@ -8,7 +8,7 @@ const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible, hideO
                 bottom: bottomVisible ? 190 : 10
               }}>
     <p className='review-tool-icon'>
-      <Icon type='ordered-list'
+      <Icon type='eye-invisible'
             onClick={hideOutline}/>
     </p>
     {

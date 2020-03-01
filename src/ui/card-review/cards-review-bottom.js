@@ -30,7 +30,7 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
               hoverable>
               <header>
               <span style={{borderBottom: '2px solid #f8f6f1', fontSize: 10, fontWeight: "lighter"}}>
-                today status {CardReview.getStatusIcon(CardReview.status(item, current))}
+                status of today {CardReview.getStatusIcon(CardReview.status(item, current))}
               </span>
                 <span onClick={() => reviewCard(item)}
                       style={{float: 'right', color: '#b7906b'}}>
@@ -40,7 +40,10 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
               <div style={{
                 fontSize: 14,
                 fontWeight: 700,
-                margin: '5px 0 '
+                margin: '5px 0 ',
+                overflowX: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis'
               }}>
                 {File.name(item.path)}
               </div>
