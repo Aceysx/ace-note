@@ -57,7 +57,7 @@ export const startSpellCheck = (cm, typo) => {
         word += ch;
         stream.next();
       }
-
+      if (/^[A-Z]+$/i.test(word)) return null; // no letters
       if (!/[a-z]/i.test(word)) return null; // no letters
       if (startSpellCheck.ignoreDict[word]) return null;
       if (!typo.check(word)) return "spell-error"; // CSS class: cm-spell-error
