@@ -22,10 +22,10 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
     <div className='cards-review-bottom-item-box'>
       {
         cards.length
-          ? cards.map((item, index) => {
+          ? cards.map((item) => {
             const itemTags = tags.find(tag => tag.path === item.path)
             return <Card
-              key={index}
+              key={item.path}
               className='cards-review-bottom-card-item'
               hoverable>
               <header>
@@ -48,7 +48,7 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
                 {
                   itemTags
                     ? itemTags.tags.map(tag => {
-                      return <Tag>{tag}</Tag>
+                      return <Tag key={tag}>{tag}</Tag>
                     })
                     : <Tag>there is no tag</Tag>
                 }
