@@ -123,7 +123,6 @@ class App extends React.Component {
   }
 
   updateStatus = data => {
-    console.log(data)
     const {status} = this.props
     this.props.updateStatus({...status, ...data})
   }
