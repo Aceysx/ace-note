@@ -40,7 +40,7 @@ class CardReviewBox extends React.Component {
         back={this.props.back}
         submitReview={status => this.props.submitReview(cardDetail.path, status)}
       />
-      <div>
+      <div className='card-review-box-content'>
       <textarea
         ref={this.state.ref}/>
       </div>

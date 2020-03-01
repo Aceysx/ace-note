@@ -80,3 +80,16 @@
 .card-cell-item::-webkit-scrollbar {
     width: 0px !important;
 }
+
+.card-review-box-outline {
+    max-width: 950px;
+    min-width: 500px;
+}
+
+.card-review-box-content {
+    max-width: 950px;
+    min-width: 500px;
+    margin: 0 auto;
+    padding: 10px;
+    box-shadow: 5px 10px 100px 10px #f8f6f1, -5px 0 5px -100px #f8f6f1;
+}
