@@ -3,7 +3,7 @@ const path = require('path')
 
 const _notFilterFile = file => {
   const fileName = path.basename(file.path)
-  const filterFiles = ['__tags', '.git']
+  const filterFiles = ['__tags', '.git','__cards']
   return !filterFiles.includes(fileName)
 }
 
