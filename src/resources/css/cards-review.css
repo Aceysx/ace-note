@@ -82,14 +82,22 @@
 }
 
 .card-review-box-outline {
+    width: 100%;
     max-width: 950px;
-    min-width: 500px;
+    height: 100%;
+    background: gray;
+    z-index: 1000;
+    margin: 0 auto;
+    position: absolute;
+    opacity: .5;
+    transition: margin-top 1s ease-in-out;
 }
 
 .card-review-box-content {
     max-width: 950px;
+    width: 950px;
     min-width: 500px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 0 10px;
     box-shadow: 5px 10px 100px 10px #f8f6f1, -5px 0 5px -100px #f8f6f1;
 }

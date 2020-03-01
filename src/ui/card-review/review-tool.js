@@ -2,17 +2,21 @@ import React from "react"
 import CardReview from "../../model/card-review";
 import {Icon, Popconfirm} from "antd";
 
-const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible}) => {
+const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible, hideOutline}) => {
   return <div className='review-tool-box'
               style={{
                 bottom: bottomVisible ? 190 : 10
               }}>
+    <p className='review-tool-icon'>
+      <Icon type='ordered-list'
+            onClick={hideOutline}/>
+    </p>
     {
       reviewToolVisible
         ? <div>
           <Popconfirm
             title="Are you sure review this card?"
-            onConfirm={()=>submitReview(CardReview.STATUS.EASY)}
+            onConfirm={() => submitReview(CardReview.STATUS.EASY)}
             okText="Yes"
             cancelText="No"
           >
@@ -20,7 +24,7 @@ const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible}) => {
           </Popconfirm>
           <Popconfirm
             title="Are you sure review this card?"
-            onConfirm={()=>submitReview(CardReview.STATUS.HARD)}
+            onConfirm={() => submitReview(CardReview.STATUS.HARD)}
             okText="Yes"
             cancelText="No"
           >
@@ -28,7 +32,7 @@ const ReviewTool = ({submitReview, back, bottomVisible, reviewToolVisible}) => {
           </Popconfirm>
           <Popconfirm
             title="Are you sure review this card?"
-            onConfirm={()=>submitReview(CardReview.STATUS.OBLIVIOUS)}
+            onConfirm={() => submitReview(CardReview.STATUS.OBLIVIOUS)}
             okText="Yes"
             cancelText="No"
           >

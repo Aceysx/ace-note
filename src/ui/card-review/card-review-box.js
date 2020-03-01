@@ -1,12 +1,13 @@
 import React from "react"
-import ReviewTool from "./review-tool";
+import ReviewTool from "./review-tool"
 
 const HyperMD = require('hypermd')
 let md
 
 class CardReviewBox extends React.Component {
   state = {
-    ref: React.createRef()
+    ref: React.createRef(),
+    outlineVisible: true
   }
 
   componentDidMount() {
@@ -33,16 +34,23 @@ class CardReviewBox extends React.Component {
 
   render() {
     const {cardDetail, bottomVisible, reviewToolVisible} = this.props
+    const {outlineVisible} = this.state
+
     return <div style={{marginBottom: '30px'}}>
       <ReviewTool
         bottomVisible={bottomVisible}
         reviewToolVisible={reviewToolVisible}
         back={this.props.back}
+        hideOutline={() => this.setState({outlineVisible: !outlineVisible})}
         submitReview={status => this.props.submitReview(cardDetail.path, status)}
       />
       <div className='card-review-box-content'>
-      <textarea
-        ref={this.state.ref}/>
+        <div className='card-review-box-outline'
+             style={{marginTop: outlineVisible ? '0px' : '-100%'}}>
+          outline
+        </div>
+        <textarea
+          ref={this.state.ref}/>
       </div>
     </div>
   }
