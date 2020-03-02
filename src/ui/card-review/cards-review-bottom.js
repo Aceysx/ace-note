@@ -63,7 +63,6 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
                     return CardReview.getStatusIcon(his.status)
                   })
                   : CardReview.getStatusIcon(CardReview.STATUS.NOT_REVIEW)
-
               }</div>
             </Card>
           })

@@ -45,7 +45,7 @@ const TreeBar = ({content, turnTo}) => {
               style={{
                 paddingLeft: `${8 * (item.layer - 1)}px`,
                 opacity: `${(1 - (2 + item.layer) / 10) < 0.5 ? 0.5 : (1 - (2 + item.layer) / 10)}`
-              }}>{item.content}</span>
+              }}>{item.content.trim()}</span>
         </Tooltip>
       })
       : <Empty/>

@@ -81,6 +81,7 @@ class CardsReviewBody extends React.Component {
         {
           reviewCard
             ? <CardReviewBox
+              reviewCard={reviewCard}
               reviewToolVisible={CardReview.isTodayReviewed(
                 cardsReview.find(item => item.path === reviewCard.path),
                 current)}
