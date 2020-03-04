@@ -79,7 +79,7 @@ const CardReview = {
     const found = card.history.find(item => {
       return Time.isSameDay(item.reviewTime, current)
     })
-    return found.status
+    return found ? found.status : CardReview.STATUS.NOT_REVIEW
   },
   expireCardsReaper: cards => {
     return cards.map(card => {
