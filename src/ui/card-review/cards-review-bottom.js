@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 import {Card, Divider, Empty, Icon, Tag} from "antd"
-import File from "../../model/file";
-import CardReview from "../../model/card-review";
+import File from "../../model/file"
+import CardReview from "../../model/card-review"
 
 const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisible, current, tags}) => {
   return <div>

@@ -1,5 +1,5 @@
 import React from "react"
-import {Empty, Tooltip} from "antd";
+import {Empty, Tooltip} from "antd"
 
 const TITLE = [
   {layer: 1, start: '# '},
