@@ -19,6 +19,36 @@
     max-height: 500px !important;
     display: block;
 }
-.CodeMirror-foldgutter{
-    width: 0px!important;
+
+.CodeMirror-foldgutter {
+    width: 0px !important;
+}
+
+.cm-s-hypermd-light span.cm-inline-code:not(.cm-formatting):not(.cm-hmd-indented-code) {
+    background-color: white!important;
+    padding: 0px!important;
+    border: 0px!important;
+}
+
+.CodeMirror .cm-inline-code, .CodeMirror .cm-math {
+    color: #f58f3d !important;
+    font-weight: bold;
+    font-style: italic;
+    opacity: .8;
+}
+
+.CodeMirror-foldgutter-open:after {
+    content: none !important;
+}
+.cm-s-hypermd-light div.HyperMD-codeblock-begin-bg{
+    border-top: 1px solid #f8f8f8!important;
+}
+.cm-s-hypermd-light div.HyperMD-codeblock-bg{
+    background: #f8f8f8!important;
+    border-left:1px solid #f8f8f8!important;
+    border-right:1px solid #f8f8f8!important;
+}
+.cm-s-hypermd-light pre.HyperMD-codeblock{
+    color: gray !important;
+    line-height: normal;
 }
