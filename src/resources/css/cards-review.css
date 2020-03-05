@@ -93,9 +93,11 @@
     position: absolute;
     transition: margin-top 1s ease-in-out;
 }
-.card-review-box-outline::-webkit-scrollbar{
+
+.card-review-box-outline::-webkit-scrollbar {
     width: 0px;
 }
+
 .card-review-box-content {
     max-width: 950px;
     width: 950px;

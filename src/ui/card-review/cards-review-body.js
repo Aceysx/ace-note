@@ -1,7 +1,7 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
 import moment from "moment"
-import {Calendar, Statistic, Tooltip} from "antd"
+import {Calendar, Progress, Statistic, Tooltip} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
 import FileResource from "../../infrastructure/file-resource"
@@ -50,6 +50,7 @@ class CardsReviewBody extends React.Component {
       </div>
     )
   }
+
   monthCellRender = (current, cardsReview) => {
     let cardsCount = 0
     let totalReviewHistory = 0
@@ -62,17 +63,12 @@ class CardsReviewBody extends React.Component {
     return <div style={{textAlign: 'center'}}>
       <Tooltip title='total cards / review history'>
         {
-          Time.interval(Time.formatMonthTimestamp(current),
-            Time.formatMonthTimestamp(Time.today())) >= 0
-            ?
-            <Statistic title='cards / history' value={cardsCount} suffix={' / ' + totalReviewHistory}/>
-            :
-            <span/>
+          Time.interval(Time.formatMonthTimestamp(current), Time.formatMonthTimestamp(Time.today())) >= 0
+            ? <Statistic title='cards / history' value={cardsCount} suffix={' / ' + totalReviewHistory}/>
+            : <span/>
         }
       </Tooltip>
-
     </div>
-
   }
   getNeedReviewCards = cardsReview => {
     const {current} = this.state
