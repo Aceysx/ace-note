@@ -7,14 +7,15 @@ const ReviewTool = ({submitReview, back, bottomVisible, outlineVisible, reviewTo
               style={{
                 bottom: bottomVisible ? 190 : 10
               }}>
-    <p className='review-tool-icon'>
-      <Icon type={outlineVisible ? 'eye-invisible' : 'eye'}
+    <p className='review-tool-icon '>
+      <Icon className='cursor_pointer' type={outlineVisible ? 'eye-invisible' : 'eye'}
             onClick={() => changeOutlineVisible(!outlineVisible)}/>
     </p>
     {
       reviewToolVisible
         ? <div>
           <Popconfirm
+            placement='right'
             title="Are you sure review this card?"
             onConfirm={() => submitReview(CardReview.STATUS.EASY)}
             okText="Yes"

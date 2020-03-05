@@ -42,7 +42,7 @@ class CardsReviewBody extends React.Component {
     return (
       <div className='card-cell-item cursor_pointer'>
         {renderData.map(card => (
-          <span className='card-cell-content' key={card.path}>
+          <span className='card-cell-content cursor_pointer' key={card.path}>
             {CardReview.getStatusIcon(CardReview.status(card, current))}
             {File.name(card.path)}
           </span>

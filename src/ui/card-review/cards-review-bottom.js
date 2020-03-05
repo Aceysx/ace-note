@@ -33,6 +33,7 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
                 status of today {CardReview.getStatusIcon(CardReview.status(item, current))}
               </span>
                 <span onClick={() => reviewCard(item)}
+                      className='cursor_pointer'
                       style={{float: 'right', color: '#b7906b'}}>
                     let's review
               </span>
