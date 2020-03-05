@@ -17,6 +17,9 @@ const Time = {
   format: timestamps => {
     return moment(timestamps).format("YYYY-MM-DD")
   },
-  today: () => new Date().getTime()
+  formatMonthTimestamp: month => moment(month).format("YYYY-MM").valueOf(),
+  today: () => new Date().getTime(),
+  isSameMonth: (one, another) => moment(one).format("YYYY-MM")
+    === moment(another).format("YYYY-MM")
 }
 export default Time

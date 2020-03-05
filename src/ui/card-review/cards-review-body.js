@@ -1,7 +1,7 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
 import moment from "moment"
-import {Calendar} from "antd"
+import {Calendar, Statistic, Tooltip} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
 import FileResource from "../../infrastructure/file-resource"
@@ -48,9 +48,32 @@ class CardsReviewBody extends React.Component {
           </span>
         ))}
       </div>
-    );
+    )
   }
+  monthCellRender = (current, cardsReview) => {
+    let cardsCount = 0
+    let totalReviewHistory = 0
+    cardsReview.forEach(card => {
+      const count = card.history.filter(his => Time.isSameMonth(current, his.reviewTime)
+        && his.status !== CardReview.STATUS.NOT_REVIEW).length
+      totalReviewHistory += count
+      cardsCount += count > 0 ? 1 : 0
+    })
+    return <div style={{textAlign: 'center'}}>
+      <Tooltip title='total cards / review history'>
+        {
+          Time.interval(Time.formatMonthTimestamp(current),
+            Time.formatMonthTimestamp(Time.today())) >= 0
+            ?
+            <Statistic title='cards / history' value={cardsCount} suffix={' / ' + totalReviewHistory}/>
+            :
+            <span/>
+        }
+      </Tooltip>
 
+    </div>
+
+  }
   getNeedReviewCards = cardsReview => {
     const {current} = this.state
     return cardsReview.filter(item => CardReview.isTodayInReviewRange(item, current))
@@ -94,6 +117,7 @@ class CardsReviewBody extends React.Component {
               className='cards-review-calendar-box'
               value={current}
               dateCellRender={current => this.dateCellRender(current, cardsReview)}
+              monthCellRender={current => this.monthCellRender(current, cardsReview)}
               onSelect={this.onSelect}
               onPanelChange={this.onPanelChange}/>
         }
