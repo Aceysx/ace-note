@@ -19,9 +19,13 @@ AceNote has the following feature:
 ## Feature & todos
 ### version 1.2.0
 ✨ calendar card review
+
 ✨ built-in spell check in markdown
+
 💄 improve markdown style
+
 🚸 improve user experience
+
 🐛 fix some bugs
 
 ### next version feature
