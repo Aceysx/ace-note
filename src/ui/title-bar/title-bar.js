@@ -30,7 +30,7 @@ class TitleBar extends React.Component {
         pushToRepo={this.props.pushToRepo}/>
 
       <span style={{position: 'fixed', right: 10}}>
-        <Badge status="processing" text="v1.1.0"/>
+        <Badge status="processing" text="v1.2.0"/>
       </span>
     </div>
   }
