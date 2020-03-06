@@ -35,7 +35,7 @@ const CardReviewOutline = ({cardDetail, reviewCard, hideOutline}) => {
                  onClick={hideOutline}>start review <Icon type="arrow-right"/></a>]}
       subTitle={<div>
         <Divider type='vertical'/>
-        <span style={{fontStyle: "italic", fontSize: 12}}> review history </span>
+        <span style={{fontStyle: "italic", fontSize: 12}}>  history review </span>
         {reviewCard.history.length
           ? reviewCard.history.map(his => {
             return CardReview.getStatusIcon(his.status)
@@ -55,8 +55,8 @@ const CardReviewOutline = ({cardDetail, reviewCard, hideOutline}) => {
       <Divider/><br/>
       {tree.length
         ?
-        tree.map(item => {
-          return <span className='review-outline-item cursor_pointer'
+        tree.map((item, index) => {
+          return <span key={index} className='review-outline-item cursor_pointer'
                        style={{
                          paddingLeft: `${10 * (item.layer - 1)}px`,
                          opacity: `${(1 - (2 + item.layer) / 10) < 0.5 ? 0.5 : (1 - (2 + item.layer) / 10)}`

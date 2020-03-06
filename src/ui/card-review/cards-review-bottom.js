@@ -30,7 +30,7 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
               hoverable>
               <header>
               <span style={{borderBottom: '2px solid #f8f6f1', fontSize: 10, fontWeight: "lighter"}}>
-                status of today {CardReview.getStatusIcon(CardReview.status(item, current))}
+                 today's status {CardReview.getStatusIcon(CardReview.status(item, current))}
               </span>
                 <span onClick={() => reviewCard(item)}
                       className='cursor_pointer'
