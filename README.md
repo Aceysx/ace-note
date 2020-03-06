@@ -3,26 +3,52 @@
 ![](https://img.shields.io/badge/Platform-mac-default.svg)
 ![](https://img.shields.io/badge/License-MIT-blue.svg)
 
-AceNote is a customized personal note system. You can open your local directory or a git repo as note to management, take tag...  of course AceNote is so flexible and Non-invasive, that mean you can push your note to your remote repository like github,gitee...
+AceNote is a customized personal note system. It has the same feature as other note system. The difference is you can control and manage your note and push it to remote repository for version control. Also, you can get a card review system base on note system now to help you better memory what you want
+
+English | [中文版](./README-ZH.md)
+
+## Why AceNote
+Actually, I have used note system for two years. I find they almost are perfect where they are good at, like notes storage, classify, tag management, note export etc. But I found some  pain point for me when I have used note system.
+AceNote has the following feature:
+* You can manage your note at local and take a version control
+* You can build your personal review queue when you want to periodic review your note
+* Commonly visualization management(todos)
+* Goal/plan management(todos)
+* Personal time tracking(todos)
 
 ## Feature & todos
-### version 1.1.0
-- [x] make greatly change of style for AceNote
-- [x] add outline for markdown and turn to the position where you selected in the outline
-- [x] bind some shortcuts. (fold/unfold left sidebar, note list)
-- [x] fix some bugs
+### version 1.2.0
+✨ calendar card review
+✨ built-in spell check in markdown
+💄 improve markdown style
+🚸 improve user experience
+🐛 fix some bugs
 
 ### next version feature
-- [ ] record the note you want to review multiple with calendar
-- [ ] generate the records that need to review according to Forgetting curve automatically
-- [ ] add record to calendar manually
-- [ ] give system propmt when the review time of the note is up
+- [ ] the management of  note tag
+- [ ] improve calendar card review
+- [ ] support more shortcuts
+
+## calendar card review introduce
+**calendar card review** is a review queue references [forgetting curve]((https://zh.wikipedia.org/zh-hk/%E9%81%97%E5%BF%98%E6%9B%B2%E7%BA%BF)) and [anki](https://apps.ankiweb.net/) to help you better memory what you want. When you want to review something regularly, you can push it to review queue, and then AceNote will generate review plan for that. You can enter the CardsReview menu to check it, review note and marking.
+
+**rules of calendar card review **
+four status: 🕳not review, 💔oblivious, 💘hard, 💖easy
+- when you push a note tot queue, AceNote will generate a review plan, the interval are 0, 1, 3, 7, 14, 29, 69, 129 day
+- If not review today, AceNote will mark the status to 🕳, and reset the interval(that mean you need to start all over again)
+- If you mark status to 💔, next review interval will backward one step;
+- If you mark status to 💘,  next review interval will  as same as current interval
+- If you mark status to 💖, it will go on as plan
 
 ## Download
-[AceNote v1.1.0](https://github.com/Aceysx/ace-note/releases)
+[AceNote v1.2.0](https://github.com/Aceysx/ace-note/releases)
 
 ## Screenshot
 ![UTOOLS1582281300384.png](https://user-gold-cdn.xitu.io/2020/2/21/17067509e5d22251?w=3000&h=1874&f=png&s=433758)
+![UTOOLS1583501654699.png](https://user-gold-cdn.xitu.io/2020/3/6/170b00dbec37b579?w=3000&h=1874&f=png&s=288490)
+
+![UTOOLS1583501770457.png](https://user-gold-cdn.xitu.io/2020/3/6/170b00f82ae0bfb8?w=3000&h=1874&f=png&s=257202)
+![UTOOLS1583501801243.png](https://user-gold-cdn.xitu.io/2020/3/6/170b00ffbef29dd8?w=3000&h=1874&f=png&s=749549)
 
 ## Local Development
 1. git clone https://github.com/Aceysx/ace-note.git
