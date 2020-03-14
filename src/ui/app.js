@@ -209,7 +209,8 @@ class App extends React.Component {
           }{
           current === MENU.TAG
             ? <TagBody
-              tags={notesTags}
+              notesTags={notesTags}
+              updateNotesTags={this.updateNotesTags}
               pushToRepo={this.pushToRepo}
               leftMenuVisible={leftMenuVisible}
               updateStatus={this.updateStatus}

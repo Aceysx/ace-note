@@ -1,6 +1,12 @@
 import File from './file'
 
 const NoteTagModel = {
+  format: tag => {
+    const colorAndContent = tag.split('||')
+    const color = colorAndContent.length === 2 ? colorAndContent[0] : ''
+    const content = colorAndContent.length === 2 ? colorAndContent[1] : colorAndContent[0]
+    return [color, content]
+  },
   findNoteTagsByPath: (notesTags, _path) => {
     const note = notesTags.find(note => note.path === _path) || {}
     return (note.tags || [])
