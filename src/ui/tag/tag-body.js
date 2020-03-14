@@ -8,7 +8,6 @@ class TagBody extends React.Component {
 
   format = notesTags => {
     const result = {}
-    console.log(notesTags)
     notesTags.forEach(notesTag => {
       notesTag.tags.forEach(tag => {
         if (!result[tag]) {

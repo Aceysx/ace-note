@@ -1,4 +1,10 @@
 .tag-body{
     padding: 10px;
 }
-
+.tag{
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 5px;
+}
