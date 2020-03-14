@@ -9,9 +9,11 @@ import LeftMenu from './left-menu/left-menu'
 import SearchBar from './search-bar/search-bar'
 import MENU from './note/menu-item'
 import File from '../model/file'
+import Timer from '../model/timer'
 import CardsReviewBody from "./card-review/cards-review-body"
 import CardReview from "../model/card-review"
 import registerShortcuts from '../infrastructure/shortcut-resource'
+
 import {
   UPDATE_CARDS_REVIEW,
   UPDATE_FILES,
@@ -31,6 +33,10 @@ class App extends React.Component {
     registerShortcuts.searchModalVisible(() => this.updateStatus({searchModalVisible: !this.props.status.searchModalVisible}))
   }
 
+  schedule = () => {
+    Timer.expiredCardsReaperAndUpdate(this.expiredCardsReaperAndUpdate)
+  }
+
   expiredCardsReaperAndUpdate = () => {
     let cards = CardReview.expireCardsReaper(FileResource.getCardsReview(window.getCardsPath()));
     this.updateCardsReview(cards)
@@ -45,6 +51,7 @@ class App extends React.Component {
     this.props.updateDirs(FileResource.initNoteBook(workspace))
     this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
     this.expiredCardsReaperAndUpdate()
+    this.schedule()
   }
 
   updateNotesTags = (path, notesTags) => {
