@@ -58,6 +58,10 @@ export default class LeftMenu extends React.Component {
         onClick={() => this.props.switchToMenu(MENU.CARDS_REVIEW)}>
         {this.buildTopItem(' 📑️ ', MENU.CARDS_REVIEW)}
       </span>
+      <span
+        onClick={() => this.props.switchToMenu(MENU.TAG)}>
+        {this.buildTopItem('🏷️ ', MENU.TAG)}
+      </span>
       {
         leftMenu.path
           ?

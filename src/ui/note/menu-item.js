@@ -4,6 +4,7 @@ const MENU = {
   SETTING: 'Settings',
   SEARCH: 'Quick Find',
   CARDS_REVIEW: 'Cards Review',
+  TAG: 'Tag',
   SEARCH_RESULT: 'Search Result'
 }
 
