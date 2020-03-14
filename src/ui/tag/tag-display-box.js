@@ -24,17 +24,13 @@ class TagDisplayBox extends React.Component {
     return <div><Statistic
       value={Object.keys(tagsNotes).length}
       suffix={`/ ${notesCount}`}/>
-      {/*<div style={{width: '100%', height: '100%', margin: '100px 0 0 50px'}}>*/}
-      {/*<TagCloud tagName={Object.keys(tagsNotes)}*/}
-      {/*          speed={1}/>*/}
-      {/*</div>*/}
       {
         Object.keys(tagsNotes)
           .map((tag, index) => {
             const [color, content] = NoteTagModel.format(tag)
             return <Tag key={index}
                         className='tag'
-                        color={color} closable>
+                        color={color}>
               <Popover content={<ColorPicker
                 color={colorEdit}
                 tagValue={tagValueEdit}
@@ -48,9 +44,8 @@ class TagDisplayBox extends React.Component {
                   }} className='cursor_pointer'>🎨</span>
               </Popover>
               {content} <Divider type={'vertical'}/>
-              {tagsNotes[tag].length}
+              <span style={{fontSize: '12px'}}> {tagsNotes[tag].length}</span>
             </Tag>
-
           })
       }
     </div>
