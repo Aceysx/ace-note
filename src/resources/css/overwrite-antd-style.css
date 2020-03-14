@@ -65,3 +65,6 @@
 .ant-card-body{
     padding: 10px;
 }
+.ant-select-selection--multiple > ul > li, .ant-select-selection--multiple .ant-select-selection__rendered > ul > li{
+    border-radius: 5px;
+}
