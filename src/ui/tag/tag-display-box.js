@@ -16,14 +16,12 @@ class TagDisplayBox extends React.Component {
   render() {
     const {tagsNotes} = this.props
     const {colorEdit, tagValueEdit} = this.state
-    const notesCount = Object.values(tagsNotes)
-      .reduce((current, next) => {
-        return current + next.length
-      }, 0)
+    const notesSet = new Set()
+    Object.values(tagsNotes).forEach(tags=>notesSet.add(...tags))
 
     return <div><Statistic
       value={Object.keys(tagsNotes).length}
-      suffix={`/ ${notesCount}`}/>
+      suffix={`/ ${notesSet.size}`}/>
       {
         Object.keys(tagsNotes)
           .map((tag, index) => {
