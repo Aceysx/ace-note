@@ -17,7 +17,7 @@ class TagDisplayBox extends React.Component {
     const {tagsNotes} = this.props
     const {colorEdit, tagValueEdit} = this.state
     const notesSet = new Set()
-    Object.values(tagsNotes).forEach(tags=>notesSet.add(...tags))
+    Object.values(tagsNotes).forEach(tags => notesSet.add(...tags))
 
     return <div><Statistic
       value={Object.keys(tagsNotes).length}
@@ -41,7 +41,10 @@ class TagDisplayBox extends React.Component {
                     this.setState({colorEdit: color, tagValueEdit: content})
                   }} className='cursor_pointer'>🎨</span>
               </Popover>
-              {content} <Divider type={'vertical'}/>
+              <span onClick={()=>this.props.clickTag(content)}>
+                {content}
+                </span>
+              <Divider type={'vertical'}/>
               <span style={{fontSize: '12px'}}> {tagsNotes[tag].length}</span>
             </Tag>
           })

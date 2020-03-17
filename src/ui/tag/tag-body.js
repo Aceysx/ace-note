@@ -3,8 +3,13 @@ import TitleBar from "../title-bar/title-bar"
 import TagDisplayBox from "./tag-display-box"
 
 import '../../resources/css/tag.css'
+import NoteList from "./note-list";
+import {Divider} from "antd";
 
 class TagBody extends React.Component {
+  state = {
+    currentSelectTag: ''
+  }
 
   format = notesTags => {
     const result = {}
@@ -31,7 +36,14 @@ class TagBody extends React.Component {
       }))
   }
 
+  mergeNotesWithTag = (selectTag, tagsNotes) => {
+    const currentNotes = tagsNotes[selectTag]
+    const {notesTags} = this.props
+    return notesTags.filter(noteTag => currentNotes.includes(noteTag.path))
+  }
+
   render() {
+    const {currentSelectTag} = this.state
     const {notesTags, leftMenuVisible} = this.props
     const tagsNotes = this.format(notesTags)
 
@@ -43,9 +55,21 @@ class TagBody extends React.Component {
         pushToRepo={this.props.pushToRepo}/>
       <div style={{height: 35}}/>
       <TagDisplayBox
+        clickTag={currentSelectTag => this.setState({currentSelectTag})}
         updateTag={this.updateTag}
         tagsNotes={tagsNotes}
       />
+      {
+        currentSelectTag
+          ? <div>
+            <Divider/>
+            <NoteList
+              selectTag={currentSelectTag}
+              notes={this.mergeNotesWithTag(currentSelectTag, tagsNotes)}/>
+          </div>
+          : ''
+      }
+
     </div>
   }
 }
