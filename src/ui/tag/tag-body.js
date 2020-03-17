@@ -5,6 +5,8 @@ import TagDisplayBox from "./tag-display-box"
 import '../../resources/css/tag.css'
 import NoteList from "./note-list";
 import {Divider} from "antd";
+import File from "../../model/file";
+import NoteTagModel from "../../model/note-tag";
 
 class TagBody extends React.Component {
   state = {
@@ -42,6 +44,11 @@ class TagBody extends React.Component {
     return notesTags.filter(noteTag => currentNotes.includes(noteTag.path))
   }
 
+  updateNoteTags = (tags, note) => {
+    const {notesTags} = this.props
+    this.props.updateNotesTags(window.getNoteTagsPath(), NoteTagModel.updateNoteTags(note.path, notesTags, tags))
+  }
+
   render() {
     const {currentSelectTag} = this.state
     const {notesTags, leftMenuVisible} = this.props
@@ -59,12 +66,15 @@ class TagBody extends React.Component {
         updateTag={this.updateTag}
         tagsNotes={tagsNotes}
       />
+
       {
         currentSelectTag
           ? <div>
             <Divider/>
             <NoteList
+              updateNoteTags={this.updateNoteTags}
               selectTag={currentSelectTag}
+              notesTags={notesTags}
               notes={this.mergeNotesWithTag(currentSelectTag, tagsNotes)}/>
           </div>
           : ''

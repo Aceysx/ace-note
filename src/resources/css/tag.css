@@ -1,10 +1,41 @@
-.tag-body{
+.tag-body {
     padding: 10px;
 }
-.tag{
+
+.tag {
     font-size: 14px;
     padding: 5px;
     border-radius: 5px;
     font-weight: bold;
     margin: 5px;
+}
+
+.tag-note-item {
+    height: 70px;
+    border: 3px solid #f8f6f1;
+    border-radius: 5px;
+    border-left: 3px solid #b7906b;
+    margin: 10px 0;
+    padding: 5px 10px;
+}
+
+.tag-note-item-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.tag-note-item-path, .tag-note-item-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(25, 23, 17, 0.5);
+    font-style: italic;
+    text-decoration: underline #b7906b;
+}
+
+.tag-note-item-path {
+    float: right;
+}
+.tag-note-item-time{
+    position: absolute;
+    bottom: 0px;
 }

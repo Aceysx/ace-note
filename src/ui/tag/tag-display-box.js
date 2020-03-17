@@ -39,9 +39,11 @@ class TagDisplayBox extends React.Component {
                 <span
                   onMouseOver={() => {
                     this.setState({colorEdit: color, tagValueEdit: content})
-                  }} className='cursor_pointer'>🎨</span>
+                  }}
+                  className='cursor_pointer'>🎨</span>
               </Popover>
-              <span onClick={()=>this.props.clickTag(content)}>
+              <span className='cursor_pointer'
+                    onClick={() => this.props.clickTag(tag)}>
                 {content}
                 </span>
               <Divider type={'vertical'}/>
