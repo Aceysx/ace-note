@@ -1,12 +1,11 @@
 import React from "react"
+import {Divider} from "antd";
 import TitleBar from "../title-bar/title-bar"
 import TagDisplayBox from "./tag-display-box"
+import NoteList from "./note-list"
+import NoteTagModel from "../../model/note-tag"
 
 import '../../resources/css/tag.css'
-import NoteList from "./note-list";
-import {Divider} from "antd";
-import File from "../../model/file";
-import NoteTagModel from "../../model/note-tag";
 
 class TagBody extends React.Component {
   state = {

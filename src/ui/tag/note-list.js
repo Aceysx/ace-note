@@ -1,7 +1,7 @@
 import React from "react"
-import {Col, Statistic} from "antd";
-import NoteItem from "./note-item";
-import NoteTagModel from "../../model/note-tag";
+import {Col, Statistic} from "antd"
+import NoteItem from "./note-item"
+import NoteTagModel from "../../model/note-tag"
 
 const NoteList = ({selectTag, notes, notesTags, updateNoteTags}) => {
   return <div>

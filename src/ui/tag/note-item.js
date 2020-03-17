@@ -1,9 +1,9 @@
 import React from "react"
-import File from "../../model/file";
-import {Icon, Row} from "antd";
-import Time from "../../model/time";
-import NoteTag from "../note/markdown/note-tag";
-import NoteTagModel from "../../model/note-tag";
+import {Icon, Row} from "antd"
+import File from "../../model/file"
+import Time from "../../model/time"
+import NoteTag from "../note/markdown/note-tag"
+import NoteTagModel from "../../model/note-tag"
 
 const NoteItem = ({note, notesTags, updateNoteTags}) => {
   const findCurrentNoteTags = (note, notesTags) => {
