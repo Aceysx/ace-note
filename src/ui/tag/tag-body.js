@@ -39,8 +39,13 @@ class TagBody extends React.Component {
 
   mergeNotesWithTag = (selectTag, tagsNotes) => {
     const currentNotes = tagsNotes[selectTag]
-    const {notesTags} = this.props
-    return notesTags.filter(noteTag => currentNotes.includes(noteTag.path))
+    if (currentNotes) {
+      const {notesTags} = this.props;
+      return notesTags.filter(noteTag => currentNotes.includes(noteTag.path))
+    }
+    // 移除 note 的 tag 后（当前 tag 只有一个 note 标注），所以移除后，把 state 晴空
+    this.setState({currentSelectTag: ''})
+    return []
   }
 
   updateNoteTags = (tags, note) => {
