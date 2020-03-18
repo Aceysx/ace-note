@@ -21,7 +21,7 @@ const NoteItem = ({note, notesTags, updateNoteTags}) => {
     <span>
       <span className='tag-note-item-time'><Icon type="clock-circle"/> {Time.format(note.createTime)}</span>
     </span>
-      <span style={{float: 'right'}}>
+      <span style={{float: 'right', maxWidth: 400}}>
         <NoteTag
           currentNoteTags={findCurrentNoteTags(note, notesTags)}
           updateNoteTags={tags => updateNoteTags(tags, note)}

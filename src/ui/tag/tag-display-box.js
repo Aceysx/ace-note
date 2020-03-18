@@ -23,7 +23,7 @@ class TagDisplayBox extends React.Component {
       return current
     }, {})
     return Object.values(tags).reduce((current, next) => {
-      current.push(...next.sort())
+      current.push(...next.sort((a, b) => a.length - b.length))
       return current
     }, [])
   }
@@ -34,7 +34,6 @@ class TagDisplayBox extends React.Component {
     const notesSet = new Set()
     Object.values(tagsNotes).forEach(tags => notesSet.add(...tags))
     const tags = this.classifySort(tagsNotes)
-
 
     return <div><Statistic
       value={Object.keys(tagsNotes).length}

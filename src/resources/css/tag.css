@@ -1,5 +1,5 @@
 .tag-body {
-    padding: 10px;
+    padding: 0 10px;
 }
 
 .tag {
@@ -11,7 +11,6 @@
 }
 
 .tag-note-item {
-    height: 70px;
     border: 3px solid #f8f6f1;
     border-radius: 5px;
     border-left: 3px solid #b7906b;
@@ -20,6 +19,8 @@
 }
 
 .tag-note-item-title {
+    display: inline-block;
+    width: 250px;
     font-size: 14px;
     font-weight: 700;
 }
@@ -33,6 +34,8 @@
 }
 
 .tag-note-item-path {
+    display: inline-block;
+    max-width: 300px;
     float: right;
 }
 .tag-note-item-time{
