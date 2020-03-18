@@ -13,12 +13,28 @@ class TagDisplayBox extends React.Component {
     this.props.updateTag(old, [colorEdit, tagValueEdit].join('||'))
   }
 
+  classifySort = tagsNotes => {
+    const tags = Object.keys(tagsNotes).reduce((current, next) => {
+      const [color] = NoteTagModel.format(next)
+      if (!current[color]) {
+        current[color] = []
+      }
+      current[color].push(next)
+      return current
+    }, {})
+    return Object.values(tags).reduce((current, next) => {
+      current.push(...next.sort())
+      return current
+    }, [])
+  }
+
   render() {
     const {tagsNotes} = this.props
     const {colorEdit, tagValueEdit} = this.state
     const notesSet = new Set()
     Object.values(tagsNotes).forEach(tags => notesSet.add(...tags))
-    const tags = Object.keys(tagsNotes).sort()
+    const tags = this.classifySort(tagsNotes)
+
 
     return <div><Statistic
       value={Object.keys(tagsNotes).length}
