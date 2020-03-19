@@ -35,7 +35,13 @@ export default class Markdown extends React.Component {
       md = HyperMD.fromTextArea(node, {
         extraKeys: {
           'Cmd-S': this.modifyFileContent,
-          'Ctrl-S': this.modifyFileContent
+          'Ctrl-S': this.modifyFileContent,
+          'Cmd-3': cm => cm.replaceSelection('### '),
+          'Cmd-4': cm => cm.replaceSelection('#### '),
+          'Cmd-5': cm => cm.replaceSelection('##### '),
+          "Cmd-'": cm => cm.replaceSelection('`'),
+
+
         }
       })
       md.on('change', (instance, target) => {
