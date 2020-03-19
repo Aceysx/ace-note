@@ -1,7 +1,7 @@
 import React from "react"
 import TitleBar from "../title-bar/title-bar"
 import moment from "moment"
-import {Calendar, Progress, Statistic, Tooltip} from "antd"
+import {Calendar, Statistic, Tooltip} from "antd"
 import CardReview from "../../model/card-review"
 import File from '../../model/file'
 import FileResource from "../../infrastructure/file-resource"

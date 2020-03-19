@@ -1,8 +1,9 @@
 import React from 'react'
 import HeaderMenu from './header-menu'
-import {Badge, Divider, Icon, Tooltip} from 'antd'
+import {Badge, Divider, Icon} from 'antd'
 import GitPusher from './git-pusher'
 import '../../resources/css/title-bar.css'
+import Question from "./question";
 
 class TitleBar extends React.Component {
   render() {
@@ -13,8 +14,8 @@ class TitleBar extends React.Component {
                 onClick={() => this.props.changeLeftMenuVisible({leftMenuVisible: !leftMenuVisible})}>
             {
               leftMenuVisible
-                ? <Tooltip title='⌘+1'><Icon type="double-left"/></Tooltip>
-                : <Tooltip title='⌘+2'><Icon type="double-right"/></Tooltip>
+                ? <Icon type="double-left"/>
+                : <Icon type="double-right"/>
             }
           </span>
       <Divider type='vertical'/>
@@ -26,12 +27,15 @@ class TitleBar extends React.Component {
         onClickMenuItem={this.props.onClickMenuItem}
       />
 
+
       <GitPusher
         pushToRepo={this.props.pushToRepo}/>
-
+      <Question/>
       <span style={{position: 'fixed', right: 10}}>
         <Badge status="processing" text="v1.2.0"/>
       </span>
+
+
     </div>
   }
 }

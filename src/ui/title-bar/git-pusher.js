@@ -28,7 +28,7 @@ class GitPusher extends React.Component {
   }
 
   render() {
-    return <span style={{position: 'fixed', right: 80}}>
+    return <span style={{position: 'fixed', right: 100}}>
         <Tooltip title="push to remote repo"
                  placement='bottom'>
           <Icon type="github"

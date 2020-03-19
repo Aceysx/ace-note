@@ -43,13 +43,10 @@ export default class LeftMenu extends React.Component {
       <div style={{height: 100}}>
         <SideBarHeader/>
       </div>
-      <Tooltip title='⌘+f'>
       <span
-
         onClick={() => this.props.switchToMenu(MENU.SEARCH)}>
         {this.buildTopItem('🔍 ', MENU.SEARCH)}
       </span>
-      </Tooltip>
       <span
         onClick={() => this.props.switchToMenu(MENU.SETTING)}>
         {this.buildTopItem('⚙️ ', MENU.SETTING)}
