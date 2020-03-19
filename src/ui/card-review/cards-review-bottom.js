@@ -2,6 +2,7 @@ import React from "react"
 import {Card, Divider, Empty, Icon, Tag} from "antd"
 import File from "../../model/file"
 import CardReview from "../../model/card-review"
+import NoteTagModel from "../../model/note-tag";
 
 const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisible, current, tags}) => {
   return <div>
@@ -52,7 +53,8 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
                 {
                   itemTags
                     ? itemTags.tags.map(tag => {
-                      return <Tag key={tag}>{tag}</Tag>
+                      const [color,content] = NoteTagModel.format(tag)
+                      return <Tag color={color} key={tag}>{content}</Tag>
                     })
                     : <Tag>there is no tag</Tag>
                 }
