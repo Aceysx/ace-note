@@ -17,21 +17,30 @@ AceNote has the following feature:
 * Personal time tracking(todos)
 
 ## Feature & todos
-### version 1.2.0
-✨ calendar card review
+### version 1.3.0
+✨ note's tag management
 
-✨ built-in spell check in markdown
+⚡️ improve calendar card review
 
-💄 improve markdown style
+⚡️ support more shortcuts
+* Global Shortcuts
+    * ⌘+f -> open search bar
+    * ⌘+1 -> fold/unfold left sidebar
+    * ⌘+2 -> fold/unfold the list of note
 
-🚸 improve user experience
-
-🐛 fix some bugs
+* Markdown Shortcuts
+    * ⌘+x -> delete one line
+    * ⌘+b -> bold word
+    * ⌘+d -> add strikethrough
+    * ⌘+3 -> ###
+    * ⌘+4 -> ####
+    * ⌘+5 -> #####
+    * ⌘+'  -> `
 
 ### next version feature
-- [ ] the management of  note tag
-- [ ] improve calendar card review
-- [ ] support more shortcuts
+- [ ] personal plan management
+- [ ] improve the user experience of tag/cardReview management
+- [ ] support open note's directory
 
 ## calendar card review introduce
 **calendar card review** is a review queue references [forgetting curve]((https://zh.wikipedia.org/zh-hk/%E9%81%97%E5%BF%98%E6%9B%B2%E7%BA%BF)) and [anki](https://apps.ankiweb.net/) to help you better memory what you want. When you want to review something regularly, you can push it to review queue, and then AceNote will generate review plan for that. You can enter the CardsReview menu to check it, review note and marking.
@@ -49,6 +58,7 @@ four status: 🕳not review, 💔oblivious, 💘hard, 💖easy
 
 ## Screenshot
 ![UTOOLS1582281300384.png](https://user-gold-cdn.xitu.io/2020/2/21/17067509e5d22251?w=3000&h=1874&f=png&s=433758)
+![UTOOLS1584695830240.png](https://user-gold-cdn.xitu.io/2020/3/20/170f73b69d1dcda4?w=2984&h=1804&f=png&s=363014)
 ![UTOOLS1583501654699.png](https://user-gold-cdn.xitu.io/2020/3/6/170b00dbec37b579?w=3000&h=1874&f=png&s=288490)
 
 ![UTOOLS1583501770457.png](https://user-gold-cdn.xitu.io/2020/3/6/170b00f82ae0bfb8?w=3000&h=1874&f=png&s=257202)
