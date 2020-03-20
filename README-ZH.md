@@ -55,7 +55,7 @@
 
 
 ## 下载
-[AceNote v1.2.0](https://github.com/Aceysx/ace-note/releases)
+[AceNote v1.3.0](https://github.com/Aceysx/ace-note/releases)
 
 ## 截图
 ![UTOOLS1582281300384.png](https://user-gold-cdn.xitu.io/2020/2/21/17067509e5d22251?w=3000&h=1874&f=png&s=433758)

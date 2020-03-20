@@ -54,7 +54,7 @@ four status: 🕳not review, 💔oblivious, 💘hard, 💖easy
 - If you mark status to 💖, it will go on as plan
 
 ## Download
-[AceNote v1.2.0](https://github.com/Aceysx/ace-note/releases)
+[AceNote v1.3.0](https://github.com/Aceysx/ace-note/releases)
 
 ## Screenshot
 ![UTOOLS1582281300384.png](https://user-gold-cdn.xitu.io/2020/2/21/17067509e5d22251?w=3000&h=1874&f=png&s=433758)
