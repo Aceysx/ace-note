@@ -22,7 +22,6 @@ class GitPusher extends React.Component {
   }
 
   pushToRepo = () => {
-    this.setState({isPushing: true})
     notification.info(NOTIFICATION_ARGS)
     this.props.pushToRepo(window.getNoteWorkspacePath())
   }
