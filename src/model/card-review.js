@@ -1,9 +1,21 @@
 import Time from "./time"
+import File from './file'
 
 const CardReview = {
   INTERVAL: [0, 1, 2, 4, 7, 15, 30, 60],
   STATUS: {NOT_REVIEW: 'not-review', OBLIVIOUS: 'oblivious', HARD: 'hard', EASY: 'easy'},
   ICONS: {'not-review': '🕳', 'oblivious': '💔', 'hard': '💘', 'easy': '💖'},
+
+  updateCardFilePath: (oldPath, newFileName, cardsReview) => {
+    return cardsReview.map(card => {
+      if (card.path.startsWith(oldPath)
+        || card.path.endsWith(oldPath)) {
+        const newPath = File.join([File.dir(oldPath), newFileName])
+        return {...card, path: card.path.replace(oldPath, newPath)}
+      }
+      return card
+    })
+  },
   updateToCardsReview: (cardsReview, filePath) => {
     const afterFilter = cardsReview.filter(item => item.path !== filePath)
     if (afterFilter.length === cardsReview.length) {

@@ -55,7 +55,8 @@ class SubMenu extends React.Component {
     if (type === 'file') {
       this.props.updateNotesTags(
         window.getNoteTagsPath(),
-        NoteTagModel.updateNoteTagPath(relativePath, now, notesTags))
+        NoteTagModel.updateNoteTagPath(relativePath, now, notesTags)
+      )
     }
     if (type === 'dir') {
       const parent = File.dir(relativePath)

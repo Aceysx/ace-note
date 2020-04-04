@@ -135,12 +135,6 @@ class App extends React.Component {
     this.props.updateStatus({...status, ...data})
   }
 
-  updateToCardsReview = filePath => {
-    const {cardsReview} = this.props
-    const relativePath = File.relativePath(filePath)
-    let toCardsReview = CardReview.updateToCardsReview(cardsReview, relativePath);
-    this.updateCardsReview(toCardsReview)
-  }
 
   updateCardsReview = (cardsReview) => {
     const updateCardsReview = FileResource.modifyFileContent(
@@ -183,7 +177,7 @@ class App extends React.Component {
                 updateNotesTags={this.updateNotesTags}
                 updateDirs={this.props.updateDirs}
                 updateSelectedDir={this.updateSelectedDir}
-                updateToCardsReview={this.updateToCardsReview}
+                updateCardsReview={this.updateCardsReview}
               />
               : ''
           }

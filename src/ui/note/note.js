@@ -11,6 +11,7 @@ import FileCreatorButton from '../title-bar/file-creator-button'
 import FoldSubMenuButton from '../title-bar/fold-sub-menu-button'
 import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/commands'
 import MENU from '../note/menu-item'
+import CardReview from "../../model/card-review";
 
 class Note extends React.Component {
   componentWillReceiveProps = nextProps => {
@@ -22,14 +23,14 @@ class Note extends React.Component {
 
   modifyFileName = (oldPath, newFileName) => {
     if (this._exist(newFileName)) {
-      message.warning('file has already exist')
+      message.warning('file  already exist')
       return false;
     }
     if (this._validate(newFileName)) {
-      message.warning('file name could not includes 【\\\\/:*?\"<>|】')
+      message.warning('file name could not include 【\\\\/:*?\"<>|】')
       return false;
     }
-    const {selectedDir, currentEditFile} = this.props
+    const {selectedDir, currentEditFile, cardsReview} = this.props
     let newPath = FileResource.modifyFileName({oldPath, newFileName})
     if (currentEditFile.path === oldPath) {
       this.props.updateCurrentEditFile(
@@ -41,6 +42,11 @@ class Note extends React.Component {
         ? File.dir(newPath)
         : selectedDir.path)
     this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
+    this.props.updateCardsReview(
+      CardReview.updateCardFilePath(
+        File.relativePath(oldPath), newFileName, cardsReview
+      )
+    )
   }
 
   modifyFileContent = (path, content) => {
@@ -109,6 +115,13 @@ class Note extends React.Component {
     this.props.updateStatus({subMenuVisible: true})
   }
 
+  updateToCardsReview = filePath => {
+    const {cardsReview} = this.props
+    const relativePath = File.relativePath(filePath)
+    let toCardsReview = CardReview.updateToCardsReview(cardsReview, relativePath);
+    this.props.updateCardsReview(toCardsReview)
+  }
+
   getOperateComponents = () => {
     const {selectedDir, status} = this.props
     if (selectedDir.path !== MENU.SEARCH_RESULT) {
@@ -169,7 +182,7 @@ class Note extends React.Component {
                       modifyFileContent={this.modifyFileContent}
                       modifyFileName={this.modifyFileName}
                       updateNotesTags={updateNotesTags}
-                      updateToCardsReview={this.props.updateToCardsReview}
+                      updateToCardsReview={this.updateToCardsReview}
           />
           :
           <Empty
