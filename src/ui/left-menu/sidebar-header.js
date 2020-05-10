@@ -6,7 +6,7 @@ const SideBarHeader = () => {
     <div style={{height: 90, overflow: 'hidden'}}>
       <img src={Logo}
            width='100%'
-           style={{margin: '-50px 0 0 -25px'}}/>
+           style={{margin: '-40px 0 0 -10px'}}/>
     </div>
   </div>
 }

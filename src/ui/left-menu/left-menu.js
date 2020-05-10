@@ -1,5 +1,5 @@
 import React from 'react'
-import {Badge, Tooltip, Tree} from 'antd'
+import {Tree} from 'antd'
 import File from '../../model/file'
 import SideBarHeader from './sidebar-header'
 import MENU from '../note/menu-item'
