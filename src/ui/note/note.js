@@ -12,6 +12,8 @@ import FoldSubMenuButton from '../title-bar/fold-sub-menu-button'
 import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/commands'
 import MENU from '../note/menu-item'
 import CardReview from "../../model/card-review";
+import {publish} from "../event/pubsub-event";
+import {FILE_NAME_CHANGE_EVENT} from "../event/event";
 
 class Note extends React.Component {
   componentWillReceiveProps = nextProps => {
@@ -41,12 +43,8 @@ class Note extends React.Component {
       selectedDir.path === MENU.SEARCH_RESULT
         ? File.dir(newPath)
         : selectedDir.path)
-    this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
-    this.props.updateCardsReview(
-      CardReview.updateCardFilePath(
-        File.relativePath(oldPath), newFileName, cardsReview
-      )
-    )
+
+    publish(FILE_NAME_CHANGE_EVENT,{props:this.props,oldPath,newFileName,cardsReview})
   }
 
   modifyFileContent = (path, content) => {
