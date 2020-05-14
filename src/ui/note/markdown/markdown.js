@@ -83,16 +83,9 @@ export default class Markdown extends React.Component {
   }
 
   modifyFileName = () => {
-    const {file, notesTags} = this.props
+    const {file} = this.props
     const {changedPath} = this.state
     this.props.modifyFileName(file.path, changedPath)
-
-    const _path = File.relativePath(file.path)
-    if (NoteTagModel.exist(_path, notesTags)) {
-      this.props.updateNotesTags(
-        window.getNoteTagsPath(),
-        NoteTagModel.updateNoteTagPath(_path, changedPath, notesTags))
-    }
   }
 
   modifyFileContent = () => {

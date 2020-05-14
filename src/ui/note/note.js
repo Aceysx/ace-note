@@ -31,7 +31,7 @@ class Note extends React.Component {
       message.warning('file name could not include 【\\\\/:*?\"<>|】')
       return false;
     }
-    const {selectedDir, currentEditFile, cardsReview} = this.props
+    const {selectedDir, currentEditFile} = this.props
     let newPath = FileResource.modifyFileName({oldPath, newFileName})
     if (currentEditFile.path === oldPath) {
       this.props.updateCurrentEditFile(
@@ -43,7 +43,7 @@ class Note extends React.Component {
         ? File.dir(newPath)
         : selectedDir.path)
 
-    publish(FILE_NAME_CHANGE_EVENT, {props: this.props, oldPath, newFileName, cardsReview})
+    publish(FILE_NAME_CHANGE_EVENT, {props: this.props, oldPath, newFileName})
   }
 
   modifyFileContent = (path, content) => {
