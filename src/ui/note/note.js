@@ -13,7 +13,7 @@ import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/c
 import MENU from '../note/menu-item'
 import CardReview from "../../model/card-review";
 import {publish} from "../event/pubsub-event";
-import {FILE_NAME_CHANGE_EVENT} from "../event/event";
+import {CREATE_DIR_OR_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "../event/event";
 
 class Note extends React.Component {
   componentWillReceiveProps = nextProps => {
@@ -57,7 +57,7 @@ class Note extends React.Component {
     let file = FileResource.createFileOrDir({type, path});
     this.props.updateSelectedDir(path)
     if (type === 'dir') {
-      this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
+      publish(CREATE_DIR_OR_FILE_EVENT,{props:this.props})
       return
     }
     this.props.updateCurrentEditFile(file)

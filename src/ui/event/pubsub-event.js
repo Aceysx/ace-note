@@ -2,7 +2,7 @@ import mitt from 'mitt'
 import FileResource from "../../infrastructure/file-resource";
 import CardReview from "../../model/card-review";
 import File from "../../model/file";
-import {FILE_NAME_CHANGE_EVENT} from "./event";
+import {CREATE_DIR_OR_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "./event";
 
 const emitter = mitt()
 
@@ -13,6 +13,10 @@ emitter.on(FILE_NAME_CHANGE_EVENT, ({props = {}, oldPath = "", newFileName = "",
       File.relativePath(oldPath), newFileName, cardsReview
     )
   )
+})
+
+emitter.on(CREATE_DIR_OR_FILE_EVENT, ({props = {}}) => {
+  props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
 })
 
 
