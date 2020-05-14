@@ -3,7 +3,6 @@ import {Divider, Empty, message} from 'antd'
 import SubMenu from './sub-menu/sub-menu'
 import Markdown from './markdown/markdown'
 import {connect} from 'react-redux'
-import NoteTagModel from '../../model/note-tag'
 import File from '../../model/file'
 import FileResource from '../../infrastructure/file-resource'
 import TitleBar from '../title-bar/title-bar'
@@ -13,7 +12,7 @@ import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/c
 import MENU from '../note/menu-item'
 import CardReview from "../../model/card-review";
 import {publish} from "../event/pubsub-event";
-import {CREATE_DIR_OR_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "../event/event";
+import {CREATE_DIR_OR_FILE_EVENT, DELETE_DIR_EVENT, DELETE_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "../event/event";
 
 class Note extends React.Component {
   componentWillReceiveProps = nextProps => {
@@ -44,7 +43,7 @@ class Note extends React.Component {
         ? File.dir(newPath)
         : selectedDir.path)
 
-    publish(FILE_NAME_CHANGE_EVENT,{props:this.props,oldPath,newFileName,cardsReview})
+    publish(FILE_NAME_CHANGE_EVENT, {props: this.props, oldPath, newFileName, cardsReview})
   }
 
   modifyFileContent = (path, content) => {
@@ -57,7 +56,7 @@ class Note extends React.Component {
     let file = FileResource.createFileOrDir({type, path});
     this.props.updateSelectedDir(path)
     if (type === 'dir') {
-      publish(CREATE_DIR_OR_FILE_EVENT,{props:this.props})
+      publish(CREATE_DIR_OR_FILE_EVENT, {props: this.props})
       return
     }
     this.props.updateCurrentEditFile(file)
@@ -68,19 +67,17 @@ class Note extends React.Component {
     FileResource.delete({path, type})
     if (type === 'file') {
       const _path = path.split(window.getNoteWorkspacePath())[1]
-      this.props.updateNotesTags(window.getNoteTagsPath(),
-        NoteTagModel.delete(_path, notesTags))
+      publish(DELETE_FILE_EVENT, {props: this.props, _path, notesTags})
       this.props.updateCurrentEditFile({})
     }
 
     if (type === 'dir') {
-      this.props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
+      publish(DELETE_DIR_EVENT, {props: this.props})
     }
 
     if (selectedDir.path !== MENU.SEARCH_RESULT) {
       this.props.updateSelectedDir(selectedDir.path)
     }
-
   }
 
   _exist = fileName => {
