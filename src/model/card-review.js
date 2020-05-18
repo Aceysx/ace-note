@@ -23,15 +23,8 @@ const CardReview = {
     }
     return afterFilter
   },
-  isReviewOver: (card, current) => {
-    if (card.isFinish) {
-      const lastReview = card.history[card.history.length - 1]
-      return Time.interval(lastReview.reviewTime, current) > 0
-    }
-    return false
-  },
   isTodayInReviewRange: (card, current) => {
-    if (CardReview.isReviewOver(card, current)) {
+    if (card.isFinish) {
       return false
     }
     if (Time.isSameDay(current, card.nextReviewTime)) {
