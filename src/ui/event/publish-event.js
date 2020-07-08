@@ -1,9 +1,9 @@
 import mitt from 'mitt'
-import FileResource from "../../infrastructure/file-resource";
-import CardReview from "../../model/card-review";
-import File from "../../model/file";
-import {CREATE_DIR_OR_FILE_EVENT, DELETE_DIR_EVENT, DELETE_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "./event";
-import NoteTagModel from "../../model/note-tag";
+import FileResource from "../../infrastructure/file-resource"
+import CardReview from "../../model/card-review"
+import File from "../../model/file"
+import {CREATE_DIR_OR_FILE_EVENT, DELETE_DIR_EVENT, DELETE_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "./event"
+import NoteTagModel from "../../model/note-tag"
 
 const emitter = mitt()
 

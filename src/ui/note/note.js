@@ -10,9 +10,9 @@ import FileCreatorButton from '../title-bar/file-creator-button'
 import FoldSubMenuButton from '../title-bar/fold-sub-menu-button'
 import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/commands'
 import MENU from '../note/menu-item'
-import CardReview from "../../model/card-review";
-import {publish} from "../event/pubsub-event";
-import {CREATE_DIR_OR_FILE_EVENT, DELETE_DIR_EVENT, DELETE_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "../event/event";
+import CardReview from "../../model/card-review"
+import {publish} from "../event/publish-event"
+import {CREATE_DIR_OR_FILE_EVENT, DELETE_DIR_EVENT, DELETE_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "../event/event"
 
 class Note extends React.Component {
   componentWillReceiveProps = nextProps => {
