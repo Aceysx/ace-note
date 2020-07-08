@@ -49,7 +49,7 @@ const CardsReviewBottom = ({bottomVisible, cards, reviewCard, updateBottomVisibl
               }}>
                 {File.name(item.path)}
               </div>
-              <div style={{margin: 6}}>
+              <div className='card-tags-box'>
                 {
                   itemTags
                     ? itemTags.tags.map(tag => {

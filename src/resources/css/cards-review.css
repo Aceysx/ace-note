@@ -135,3 +135,12 @@
     transform: scaleX(1);
     transform-origin: bottom left;
 }
+
+.card-tags-box {
+    margin: 6px;
+    overflow: scroll
+}
+
+.card-tags-box::-webkit-scrollbar-thumb {
+    background: none;
+}
