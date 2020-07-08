@@ -49,10 +49,14 @@ class CardReviewBox extends React.Component {
       <div className='card-review-box-content'>
         <div className='card-review-box-outline'
              style={{marginTop: outlineVisible ? '-20px' : '-100%'}}>
-          <CardReviewOutline
-            hideOutline={() => this.setState({outlineVisible: false})}
-            reviewCard={reviewCard}
-            cardDetail={cardDetail}/>
+          {
+            outlineVisible
+              ? <CardReviewOutline
+                hideOutline={() => this.setState({outlineVisible: false})}
+                reviewCard={reviewCard}
+                cardDetail={cardDetail}/>
+              : ''
+          }
         </div>
         <textarea
           ref={this.state.ref}/>
