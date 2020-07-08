@@ -6,19 +6,21 @@ const NOTIFICATION_KEY = 'notification_key'
 const NOTIFICATION_ARGS = {
   key: NOTIFICATION_KEY, message: 'pushing......', duration: 0
 }
-
+let listener
 class GitPusher extends React.Component {
 
   componentDidMount() {
-    window.electron.ipcRenderer.on(PUSH_TO_REPO_FINISHED, (e, result) => {
-      const {isSuccess, message} = result
-      notification.close(NOTIFICATION_KEY)
-      if (isSuccess) {
-        notification.success({message, duration: 2})
-        return
-      }
-      notification.error({message, duration: 2})
-    })
+    if (!listener) {
+      listener = window.electron.ipcRenderer.on(PUSH_TO_REPO_FINISHED, (e, result) => {
+        const {isSuccess, message} = result
+        notification.close(NOTIFICATION_KEY)
+        if (isSuccess) {
+          notification.success({message, duration: 2})
+          return
+        }
+        notification.error({message, duration: 2})
+      });
+    }
   }
 
   pushToRepo = () => {
