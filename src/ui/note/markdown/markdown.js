@@ -9,10 +9,11 @@ import File from '../../../model/file'
 import NoteTag from './note-tag'
 import NoteTagModel from '../../../model/note-tag'
 import TreeBar from "./tree-bar"
-import {typoLoaded, startSpellCheck} from "./spell-check"
+import {startSpellCheck, typoLoaded} from "./spell-check"
 
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
+import MindMap from "../mindmap/mind-map";
 
 const HyperMD = require('hypermd')
 let md
@@ -23,7 +24,8 @@ export default class Markdown extends React.Component {
     changedPath: '',
     isContentChanged: false,
     content: '',
-    outlineVisible: false
+    outlineVisible: false,
+    mindMapVisible: false
   }
 
   componentDidMount() {
@@ -62,7 +64,7 @@ export default class Markdown extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {file} = nextProps
     if (this.props.file.path !== file.path) {
-      this.setState({changedPath: File.name(file.path)})
+      this.setState({changedPath: File.name(file.path), mindMapVisible: false})
       if (this.props.file.content !== file.content) {
         this._updateMarkdownContent(file.content)
       }
@@ -122,9 +124,8 @@ export default class Markdown extends React.Component {
   }
 
   render() {
-    const {mdRef, changedPath, content, outlineVisible} = this.state
+    const {mdRef, changedPath, content, outlineVisible, mindMapVisible} = this.state
     const {notesTags, file, isInReviewed} = this.props
-
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
         <Row>
@@ -152,6 +153,10 @@ export default class Markdown extends React.Component {
               <Icon type={isInReviewed ? 'carry-out' : 'calendar'}
                     className='markdown_box_tag_item cursor_pointer bg-color-hover'/>
             </Popconfirm>
+            <Icon type="heat-map"
+                  onClick={() => this.setState({mindMapVisible: !mindMapVisible})}
+                  className='markdown_box_tag_item bg-color-hover cursor_pointer'/>
+
             <Divider type='vertical'/>
             <Icon type="tags" className='markdown_box_tag_item'/>
             <NoteTag
@@ -202,6 +207,8 @@ export default class Markdown extends React.Component {
           </div>
           : ''
       }
+
+
       <div className='markdown_box_content'
            style={{
              marginLeft: `${
@@ -212,9 +219,15 @@ export default class Markdown extends React.Component {
                this.calculate()
              }px`
            }}>
-      <textarea
-        ref={mdRef}/>
+        {
+          content && mindMapVisible
+            ? <MindMap markdown={content}/>
+            : ''
+        }
+        <textarea
+          ref={mdRef}/>
       </div>
+
 
     </div>
   }

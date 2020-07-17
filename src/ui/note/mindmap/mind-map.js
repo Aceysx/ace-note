@@ -1,7 +1,7 @@
 import React from "react"
 import {loadPlugins, Markmap} from 'markmap-lib/dist/view'
 import {transform} from 'markmap-lib/dist/transform'
-import Empty from "antd/es/empty";
+import Empty from "antd/es/empty"
 
 export default class MindMap extends React.Component {
   componentDidMount() {
@@ -11,7 +11,7 @@ export default class MindMap extends React.Component {
     }
   }
 
-  isRenderMindMap = (markdown= '') => {
+  isRenderMindMap = (markdown = '') => {
     return markdown.split('\n').some(line => {
       let trimLine = line.trimLeft();
       return trimLine.startsWith('#')
@@ -33,7 +33,6 @@ export default class MindMap extends React.Component {
     const data = transform(this.format(markdown))
     let e = document.querySelector("#markmap");
     e.innerHTML = "";
-
     loadPlugins([
       'mathJax',
       'prism',
@@ -45,7 +44,6 @@ export default class MindMap extends React.Component {
   componentWillReceiveProps(nextProps, nextContext) {
     const {markdown} = nextProps
     if (this.props.markdown !== markdown && this.isRenderMindMap(markdown)) {
-
       this.renderMindMap(markdown)
     }
   }
