@@ -16,6 +16,7 @@ const Question = () => {
     <span>* ⌘+4 -> #### </span><br/>
     <span>* ⌘+5 -> ##### </span><br/>
     <span>* ⌘+'  -> ` </span><br/>
+    <span>* ⌘+m  -> switch mindMap view mode in markdown editor </span><br/>
   </div>}>
       <span style={{position: 'fixed', fontSize: 18, right: 70, top: -1}}>
           <Icon type="question-circle"/>

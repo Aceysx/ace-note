@@ -42,8 +42,7 @@ export default class Markdown extends React.Component {
           'Cmd-4': cm => cm.replaceSelection('#### '),
           'Cmd-5': cm => cm.replaceSelection('##### '),
           "Cmd-'": cm => cm.replaceSelection('`'),
-
-
+          'Cmd-M': this._switchMindMapVisible,
         }
       })
       md.on('change', (instance, target) => {
@@ -73,6 +72,10 @@ export default class Markdown extends React.Component {
     this.setState({isContentChanged: false})
   }
 
+  _switchMindMapVisible = () => {
+    const {mindMapVisible} = this.state
+    this.setState({mindMapVisible: !mindMapVisible})
+  }
   _updateMarkdownContent = data => {
     typoLoaded.then(typo => startSpellCheck(md, typo));
 
