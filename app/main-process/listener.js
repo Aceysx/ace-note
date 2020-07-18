@@ -90,9 +90,7 @@ ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
     date, title, isSummary: !!summary,
     labels: plans.map(item => item.label)
   })
-
 })
-
 
 const openDialogSync = () => dialog.showOpenDialogSync({
   properties: ['createDirectory', 'openDirectory'],

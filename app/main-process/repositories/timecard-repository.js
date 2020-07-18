@@ -7,11 +7,12 @@ const TimecardRepository = {
     if (db) {
       return
     }
-    let labelDBPath = _path + '/__timecard/__label.json'
-    Files.createFileWithContent(labelDBPath)
-    db = low(new FileSync(labelDBPath))
+    let planDBPath = _path + '/__timecard/__plan.json'
+    Files.createFileWithContent(planDBPath)
+    db = low(new FileSync(planDBPath))
     db.defaults({
-      labels: []
+      labels: [],
+      plans: [],
     }).write()
   },
   saveLabel: (label) => {
