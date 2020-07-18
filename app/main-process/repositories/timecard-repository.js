@@ -15,7 +15,12 @@ const TimecardRepository = {
     }).write()
   },
   saveLabel: (label) => {
-    db.get('labels').push(label).write()
+    let labels = db.get('labels');
+    let found = labels.find({date: label.date});
+    if (found.value()) {
+      return found.assign(label).write()
+    }
+    labels.push(label).write()
   }
 }
 
