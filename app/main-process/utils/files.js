@@ -105,11 +105,8 @@ const Files = {
     return Files.readFile(fileName)
   },
   createFileWithContent: (_path, data = '') => {
-    const isExist = fs.existsSync(_path)
-    if (!isExist) {
-      fs.writeFileSync(_path, data)
-      return Files.readFile(_path)
-    }
+    fs.writeFileSync(_path, data)
+    return Files.readFile(_path)
   },
   deleteFileOrDir: (_path, type) => {
     if (type === 'dir') {

@@ -86,10 +86,11 @@ ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
 
   Files.createFileWithContent(planFile, JSON.stringify({title, plans, summary}))
 
-  TimecardRepository.saveLabel({
+  event.returnValue = TimecardRepository.saveLabel({
     date, title, isSummary: !!summary,
     labels: plans.map(item => item.label)
   })
+
 })
 
 
