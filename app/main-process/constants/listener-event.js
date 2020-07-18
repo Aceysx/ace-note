@@ -10,3 +10,5 @@ module.exports.OPEN_DIR = 'open_dir'
 module.exports.PUSH_TO_REPO = 'push_to_repo'
 module.exports.PUSH_TO_REPO_FINISHED = 'push_to_repo_finished'
 module.exports.GET_CARDS_REVIEW = 'get_cards_review'
+
+module.exports.CREATE_TIMECARD_PLAN = 'create_timecard_plan'

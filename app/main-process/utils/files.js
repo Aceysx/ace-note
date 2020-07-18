@@ -3,7 +3,7 @@ const path = require('path')
 
 const _notFilterFile = file => {
   const fileName = path.basename(file.path)
-  const filterFiles = ['__tags', '.git','__cards']
+  const filterFiles = ['__tags', '.git', '__cards']
   return !filterFiles.includes(fileName)
 }
 
@@ -104,6 +104,13 @@ const Files = {
     fs.writeFileSync(fileName, '')
     return Files.readFile(fileName)
   },
+  createFileWithContent: (_path, data = '') => {
+    const isExist = fs.existsSync(_path)
+    if (!isExist) {
+      fs.writeFileSync(_path, data)
+      return Files.readFile(_path)
+    }
+  },
   deleteFileOrDir: (_path, type) => {
     if (type === 'dir') {
       deleteDir(_path)
@@ -118,7 +125,7 @@ const Files = {
       fs.mkdirSync(dir)
     }
   },
-  parentPath : _path =>{
+  parentPath: _path => {
     return path.dirname(_path)
   }
 }

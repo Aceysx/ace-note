@@ -1,4 +1,9 @@
+const TimecardRepository = require('./repositories/timecard-repository')
+const moment = require('moment')
+const path = require('path')
+
 const {
+  CREATE_TIMECARD_PLAN,
   FIND_FILE,
   FIND_SUB_FILES,
   INIT_NOTEBOOK_EVENT,
@@ -17,6 +22,7 @@ const Git = require('./utils/git')
 const {ipcMain, dialog} = require('electron')
 
 ipcMain.on(INIT_NOTEBOOK_EVENT, (event, path) => {
+  TimecardRepository.init(path)
   event.returnValue = Files.listFilesDeep(path)
 })
 
@@ -67,6 +73,23 @@ ipcMain.on(OPEN_DIR, (event) => {
     dir = openDialogSync()
   }
   event.returnValue = dir[0]
+})
+
+//timecard
+ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
+  const {_path, title, date, summary, plans = []} = data
+  const year = moment(date).format("YYYY")
+  let dir = path.join(_path, year);
+  Files.createDirIfNotExist(_path)
+  Files.createDirIfNotExist(dir)
+  let planFile = path.join(_path, year, date + ".md");
+
+  Files.createFileWithContent(planFile, JSON.stringify({title, plans, summary}))
+
+  TimecardRepository.saveLabel({
+    date, title, isSummary: !!summary,
+    labels: plans.map(item => item.label)
+  })
 })
 
 

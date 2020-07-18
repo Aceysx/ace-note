@@ -17,6 +17,7 @@ const initStore = () => {
 window.getNoteWorkspacePath = () => window.localStorage.getItem('workspace')
 window.getNoteTagsPath = () => window.localStorage.getItem('workspace') + '/__tags'
 window.getCardsPath = () => window.localStorage.getItem('workspace') + '/__cards/__cardsReview'
+window.getTimecardPath = () => window.localStorage.getItem('workspace') + '/__timecard/'
 
 const store = createStore(reducer, initStore(), applyMiddleware(thunkMiddleware, updateStoreToLocalStorageMiddleware))
 
