@@ -20,6 +20,7 @@
     "react": "^16.12.0",
     "react-color": "^2.18.0",
     "react-dom": "^16.12.0",
+    "react-github-contribution-calendar": "^2.0.0",
     "react-redux": "^7.1.3",
     "react-scripts": "3.3.0",
     "react3dtagcloud": "^0.2.2",

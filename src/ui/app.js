@@ -24,6 +24,7 @@ import {
 
 import '../resources/css/app.css'
 import TagBody from "./tag/tag-body";
+import TimecardBody from "./timecard/timecard-body";
 
 const {Sider, Content} = Layout
 
@@ -200,17 +201,28 @@ class App extends React.Component {
                 updateStatus={this.updateStatus}
               />
               : ''
-          }{
-          current === MENU.TAG
-            ? <TagBody
-              notesTags={notesTags}
-              updateNotesTags={this.updateNotesTags}
-              pushToRepo={this.pushToRepo}
-              leftMenuVisible={leftMenuVisible}
-              updateStatus={this.updateStatus}
-            />
-            : ''
-        }
+          }
+          {
+            current === MENU.TIMECARD
+              ? <TimecardBody
+                pushToRepo={this.pushToRepo}
+                leftMenuVisible={leftMenuVisible}
+                updateStatus={this.updateStatus}
+              />
+              : ''
+          }
+
+          {
+            current === MENU.TAG
+              ? <TagBody
+                notesTags={notesTags}
+                updateNotesTags={this.updateNotesTags}
+                pushToRepo={this.pushToRepo}
+                leftMenuVisible={leftMenuVisible}
+                updateStatus={this.updateStatus}
+              />
+              : ''
+          }
           {
             this.isEmpty(current, selectedDir)
               ? <div style={{margin: '50%'}}>
