@@ -124,6 +124,9 @@ const Files = {
   },
   parentPath: _path => {
     return path.dirname(_path)
+  },
+  isExist: _path => {
+    return fs.existsSync(_path)
   }
 }
 

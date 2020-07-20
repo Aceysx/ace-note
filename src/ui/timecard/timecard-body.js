@@ -11,11 +11,17 @@ import TimecardModel from "../../model/timecard";
 
 class TimecardBody extends React.Component {
   state = {
-    creatorModalVisible: true
+    creatorModalVisible: false
+  }
+
+  componentDidMount() {
+    const plans = TimecardModel.getPlansByYear('2020')
+    console.log('plans', plans)
+    this.props.updateTimecardPlans(plans)
   }
 
   render() {
-    const {leftMenuVisible} = this.props
+    const {leftMenuVisible, timecardPlans} = this.props
     const {creatorModalVisible} = this.state
 
     return <div>
@@ -30,7 +36,9 @@ class TimecardBody extends React.Component {
       <Button type="primary"
               onClick={() => this.setState({creatorModalVisible: true})}>
         New</Button>
-      <TimecardPlansBody/>
+      <TimecardPlansBody
+        timecardPlans={timecardPlans}
+      />
 
       <Modal
         title="Create plan"
@@ -48,8 +56,10 @@ class TimecardBody extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateTimecardPlans: dirs => dispatch(UPDATE_TIMECARD_PLANS(dirs)),
+  updateTimecardPlans: plans => dispatch(UPDATE_TIMECARD_PLANS(plans)),
 })
 
-const mapStateToProps = ({}) => ({})
+const mapStateToProps = ({timecardPlans}) => ({
+  timecardPlans
+})
 export default connect(mapStateToProps, mapDispatchToProps)(TimecardBody)

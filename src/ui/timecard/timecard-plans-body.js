@@ -15,40 +15,36 @@ const data = [
     title: '[2020-02-05]',
   },
 ];
-const TimecardPlansBody = ({}) => {
+const TimecardPlansBody = ({timecardPlans}) => {
   return <Row type='flex' justify='center'>
     <Col span={20}>
       <List
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={timecardPlans}
         renderItem={item => (
           <List.Item>
             <List.Item.Meta
               title={<p>
-                <span>{item.title}
+                <span>{item.date + ' ' + item.title}
                 </span>
-                <span style={{float: 'right'}}>is summary</span>
+                <span style={{float: 'right'}}>is summary {item.isSummary?'1':0}</span>
               </p>
               }
               description={
                 <span>
-                  <Tag
-                       className='tag'
-                       color={'red'}>
+                  {
+                    Object.keys(item.labels).map(labelId => {
+                      return <Tag
+                        className='tag'
+                        color={'red'}>
                     <span className='cursor_pointer'>
-                睡觉
-                </span>
-                    <Divider type={'vertical'}/>
-                    <span style={{fontSize: '12px'}}> 1</span>
-                  </Tag><Tag
-                       className='tag'
-                       color={'green'}>
-                    <span className='cursor_pointer'>
-                 学习
-                </span>
-                    <Divider type={'vertical'}/>
-                    <span style={{fontSize: '12px'}}> 1 🍉</span>
-                  </Tag>
+                      {labelId}
+                    </span>
+                        <Divider type={'vertical'}/>
+                        <span style={{fontSize: '12px'}}> 1</span>
+                      </Tag>
+                    })
+                  }
                 </span>
               }
             />

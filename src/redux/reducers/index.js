@@ -6,6 +6,7 @@ import selectedDirStack from './selected_dir_stack'
 import notesTags from './notes-tags'
 import status from './status'
 import cardsReview from './cards-review'
+import timecardPlans from './timecard-plans'
 
 export default combineReducers({
   leftMenu,
@@ -14,5 +15,6 @@ export default combineReducers({
   selectedDirStack,
   notesTags,
   cardsReview,
-  status
+  status,
+  timecardPlans
 })

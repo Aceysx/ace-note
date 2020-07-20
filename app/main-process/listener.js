@@ -15,8 +15,10 @@ const {
   OPEN_DIR,
   PUSH_TO_REPO_FINISHED,
   GET_CARDS_REVIEW,
-  PUSH_TO_REPO
+  PUSH_TO_REPO,
+  GET_TIMECARDS_BY_YEAR
 } = require('./constants/listener-event')
+
 const Files = require('./utils/files')
 const Git = require('./utils/git')
 const {ipcMain, dialog} = require('electron')
@@ -86,10 +88,13 @@ ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
 
   Files.createFileWithContent(planFile, JSON.stringify({title, plans, summary}))
 
-  event.returnValue = TimecardRepository.saveLabel({
+  event.returnValue = TimecardRepository.savePlan({
     date, title, isSummary: !!summary,
     labels: plans.map(item => item.label)
   })
+})
+ipcMain.on(GET_TIMECARDS_BY_YEAR, (event, year) => {
+  event.returnValue = TimecardRepository.getPlansByYear(year)
 })
 
 const openDialogSync = () => dialog.showOpenDialogSync({

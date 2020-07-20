@@ -8,20 +8,29 @@ const TimecardRepository = {
       return
     }
     let planDBPath = _path + '/__timecard/__plan.json'
-    Files.createFileWithContent(planDBPath)
+    if (Files.isExist(planDBPath)) {
+      db = low(new FileSync(planDBPath))
+      return
+    }
+    Files.createFileWithContent(planDBPath);
     db = low(new FileSync(planDBPath))
     db.defaults({
       labels: [],
       plans: [],
     }).write()
   },
-  saveLabel: (label) => {
-    let labels = db.get('labels');
-    let found = labels.find({date: label.date});
+  savePlan: (plan) => {
+    let plans = db.get('plans');
+    let found = plans.find({date: plan.date});
     if (found.value()) {
-      return found.assign(label).write()
+      return found.assign(plan).write()
     }
-    labels.push(label).write()
+    plans.push(plan).write()
+  },
+  getPlansByYear: (year) => {
+    if (db) {
+      return db.get('plans').filter(item => item.date.startsWith(year)).value();
+    }
   }
 }
 
