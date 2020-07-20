@@ -16,7 +16,8 @@ const {
   PUSH_TO_REPO_FINISHED,
   GET_CARDS_REVIEW,
   PUSH_TO_REPO,
-  GET_TIMECARDS_BY_YEAR
+  GET_TIMECARDS_BY_YEAR,
+  GET_TIMECARDS_LABELS
 } = require('./constants/listener-event')
 
 const Files = require('./utils/files')
@@ -95,6 +96,10 @@ ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
 })
 ipcMain.on(GET_TIMECARDS_BY_YEAR, (event, year) => {
   event.returnValue = TimecardRepository.getPlansByYear(year)
+})
+
+ipcMain.on(GET_TIMECARDS_LABELS, (event) => {
+  event.returnValue = TimecardRepository.getLabels()
 })
 
 const openDialogSync = () => dialog.showOpenDialogSync({

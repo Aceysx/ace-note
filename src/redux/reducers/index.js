@@ -7,6 +7,7 @@ import notesTags from './notes-tags'
 import status from './status'
 import cardsReview from './cards-review'
 import timecardPlans from './timecard-plans'
+import timecardLabels from './timecard-labels'
 
 export default combineReducers({
   leftMenu,
@@ -16,5 +17,6 @@ export default combineReducers({
   notesTags,
   cardsReview,
   status,
-  timecardPlans
+  timecardPlans,
+  timecardLabels
 })

@@ -5,6 +5,7 @@ export const UPDATE_NOTES_TAGS = data => update('UPDATE_NOTES_TAGS', data)
 export const UPDATE_STATUS = data => update('UPDATE_STATUS', data)
 export const UPDATE_CARDS_REVIEW = data => update('UPDATE_CARDS_REVIEW', data)
 export const UPDATE_TIMECARD_PLANS = data => update('UPDATE_TIMECARD_PLANS', data)
+export const UPDATE_TIMECARD_LABELS = data => update('UPDATE_TIMECARD_LABELS', data)
 
 
 const update = (type, data) => {

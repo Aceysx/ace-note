@@ -1,22 +1,17 @@
 import React from 'react'
 import {Col, Divider, List, Row, Tag} from "antd";
 
-const data = [
-  {
-    title: '[2020-02-02]',
-  },
-  {
-    title: '[2020-02-03]',
-  },
-  {
-    title: '[2020-02-04]',
-  },
-  {
-    title: '[2020-02-05]',
-  },
-];
-const TimecardPlansBody = ({timecardPlans}) => {
+const TimecardPlansBody = ({timecardPlans, timecardLabels}) => {
   return <Row type='flex' justify='center'>
+    {
+      timecardLabels.map(label => {
+        return <Tag
+          className='tag'
+          color={label.color}>
+          {label.id + label.title}
+        </Tag>
+      })
+    }
     <Col span={20}>
       <List
         itemLayout="horizontal"
@@ -27,21 +22,24 @@ const TimecardPlansBody = ({timecardPlans}) => {
               title={<p>
                 <span>{item.date + ' ' + item.title}
                 </span>
-                <span style={{float: 'right'}}>is summary {item.isSummary?'1':0}</span>
+                <span style={{float: 'right'}}>is summary {item.isSummary ? '1' : 0}</span>
               </p>
               }
               description={
                 <span>
                   {
                     Object.keys(item.labels).map(labelId => {
+                      console.log(item.labels)
+                      const label = timecardLabels.find(label => label.id === labelId) || {}
+                      console.log(label)
                       return <Tag
                         className='tag'
                         color={'red'}>
                     <span className='cursor_pointer'>
-                      {labelId}
+                      {label.title}
                     </span>
                         <Divider type={'vertical'}/>
-                        <span style={{fontSize: '12px'}}> 1</span>
+                        <span style={{fontSize: '12px'}}></span>
                       </Tag>
                     })
                   }

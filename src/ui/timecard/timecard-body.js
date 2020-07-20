@@ -6,7 +6,7 @@ import TimecardCalendar from "./timecard-calendar";
 import TimecardPlansBody from "./timecard-plans-body";
 import {Button, Divider, Modal} from "antd";
 import TimecardPlanCreator from "./timecard-plan-creator";
-import {UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands";
+import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands";
 import TimecardModel from "../../model/timecard";
 
 class TimecardBody extends React.Component {
@@ -16,12 +16,14 @@ class TimecardBody extends React.Component {
 
   componentDidMount() {
     const plans = TimecardModel.getPlansByYear('2020')
-    console.log('plans', plans)
+    const labels = TimecardModel.getLabels()
+    console.log(labels)
     this.props.updateTimecardPlans(plans)
+    this.props.updateTimecardlabels(labels)
   }
 
   render() {
-    const {leftMenuVisible, timecardPlans} = this.props
+    const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
     const {creatorModalVisible} = this.state
 
     return <div>
@@ -37,6 +39,7 @@ class TimecardBody extends React.Component {
               onClick={() => this.setState({creatorModalVisible: true})}>
         New</Button>
       <TimecardPlansBody
+        timecardLabels={timecardLabels}
         timecardPlans={timecardPlans}
       />
 
@@ -57,9 +60,10 @@ class TimecardBody extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   updateTimecardPlans: plans => dispatch(UPDATE_TIMECARD_PLANS(plans)),
+  updateTimecardlabels: (labels) => dispatch(UPDATE_TIMECARD_LABELS(labels)),
 })
 
-const mapStateToProps = ({timecardPlans}) => ({
-  timecardPlans
+const mapStateToProps = ({timecardPlans, timecardLabels}) => ({
+  timecardPlans, timecardLabels
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TimecardBody)

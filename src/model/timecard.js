@@ -6,6 +6,9 @@ const TimecardModel = {
   },
   getPlansByYear: year => {
     return TimecardResource.getPlansByYear(year)
+  },
+  getLabels:()=> {
+    return TimecardResource.getPlansLabels()
   }
 }
 
