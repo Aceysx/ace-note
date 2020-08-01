@@ -1,18 +1,18 @@
 import React from 'react'
 import {Col, Divider, List, Row, Tag} from "antd";
 
-const TimecardPlansBody = ({timecardPlans, timecardLabels}) => {
+const TimecardPlansBody = ({plans, labels}) => {
   return <Row type='flex' justify='center'>
 
-    <Col span={20}>
+    <Col span={15}>
       <List
         itemLayout="horizontal"
-        dataSource={timecardPlans}
+        dataSource={plans}
         renderItem={item => (
           <List.Item>
             <List.Item.Meta
               title={<p>
-                <span>{item.date + ' ' + item.title}
+                <span>{item.date + ': ' + item.title}
                 </span>
                 <span style={{float: 'right'}}>is summary {item.isSummary ? '1' : 0}</span>
               </p>
@@ -20,16 +20,18 @@ const TimecardPlansBody = ({timecardPlans, timecardLabels}) => {
               description={
                 <span>
                   {
-                    Object.keys(item.labels).map(labelId => {
-                      const label = timecardLabels.find(label => label.id === labelId) || {}
+                    item.labels.map((label) => {
+                      const found = labels.find(item => parseInt(item.id) === parseInt(Object.keys(label)[0])) || {}
+                      const value = Object.values(label)[0]
                       return <Tag
+                        key={found.id}
                         className='tag'
-                        color={'red'}>
+                        color={found.color}>
                     <span className='cursor_pointer'>
-                      {label.title}
+                      {found.title}
                     </span>
                         <Divider type={'vertical'}/>
-                        <span style={{fontSize: '12px'}}></span>
+                        <span style={{fontSize: '12px'}}>{value}</span>
                       </Tag>
                     })
                   }

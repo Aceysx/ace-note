@@ -8,16 +8,17 @@ import {Button, Divider, Modal} from "antd";
 import TimecardPlanCreator from "./timecard-plan-creator";
 import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands";
 import TimecardModel from "../../model/timecard";
+import {publish} from "../event/publish-event";
+import {CREATE_TIMECARD_PLAN} from "../event/event"
 
 class TimecardBody extends React.Component {
   state = {
-    creatorModalVisible: true
+    creatorModalVisible: false
   }
 
   componentDidMount() {
     const plans = TimecardModel.getPlansByYear('2020')
     const labels = TimecardModel.getLabels()
-    console.log(labels)
     this.props.updateTimecardPlans(plans)
     this.props.updateTimecardlabels(labels)
   }
@@ -39,8 +40,8 @@ class TimecardBody extends React.Component {
               onClick={() => this.setState({creatorModalVisible: true})}>
         New</Button>
       <TimecardPlansBody
-        timecardLabels={timecardLabels}
-        timecardPlans={timecardPlans}
+        labels={timecardLabels}
+        plans={timecardPlans}
       />
 
       <Modal
@@ -53,7 +54,11 @@ class TimecardBody extends React.Component {
       >
         <TimecardPlanCreator
           labels={timecardLabels}
-          createPlan={TimecardModel.createPlan}/>
+          createPlan={timecard => {
+            TimecardModel.createPlan(timecard)
+            this.setState({creatorModalVisible: false})
+            publish(CREATE_TIMECARD_PLAN, {props: this.props})
+          }}/>
       </Modal>
     </div>
   }
