@@ -14,10 +14,14 @@ const TimecardRepository = {
     }
     Files.createFileWithContent(planDBPath);
     db = low(new FileSync(planDBPath))
-    db.defaults({
-      labels: [],
-      plans: [],
-    }).write()
+    console.log(db)
+    if (!db) {
+      db.defaults({
+        labels: [],
+        plans: [],
+      }).write();
+    }
+
   },
   savePlan: (plan) => {
     let plans = db.get('plans');

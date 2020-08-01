@@ -11,7 +11,7 @@ import TimecardModel from "../../model/timecard";
 
 class TimecardBody extends React.Component {
   state = {
-    creatorModalVisible: false
+    creatorModalVisible: true
   }
 
   componentDidMount() {
@@ -52,6 +52,7 @@ class TimecardBody extends React.Component {
         onCancel={() => this.setState({creatorModalVisible: false})}
       >
         <TimecardPlanCreator
+          labels={timecardLabels}
           createPlan={TimecardModel.createPlan}/>
       </Modal>
     </div>

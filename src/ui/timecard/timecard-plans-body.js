@@ -3,15 +3,7 @@ import {Col, Divider, List, Row, Tag} from "antd";
 
 const TimecardPlansBody = ({timecardPlans, timecardLabels}) => {
   return <Row type='flex' justify='center'>
-    {
-      timecardLabels.map(label => {
-        return <Tag
-          className='tag'
-          color={label.color}>
-          {label.id + label.title}
-        </Tag>
-      })
-    }
+
     <Col span={20}>
       <List
         itemLayout="horizontal"
@@ -29,9 +21,7 @@ const TimecardPlansBody = ({timecardPlans, timecardLabels}) => {
                 <span>
                   {
                     Object.keys(item.labels).map(labelId => {
-                      console.log(item.labels)
                       const label = timecardLabels.find(label => label.id === labelId) || {}
-                      console.log(label)
                       return <Tag
                         className='tag'
                         color={'red'}>
