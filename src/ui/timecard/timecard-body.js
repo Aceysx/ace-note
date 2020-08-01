@@ -10,6 +10,7 @@ import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducer
 import TimecardModel from "../../model/timecard";
 import {publish} from "../event/publish-event";
 import {CREATE_TIMECARD_PLAN} from "../event/event"
+import '../../resources/css/timecard.css'
 
 class TimecardBody extends React.Component {
   state = {
@@ -36,9 +37,7 @@ class TimecardBody extends React.Component {
       <div style={{height: 35}}/>
       <TimecardCalendar/>
       <Divider/>
-      <Button type="primary"
-              onClick={() => this.setState({creatorModalVisible: true})}>
-        New</Button>
+
       <TimecardPlansBody
         labels={timecardLabels}
         plans={timecardPlans}
@@ -60,6 +59,11 @@ class TimecardBody extends React.Component {
             publish(CREATE_TIMECARD_PLAN, {props: this.props})
           }}/>
       </Modal>
+
+        <div
+          className='create-button-fixed cursor_pointer'
+                onClick={() => this.setState({creatorModalVisible: true})}>
+          New</div>
     </div>
   }
 }
