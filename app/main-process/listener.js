@@ -80,22 +80,26 @@ ipcMain.on(OPEN_DIR, (event) => {
 
 //timecard
 ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
-  const {_path, title, date, summary, plans = []} = data
+  const {_path, title, date, summary, tasks = []} = data
   const year = moment(date).format("YYYY")
   let dir = path.join(_path, year);
   Files.createDirIfNotExist(_path)
   Files.createDirIfNotExist(dir)
   let planFile = path.join(_path, year, date + ".md");
 
-  Files.createFileWithContent(planFile, JSON.stringify({title, plans, summary}))
+  Files.createFileWithContent(planFile, JSON.stringify({title, tasks, summary}))
 
   event.returnValue = TimecardRepository.savePlan({
-    date, title, isSummary: !!summary,
-    labels: plans.map(item => item.label)
+    date, title, summary, tasks
   })
 })
 ipcMain.on(GET_TIMECARDS_BY_YEAR, (event, year) => {
-  event.returnValue = TimecardRepository.getPlansByYear(year)
+  event.returnValue = TimecardRepository.getPlansByYear(year).map(plan => {
+    return {
+      ...plan,
+      tasks: JSON.parse(plan.tasks),
+    }
+  })
 })
 
 ipcMain.on(GET_TIMECARDS_LABELS, (event) => {

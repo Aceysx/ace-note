@@ -3,7 +3,7 @@ import {Button, DatePicker, Form, Input, message, Tag} from "antd";
 import moment from "moment";
 
 const {TextArea} = Input
-const planTemplate = `[
+const taskTemplate = `[
 {"title": "","label": {"1": 2}},
 {"title": "","label": {"1": 2}},
 {"title": "","label": {"1": 2}}
@@ -13,16 +13,40 @@ export default class TimecardPlanCreator extends React.Component {
   state = {
     date: moment(new Date().getTime()),
     title: moment(new Date()).format("YYYY-MM-DD"),
-    plans: planTemplate,
+    tasks: taskTemplate,
     summary: ''
   }
 
-  check = plans => {
+  componentDidMount() {
+    if (this.props.editPlan) {
+      const {date, title, tasks, summary} = this.props.editPlan
+      this.setState({
+        date: moment(date),
+        title,
+        tasks: JSON.stringify(tasks),
+        summary
+      })
+    }
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (nextProps.editPlan) {
+      const {date, title, tasks, summary} = nextProps.editPlan
+      this.setState({
+        date: moment(date),
+        title,
+        tasks: JSON.stringify(tasks),
+        summary
+      })
+    }
+  }
+
+  check = tasks => {
     try {
-      const planObject = JSON.parse(plans);
+      const taskObject = JSON.parse(tasks);
       const {labels = []} = this.props
-      return planObject.every(plan => {
-        const {label} = plan
+      return taskObject.every(task => {
+        const {label} = task
         let labelsId = Object.keys(label);
         if (labelsId.length === 1) {
           return labels.some(item => parseInt(item.id) === parseInt(labelsId[0]))
@@ -32,10 +56,17 @@ export default class TimecardPlanCreator extends React.Component {
       return false;
     }
   }
-
+  reset = () => {
+    this.setState({
+      date: moment(new Date().getTime()),
+      title: moment(new Date()).format("YYYY-MM-DD"),
+      tasks: taskTemplate,
+      summary: ''
+    })
+  }
   createPlan = () => {
-    const {title, plans, summary, date} = this.state
-    if (!this.check(plans)) {
+    const {title, tasks, summary, date} = this.state
+    if (!this.check(tasks)) {
       message.error('please check the format of plan')
       return
     }
@@ -43,13 +74,14 @@ export default class TimecardPlanCreator extends React.Component {
       {
         _path: window.getTimecardPath(),
         date: moment(date).format("YYYY-MM-DD"),
-        title, plans: JSON.parse(plans), summary
+        title, tasks, summary
       }
-    );
+    )
+    this.reset()
   }
 
   render() {
-    const {title, plans, summary, date} = this.state
+    const {title, tasks, summary, date} = this.state
     const {labels} = this.props
 
     return <div>
@@ -74,10 +106,10 @@ export default class TimecardPlanCreator extends React.Component {
                   value={title}
                   onChange={e => this.setState({title: e.target.value})}/>
       </Form.Item>
-      <Form.Item label="plans">
+      <Form.Item label="tasks">
         <TextArea rows={7}
-                  value={plans}
-                  onChange={e => this.setState({plans: e.target.value})}/>
+                  value={tasks}
+                  onChange={e => this.setState({tasks: e.target.value})}/>
       </Form.Item>
       <Form.Item label="summary">
         <TextArea rows={5}

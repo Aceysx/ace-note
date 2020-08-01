@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import TimecardCalendar from "./timecard-calendar";
 import TimecardPlansBody from "./timecard-plans-body";
-import {Button, Divider, Modal} from "antd";
+import {Divider, Modal} from "antd";
 import TimecardPlanCreator from "./timecard-plan-creator";
 import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands";
 import TimecardModel from "../../model/timecard";
@@ -14,7 +14,8 @@ import '../../resources/css/timecard.css'
 
 class TimecardBody extends React.Component {
   state = {
-    creatorModalVisible: false
+    creatorModalVisible: false,
+    editPlan: null
   }
 
   componentDidMount() {
@@ -24,10 +25,22 @@ class TimecardBody extends React.Component {
     this.props.updateTimecardlabels(labels)
   }
 
+  editPlan = plan => {
+    this.setState({
+      creatorModalVisible: true,
+      editPlan: plan
+    })
+  }
+
+  closeCreateModal=()=>{
+    this.setState({
+      creatorModalVisible: false,
+      editPlan:null
+    })
+  }
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
-    const {creatorModalVisible} = this.state
-
+    const {creatorModalVisible, editPlan} = this.state
     return <div>
       <TitleBar
         title=' 📆 Timecard'
@@ -35,12 +48,14 @@ class TimecardBody extends React.Component {
         changeLeftMenuVisible={this.props.updateStatus}
         pushToRepo={this.props.pushToRepo}/>
       <div style={{height: 35}}/>
-      <TimecardCalendar/>
+      <TimecardCalendar
+        plans={timecardPlans}/>
       <Divider/>
 
       <TimecardPlansBody
         labels={timecardLabels}
         plans={timecardPlans}
+        edit={this.editPlan}
       />
 
       <Modal
@@ -49,21 +64,23 @@ class TimecardBody extends React.Component {
         width='80%'
         style={{height: 600}}
         footer={null}
-        onCancel={() => this.setState({creatorModalVisible: false})}
+        onCancel={this.closeCreateModal}
       >
         <TimecardPlanCreator
+          editPlan={editPlan}
           labels={timecardLabels}
           createPlan={timecard => {
             TimecardModel.createPlan(timecard)
-            this.setState({creatorModalVisible: false})
+            this.closeCreateModal()
             publish(CREATE_TIMECARD_PLAN, {props: this.props})
           }}/>
       </Modal>
 
-        <div
-          className='create-button-fixed cursor_pointer'
-                onClick={() => this.setState({creatorModalVisible: true})}>
-          New</div>
+      <div
+        className='create-button-fixed cursor_pointer'
+        onClick={() => this.setState({creatorModalVisible: true})}>
+        New
+      </div>
     </div>
   }
 }

@@ -2,8 +2,11 @@ export default (state = [
   {
     date: '',
     title: '',
-    isSummary: false,
-    labels: [{1: 6}]
+    summary: '',
+    tasks: [{
+      title:'',
+      labels:{1: 6}
+    }]
   }
 ], action) => {
   if (action.type === 'UPDATE_TIMECARD_PLANS') {

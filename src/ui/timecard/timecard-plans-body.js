@@ -1,7 +1,7 @@
 import React from 'react'
-import {Col, Divider, List, Row, Tag} from "antd";
+import {Col, Divider, Icon, List, Row, Tag} from "antd";
 
-const TimecardPlansBody = ({plans, labels}) => {
+const TimecardPlansBody = ({plans, labels, edit}) => {
   return <Row type='flex' justify='center'>
 
     <Col span={15}>
@@ -14,17 +14,22 @@ const TimecardPlansBody = ({plans, labels}) => {
               title={<p>
                 <span>{item.date + ': ' + item.title}
                 </span>
-                <span style={{float: 'right'}}>is summary {item.isSummary ? '1' : 0}</span>
+                <span style={{float: 'right'}}>
+                  <Icon className='cursor_pointer'
+                        style={{fontSize: 16}}
+                        type="form"
+                        onClick={() => edit(item)}/>
+                   </span>
               </p>
               }
               description={
                 <span>
                   {
-                    item.labels.map((label) => {
-                      const found = labels.find(item => parseInt(item.id) === parseInt(Object.keys(label)[0])) || {}
-                      const value = Object.values(label)[0]
+                    item.tasks.map((task, index) => {
+                      const found = labels.find(item => parseInt(item.id) === parseInt(Object.keys(task.label)[0])) || {}
+                      const value = Object.values(task.label)[0]
                       return <Tag
-                        key={found.id}
+                        key={index}
                         className='tag'
                         color={found.color}>
                     <span className='cursor_pointer'>
@@ -44,5 +49,4 @@ const TimecardPlansBody = ({plans, labels}) => {
     </Col>
   </Row>
 }
-
 export default TimecardPlansBody
