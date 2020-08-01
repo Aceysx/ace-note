@@ -1,7 +1,7 @@
 import React from 'react'
 import Calendar from 'react-github-contribution-calendar'
-import {Col, Row} from "antd";
-import Time from "../../model/time";
+import {Col, Row} from "antd"
+import Time from "../../model/time"
 
 const total_part_of_one_day = 24 * 60 / 20
 

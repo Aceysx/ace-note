@@ -1,6 +1,7 @@
 import React from 'react'
-import {Button, DatePicker, Form, Input, message, Tag} from "antd";
-import moment from "moment";
+import moment from "moment"
+import {Button, DatePicker, Form, Input, message, Tag} from "antd"
+
 
 const {TextArea} = Input
 const taskTemplate = `[

@@ -1,15 +1,16 @@
 import React from 'react'
-import TitleBar from "../title-bar/title-bar"
 import {connect} from 'react-redux'
+import {Divider, Modal} from "antd"
 
-import TimecardCalendar from "./timecard-calendar";
-import TimecardPlansBody from "./timecard-plans-body";
-import {Divider, Modal} from "antd";
-import TimecardPlanCreator from "./timecard-plan-creator";
-import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands";
-import TimecardModel from "../../model/timecard";
-import {publish} from "../event/publish-event";
+import TitleBar from "../title-bar/title-bar"
+import TimecardCalendar from "./timecard-calendar"
+import TimecardPlansBody from "./timecard-plans-body"
+import TimecardPlanCreator from "./timecard-plan-creator"
+import TimecardModel from "../../model/timecard"
+import {publish} from "../event/publish-event"
+import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands"
 import {CREATE_TIMECARD_PLAN} from "../event/event"
+
 import '../../resources/css/timecard.css'
 
 class TimecardBody extends React.Component {
@@ -41,6 +42,7 @@ class TimecardBody extends React.Component {
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
     const {creatorModalVisible, editPlan} = this.state
+
     return <div>
       <TitleBar
         title=' 📆 Timecard'

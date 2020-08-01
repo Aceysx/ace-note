@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Divider, Icon, List, Row, Tag} from "antd";
+import {Col, Divider, Icon, List, Row, Tag} from "antd"
 
 const TimecardPlansBody = ({plans, labels, edit}) => {
   return <Row type='flex' justify='center'>
