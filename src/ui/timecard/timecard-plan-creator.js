@@ -83,8 +83,8 @@ export default class TimecardPlanCreator extends React.Component {
 
   render() {
     const {title, tasks, summary, date} = this.state
-    const {labels} = this.props
-
+    const {labels, isUpdate} = this.props
+    console.log(isUpdate)
     return <div>
       {
         labels.map(label => {
@@ -97,9 +97,11 @@ export default class TimecardPlanCreator extends React.Component {
         })
       }
       <Form.Item label="Date">
-        <DatePicker showTime format="YYYY-MM-DD"
-                    value={date}
-                    onChange={date => this.setState({date})}
+        <DatePicker
+          disabled={isUpdate}
+          showTime format="YYYY-MM-DD"
+          value={date}
+          onChange={date => this.setState({date})}
         />
       </Form.Item>
       <Form.Item label="title">

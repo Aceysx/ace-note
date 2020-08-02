@@ -16,7 +16,8 @@ import '../../resources/css/timecard.css'
 class TimecardBody extends React.Component {
   state = {
     creatorModalVisible: false,
-    editPlan: null
+    editPlan: null,
+    isUpdate: false,
   }
 
   componentDidMount() {
@@ -29,19 +30,23 @@ class TimecardBody extends React.Component {
   editPlan = plan => {
     this.setState({
       creatorModalVisible: true,
+      isUpdate: true,
       editPlan: plan
     })
   }
 
-  closeCreateModal=()=>{
+  closeCreateModal = () => {
     this.setState({
       creatorModalVisible: false,
-      editPlan:null
+      isUpdate: false,
+      editPlan: null
     })
   }
+
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
-    const {creatorModalVisible, editPlan} = this.state
+    const {creatorModalVisible, editPlan, isUpdate} = this.state
+
     return <div>
       <TitleBar
         title=' 📆 Timecard'
@@ -68,6 +73,7 @@ class TimecardBody extends React.Component {
         onCancel={this.closeCreateModal}
       >
         <TimecardPlanCreator
+          isUpdate={isUpdate}
           editPlan={editPlan}
           labels={timecardLabels}
           createPlan={timecard => {
