@@ -2,6 +2,24 @@ import React from 'react'
 import {Col, Divider, Icon, List, Row, Tag} from "antd"
 
 const TimecardPlansBody = ({plans, labels, edit}) => {
+  const calculateTagStatus = (tasks, labels) => {
+    const result = []
+    tasks.forEach(task => {
+      const foundTask = labels.find(item => parseInt(item.id) === parseInt(Object.keys(task.label)[0])) || {}
+      const value = Object.values(task.label)[0]
+      const foundLabel = result.find(item => parseInt(item.id) === parseInt(foundTask.id))
+      if (foundLabel) {
+        foundLabel.value += value
+      } else {
+        result.push({
+          ...foundTask,
+          value
+        })
+      }
+    })
+    return result
+  }
+
   return <Row type='flex' justify='center'>
 
     <Col span={15}>
@@ -25,20 +43,20 @@ const TimecardPlansBody = ({plans, labels, edit}) => {
               description={
                 <span>
                   {
-                    item.tasks.map((task, index) => {
-                      const found = labels.find(item => parseInt(item.id) === parseInt(Object.keys(task.label)[0])) || {}
-                      const value = Object.values(task.label)[0]
-                      return <Tag
-                        key={index}
-                        className='tag'
-                        color={found.color}>
+                    calculateTagStatus(item.tasks, labels)
+                      .map((item, index) => {
+                        const {id, title, color, value} = item
+                        return <Tag
+                          key={index}
+                          className='tag'
+                          color={color}>
                     <span className='cursor_pointer'>
-                      {found.title}
+                      {title}
                     </span>
-                        <Divider type={'vertical'}/>
-                        <span style={{fontSize: '12px'}}>{value}</span>
-                      </Tag>
-                    })
+                          <Divider type={'vertical'}/>
+                          <span style={{fontSize: '12px'}}>{value}</span>
+                        </Tag>
+                      })
                   }
                 </span>
               }
