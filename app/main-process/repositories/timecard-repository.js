@@ -33,7 +33,10 @@ const TimecardRepository = {
   },
   getPlansByYear: (year) => {
     if (db) {
-      return db.get('plans').filter(item => item.date.startsWith(year)).value();
+      return db.get('plans')
+        .filter(item => item.date.startsWith(year))
+        .value()
+        .reverse();
     }
     return []
   },
