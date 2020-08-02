@@ -31,6 +31,11 @@ const TimecardRepository = {
     }
     plans.push(plan).write()
   },
+  delByDate: (date) => {
+    return db.get('plans')
+      .remove({date})
+      .write()
+  },
   getPlansByYear: (year) => {
     if (db) {
       return db.get('plans')

@@ -4,10 +4,13 @@ const TimecardModel = {
   createPlan: plan => {
     TimecardResource.createPlan(plan)
   },
+  delPlan: plan => {
+    TimecardResource.delPlan(plan.date)
+  },
   getPlansByYear: year => {
     return TimecardResource.getPlansByYear(year)
   },
-  getLabels:()=> {
+  getLabels: () => {
     return TimecardResource.getPlansLabels()
   }
 }

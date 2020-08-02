@@ -4,7 +4,7 @@ import CardReview from "../../model/card-review"
 import File from "../../model/file"
 import {
   CREATE_DIR_OR_FILE_EVENT,
-  CREATE_TIMECARD_PLAN,
+  TIMECARD_PLAN_STATUS_CHANGE,
   DELETE_DIR_EVENT,
   DELETE_FILE_EVENT,
   FILE_NAME_CHANGE_EVENT
@@ -44,7 +44,7 @@ emitter.on(DELETE_DIR_EVENT, ({props = {}}) => {
   props.updateDirs(FileResource.initNoteBook(window.getNoteWorkspacePath()))
 })
 
-emitter.on(CREATE_TIMECARD_PLAN, ({props = {}}) => {
+emitter.on(TIMECARD_PLAN_STATUS_CHANGE, ({props = {}}) => {
   props.updateTimecardPlans(
     TimecardModel.getPlansByYear('2020')
   )

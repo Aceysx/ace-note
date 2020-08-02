@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Divider, Modal} from "antd"
+import {Divider, Icon, Modal} from "antd"
 
 import TitleBar from "../title-bar/title-bar"
 import TimecardCalendar from "./timecard-calendar"
@@ -9,7 +9,7 @@ import TimecardPlanCreator from "./timecard-plan-creator"
 import TimecardModel from "../../model/timecard"
 import {publish} from "../event/publish-event"
 import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands"
-import {CREATE_TIMECARD_PLAN} from "../event/event"
+import {TIMECARD_PLAN_STATUS_CHANGE} from "../event/event"
 
 import '../../resources/css/timecard.css'
 
@@ -43,6 +43,13 @@ class TimecardBody extends React.Component {
     })
   }
 
+  delPlan = plan => {
+    console
+      .log(plan)
+    TimecardModel.delPlan(plan)
+    publish(TIMECARD_PLAN_STATUS_CHANGE, {props: this.props})
+  }
+
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
     const {creatorModalVisible, editPlan, isUpdate} = this.state
@@ -62,6 +69,7 @@ class TimecardBody extends React.Component {
         labels={timecardLabels}
         plans={timecardPlans}
         edit={this.editPlan}
+        del={this.delPlan}
       />
 
       <Modal
@@ -79,14 +87,16 @@ class TimecardBody extends React.Component {
           createPlan={timecard => {
             TimecardModel.createPlan(timecard)
             this.closeCreateModal()
-            publish(CREATE_TIMECARD_PLAN, {props: this.props})
+            publish(TIMECARD_PLAN_STATUS_CHANGE, {props: this.props})
           }}/>
       </Modal>
 
       <div
         className='create-button-fixed cursor_pointer'
         onClick={() => this.setState({creatorModalVisible: true})}>
-        New
+        <Icon type="plus"
+              className='cursor_pointer'
+              style={{fontSize: '25px',fontWeight:'bold'}}/>
       </div>
     </div>
   }

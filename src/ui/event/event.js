@@ -4,4 +4,4 @@ export const DELETE_DIR_EVENT = 'delete_dir__event'
 export const DELETE_FILE_EVENT = 'delete_file__event'
 
 
-export const CREATE_TIMECARD_PLAN = 'create_timecard_plan'
+export const TIMECARD_PLAN_STATUS_CHANGE = 'timecard_plan_status_change'
