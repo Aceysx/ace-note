@@ -35,6 +35,7 @@ const TimecardRepository = {
     if (db) {
       return db.get('plans')
         .filter(item => item.date.startsWith(year))
+        .sortBy('date')
         .value()
         .reverse();
     }
