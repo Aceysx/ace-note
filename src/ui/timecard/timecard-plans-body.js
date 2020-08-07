@@ -1,7 +1,16 @@
 import React from 'react'
-import {Col, Divider, Icon, List, Popconfirm, Row, Statistic, Tag} from "antd"
+import {Col, Divider, Icon, List, Popconfirm, Row, Tabs, Tag} from "antd"
+import moment from 'moment'
+
+const {TabPane} = Tabs
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 const TimecardPlansBody = ({plans, labels, edit, del}) => {
+  const filterPlansByMonth = month => {
+    let filter = plans.filter(plan => moment(plan.date).month() === parseInt(month));
+    console.log(filter)
+    return filter
+  }
   const calculateTagStatus = (tasks, labels) => {
     const result = []
     tasks.forEach(task => {
@@ -19,20 +28,23 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
     })
     return result
   }
-
   return <Row type='flex' justify='center'>
 
-    <Col span={15}>
-      <List
-        itemLayout="horizontal"
-        dataSource={plans}
-        renderItem={item => (
-          <List.Item>
-            <List.Item.Meta
-              title={<p>
+    <Col span={20}>
+      <Tabs tabPosition={'left'} defaultActiveKey={MONTHS[moment().month()]}>
+        {
+          MONTHS.map((month, index) => {
+            return <TabPane tab={month} key={month}>
+              <List
+                itemLayout="horizontal"
+                dataSource={filterPlansByMonth(index)}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      title={<p>
                 <span>{item.date + '  ' + item.title}
                 </span>
-                <span style={{float: 'right'}}>
+                        <span style={{float: 'right'}}>
                   <Icon className='cursor_pointer'
                         style={{fontSize: 16, color: '#2e99ff'}}
                         type="form"
@@ -47,10 +59,10 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
                           type="delete"/>
                    </Popconfirm>
                    </span>
-              </p>
-              }
-              description={
-                <span>
+                      </p>
+                      }
+                      description={
+                        <span>
                   {
                     calculateTagStatus(item.tasks, labels)
                       .map((item, index) => {
@@ -68,11 +80,14 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
                       })
                   }
                 </span>
-              }
-            />
-          </List.Item>
-        )}
-      />
+                      }/>
+                  </List.Item>
+                )}
+              />
+            </TabPane>
+          })
+        }
+      </Tabs>
     </Col>
   </Row>
 }
