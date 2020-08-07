@@ -5,6 +5,7 @@ import Time from "../../model/time"
 
 const total_part_of_one_day = 24 * 60 / 20
 
+const STATUS_COLORS = ['#EEE', '#36b8ff', '#1e678f', '#0e2e40',];
 const TimecardCalendar = ({plans}) => {
   const values = {}
   plans.forEach(plan => {
@@ -16,8 +17,21 @@ const TimecardCalendar = ({plans}) => {
   })
   return <Row type='flex' justify='center'>
     <Col span={15}>
-      <Calendar panelColors={['#EEE', '#36b8ff', '#1e678f', '#0e2e40',]} values={values}
+      <Calendar panelColors={STATUS_COLORS} values={values}
                 until={Time.format(Time.tomorrow())}/>
+      <span>
+        <span style={{fontSize: 12, fontWeight: 'bold', margin: '0 5px', display: 'inline-block'}}>Less</span>
+        {
+          STATUS_COLORS.map(color =>
+            <span style={{
+              background: `${color}`, margin: '0 2px',
+              width: 12, height: 12, display: 'inline-block',
+              borderRadius: 2
+            }}/>
+          )
+        }
+        <span style={{fontSize: 12, fontWeight: 'bold', margin: '0 5px', display: 'inline-block'}}>More</span>
+      </span>
     </Col>
   </Row>
 }
