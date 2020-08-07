@@ -12,3 +12,8 @@
     right: 25px;
     border-radius: 50%;
 }
+.plan_tag{
+    font-size: 12px;
+    border-radius: 5px;
+    font-weight: 700;
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Divider, Icon, List, Popconfirm, Row, Tag} from "antd"
+import {Col, Divider, Icon, List, Popconfirm, Row, Statistic, Tag} from "antd"
 
 const TimecardPlansBody = ({plans, labels, edit, del}) => {
   const calculateTagStatus = (tasks, labels) => {
@@ -34,7 +34,7 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
                 </span>
                 <span style={{float: 'right'}}>
                   <Icon className='cursor_pointer'
-                        style={{fontSize: 16, color: '#2b8fc4'}}
+                        style={{fontSize: 16, color: '#2e99ff'}}
                         type="form"
                         onClick={() => edit(item)}/>
                   <Divider type='vertical'/>
@@ -43,7 +43,7 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
                                onConfirm={() => del(item)}
                                cancelText="No">
                     <Icon className='cursor_pointer'
-                          style={{fontSize: 16, color: '#cc2c55'}}
+                          style={{fontSize: 16, color: '#b7906b'}}
                           type="delete"/>
                    </Popconfirm>
                    </span>
@@ -57,7 +57,7 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
                         const {title, color, value} = item
                         return <Tag
                           key={index}
-                          className='tag'
+                          className='plan_tag'
                           color={color}>
                     <span className='cursor_pointer'>
                       {title}
