@@ -44,8 +44,6 @@ class TimecardBody extends React.Component {
   }
 
   delPlan = plan => {
-    console
-      .log(plan)
     TimecardModel.delPlan(plan)
     publish(TIMECARD_PLAN_STATUS_CHANGE, {props: this.props})
   }

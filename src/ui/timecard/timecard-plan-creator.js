@@ -1,21 +1,17 @@
 import React from 'react'
 import moment from "moment"
-import {Button, DatePicker, Form, Input, message, Tag} from "antd"
-
+import {Button, DatePicker, Divider, Form, Input, message, Radio, Tag} from "antd"
+import PLAN_TEMPLATE from './template/plan-template'
 
 const {TextArea} = Input
-const taskTemplate = `[
-{"title": "","label": {"1": 2}},
-{"title": "","label": {"1": 2}},
-{"title": "","label": {"1": 2}}
-]
-`
+
 export default class TimecardPlanCreator extends React.Component {
   state = {
     date: moment(new Date().getTime()),
     title: moment(new Date()).format("YYYY-MM-DD"),
-    tasks: taskTemplate,
-    summary: ''
+    tasks: PLAN_TEMPLATE[0].content,
+    summary: '',
+    template: PLAN_TEMPLATE[0].title
   }
 
   componentDidMount() {
@@ -61,7 +57,7 @@ export default class TimecardPlanCreator extends React.Component {
     this.setState({
       date: moment(new Date().getTime()),
       title: moment(new Date()).format("YYYY-MM-DD"),
-      tasks: taskTemplate,
+      tasks: PLAN_TEMPLATE[0].title,
       summary: ''
     })
   }
@@ -80,9 +76,17 @@ export default class TimecardPlanCreator extends React.Component {
     )
     this.reset()
   }
+  changeTemplate = template => {
+    let found = PLAN_TEMPLATE.find(item => item.title === template);
+    const {title, content} = found
+    this.setState({
+      template: title,
+      tasks: content
+    })
+  }
 
   render() {
-    const {title, tasks, summary, date} = this.state
+    const {title, tasks, summary, date, template} = this.state
     const {labels, isUpdate} = this.props
     return <div>
       {
@@ -95,6 +99,16 @@ export default class TimecardPlanCreator extends React.Component {
           </Tag>
         })
       }
+      <Divider/>
+      <label>Template：</label>
+      <Radio.Group value={template}
+                   onChange={e => this.changeTemplate(e.target.value)}>
+        {
+          PLAN_TEMPLATE.map(template => {
+            return <Radio.Button value={template.title}>{template.title}</Radio.Button>
+          })
+        }
+      </Radio.Group>
       <Form.Item label="Date">
         <DatePicker
           disabled={isUpdate}
@@ -103,17 +117,17 @@ export default class TimecardPlanCreator extends React.Component {
           onChange={date => this.setState({date})}
         />
       </Form.Item>
-      <Form.Item label="title">
+      <Form.Item label="Title">
         <TextArea rows={1}
                   value={title}
                   onChange={e => this.setState({title: e.target.value})}/>
       </Form.Item>
-      <Form.Item label="tasks">
+      <Form.Item label="Task">
         <TextArea rows={7}
                   value={tasks}
                   onChange={e => this.setState({tasks: e.target.value})}/>
       </Form.Item>
-      <Form.Item label="summary">
+      <Form.Item label="Summary">
         <TextArea rows={5}
                   value={summary}
                   onChange={e => this.setState({summary: e.target.value})}/>

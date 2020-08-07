@@ -30,7 +30,7 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
           <List.Item>
             <List.Item.Meta
               title={<p>
-                <span>{item.date + ': ' + item.title}
+                <span>{item.date + '  ' + item.title}
                 </span>
                 <span style={{float: 'right'}}>
                   <Icon className='cursor_pointer'
@@ -54,7 +54,7 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
                   {
                     calculateTagStatus(item.tasks, labels)
                       .map((item, index) => {
-                        const {id, title, color, value} = item
+                        const {title, color, value} = item
                         return <Tag
                           key={index}
                           className='tag'
