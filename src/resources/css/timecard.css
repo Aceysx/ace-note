@@ -1,4 +1,4 @@
-.create-button-fixed{
+.create-button-fixed {
     position: fixed;
     width: 50px;
     height: 50px;
@@ -12,8 +12,22 @@
     right: 25px;
     border-radius: 50%;
 }
-.plan_tag{
+
+.plan_tag {
     font-size: 12px;
     border-radius: 5px;
     font-weight: 700;
+}
+
+.ant-tabs .ant-tabs-left-bar .ant-tabs-tab {
+    text-align: left;
+}
+
+.ant-tabs-nav .ant-tabs-tab-active {
+    color: rgb(34, 142, 198) !important;
+    font-weight: bolder;
+}
+
+.ant-tabs .ant-tabs-left-bar .ant-tabs-tab, .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
+    margin: 0;
 }

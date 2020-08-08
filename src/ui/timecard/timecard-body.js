@@ -51,7 +51,6 @@ class TimecardBody extends React.Component {
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
     const {creatorModalVisible, editPlan, isUpdate} = this.state
-
     return <div>
       <TitleBar
         title=' 📆 Timecard'

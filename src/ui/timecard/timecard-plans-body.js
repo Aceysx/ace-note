@@ -8,7 +8,6 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const TimecardPlansBody = ({plans, labels, edit, del}) => {
   const filterPlansByMonth = month => {
     let filter = plans.filter(plan => moment(plan.date).month() === parseInt(month));
-    console.log(filter)
     return filter
   }
   const calculateTagStatus = (tasks, labels) => {
@@ -28,16 +27,19 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
     })
     return result
   }
-  return <Row type='flex' justify='center'>
 
+  return <Row type='flex' justify='center'>
     <Col span={20}>
       <Tabs tabPosition={'left'} defaultActiveKey={MONTHS[moment().month()]}>
         {
           MONTHS.map((month, index) => {
-            return <TabPane tab={month} key={month}>
+            let dataSource = filterPlansByMonth(index);
+            return <TabPane
+              tab={<span className='cursor_pointer'>{month}{dataSource.length ? `|${dataSource.length}` : ''}</span>}
+              key={month}>
               <List
                 itemLayout="horizontal"
-                dataSource={filterPlansByMonth(index)}
+                dataSource={dataSource}
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
