@@ -1,6 +1,6 @@
 import React from 'react'
 import Calendar from 'react-github-contribution-calendar'
-import {Col, Row} from "antd"
+import {Col, Divider, Row} from "antd"
 import Time from "../../model/time"
 
 const total_part_of_one_day = 24 * 60 / 20
@@ -31,6 +31,8 @@ const TimecardCalendar = ({plans}) => {
           )
         }
         <span style={{fontSize: 12, fontWeight: 'bold', margin: '0 5px', display: 'inline-block'}}>More</span>
+        <Divider type='vertical'/>
+        <span style={{fontSize: 12, opacity: '0.8', color: 'gray'}}>1=20mins</span>
       </span>
     </Col>
   </Row>
