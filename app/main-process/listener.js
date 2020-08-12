@@ -81,7 +81,7 @@ ipcMain.on(OPEN_DIR, (event) => {
 
 //timecard
 ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
-  const {_path, title, date, summary, tasks = []} = data
+  const {_path, title, date, summary, type, tasks = []} = data
   const year = moment(date).format("YYYY")
   let dir = path.join(_path, year);
   Files.createDirIfNotExist(_path)
@@ -91,7 +91,7 @@ ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
   Files.createFileWithContent(planFile, JSON.stringify({title, tasks, summary}))
 
   event.returnValue = TimecardRepository.savePlan({
-    date, title, summary, tasks
+    date, title, summary, tasks, type
   })
 })
 
@@ -99,7 +99,9 @@ ipcMain.on(GET_TIMECARDS_BY_YEAR, (event, year) => {
   event.returnValue = TimecardRepository.getPlansByYear(year).map(plan => {
     return {
       ...plan,
-      tasks: JSON.parse(plan.tasks),
+      tasks: (plan.type === 'day' || !plan.type)
+        ? JSON.parse(plan.tasks)
+        : plan.tasks
     }
   })
 })

@@ -5,7 +5,7 @@ import Time from "../../model/time"
 
 const total_part_of_one_day = 24 * 60 / 20
 
-const STATUS_COLORS = ['#EEE', '#36b8ff', '#1e678f', '#0e2e40',];
+const STATUS_COLORS = ['#EEE', '#36b8ff', '#1e678f', '#0e2e40']
 const TimecardCalendar = ({plans}) => {
   const values = {}
   plans.forEach(plan => {
@@ -32,7 +32,7 @@ const TimecardCalendar = ({plans}) => {
         }
         <span style={{fontSize: 12, fontWeight: 'bold', margin: '0 5px', display: 'inline-block'}}>More</span>
         <Divider type='vertical'/>
-        <span style={{fontSize: 12, opacity: '0.8', color: 'gray'}}>1=20mins</span>
+        <span style={{fontSize: 12, opacity: '0.8', color: 'gray'}}>1:20 mins</span>
       </span>
     </Col>
   </Row>

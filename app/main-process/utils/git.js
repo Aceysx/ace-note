@@ -4,7 +4,7 @@ const getCurrentTime = () => {
 }
 const CMD = {
   status: 'git status',
-  addAndCommit: 'git add . && git commit -m"update from AceNote: ' + getCurrentTime() + '"',
+  addAndCommit: 'git add . && git commit -m"updateState from AceNote: ' + getCurrentTime() + '"',
   pullReb: 'git pull origin master --reb',
   push: 'git push -u origin master'
 }

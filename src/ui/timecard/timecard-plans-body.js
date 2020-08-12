@@ -1,15 +1,22 @@
 import React from 'react'
-import {Col, Divider, Icon, List, Popconfirm, Row, Tabs, Tag} from "antd"
+import {Col, Collapse, Divider, Icon, List, Popconfirm, Row, Tabs, Tag} from "antd"
 import moment from 'moment'
+import TimecardMonthEditor from "./timecard-month-editor"
 
+const {Panel} = Collapse
 const {TabPane} = Tabs
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-const TimecardPlansBody = ({plans, labels, edit, del}) => {
+const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
   const filterPlansByMonth = month => {
-    let filter = plans.filter(plan => moment(plan.date).month() === parseInt(month));
+    let filter = plans.filter(plan =>
+      moment(plan.date).month() === parseInt(month)
+      && (plan.type === 'day' || !plan.type)
+    )
+
     return filter
   }
+
   const calculateTagStatus = (tasks, labels) => {
     const result = []
     tasks.forEach(task => {
@@ -30,6 +37,7 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
 
   return <Row type='flex' justify='center'>
     <Col span={20}>
+
       <Tabs tabPosition={'left'} defaultActiveKey={MONTHS[moment().month()]}>
         {
           MONTHS.map((month, index) => {
@@ -37,6 +45,14 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
             return <TabPane
               tab={<span className='cursor_pointer'>{month}{dataSource.length ? `|${dataSource.length}` : ''}</span>}
               key={month}>
+              <Collapse>
+                <Panel header={`${MONTHS[index]} flags`} key="1">
+                  <TimecardMonthEditor
+                    plan={plans.find(plan => plan.type === 'month')}
+                    updateMonthPlan={create}
+                  />
+                </Panel>
+              </Collapse>
               <List
                 itemLayout="horizontal"
                 dataSource={dataSource}
@@ -81,8 +97,7 @@ const TimecardPlansBody = ({plans, labels, edit, del}) => {
                         </Tag>
                       })
                   }
-                </span>
-                      }/>
+                </span>}/>
                   </List.Item>
                 )}
               />

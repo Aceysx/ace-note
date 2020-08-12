@@ -1,7 +1,8 @@
 // {
 //   date: '',
-//     title: '',
+//   title: '',
 //   summary: '',
+//   type: '',
 //   tasks: [{
 //   title:'',
 //   labels:{"1": 6}

@@ -47,6 +47,11 @@ class TimecardBody extends React.Component {
     TimecardModel.delPlan(plan)
     publish(TIMECARD_PLAN_STATUS_CHANGE, {props: this.props})
   }
+  filterDailyPlans = plans => {
+    return plans.filter(plan => {
+      return plan.type === 'day' || !plan.type
+    })
+  }
 
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
@@ -59,7 +64,7 @@ class TimecardBody extends React.Component {
         pushToRepo={this.props.pushToRepo}/>
       <div style={{height: 35}}/>
       <TimecardCalendar
-        plans={timecardPlans}/>
+        plans={this.filterDailyPlans(timecardPlans)}/>
       <Divider/>
 
       <TimecardPlansBody
@@ -67,6 +72,7 @@ class TimecardBody extends React.Component {
         plans={timecardPlans}
         edit={this.editPlan}
         del={this.delPlan}
+        create={plan => TimecardModel.createPlan(plan)}
       />
 
       <Modal
@@ -93,7 +99,7 @@ class TimecardBody extends React.Component {
         onClick={() => this.setState({creatorModalVisible: true})}>
         <Icon type="plus"
               className='cursor_pointer'
-              style={{fontSize: '25px',fontWeight:'bold'}}/>
+              style={{fontSize: '25px', fontWeight: 'bold'}}/>
       </div>
     </div>
   }

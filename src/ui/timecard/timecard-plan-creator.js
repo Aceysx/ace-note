@@ -21,6 +21,7 @@ export default class TimecardPlanCreator extends React.Component {
         date: moment(date),
         title,
         tasks: JSON.stringify(tasks),
+        type:'day',
         summary
       })
     }
