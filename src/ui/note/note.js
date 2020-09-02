@@ -22,14 +22,21 @@ class Note extends React.Component {
     this.props.updateStatus({subMenuVisible: true})
   }
 
-  modifyFileName = (oldPath, newFileName) => {
-    if (this._exist(newFileName)) {
-      message.warning('file  already exist')
-      return false;
+  validateFileName = fileName => {
+    if (this._exist(fileName)) {
+      message.warning('file  already exist');
+      return false
     }
-    if (this._validate(newFileName)) {
+    if (this._validate(fileName)) {
       message.warning('file name could not include 【\\\\/:*?\"<>|】')
-      return false;
+      return false
+    }
+    return true
+  }
+
+  modifyFileName = (oldPath, newFileName) => {
+    if (!this.validateFileName(newFileName)) {
+      return false
     }
     const {selectedDir, currentEditFile} = this.props
     let newPath = FileResource.modifyFileName({oldPath, newFileName})
@@ -44,6 +51,7 @@ class Note extends React.Component {
         : selectedDir.path)
 
     publish(FILE_NAME_CHANGE_EVENT, {props: this.props, oldPath, newFileName})
+    return true
   }
 
   modifyFileContent = (path, content) => {

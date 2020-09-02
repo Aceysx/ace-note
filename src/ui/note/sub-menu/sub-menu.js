@@ -49,7 +49,8 @@ class SubMenu extends React.Component {
     const {notesTags} = this.props
     const {old, now, type} = editedFileName
     if (File.name(old) !== now) {
-      this.props.modifyFileName(old, now, type)
+      const result = this.props.modifyFileName(old, now, type)
+      if (!result) return false
     }
     const relativePath = old.split(noteWorkspacePath)[1]
     if (type === 'file') {

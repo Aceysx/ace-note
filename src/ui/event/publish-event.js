@@ -10,7 +10,7 @@ import {
   FILE_NAME_CHANGE_EVENT
 } from "./event"
 import NoteTagModel from "../../model/note-tag"
-import TimecardModel from "../../model/timecard";
+import TimecardModel from "../../model/timecard"
 
 const emitter = mitt()
 
