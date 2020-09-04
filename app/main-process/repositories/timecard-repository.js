@@ -7,14 +7,16 @@ const TimecardRepository = {
     if (db) {
       return
     }
-    let planDBPath = _path + '/__timecard/__plan.json'
-    if (Files.isExist(planDBPath)) {
-      db = low(new FileSync(planDBPath))
+    let planDBPath = _path + '/__timecard/'
+    let filename = '__plan.json'
+    let full = planDBPath + filename;
+    if (Files.isExist(full)) {
+      db = low(new FileSync(full))
       return
     }
-    Files.createFileWithContent(planDBPath);
-    db = low(new FileSync(planDBPath))
-    console.log(db)
+    Files.createDirIfNotExist(planDBPath);
+    Files.createFileWithContent(full);
+    db = low(new FileSync(full))
     if (!db) {
       db.defaults({
         labels: [],
