@@ -28,7 +28,7 @@ class Note extends React.Component {
       return false
     }
     if (this._validate(fileName)) {
-      message.warning('file name could not include 【\\\\/:*?\"<>|】')
+      message.warning('file name could not include 【\\\\/:*?\".】')
       return false
     }
     return true
