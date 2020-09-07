@@ -46,9 +46,11 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
               tab={<span className='cursor_pointer'>{month}{dataSource.length ? `|${dataSource.length}` : ''}</span>}
               key={month}>
               <Collapse>
-                <Panel header={`${MONTHS[index]} flags`} key="1">
+                <Panel header={`${MONTHS[index]} Flags`} key="1">
                   <TimecardMonthEditor
-                    plan={plans.find(plan => plan.type === 'month')}
+                    plan={plans.find(plan =>
+                      plan.type === 'month'
+                      && moment(plan.date).month() === index)}
                     updateMonthPlan={create}
                   />
                 </Panel>

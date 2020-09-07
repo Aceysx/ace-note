@@ -72,7 +72,8 @@ export default class LeftMenu extends React.Component {
                 this.props.switchToMenu(MENU.note)
                 this.props.updateMenu(leftMenu.path)
               }}
-            >{this.buildTopItem('📔 ', 'Notebook')}</span>
+            >{this.buildTopItem('📔 ', 'Notebook')}
+            </span>
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
               onSelect={this.onSelect}>
