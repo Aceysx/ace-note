@@ -81,14 +81,7 @@ ipcMain.on(OPEN_DIR, (event) => {
 
 //timecard
 ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
-  const {_path, title, date, summary, type, tasks = []} = data
-  const year = moment(date).format("YYYY")
-  let dir = path.join(_path, year);
-  Files.createDirIfNotExist(_path)
-  Files.createDirIfNotExist(dir)
-  let planFile = path.join(_path, year, date + ".md");
-
-  Files.createFileWithContent(planFile, JSON.stringify({title, tasks, summary}))
+  const {title, date, summary, type, tasks = []} = data
 
   event.returnValue = TimecardRepository.savePlan({
     date, title, summary, tasks, type

@@ -70,7 +70,6 @@ export default class TimecardPlanCreator extends React.Component {
     }
     this.props.createPlan(
       {
-        _path: window.getTimecardPath(),
         date: moment(date).format("YYYY-MM-DD"),
         title, tasks, summary
       }

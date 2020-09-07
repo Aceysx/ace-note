@@ -39,7 +39,6 @@ export default class TimecardMonthEditor extends React.Component {
     const {plan} = this.state
     this.props.updateMonthPlan({
       ...plan,
-      _path: window.getTimecardPath(),
       type: 'month',
       date: plan.date || moment().format("YYYY-MM")
     })
