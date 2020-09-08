@@ -5,6 +5,7 @@ import 'codemirror/mode/nginx/nginx'
 import 'codemirror/mode/shell/shell'
 import 'codemirror/mode/css/css'
 import 'codemirror/mode/clike/clike'
+import 'mermaid'
 import File from '../../../model/file'
 import NoteTag from './note-tag'
 import NoteTagModel from '../../../model/note-tag'
@@ -14,8 +15,9 @@ import {startSpellCheck, typoLoaded} from "./spell-check"
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
 import MindMap from "../mindmap/mind-map";
+import * as HyperMD from "hypermd"
+import "hypermd-mermaid"
 
-const HyperMD = require('hypermd')
 let md
 
 export default class Markdown extends React.Component {

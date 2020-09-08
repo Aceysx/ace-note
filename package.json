@@ -12,6 +12,7 @@
     "codemirror": "^5.50.0",
     "electron-is-dev": "^1.1.0",
     "hypermd": "^0.3.11",
+    "hypermd-mermaid": "^0.1.0",
     "lowdb": "^1.0.0",
     "marked": "^0.8.0",
     "markmap-lib": "^0.7.11",
