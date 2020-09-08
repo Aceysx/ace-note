@@ -87,7 +87,7 @@ export default class TimecardPlanCreator extends React.Component {
 
   render() {
     const {title, tasks, summary, date, template} = this.state
-    const {labels, isUpdate} = this.props
+    const {labels=[], isUpdate} = this.props
     return <div>
       {
         labels.map(label => {

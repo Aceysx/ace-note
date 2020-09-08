@@ -1,6 +1,4 @@
 const TimecardRepository = require('./repositories/timecard-repository')
-const moment = require('moment')
-const path = require('path')
 
 const {
   CREATE_TIMECARD_PLAN,

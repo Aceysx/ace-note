@@ -2,11 +2,20 @@ import React from 'react'
 import {Col, Collapse, Divider, Icon, List, Popconfirm, Row, Tabs, Tag} from "antd"
 import moment from 'moment'
 import TimecardMonthEditor from "./timecard-month-editor"
+import SUN from '../../resources/images/week/week-0.png'
+import MON from '../../resources/images/week/week-1.png'
+import TUE from '../../resources/images/week/week-2.png'
+import WED from '../../resources/images/week/week-3.png'
+import THU from '../../resources/images/week/week-4.png'
+import FRI from '../../resources/images/week/week-5.png'
+import SAT from '../../resources/images/week/week-6.png'
 
 const {Panel} = Collapse
 const {TabPane} = Tabs
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
+const WEEKLY_ICONS = [
+  SUN, MON, TUE, WED, THU, FRI, SAT
+]
 const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
   const filterPlansByMonth = month => {
     let filter = plans.filter(plan =>
@@ -62,7 +71,10 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
                   <List.Item>
                     <List.Item.Meta
                       title={<p>
-                <span>{item.date + '  ' + item.title}
+                <span>
+                  <img width={35}
+                       src={WEEKLY_ICONS[moment(item.date).weekday()]}/>
+                  {item.date + '  ' + item.title}
                 </span>
                         <span style={{float: 'right'}}>
                   <Icon className='cursor_pointer'
