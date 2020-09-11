@@ -9,6 +9,7 @@ import WED from '../../resources/images/week/week-3.png'
 import THU from '../../resources/images/week/week-4.png'
 import FRI from '../../resources/images/week/week-5.png'
 import SAT from '../../resources/images/week/week-6.png'
+import SUMMARY_ICON from '../../resources/images/summary.png'
 
 const {Panel} = Collapse
 const {TabPane} = Tabs
@@ -77,10 +78,21 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
                   {item.date + '  ' + item.title}
                 </span>
                         <span style={{float: 'right'}}>
-                  <Icon className='cursor_pointer'
-                        style={{fontSize: 16, color: '#2e99ff'}}
-                        type="form"
-                        onClick={() => edit(item)}/>
+                          {
+                            item.summary
+                              ? <span>
+                                <img
+                                  className='cursor_pointer'
+                                  src={SUMMARY_ICON} width={20} style={{marginTop: -2}}/>
+                                  <Divider type={'vertical'}/>
+                                </span>
+                              : ''
+                          }
+
+                          <Icon className='cursor_pointer'
+                                style={{fontSize: 16, color: '#2e99ff'}}
+                                type="form"
+                                onClick={() => edit(item)}/>
                   <Divider type='vertical'/>
                    <Popconfirm title="Are you sure to delete ？"
                                okText="Yes"
