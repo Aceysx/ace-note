@@ -85,6 +85,15 @@ class TimecardBody extends React.Component {
               del={this.delPlan}
               create={plan => TimecardModel.createPlan(plan)}
             />
+            <div
+              className='create-button-fixed cursor_pointer'
+              onClick={() => {
+                this.setState({creatorModalVisible: true})
+              }}>
+              <Icon type="plus"
+                    className='cursor_pointer'
+                    style={{fontSize: '25px', fontWeight: 'bold'}}/>
+            </div>
           </div>
         </TabPane>
         <TabPane tab={
@@ -127,13 +136,7 @@ class TimecardBody extends React.Component {
           }}/>
       </Modal>
 
-      <div
-        className='create-button-fixed cursor_pointer'
-        onClick={() => this.setState({creatorModalVisible: true})}>
-        <Icon type="plus"
-              className='cursor_pointer'
-              style={{fontSize: '25px', fontWeight: 'bold'}}/>
-      </div>
+
     </div>
   }
 }
