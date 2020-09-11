@@ -62,7 +62,7 @@ class TimecardBody extends React.Component {
     const {creatorModalVisible, editPlan, isUpdate} = this.state
     return <div>
       <TitleBar
-        title=' 📆 Timecard'
+        title={<span><img src={require('../../resources/images/timecard.png')}/>Timecard</span>}
         leftMenuVisible={leftMenuVisible}
         changeLeftMenuVisible={this.props.updateStatus}
         pushToRepo={this.props.pushToRepo}/>

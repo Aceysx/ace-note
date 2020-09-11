@@ -60,7 +60,7 @@ class TagBody extends React.Component {
 
     return <div className='tag-body'>
       <TitleBar
-        title=' 🏷️ Tags'
+        title={<span><img src={require('../../resources/images/tag.png')}/>Tags</span>}
         leftMenuVisible={leftMenuVisible}
         changeLeftMenuVisible={this.props.updateStatus}
         pushToRepo={this.props.pushToRepo}/>

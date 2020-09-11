@@ -152,7 +152,7 @@ class Note extends React.Component {
 
     return <div>
       <TitleBar
-        title='📔NoteBook  '
+        title={<span><img src={require('../../resources/images/note-book.png')}/>NoteBook</span>}
         leftMenuVisible={leftMenuVisible}
         menus={this.formatMenus(selectedDir)}
         changeLeftMenuVisible={this.props.updateStatus}

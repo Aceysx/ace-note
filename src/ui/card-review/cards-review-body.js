@@ -90,7 +90,7 @@ class CardsReviewBody extends React.Component {
 
     return <div>
       <TitleBar
-        title=' 📑️ Cards Review'
+        title={<span><img src={require('../../resources/images/card-review.png')}/>Cardreview</span>}
         leftMenuVisible={leftMenuVisible}
         changeLeftMenuVisible={this.props.updateStatus}
         pushToRepo={this.props.pushToRepo}/>

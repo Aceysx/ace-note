@@ -1,9 +1,14 @@
 import React from 'react'
-import {Tree} from 'antd'
+import {Divider, Tree} from 'antd'
 import File from '../../model/file'
 import SideBarHeader from './sidebar-header'
 import MENU from '../note/menu-item'
-
+import SEARCH_ICON from '../../resources/images/search.png'
+import SETTINGS_ICON from '../../resources/images/settings.png'
+import CARD_REVIEW_ICON from '../../resources/images/card-review.png'
+import TAG_ICON from '../../resources/images/tag.png'
+import TIMECARD_ICON from '../../resources/images/timecard.png'
+import NOTE_BOOK_ICON from '../../resources/images/note-book.png'
 import '../../resources/css/overwrite-react-contextmenu-style.css'
 
 const {TreeNode, DirectoryTree} = Tree
@@ -30,9 +35,10 @@ export default class LeftMenu extends React.Component {
       display: 'block',
       margin: '5px 0 5px 10px',
     }}>
-      <span style={{fontSize: 18}}>{icon}</span>
-      <span className='cursor_pointer' style={{fontWeight: 700, color: 'rgba(25, 23, 17, 0.5)'}}>
-      {title}
+      <img src={icon} width={18}/>
+      <Divider type='vertical'/>
+      <span className='cursor_pointer' style={{fontWeight: 700, fontSize: 15, color: 'rgba(25, 23, 17, 0.5)'}}>
+       {title}
     </span></span>
   }
 
@@ -45,23 +51,23 @@ export default class LeftMenu extends React.Component {
       </div>
       <span
         onClick={() => this.props.switchToMenu(MENU.SEARCH)}>
-        {this.buildTopItem('🔍 ', MENU.SEARCH)}
+        {this.buildTopItem(SEARCH_ICON, MENU.SEARCH)}
       </span>
       <span
         onClick={() => this.props.switchToMenu(MENU.SETTING)}>
-        {this.buildTopItem('⚙️ ', MENU.SETTING)}
+        {this.buildTopItem(SETTINGS_ICON, MENU.SETTING)}
       </span>
       <span
         onClick={() => this.props.switchToMenu(MENU.CARDS_REVIEW)}>
-        {this.buildTopItem(' 📑️ ', MENU.CARDS_REVIEW)}
+        {this.buildTopItem(CARD_REVIEW_ICON, MENU.CARDS_REVIEW)}
       </span>
       <span
         onClick={() => this.props.switchToMenu(MENU.TIMECARD)}>
-        {this.buildTopItem(' 📆 ', MENU.TIMECARD)}
+        {this.buildTopItem(TIMECARD_ICON, MENU.TIMECARD)}
       </span>
       <span
         onClick={() => this.props.switchToMenu(MENU.TAG)}>
-        {this.buildTopItem('🏷️ ', MENU.TAG)}
+        {this.buildTopItem(TAG_ICON, MENU.TAG)}
       </span>
       {
         leftMenu.path
@@ -72,7 +78,7 @@ export default class LeftMenu extends React.Component {
                 this.props.switchToMenu(MENU.note)
                 this.props.updateMenu(leftMenu.path)
               }}
-            >{this.buildTopItem('📔 ', 'Notebook')}
+            >{this.buildTopItem(NOTE_BOOK_ICON, 'Notebook')}
             </span>
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
