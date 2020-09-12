@@ -5,6 +5,15 @@
     font-weight: 600;
 }
 
+.hmd-fold-code-mermaid {
+    font-size: 14px !important;
+    overflow-x: scroll;
+    margin-bottom: -5px;
+}
+.CodeMirror-gutters {
+    z-index: -1;
+}
+
 .markdown_box_content {
     padding-bottom: 120px;
     position: fixed;
@@ -118,7 +127,7 @@
 
 #suggestBox > select {
     padding: 5px;
-    font-size: 12px!important;
+    font-size: 12px !important;
 }
 
 #suggestBox > select > option:hover {
