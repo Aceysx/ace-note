@@ -25,6 +25,7 @@ import {
 import '../resources/css/app.css'
 import TagBody from "./tag/tag-body";
 import TimecardBody from "./timecard/timecard-body";
+import NoteStatisticBody from "./note/statistic/note-statistic-body";
 
 const {Sider, Content} = Layout
 
@@ -181,7 +182,16 @@ class App extends React.Component {
                 updateCardsReview={this.updateCardsReview}
               />
               : ''
-          }
+          }{
+          current === MENU.NOTE_STATISTIC
+            ? <NoteStatisticBody
+              notesTags={notesTags}
+              pushToRepo={this.pushToRepo}
+              leftMenuVisible={leftMenuVisible}
+              updateStatus={this.updateStatus}
+            />
+            : ''
+        }
           {
             current === MENU.SETTING
               ? <Setting

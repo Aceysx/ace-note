@@ -15,7 +15,7 @@ const HeaderMenu = ({title, menus, operateComponents = [], onClickMenuItem}) => 
       </span>
     {
       menus.map((item, index) => {
-        return <span>
+        return <span key={index}>
 
           {
             index === menus.length - 1

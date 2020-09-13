@@ -10,6 +10,7 @@ import TAG_ICON from '../../resources/images/tag.png'
 import TIMECARD_ICON from '../../resources/images/timecard.png'
 import NOTE_BOOK_ICON from '../../resources/images/note-book.png'
 import '../../resources/css/overwrite-react-contextmenu-style.css'
+import NOTEBOOK_STATISTIC_ICON from '../../resources/images/notebook-statistic.png'
 
 const {TreeNode, DirectoryTree} = Tree
 
@@ -80,6 +81,15 @@ export default class LeftMenu extends React.Component {
               }}
             >{this.buildTopItem(NOTE_BOOK_ICON, 'Notebook')}
             </span>
+            <img src={NOTEBOOK_STATISTIC_ICON}
+                 width={20}
+                 className='cursor_pointer'
+                 onClick={() => this.props.switchToMenu(MENU.NOTE_STATISTIC)}
+                 style={{
+                   float: 'right',
+                   margin: '-30px 5px'
+                 }}/>
+
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}
               onSelect={this.onSelect}>
