@@ -1,5 +1,5 @@
 import React from 'react'
-import File from '../../model/file';
+import File from '../../model/file'
 
 const HeaderMenu = ({title, menus, operateComponents = [], onClickMenuItem}) => {
   const getAbsolutePath = item => {
