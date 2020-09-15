@@ -111,7 +111,8 @@ class App extends React.Component {
     const {leftMenu, notesTags} = this.props
     const allFiles = this._formatAllFiles(leftMenu.sub)
     const inFilesPath = allFiles.filter(file => {
-      return File.name(file.path).includes(content)
+      return (File.name(file.path) || '').toLowerCase()
+        .includes((content || '').toLowerCase())
     })
     const foundInTags = notesTags.filter(tagFile => tagFile.tags.join(',').includes(content))
     const inTagPath = allFiles.filter(file => foundInTags.find(tagFile => file.path.includes(tagFile.path)))
