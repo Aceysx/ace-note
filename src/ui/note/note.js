@@ -8,13 +8,23 @@ import FileResource from '../../infrastructure/file-resource'
 import TitleBar from '../title-bar/title-bar'
 import FileCreatorButton from '../title-bar/file-creator-button'
 import FoldSubMenuButton from '../title-bar/fold-sub-menu-button'
-import {UPDATE_CURRENT_EDIT_FILE,} from '../../redux/reducers/dispatch-command/commands'
+import {UPDATE_CURRENT_EDIT_FILE, UPDATE_RECENTLY_FILES,} from '../../redux/reducers/dispatch-command/commands'
 import MENU from '../note/menu-item'
 import CardReview from "../../model/card-review"
-import {publish} from "../event/publish-event"
-import {CREATE_DIR_OR_FILE_EVENT, DELETE_DIR_EVENT, DELETE_FILE_EVENT, FILE_NAME_CHANGE_EVENT} from "../event/event"
+import {publish} from "../../event/event-listener"
+import {
+  CREATE_DIR_EVENT,
+  CREATE_FILE_EVENT,
+  DELETE_DIR_EVENT,
+  DELETE_FILE_EVENT,
+  FILE_NAME_CHANGE_EVENT
+} from "../../event/event"
+import RecentlyModel from "./recently/recently-box";
 
 class Note extends React.Component {
+  state = {
+    recentlyModalVisible: true
+  }
   componentWillReceiveProps = nextProps => {
     if (this.props.selectedDir.path === nextProps.selectedDir.path) {
       return false
@@ -64,9 +74,10 @@ class Note extends React.Component {
     let file = FileResource.createFileOrDir({type, path});
     this.props.updateSelectedDir(path)
     if (type === 'dir') {
-      publish(CREATE_DIR_OR_FILE_EVENT, {props: this.props})
+      publish(CREATE_DIR_EVENT, {props: this.props})
       return
     }
+    publish(CREATE_FILE_EVENT, {props: this.props, _path: path})
     this.props.updateCurrentEditFile(file)
   }
 
@@ -146,9 +157,11 @@ class Note extends React.Component {
   render() {
     const {
       selectedDir, currentEditFile,
-      notesTags, updateNotesTags, status, cardsReview
+      notesTags, updateNotesTags, status, cardsReview,
+      recentlyFiles
     } = this.props
     const {subMenuVisible, leftMenuVisible} = status
+    const {recentlyModalVisible} = this.state
 
     return <div>
       <TitleBar
@@ -192,15 +205,21 @@ class Note extends React.Component {
             style={{marginTop: 300}}
             description={false}/>
       }
+      <RecentlyModel
+        recentlyModalVisible={recentlyModalVisible}
+        recentlyFiles={recentlyFiles}
+        handleCancel={() => this.setState({recentlyModalVisible: false})}
+      />
     </div>;
   }
 }
 
 const mapDispatchToProps = dispatch => ({
+  updateRecentlyFiles: files => dispatch(UPDATE_RECENTLY_FILES(files)),
   updateCurrentEditFile: file => dispatch(UPDATE_CURRENT_EDIT_FILE(file))
 })
 
-const mapStateToProps = ({currentEditFile}) => ({
-  currentEditFile
+const mapStateToProps = ({currentEditFile, recentlyFiles}) => ({
+  currentEditFile, recentlyFiles
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Note)

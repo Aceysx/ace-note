@@ -24,12 +24,13 @@ import {
 
 import '../resources/css/app.css'
 import TagBody from "./tag/tag-body";
-import TimecardBody from "./timecard/timecard-body";
-import NoteStatisticBody from "./note/statistic/note-statistic-body";
+import TimecardBody from "./timecard/timecard-body"
+import NoteStatisticBody from "./note/statistic/note-statistic-body"
 
 const {Sider, Content} = Layout
 
 class App extends React.Component {
+
   registerShortcuts = () => {
     registerShortcuts.leftMenuVisible(() => this.updateStatus({leftMenuVisible: !this.props.status.leftMenuVisible}))
     registerShortcuts.subMenuVisible(() => this.updateStatus({subMenuVisible: !this.props.status.subMenuVisible}))

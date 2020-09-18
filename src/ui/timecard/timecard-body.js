@@ -7,9 +7,9 @@ import TimecardCalendar from "./timecard-calendar"
 import TimecardPlansBody from "./timecard-plans-body"
 import TimecardPlanCreator from "./timecard-plan-creator"
 import TimecardModel from "../../model/timecard"
-import {publish} from "../event/publish-event"
+import {publish} from "../../event/event-listener"
 import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands"
-import {TIMECARD_PLAN_STATUS_CHANGE} from "../event/event"
+import {TIMECARD_PLAN_STATUS_CHANGE} from "../../event/event"
 import PLAN_ICON from '../../resources/images/plan.png'
 import STATISTICS_ICON from '../../resources/images/statistics.png'
 import SETTINGS_ICON from '../../resources/images/settings.png'

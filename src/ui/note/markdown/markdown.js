@@ -100,7 +100,7 @@ export default class Markdown extends React.Component {
     const currentContent = md.getValue()
     if (file.content !== currentContent) {
       this.props.modifyFileContent(file.path, currentContent)
-      notification.success({message: '更新成功', duration: 2})
+      notification.success({message: 'update successful', duration: 2})
     }
   }
 

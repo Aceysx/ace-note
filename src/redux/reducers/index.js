@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import leftMenu from './left-menu'
 import selectedDir from './selected-dir'
 import currentEditFile from './current-edit-file'
@@ -8,6 +8,7 @@ import status from './status'
 import cardsReview from './cards-review'
 import timecardPlans from './timecard-plans'
 import timecardLabels from './timecard-labels'
+import recentlyFiles from './recently-files'
 
 export default combineReducers({
   leftMenu,
@@ -17,6 +18,7 @@ export default combineReducers({
   notesTags,
   cardsReview,
   status,
+  recentlyFiles,
   timecardPlans,
   timecardLabels
 })

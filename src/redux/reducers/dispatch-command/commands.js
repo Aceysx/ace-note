@@ -6,6 +6,7 @@ export const UPDATE_STATUS = data => update('UPDATE_STATUS', data)
 export const UPDATE_CARDS_REVIEW = data => update('UPDATE_CARDS_REVIEW', data)
 export const UPDATE_TIMECARD_PLANS = data => update('UPDATE_TIMECARD_PLANS', data)
 export const UPDATE_TIMECARD_LABELS = data => update('UPDATE_TIMECARD_LABELS', data)
+export const UPDATE_RECENTLY_FILES = data => update('UPDATE_RECENTLY_FILES', data)
 
 
 const update = (type, data) => {

@@ -29,7 +29,7 @@ const NoteTagModel = {
   updateNoteTagPath: (oldPath, newName, notesTags) => {
     let noteTag = notesTags.find(item => item.path === oldPath)
     if (noteTag) {
-      noteTag.path = File.dir(oldPath) + '/' + newName
+      noteTag.path = File.join([File.dir(oldPath), newName])
     }
     return notesTags
   },
