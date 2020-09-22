@@ -17,14 +17,13 @@ import {
   CREATE_FILE_EVENT,
   DELETE_DIR_EVENT,
   DELETE_FILE_EVENT,
+  FILE_CONTENT_CHANGE_EVENT,
   FILE_NAME_CHANGE_EVENT
 } from "../../event/event"
 import RecentlyModel from "./recently/recently-box";
 
 class Note extends React.Component {
-  state = {
-    recentlyModalVisible: true
-  }
+
   componentWillReceiveProps = nextProps => {
     if (this.props.selectedDir.path === nextProps.selectedDir.path) {
       return false
@@ -68,6 +67,7 @@ class Note extends React.Component {
     this.props.updateCurrentEditFile(
       FileResource.modifyFileContent({path, content})
     )
+    publish(FILE_CONTENT_CHANGE_EVENT, {props: this.props, _path: path})
   }
 
   createFileOrDir = ({path, type}) => {
@@ -160,8 +160,7 @@ class Note extends React.Component {
       notesTags, updateNotesTags, status, cardsReview,
       recentlyFiles
     } = this.props
-    const {subMenuVisible, leftMenuVisible} = status
-    const {recentlyModalVisible} = this.state
+    const {subMenuVisible, leftMenuVisible, recentlyFilesModalVisible} = status
 
     return <div>
       <TitleBar
@@ -185,6 +184,8 @@ class Note extends React.Component {
             notesTags={notesTags}
             updateSelectedDir={this.updateSelectedDir}
             selectedDir={selectedDir}
+            updateRecentlyFiles={this.props.updateRecentlyFiles}
+            recentlyFiles={recentlyFiles}
           />
           : ''
       }
@@ -206,9 +207,15 @@ class Note extends React.Component {
             description={false}/>
       }
       <RecentlyModel
-        recentlyModalVisible={recentlyModalVisible}
+        updateCurrentEditFile={_path => {
+          this.props.updateCurrentEditFile(
+            FileResource.findFile(File.join([window.getNoteWorkspacePath(), _path]))
+          )
+          this.props.updateStatus({recentlyFilesModalVisible: false})
+        }}
+        recentlyModalVisible={recentlyFilesModalVisible}
         recentlyFiles={recentlyFiles}
-        handleCancel={() => this.setState({recentlyModalVisible: false})}
+        handleCancel={() => this.props.updateStatus({recentlyFilesModalVisible: false})}
       />
     </div>;
   }

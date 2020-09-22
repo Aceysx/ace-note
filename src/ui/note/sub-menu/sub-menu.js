@@ -6,6 +6,8 @@ import NoteTagModel from '../../../model/note-tag'
 import File from '../../../model/file'
 
 import '../../../resources/css/sub-menu.css'
+import {publish} from "../../../event/event-listener";
+import {DIR_NAME_CHANGE_EVENT, OPEN_FILE_EVENT} from "../../../event/event";
 
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
@@ -35,6 +37,7 @@ class SubMenu extends React.Component {
     this.props.updateCurrentEditFile(
       FileResource.findFile(file.path)
     )
+    publish(OPEN_FILE_EVENT, {props: this.props, _path: file.path})
   }
 
   changeFileName = now => {
@@ -69,6 +72,7 @@ class SubMenu extends React.Component {
           newPath,
           notesTags
         ))
+      publish(DIR_NAME_CHANGE_EVENT, {props: this.props, parentPath: relativePath, newPath})
     }
   }
 

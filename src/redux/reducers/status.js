@@ -4,7 +4,8 @@ export default (state = {
   current: MENU.NOTE,
   leftMenuVisible: true,
   subMenuVisible: true,
-  searchModalVisible:false
+  searchModalVisible: false,
+  recentlyFilesModalVisible: false
 }, action) => {
   if (action.type === 'UPDATE_STATUS') {
     return action.data

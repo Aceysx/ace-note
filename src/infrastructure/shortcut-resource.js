@@ -15,6 +15,9 @@ const registerShortcuts = {
   },
   searchModalVisible: event => {
     register(SHORTCUTS.SWITCH_SEARCH_BAR_VISIBLE_CMD, event)
+  },
+  recentlyFilesModalVisible: event => {
+    register(SHORTCUTS.SWITCH_RECENTLY_MODAL_VISIBLE_CMD, event)
   }
 }
 

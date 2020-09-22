@@ -35,6 +35,7 @@ class App extends React.Component {
     registerShortcuts.leftMenuVisible(() => this.updateStatus({leftMenuVisible: !this.props.status.leftMenuVisible}))
     registerShortcuts.subMenuVisible(() => this.updateStatus({subMenuVisible: !this.props.status.subMenuVisible}))
     registerShortcuts.searchModalVisible(() => this.updateStatus({searchModalVisible: !this.props.status.searchModalVisible}))
+    registerShortcuts.recentlyFilesModalVisible(() => this.updateStatus({recentlyFilesModalVisible: !this.props.status.recentlyFilesModalVisible}))
   }
 
   schedule = () => {
