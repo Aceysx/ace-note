@@ -9,11 +9,12 @@ import TimecardPlanCreator from "./timecard-plan-creator"
 import TimecardModel from "../../model/timecard"
 import {publish} from "../../event/event-listener"
 import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands"
-import {TIMECARD_PLAN_STATUS_CHANGE} from "../../event/event"
+import {TIMECARD_PLAN_STATUS_CHANGE, TIMECARD_UPDATE_LABEL} from "../../event/event"
 import PLAN_ICON from '../../resources/images/plan.png'
 import STATISTICS_ICON from '../../resources/images/statistics.png'
 import SETTINGS_ICON from '../../resources/images/settings.png'
 import '../../resources/css/timecard.css'
+import SettingBody from "./settings/setting-body";
 
 const {TabPane} = Tabs
 
@@ -26,9 +27,12 @@ class TimecardBody extends React.Component {
 
   componentDidMount() {
     const plans = TimecardModel.getPlansByYear('2020')
-    const labels = TimecardModel.getLabels()
     this.props.updateTimecardPlans(plans)
-    this.props.updateTimecardlabels(labels)
+    this._updateLabels()
+  }
+
+  _updateLabels = () => {
+    this.props.updateTimecardlabels(TimecardModel.getLabels())
   }
 
   editPlan = plan => {
@@ -51,7 +55,25 @@ class TimecardBody extends React.Component {
     TimecardModel.delPlan(plan)
     publish(TIMECARD_PLAN_STATUS_CHANGE, {props: this.props})
   }
-  filterDailyPlans = plans => {
+
+  updateLabel = label => {
+    TimecardModel.updateLabel(label)
+    this._updateLabels()
+    publish(TIMECARD_UPDATE_LABEL, {props: this.props})
+  }
+
+  createLabel = () => {
+    const {timecardLabels} = this.props
+    const id = parseInt(timecardLabels.length ? timecardLabels[timecardLabels.length - 1].id : 0) + 1
+    TimecardModel.createLabel({
+      id,
+      title: 'New Label',
+      color: '#0C797D'
+    })
+    this._updateLabels()
+  }
+
+  _filterDailyPlans = plans => {
     return plans.filter(plan => {
       return plan.type === 'day' || !plan.type
     })
@@ -60,6 +82,7 @@ class TimecardBody extends React.Component {
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
     const {creatorModalVisible, editPlan, isUpdate} = this.state
+
     return <div>
       <TitleBar
         title={<span><img src={require('../../resources/images/timecard.png')}/>Timecard</span>}
@@ -76,7 +99,7 @@ class TimecardBody extends React.Component {
           </span>} key="1">
           <div style={{textAlign: 'left'}}>
             <TimecardCalendar
-              plans={this.filterDailyPlans(timecardPlans)}/>
+              plans={this._filterDailyPlans(timecardPlans)}/>
             <Divider/>
             <TimecardPlansBody
               labels={timecardLabels}
@@ -112,7 +135,11 @@ class TimecardBody extends React.Component {
             Settings
           </span>
         } key="3">
-          Content of Tab Pane 3
+          <SettingBody
+            updateLabel={this.updateLabel}
+            createLabel={this.createLabel}
+            labels={timecardLabels}
+          />
         </TabPane>
       </Tabs>
 

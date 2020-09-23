@@ -4,7 +4,6 @@ import CardReview from "../model/card-review"
 import File from "../model/file"
 import {
   CREATE_DIR_EVENT,
-  CREATE_FILE_EVENT,
   DELETE_DIR_EVENT,
   DELETE_FILE_EVENT,
   DIR_NAME_CHANGE_EVENT,

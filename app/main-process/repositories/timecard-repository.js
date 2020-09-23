@@ -15,7 +15,7 @@ const TimecardRepository = {
       return
     }
     Files.createDirIfNotExist(planDBPath);
-    Files.createFileWithContent(full,`
+    Files.createFileWithContent(full, `
     {
         "labels": [],
         "plans": []
@@ -33,6 +33,18 @@ const TimecardRepository = {
   delByDate: (date) => {
     return db.get('plans')
       .remove({date})
+      .write()
+  },
+  updateLabel: (label) => {
+    const {id, title, color} = label
+    return db.get('labels')
+      .find({id})
+      .assign({title, color})
+      .write()
+  },
+  createLabel: (label) => {
+    return db.get('labels')
+      .push(label)
       .write()
   },
   getPlansByYear: (year) => {

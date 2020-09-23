@@ -9,3 +9,4 @@ export const DIR_NAME_CHANGE_EVENT = 'dir_name_change_event'
 
 
 export const TIMECARD_PLAN_STATUS_CHANGE = 'timecard_plan_status_change'
+export const TIMECARD_UPDATE_LABEL = 'timecard_update_label'

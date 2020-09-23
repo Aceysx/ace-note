@@ -12,6 +12,8 @@ module.exports.PUSH_TO_REPO_FINISHED = 'push_to_repo_finished'
 module.exports.GET_CARDS_REVIEW = 'get_cards_review'
 
 module.exports.CREATE_TIMECARD_PLAN = 'create_timecard_plan'
+module.exports.UPDATE_TIMECARD_LABEL = 'update_timecard_label'
+module.exports.CREATE_TIMECARD_LABEL = 'create_timecard_label'
 module.exports.GET_TIMECARDS_BY_YEAR = 'get_timecards_by_year'
 module.exports.GET_TIMECARDS_LABELS = 'get_timecards_labels'
 module.exports.DELETE_TIMECARD_PLAN = 'delete_timecard_plan'

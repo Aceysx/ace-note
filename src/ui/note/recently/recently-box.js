@@ -2,7 +2,6 @@ import React from "react"
 import {Modal} from "antd"
 
 const RecentlyModel = ({recentlyModalVisible, recentlyFiles, handleCancel, updateCurrentEditFile}) => {
-  recentlyFiles = [...recentlyFiles, ...recentlyFiles, ...recentlyFiles, ...recentlyFiles]
   return <Modal
     width={500}
     bodyStyle={{
@@ -17,7 +16,8 @@ const RecentlyModel = ({recentlyModalVisible, recentlyFiles, handleCancel, updat
   >
     {
       recentlyFiles.map(_path => {
-        return <span className='cursor_pointer note_recently_item'
+        return <span key={_path}
+                     className='cursor_pointer note_recently_item'
                      onClick={() => updateCurrentEditFile(_path)}>{_path}</span>
       })
     }

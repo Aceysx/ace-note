@@ -7,6 +7,12 @@ const TimecardModel = {
   delPlan: plan => {
     TimecardResource.delPlan(plan.date)
   },
+  createLabel: label => {
+    return TimecardResource.createLabel(label)
+  },
+   updateLabel: label => {
+    return TimecardResource.updateLabel(label)
+  },
   getPlansByYear: year => {
     return TimecardResource.getPlansByYear(year)
   },
