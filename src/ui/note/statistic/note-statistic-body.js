@@ -31,7 +31,7 @@ const NoteStatisticBody = ({notesTags, leftMenuVisible, updateStatus, pushToRepo
           {notesTags.length}
         </Timeline.Item>
         {
-          Object.keys(notes).reverse().map((month, index) => {
+          Object.keys(notes).sort().reverse().map((month, index) => {
             let monthNotes = notes[month].reverse()
             return [
               <Timeline.Item position='right'>
