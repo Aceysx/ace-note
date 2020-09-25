@@ -18,7 +18,8 @@ import {
   DELETE_DIR_EVENT,
   DELETE_FILE_EVENT,
   FILE_CONTENT_CHANGE_EVENT,
-  FILE_NAME_CHANGE_EVENT, OPEN_FILE_EVENT
+  FILE_NAME_CHANGE_EVENT,
+  OPEN_FILE_EVENT
 } from "../../event/event"
 import RecentlyModel from "./recently/recently-box";
 
@@ -213,13 +214,13 @@ class Note extends React.Component {
             FileResource.findFile(absolutePath)
           )
           this.props.updateStatus({recentlyFilesModalVisible: false})
-          publish(OPEN_FILE_EVENT,{props:this.props,_path:absolutePath})
+          publish(OPEN_FILE_EVENT, {props: this.props, _path: absolutePath})
         }}
         recentlyModalVisible={recentlyFilesModalVisible}
         recentlyFiles={recentlyFiles}
         handleCancel={() => this.props.updateStatus({recentlyFilesModalVisible: false})}
       />
-    </div>;
+    </div>
   }
 }
 

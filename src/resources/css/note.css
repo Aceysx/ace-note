@@ -31,3 +31,8 @@
 .note_recently_item:hover {
     background: #f9f7f3;
 }
+
+.note_recently_item_bg {
+    background: #efebe3;
+    margin-left: -15px;
+}
