@@ -210,6 +210,7 @@ class Note extends React.Component {
       <RecentlyModel
         updateCurrentEditFile={_path => {
           let absolutePath = File.join([window.getNoteWorkspacePath(), _path]);
+          this.props.updateSelectedDir(File.dir(absolutePath))
           this.props.updateCurrentEditFile(
             FileResource.findFile(absolutePath)
           )
