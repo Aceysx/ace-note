@@ -10,6 +10,7 @@ import {
   FILE_CONTENT_CHANGE_EVENT,
   FILE_NAME_CHANGE_EVENT,
   OPEN_FILE_EVENT,
+  RESET_WORKSPACE_EVENT,
   TIMECARD_PLAN_STATUS_CHANGE
 } from "./event"
 import NoteTagModel from "../model/note-tag"
@@ -78,8 +79,17 @@ emitter.on(FILE_CONTENT_CHANGE_EVENT, ({props = {}, _path}) => {
 emitter.on(DIR_NAME_CHANGE_EVENT, ({props = {}, parentPath, newPath}) => {
   console.log('DIR_NAME_CHANGE_EVENT')
   props.updateRecentlyFiles(
-    RecentlyFile.parseDirNameChange(props.recentlyFiles, parentPath,newPath)
+    RecentlyFile.parseDirNameChange(props.recentlyFiles, parentPath, newPath)
   )
+})
+emitter.on(RESET_WORKSPACE_EVENT, ({props = {}, workspace}) => {
+  console.log('RESET_WORKSPACE_EVENT')
+  props.updateDirs(FileResource.initNoteBook(workspace))
+  props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
+
+  // timecard update
+  props.updateTimecardPlans(TimecardModel.getPlansByYear('2020'))
+  props.updateTimecardlabels(TimecardModel.getLabels())
 })
 
 

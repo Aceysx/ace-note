@@ -1,5 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Divider, Icon, Modal, Tabs} from "antd"
 
 import TitleBar from "../title-bar/title-bar"
@@ -8,7 +7,6 @@ import TimecardPlansBody from "./timecard-plans-body"
 import TimecardPlanCreator from "./timecard-plan-creator"
 import TimecardModel from "../../model/timecard"
 import {publish} from "../../event/event-listener"
-import {UPDATE_TIMECARD_LABELS, UPDATE_TIMECARD_PLANS} from "../../redux/reducers/dispatch-command/commands"
 import {TIMECARD_PLAN_STATUS_CHANGE, TIMECARD_UPDATE_LABEL} from "../../event/event"
 import PLAN_ICON from '../../resources/images/plan.png'
 import STATISTICS_ICON from '../../resources/images/statistics.png'
@@ -18,17 +16,11 @@ import SettingBody from "./settings/setting-body";
 
 const {TabPane} = Tabs
 
-class TimecardBody extends React.Component {
+export default class TimecardBody extends React.Component {
   state = {
     creatorModalVisible: false,
     editPlan: null,
     isUpdate: false,
-  }
-
-  componentDidMount() {
-    const plans = TimecardModel.getPlansByYear('2020')
-    this.props.updateTimecardPlans(plans)
-    this._updateLabels()
   }
 
   _updateLabels = () => {
@@ -49,6 +41,11 @@ class TimecardBody extends React.Component {
       isUpdate: false,
       editPlan: null
     })
+  }
+
+  createPlan = plan => {
+    TimecardModel.createPlan(plan)
+    publish(TIMECARD_PLAN_STATUS_CHANGE, {props: this.props})
   }
 
   delPlan = plan => {
@@ -82,7 +79,7 @@ class TimecardBody extends React.Component {
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
     const {creatorModalVisible, editPlan, isUpdate} = this.state
-
+    console.log(timecardLabels,timecardPlans)
     return <div>
       <TitleBar
         title={<span><img src={require('../../resources/images/timecard.png')}/>Timecard</span>}
@@ -106,7 +103,7 @@ class TimecardBody extends React.Component {
               plans={timecardPlans}
               edit={this.editPlan}
               del={this.delPlan}
-              create={plan => TimecardModel.createPlan(plan)}
+              create={this.createPlan}
             />
             <div
               className='create-button-fixed cursor_pointer'
@@ -162,18 +159,6 @@ class TimecardBody extends React.Component {
             publish(TIMECARD_PLAN_STATUS_CHANGE, {props: this.props})
           }}/>
       </Modal>
-
-
     </div>
   }
 }
-
-const mapDispatchToProps = dispatch => ({
-  updateTimecardPlans: plans => dispatch(UPDATE_TIMECARD_PLANS(plans)),
-  updateTimecardlabels: (labels) => dispatch(UPDATE_TIMECARD_LABELS(labels)),
-})
-
-const mapStateToProps = ({timecardPlans, timecardLabels}) => ({
-  timecardPlans, timecardLabels
-})
-export default connect(mapStateToProps, mapDispatchToProps)(TimecardBody)

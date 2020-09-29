@@ -2,11 +2,13 @@ const low = require('lowdb')
 let FileSync = require('lowdb/adapters/FileSync')
 let Files = require('../utils/files')
 let db
+let dbPath
 const TimecardRepository = {
   init: _path => {
-    if (db) {
+    if (db && _path === dbPath) {
       return
     }
+    dbPath = _path
     let planDBPath = _path + '/__timecard/'
     let filename = '__plan.json'
     let full = planDBPath + filename;

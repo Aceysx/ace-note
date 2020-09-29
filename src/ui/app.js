@@ -19,13 +19,17 @@ import {
   UPDATE_FILES,
   UPDATE_NOTES_TAGS,
   UPDATE_SELECTED_DIR,
-  UPDATE_STATUS
+  UPDATE_STATUS,
+  UPDATE_TIMECARD_LABELS,
+  UPDATE_TIMECARD_PLANS
 } from '../redux/reducers/dispatch-command/commands'
 
 import '../resources/css/app.css'
 import TagBody from "./tag/tag-body";
 import TimecardBody from "./timecard/timecard-body"
 import NoteStatisticBody from "./note/statistic/note-statistic-body"
+import {publish} from "../event/event-listener";
+import {RESET_WORKSPACE_EVENT} from "../event/event";
 
 const {Sider, Content} = Layout
 
@@ -53,8 +57,7 @@ class App extends React.Component {
     if (!workspace) {
       workspace = this.initWorkspace()
     }
-    this.props.updateDirs(FileResource.initNoteBook(workspace))
-    this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
+    publish(RESET_WORKSPACE_EVENT, {props: this.props, workspace})
     this.expiredCardsReaperAndUpdate()
     this.schedule()
   }
@@ -88,8 +91,7 @@ class App extends React.Component {
 
   resetWorkspace = () => {
     const workspace = this.initWorkspace()
-    this.props.updateDirs(FileResource.initNoteBook(workspace))
-    this.props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
+    publish(RESET_WORKSPACE_EVENT, {props: this.props, workspace})
     this.expiredCardsReaperAndUpdate()
   }
 
@@ -152,7 +154,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {leftMenu, selectedDir, notesTags, status, cardsReview} = this.props
+    const {leftMenu, selectedDir, notesTags, status, cardsReview, timecardPlans, timecardLabels} = this.props
     const {current, leftMenuVisible, searchModalVisible} = status
 
     return <Layout className='layout'>
@@ -218,9 +220,13 @@ class App extends React.Component {
           {
             current === MENU.TIMECARD
               ? <TimecardBody
+                timecardLabels={timecardLabels}
+                timecardPlans={timecardPlans}
                 pushToRepo={this.pushToRepo}
                 leftMenuVisible={leftMenuVisible}
                 updateStatus={this.updateStatus}
+                updateTimecardlabels={this.props.updateTimecardlabels}
+                updateTimecardPlans={this.props.updateTimecardPlans}
               />
               : ''
           }
@@ -259,10 +265,12 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
+  updateTimecardPlans: plans => dispatch(UPDATE_TIMECARD_PLANS(plans)),
   updateDirs: dirs => dispatch(UPDATE_FILES(dirs)),
   updateNotesTags: noteTags => dispatch(UPDATE_NOTES_TAGS(noteTags)),
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir)),
   updateCardsReview: cardsReview => dispatch(UPDATE_CARDS_REVIEW(cardsReview)),
+  updateTimecardlabels: (labels) => dispatch(UPDATE_TIMECARD_LABELS(labels)),
   updateStatus: status => dispatch(UPDATE_STATUS(status)),
 })
 
@@ -271,12 +279,16 @@ const mapStateToProps = ({
                            selectedDir,
                            notesTags,
                            status,
-                           cardsReview
+                           cardsReview,
+                           timecardPlans,
+                           timecardLabels
                          }) => ({
   leftMenu,
   selectedDir,
   notesTags,
   cardsReview,
+  timecardPlans,
+  timecardLabels,
   status
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)
