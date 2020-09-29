@@ -17,6 +17,7 @@ import '../../../resources/css/markdown.css'
 import MindMap from "../mindmap/mind-map";
 import * as HyperMD from "hypermd"
 import "hypermd-mermaid"
+import {UPDATE_SUCCESS} from "../../../model/message";
 
 let md
 
@@ -100,7 +101,7 @@ export default class Markdown extends React.Component {
     const currentContent = md.getValue()
     if (file.content !== currentContent) {
       this.props.modifyFileContent(file.path, currentContent)
-      notification.success({message: 'update successful', duration: 2})
+      notification.success({message: UPDATE_SUCCESS, duration: 2})
     }
   }
 

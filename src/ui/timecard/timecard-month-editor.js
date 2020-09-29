@@ -1,6 +1,7 @@
 import React from "react"
 import moment from 'moment'
 import {Input, message, Tag} from "antd"
+import {UPDATE_SUCCESS} from "../../model/message";
 
 const {TextArea} = Input
 const DEFAULT_PLAN = {
@@ -34,8 +35,8 @@ export default class TimecardMonthEditor extends React.Component {
       ...plan,
       type: 'month',
       date: plan.date || moment().format("YYYY-MM")
-    })
-    message.success('update success')
+    });
+    message.success(UPDATE_SUCCESS)
   }
 
   render() {
@@ -51,11 +52,13 @@ export default class TimecardMonthEditor extends React.Component {
              style={{float: 'right'}}>update</Tag>
       </h3>
       <TextArea rows={15}
+                onBlur={this.updatePlan}
                 value={tasks}
                 onChange={e => this.updateState(e.target.value, 'tasks')}/>
 
       <h3>Summary</h3>
       <TextArea rows={20}
+                onBlur={this.updatePlan}
                 value={summary}
                 onChange={e => this.updateState(e.target.value, 'summary')}/>
     </div>
