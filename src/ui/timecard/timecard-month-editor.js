@@ -12,7 +12,6 @@ const DEFAULT_PLAN = {
 }
 
 export default class TimecardMonthEditor extends React.Component {
-
   state = {
     plan: DEFAULT_PLAN
   }
@@ -22,19 +21,13 @@ export default class TimecardMonthEditor extends React.Component {
     this.setState({plan})
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    const {plan} = nextProps
-    if (plan !== plan) {
-      this.setState({plan})
-    }
-  }
-
   updateState = (value, type) => {
     const {plan} = this.state
     this.setState({
       plan: {...plan, [type]: value}
     })
   }
+
   updatePlan = () => {
     const {plan} = this.state
     this.props.updateMonthPlan({

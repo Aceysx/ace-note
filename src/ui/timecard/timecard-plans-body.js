@@ -23,7 +23,6 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
       moment(plan.date).month() === parseInt(month)
       && (plan.type === 'day' || !plan.type)
     )
-
     return filter
   }
 
@@ -45,22 +44,31 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
     return result
   }
 
+  const _currentMonthPlan = index => {
+    const currentMonth = index + 1
+    return (plans.find(plan =>
+      plan.type === 'month'
+      && moment(plan.date).month() === index))
+      || {
+        date: `2020-${currentMonth > 9 ? currentMonth : '0' + currentMonth}`,
+        type: 'month'
+      }
+  }
+
   return <Row type='flex' justify='center'>
     <Col span={20}>
 
       <Tabs tabPosition={'left'} defaultActiveKey={MONTHS[moment().month()]}>
         {
           MONTHS.map((month, index) => {
-            let dataSource = filterPlansByMonth(index);
+            let dataSource = filterPlansByMonth(index)
             return <TabPane
               tab={<span className='cursor_pointer'>{month}{dataSource.length ? `|${dataSource.length}` : ''}</span>}
               key={month}>
               <Collapse>
                 <Panel header={`${MONTHS[index]} Flags`} key="1">
                   <TimecardMonthEditor
-                    plan={plans.find(plan =>
-                      plan.type === 'month'
-                      && moment(plan.date).month() === index)}
+                    plan={_currentMonthPlan(index)}
                     updateMonthPlan={create}
                   />
                 </Panel>
