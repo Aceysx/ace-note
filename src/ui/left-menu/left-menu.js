@@ -79,7 +79,7 @@ export default class LeftMenu extends React.Component {
                 this.props.switchToMenu(MENU.note)
                 this.props.updateMenu(leftMenu.path)
               }}
-            >{this.buildTopItem(NOTE_BOOK_ICON, 'Notebook')}
+            >{this.buildTopItem(NOTE_BOOK_ICON, MENU.NOTE)}
             </span>
             <img src={NOTEBOOK_STATISTIC_ICON}
                  width={20}

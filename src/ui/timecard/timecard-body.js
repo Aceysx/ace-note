@@ -145,7 +145,7 @@ export default class TimecardBody extends React.Component {
         title="Create plan"
         visible={creatorModalVisible}
         width='80%'
-        style={{height: 600}}
+        style={{marginTop:'-5%'}}
         footer={null}
         onCancel={this.closeCreateModal}
       >

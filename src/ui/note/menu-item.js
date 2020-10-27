@@ -1,10 +1,10 @@
 const MENU = {
   NONE: 'none',
-  NOTE: 'note',
+  NOTE: 'Notebook',
   NOTE_STATISTIC: 'note_statistic',
-  SETTING: 'Settings',
+  SETTING: 'Setting',
   SEARCH: 'Quick Find',
-  CARDS_REVIEW: 'Cards Review',
+  CARDS_REVIEW: 'Card Review',
   TIMECARD: 'Timecard',
   TAG: 'Tag',
   SEARCH_RESULT: 'Search Result'

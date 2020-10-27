@@ -26,6 +26,18 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
     return filter
   }
 
+  const statisticTimeCost = (tasks) => {
+    const result = {}
+    tasks.forEach(task => {
+      const label = task.label
+      if (label) {
+        let key = Object.keys(label)[0];
+        result[key] = (result[key] || 0) + label[key]
+      }
+    })
+    return result
+  }
+
   const calculateTagStatus = (tasks, labels) => {
     const result = []
     tasks.forEach(task => {
@@ -62,9 +74,21 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
         {
           MONTHS.map((month, index) => {
             let dataSource = filterPlansByMonth(index)
+            let tasks = dataSource.reduce((sum, item) => [...sum, ...(item.tasks || [])], []);
+            const timeCost = statisticTimeCost(tasks)
             return <TabPane
               tab={<span className='cursor_pointer'>{month}{dataSource.length ? `|${dataSource.length}` : ''}</span>}
               key={month}>
+              {
+                labels.filter(label => timeCost[label.id]).map(label => {
+                  return <Tag
+                    key={label.id}
+                    className='tag'
+                    color={label.color}>
+                    {`${label.title}-${parseFloat(timeCost[label.id]/3).toFixed(1)} h `}
+                  </Tag>
+                })
+              }
               <Collapse>
                 <Panel header={`${MONTHS[index]} Flags`} key="1">
                   <TimecardMonthEditor
