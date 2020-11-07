@@ -25,16 +25,11 @@ const FileCard = ({
   }
 
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
-    {
-      file.type === 'file'
-        ? <span
-          onClick={clickPinedIcon}
-          className={`cursor_pointer file-card-pin-icon ${File.isPined(file.path) ? 'file-card-pined-icon' : ''} `}>
+      <span
+        onClick={clickPinedIcon}
+        className={`cursor_pointer file-card-pin-icon ${File.isPined(file.path) ? 'file-card-pined-icon' : ''} `}>
           📌 
         </span>
-        : ''
-    }
-
     {
       editedFileName.old === file.path
         ? <p><Input size="small"
@@ -76,7 +71,7 @@ const FileCard = ({
       </Popconfirm>
       <span className='file-card-extra-edit-icon '
             onClick={() => openEditInput(file)}>
-        <Icon  type="edit"/>
+        <Icon type="edit"/>
       </span>
     </p>
   </Card>

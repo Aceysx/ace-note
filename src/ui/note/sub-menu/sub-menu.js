@@ -8,7 +8,6 @@ import File from '../../../model/file'
 import '../../../resources/css/sub-menu.css'
 import {publish} from "../../../event/event-listener";
 import {DIR_NAME_CHANGE_EVENT, OPEN_FILE_EVENT} from "../../../event/event";
-import FILE_TYPE from "../../../model/file-type";
 
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
@@ -108,7 +107,7 @@ class SubMenu extends React.Component {
         pined.push(item)
         continue
       }
-      if (FILE_TYPE.includes(item.type)) {
+      if (File.isValidType(item.type)) {
         files.push(item)
       }
     }

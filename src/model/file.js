@@ -1,6 +1,9 @@
 import path from 'path'
 
 const PINED = '「置顶」'
+const FILE_TYPE = [
+  'md', 'dir', 'html'
+]
 const File = {
   isPined: _path => {
     return path.basename(_path).startsWith(PINED)
@@ -18,6 +21,12 @@ const File = {
   join: _paths => path.join(..._paths),
   relativePath: _path => {
     return _path.split(window.getNoteWorkspacePath())[1]
+  },
+  isHtml: (type) => {
+    return type === 'html'
+  },
+  isValidType: (type) => {
+    return FILE_TYPE.includes(type);
   }
 }
 

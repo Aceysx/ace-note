@@ -19,6 +19,7 @@ import MindMap from "../mindmap/mind-map"
 import * as HyperMD from "hypermd"
 import "hypermd-mermaid"
 import {UPDATE_SUCCESS} from "../../../model/message"
+import UrlHtmlRender from "./url-html-render";
 
 let md
 
@@ -233,10 +234,11 @@ export default class Markdown extends React.Component {
             ? <MindMap markdown={content}/>
             : ''
         }
-        <div className="browser-template">
-          <iframe src="http://www.bfw.wiki" width="100%" height="100%" frameBorder="0">
-          </iframe>
-        </div>
+        {
+          File.isHtml(file.type)
+            ? <UrlHtmlRender url={file.content}/>
+            : ''
+        }
         <textarea
           ref={mdRef}/>
       </div>
