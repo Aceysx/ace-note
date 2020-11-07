@@ -23,7 +23,6 @@ const FileCard = ({
     }
     pinFile(file.path, File.name(File.pin(file.path)))
   }
-
   return <Card className={`file-card-box ${selectedPath === file.path ? 'file-card-box-selected' : ''}`}>
       <span
         onClick={clickPinedIcon}
@@ -45,11 +44,7 @@ const FileCard = ({
         </p>
         : <p className='file-card-li-title cursor_pointer'
              onClick={() => openFile(file)}>
-          {
-            file.type === 'dir'
-              ? <Icon type="folder" className='file-card-dir-icon'/>
-              : <Icon type="file-markdown" className='file-card-file-icon'/>
-          }
+          <img src={File.getIconBy(file.type)()} className='file-card-icon'/>
           {File.name(file.path)}
         </p>
     }

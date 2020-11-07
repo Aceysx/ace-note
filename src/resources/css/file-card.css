@@ -15,18 +15,9 @@
     white-space: nowrap;
 }
 
-.file-card-file-icon,
-.file-card-dir-icon {
-    font-size: 18px;
+.file-card-icon {
+    width: 18px;
     margin-right: 5px;
-}
-
-.file-card-dir-icon {
-    color: #b7906b;
-}
-
-.file-card-file-icon {
-    color: #2e99ff;
 }
 
 .file-card-extra {
@@ -61,10 +52,10 @@
     color: #b7906b;
 }
 
-.file-card-box:hover .file-card-pin-icon{
+.file-card-box:hover .file-card-pin-icon {
     opacity: 0.3;
 }
 
 .file-card-pined-icon {
-    opacity: 1!important;
+    opacity: 1 !important;
 }

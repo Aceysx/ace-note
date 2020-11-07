@@ -108,6 +108,16 @@ export default class Markdown extends React.Component {
       notification.success({message: UPDATE_SUCCESS, duration: 2})
     }
   }
+  updateUrl = () => {
+    const {file} = this.props
+    const {content} = this.state
+    this.props.modifyFileContent(file.path, content)
+    notification.success({message: UPDATE_SUCCESS, duration: 2})
+  }
+
+  changeUrlContent = content => {
+    this.setState({content})
+  }
 
   findCurrentNoteTags = (file, notesTags) => {
     const path = File.relativePath(file.path)
@@ -136,6 +146,7 @@ export default class Markdown extends React.Component {
   render() {
     const {mdRef, changedPath, content, outlineVisible, mindMapVisible} = this.state
     const {notesTags, file, isInReviewed} = this.props
+    console.log(content)
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
         <Row>
@@ -236,7 +247,9 @@ export default class Markdown extends React.Component {
         }
         {
           File.isHtml(file.type)
-            ? <UrlHtmlRender url={file.content}/>
+            ? <UrlHtmlRender url={content}
+                             updateUrl={this.updateUrl}
+                             changeUrlContent={this.changeUrlContent}/>
             : ''
         }
         <textarea

@@ -27,6 +27,17 @@ const File = {
   },
   isValidType: (type) => {
     return FILE_TYPE.includes(type);
+  },
+  getIconBy: (type) => {
+    if (type === 'dir') {
+      return () => require("../resources/images/dir.svg")
+    }
+    if (type === 'md') {
+      return () => require("../resources/images/markdown.svg")
+    }
+    if (type === "html") {
+      return () => require("../resources/images/html.svg")
+    }
   }
 }
 
