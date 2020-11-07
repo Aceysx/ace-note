@@ -14,10 +14,11 @@ import {startSpellCheck, typoLoaded} from "./spell-check"
 
 import '../../../resources/css/overwrite-hyperMD-style.css'
 import '../../../resources/css/markdown.css'
-import MindMap from "../mindmap/mind-map";
+import '../../../resources/css/markdown-iframe.css'
+import MindMap from "../mindmap/mind-map"
 import * as HyperMD from "hypermd"
 import "hypermd-mermaid"
-import {UPDATE_SUCCESS} from "../../../model/message";
+import {UPDATE_SUCCESS} from "../../../model/message"
 
 let md
 
@@ -38,6 +39,7 @@ export default class Markdown extends React.Component {
       changedPath: File.name(file.path)
     }, () => {
       md = HyperMD.fromTextArea(node, {
+        hmdModeLoader: false,
         extraKeys: {
           'Cmd-S': this.modifyFileContent,
           'Ctrl-S': this.modifyFileContent,
@@ -60,6 +62,7 @@ export default class Markdown extends React.Component {
         this.modifyFileContent()
       })
       this._updateMarkdownContent(file.content)
+      md.hmd.Fold._enabled.html = true;
     })
   }
 
@@ -230,6 +233,10 @@ export default class Markdown extends React.Component {
             ? <MindMap markdown={content}/>
             : ''
         }
+        <div className="browser-template">
+          <iframe src="http://www.bfw.wiki" width="100%" height="100%" frameBorder="0">
+          </iframe>
+        </div>
         <textarea
           ref={mdRef}/>
       </div>

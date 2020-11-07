@@ -85,7 +85,7 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
                     key={label.id}
                     className='tag'
                     color={label.color}>
-                    {`${label.title}-${parseFloat(timeCost[label.id]/3).toFixed(1)} h `}
+                    {`${label.title}-${parseFloat(timeCost[label.id] / 3).toFixed(1)} h `}
                   </Tag>
                 })
               }
