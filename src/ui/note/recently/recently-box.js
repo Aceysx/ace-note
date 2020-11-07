@@ -19,6 +19,7 @@ class RecentlyModel extends React.Component {
   }
 
   onKeyDown = e => {
+    e.preventDefault()
     const code = e.keyCode
     const {focusIndex} = this.state
     const {recentlyFiles} = this.props
