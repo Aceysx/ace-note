@@ -156,7 +156,6 @@ class App extends React.Component {
   render() {
     const {leftMenu, selectedDir, notesTags, status, cardsReview, timecardPlans, timecardLabels} = this.props
     const {current, leftMenuVisible, searchModalVisible} = status
-
     return <Layout className='layout'>
       <Sider
         className={`layout_left_sider ${leftMenuVisible ? 'layout_left_sider_display' : 'layout_left_sider_hide'}`}

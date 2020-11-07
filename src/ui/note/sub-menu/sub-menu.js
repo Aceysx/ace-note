@@ -8,6 +8,7 @@ import File from '../../../model/file'
 import '../../../resources/css/sub-menu.css'
 import {publish} from "../../../event/event-listener";
 import {DIR_NAME_CHANGE_EVENT, OPEN_FILE_EVENT} from "../../../event/event";
+import FILE_TYPE from "../../../model/file-type";
 
 const DEFAULT_EDITED_FILE_NAME = {
   old: null,
@@ -98,17 +99,19 @@ class SubMenu extends React.Component {
 
   sort = (filesOrDirs) => {
     let dirs = [], files = [], pined = []
-    filesOrDirs.forEach(item => {
+    for (let item of filesOrDirs) {
       if (item.type === 'dir') {
         dirs.push(item)
+        continue
       }
       if (File.isPined(item.path)) {
         pined.push(item)
+        continue
       }
-      if (!File.isPined(item.path) && item.type === 'file') {
+      if (FILE_TYPE.includes(item.type)) {
         files.push(item)
       }
-    })
+    }
     return [
       ...dirs.sort((a, b) => a.name > b.name ? -1 : 1),
       ...pined.sort((a, b) => a.name > b.name ? -1 : 1),

@@ -3,7 +3,7 @@ const path = require('path')
 
 const _notFilterFile = file => {
   const fileName = path.basename(file.path)
-  const filterFiles = ['__tags', '.git', '__cards','__timecard']
+  const filterFiles = ['__tags', '.git', '__cards', '__timecard']
   return !filterFiles.includes(fileName)
 }
 
@@ -12,7 +12,12 @@ const listFilesDeep = (filePath, result) => {
     .forEach(item => {
       const _path = filePath + '/' + item
       const file = fs.statSync(_path)
-      let temp = {mtime: file.mtime, ctime: file.birthtime, path: _path, type: file.isFile() ? 'file' : 'dir'};
+      let temp = {
+        mtime: file.mtime,
+        ctime: file.birthtime,
+        path: _path,
+        type: file.isFile() ? Files.resolveFileType(_path) : 'dir'
+      };
       if (_notFilterFile(temp)) {
         result.push(temp)
       }
@@ -32,7 +37,7 @@ const listFiles = filePath => {
         mtime: file.mtime,
         ctime: file.birthtime,
         path: _path,
-        type: file.isFile() ? 'file' : 'dir',
+        type: file.isFile() ? Files.resolveFileType(_path) : 'dir',
         sub: []
       }
     }).filter(file => {
@@ -60,7 +65,12 @@ const deleteDir = url => {
 const Files = {
   listFilesDeep: _path => {
     const file = fs.statSync(_path)
-    const dirs = {path: _path, ctime: file.birthtime, sub: [], type: file.isFile() ? 'file' : 'dir'}
+    const dirs = {
+      path: _path,
+      ctime: file.birthtime,
+      sub: [],
+      type: file.isFile() ? Files.resolveFileType(_path) : 'dir'
+    }
     listFilesDeep(_path, dirs.sub)
     return dirs
   },
@@ -68,7 +78,7 @@ const Files = {
     const file = fs.statSync(_path)
     return {
       path: _path, ctime: file.birthtime, sub: listFiles(_path),
-      type: file.isFile() ? 'file' : 'dir'
+      type: file.isFile() ? Files.resolveFileType(_path) : 'dir'
     }
   },
   readFile: _path => {
@@ -81,7 +91,7 @@ const Files = {
       path: _path,
       mtime: file.mtime,
       ctime: file.birthtime,
-      type: 'file',
+      type: Files.resolveFileType(_path),
       content: fs.readFileSync(_path, 'utf-8')
     }
   },
@@ -127,6 +137,10 @@ const Files = {
   },
   isExist: _path => {
     return fs.existsSync(_path)
+  },
+  resolveFileType: _path => {
+    let extname = path.extname(_path);
+    return extname.length > 0 ? extname.slice(1) : ''
   }
 }
 

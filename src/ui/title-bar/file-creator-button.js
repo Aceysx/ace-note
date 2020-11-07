@@ -1,5 +1,5 @@
 import React from 'react'
-import {Menu, Dropdown, Icon} from 'antd'
+import {Dropdown, Icon, Menu} from 'antd'
 
 const FileCreatorButton = ({selectedDir, createFileOrDir}) => {
   const create = ({key}) => {
@@ -13,7 +13,10 @@ const FileCreatorButton = ({selectedDir, createFileOrDir}) => {
         <span>Create Directory</span>
       </Menu.Item>
       <Menu.Item key='md'>
-        <span>Create markdown</span>
+        <span>Create Markdown</span>
+      </Menu.Item>
+      <Menu.Item key='html'>
+        <span>Create Html</span>
       </Menu.Item>
     </Menu>
   )
