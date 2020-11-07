@@ -40,12 +40,6 @@ const listFiles = filePath => {
         type: file.isFile() ? Files.resolveFileType(_path) : 'dir',
         sub: []
       }
-    }).filter(file => {
-      const exname = path.extname(file.path)
-      if (file.type === 'dir') {
-        return true
-      }
-      return exname.toLowerCase() === '.md'
     }).filter(_notFilterFile)
 }
 const deleteDir = url => {
