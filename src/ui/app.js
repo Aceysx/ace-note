@@ -126,14 +126,14 @@ class App extends React.Component {
 
   _formatAllFiles = sub => {
     const files = []
-    sub.forEach(item => {
+    for (let item of sub) {
       if (item.type === 'dir') {
         files.push(...this._formatAllFiles(item.sub))
+        continue
       }
-      if (item.type === 'file') {
-        files.push(item)
-      }
-    })
+      files.push(item)
+
+    }
     return files
   }
 

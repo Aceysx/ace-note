@@ -18,17 +18,30 @@ const createWindow = () => {
   win = new BrowserWindow({
     show: false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     },
-    titleBarStyle: 'hiddenInset'
+    titleBarStyle: 'hiddenInset',
+
   })
+  win.webContents.session.webRequest.onHeadersReceived({ urls: [ "*://*/*" ] },
+    (d, c)=>{
+      if(d.responseHeaders['X-Frame-Options']){
+        delete d.responseHeaders['X-Frame-Options'];
+      } else if(d.responseHeaders['x-frame-options']) {
+        delete d.responseHeaders['x-frame-options'];
+      }
+
+      c({cancel: false, responseHeaders: d.responseHeaders});
+    }
+  );
   win.maximize()
 
   win.loadURL(isDev
     ? 'http://localhost:3000/'
     : `file://${path.join(__dirname, './index.html')}`)
   if (isDev) {
-    win.webContents.openDevTools();
+  win.webContents.openDevTools();
   }
   win.once('ready-to-show', () => {
     win.show()
