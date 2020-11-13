@@ -99,6 +99,7 @@ class App extends React.Component {
     const workspace = FileResource.openDir()
     window.localStorage.setItem('workspace', workspace)
     window.localStorage.removeItem('note')
+    window.localStorage.setItem('version', process.env.REACT_APP_VERSION)
     return workspace
   }
 
