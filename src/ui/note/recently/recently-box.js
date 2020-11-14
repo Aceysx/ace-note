@@ -42,13 +42,12 @@ class RecentlyModel extends React.Component {
   render() {
     const {recentlyModalVisible, recentlyFiles, handleCancel, updateCurrentEditFile} = this.props
     const {focusIndex} = this.state
-
     return <div onKeyDown={this.onKeyDown}>
       <Modal
         width={500}
         bodyStyle={{
           minHeight: 400,
-          maxHeight: 600,
+          maxHeight: 1000,
           overflowY: 'scroll'
         }}
         closeIcon

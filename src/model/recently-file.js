@@ -2,7 +2,7 @@ import File from '../model/file'
 
 const RecentlyFile = {
   limit: (recentlyFiles) => {
-    return recentlyFiles.splice(0, 40)
+    return recentlyFiles.splice(0, 15)
   },
   parseFileNameChange: (recentlyFiles, oldPath, newFileName) => {
     let files = RecentlyFile.limit(recentlyFiles)

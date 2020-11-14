@@ -146,7 +146,6 @@ export default class Markdown extends React.Component {
   render() {
     const {mdRef, changedPath, content, outlineVisible, mindMapVisible} = this.state
     const {notesTags, file, isInReviewed} = this.props
-    console.log(content)
     return <div className='layout_right_content_layout_markdown_scroll'>
       <div className='markdown_box_header'>
         <Row>
