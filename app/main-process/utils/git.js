@@ -35,9 +35,9 @@ const Git = {
           return new Promise((resolve) => {
             exec(CMD.push, getDefaultConf(repo), (err) => {
               if (err) {
-                resolve({isSuccess: false, message: '推送失败,请关联远程仓库'})
+                resolve({isSuccess: false, message: 'push failed, please make sure its ssh protocol with remote repo'})
               }
-              resolve({isSuccess: true, message: '推送成功'})
+              resolve({isSuccess: true, message: 'push success'})
             })
           })
         }
@@ -50,12 +50,12 @@ const Git = {
         if (err) {
           resolve({
             isSuccess: false,
-            message: '当前工作目录暂无更新'
+            message: 'there is not any update'
           })
         }
         resolve({
           isSuccess: true,
-          message: '创建成功'
+          message: 'create success'
         })
       })
     })
@@ -66,12 +66,12 @@ const Git = {
         if (err) {
           resolve({
             isSuccess: false,
-            message: '推送失败，请确保\n1. 当前工作目录为git仓库 \n2. 确保配置了git repo ssh 密匙'
+            message: 'push failed，please make sure\n1. current workspace is a git repo \n2. config git repo ssh key'
           })
         }
         resolve({
           isSuccess: true,
-          message: 'git status 成功'
+          message: 'git status success'
         })
       })
     })
@@ -82,12 +82,12 @@ const Git = {
         if (err) {
           resolve({
             isSuccess: false,
-            message: '拉取失败，请手动解决冲突'
+            message: 'pull failed，please resolve conflict manual'
           })
         }
         resolve({
           isSuccess: true,
-          message: '拉取成功'
+          message: 'pull success'
         })
       })
     })

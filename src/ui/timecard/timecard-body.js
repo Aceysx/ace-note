@@ -116,15 +116,15 @@ export default class TimecardBody extends React.Component {
             </div>
           </div>
         </TabPane>
-        <TabPane tab={
-          <span className='cursor_pointer'>
-            <img src={STATISTICS_ICON} width={18}/>
-            <Divider type={'vertical'}/>
-            Statistic
-          </span>
-        } key="2">
-          Content of Tab Pane 2
-        </TabPane>
+        {/*<TabPane tab={*/}
+        {/*  <span className='cursor_pointer'>*/}
+        {/*    <img src={STATISTICS_ICON} width={18}/>*/}
+        {/*    <Divider type={'vertical'}/>*/}
+        {/*    Statistic*/}
+        {/*  </span>*/}
+        {/*} key="2">*/}
+        {/*  Content of Tab Pane 2*/}
+        {/*</TabPane>*/}
         <TabPane tab={
           <span className='cursor_pointer'>
             <img src={SETTINGS_ICON} width={18}/>
