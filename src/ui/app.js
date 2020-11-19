@@ -244,7 +244,7 @@ class App extends React.Component {
           }
           {
             this.isEmpty(current, selectedDir)
-              ? <div style={{margin: '50%'}}>
+              ? <div style={{margin: '27%'}}>
                 <Empty description={false}/>
               </div>
               : ''
