@@ -1,8 +1,7 @@
 import React from "react";
-import {Collapse, Icon, Input, InputNumber, message, Modal, Row, Select, Tag} from "antd";
+import {Collapse, Icon, Input, message, Modal, Row, Select, Tag} from "antd";
+import PlanCreatorBox from "./plan-creator-box";
 
-const InputGroup = Input.Group;
-const {Option} = Select;
 const {Panel} = Collapse;
 
 const DEFAULT_TASK = (index = 0) => {
@@ -25,48 +24,9 @@ class TemplateManagementBox extends React.Component {
     this.setState({currentTemplate})
   }
 
-  changeTaskLabel = (index, labelId) => {
+  updateTasks = tasks => {
     let {currentTemplate} = this.state
-    let foundTask = currentTemplate.tasks.find(task => task.index === index);
-    if (foundTask) {
-      foundTask.label = labelId
-      this.setState({currentTemplate})
-      return
-    }
-    message.warning('can not find task with index:' + index)
-  }
-
-  changeTaskTitle = (index, newTitle) => {
-    let {currentTemplate} = this.state
-    let foundTask = currentTemplate.tasks.find(task => task.index === index);
-    if (foundTask) {
-      foundTask.title = newTitle
-      this.setState({currentTemplate})
-      return
-    }
-    message.warning('can not find task with index:' + index)
-  }
-
-  updateTaskChange = (index, cost) => {
-    let {currentTemplate} = this.state
-    let foundTask = currentTemplate.tasks.find(task => task.index === index);
-    if (foundTask) {
-      foundTask.cost = cost
-      this.setState({currentTemplate})
-      return
-    }
-    message.warning('can not find task with index:' + index)
-  }
-
-  addNewTask = () => {
-    let {currentTemplate} = this.state
-    currentTemplate.tasks.push(DEFAULT_TASK(currentTemplate.tasks.length))
-    this.setState({currentTemplate})
-  }
-
-  removeTask = index => {
-    let {currentTemplate} = this.state
-    currentTemplate.tasks = currentTemplate.tasks.filter(task => task.index !== index)
+    currentTemplate.tasks = tasks
     this.setState({currentTemplate})
   }
 
@@ -129,52 +89,11 @@ class TemplateManagementBox extends React.Component {
                    onChange={this.changeTemplateTitle}/>
           </span>
         </Row>
-        <div style={{margin: '10px 0'}}>
-          <span>Tasks:</span>
-          {
-            tasks.map((task, i) => {
-                const {index, title, label, cost} = task
-                return <InputGroup compact style={{margin: '10px 0'}}>
-                  <Select value={label}
-                          style={{width: 100}}
-                          placeholder='label'
-                          onSelect={labelId => this.changeTaskLabel(index, labelId)}>
-                    {
-                      labels.map(label => {
-                        const {id, title} = label
-                        return <Option value={id}>
-                          {title}
-                        </Option>
-                      })
-                    }
-                  </Select>
-                  <Input style={{width: 350}}
-                         value={title}
-                         onChange={event => this.changeTaskTitle(index, event.target.value)}
-                         placeholder='task description'/>
-                  <InputNumber placeholder='cost point'
-                               min={0}
-                               onChange={cost => this.updateTaskChange(index, cost)}
-                               value={cost}/>
-                  {
-                    i > 0
-                      ? <Tag onClick={() => this.removeTask(index)}
-                             className='tag cursor_pointer'
-                             style={{background: '#fff', borderStyle: 'dashed', margin: 0}}>
-                        <Icon type="delete" style={{color: '#fd4f54'}}/>
-                      </Tag>
-                      : ''
-                  }
-                </InputGroup>
-              }
-            )
-          }
-          <Tag onClick={this.addNewTask}
-               className='tag cursor_pointer'
-               style={{background: '#fff', borderStyle: 'dashed'}}>
-            <Icon type="plus"/> Add new task
-          </Tag>
-        </div>
+        <PlanCreatorBox
+          updateTasks={this.updateTasks}
+          tasks={tasks}
+          labels={labels}
+        />
       </Modal>
     </div>
   }
