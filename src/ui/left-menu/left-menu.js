@@ -81,14 +81,14 @@ export default class LeftMenu extends React.Component {
               }}
             >{this.buildTopItem(NOTE_BOOK_ICON, MENU.NOTE)}
             </span>
-            <img src={NOTEBOOK_STATISTIC_ICON}
-                 width={20}
-                 className='cursor_pointer'
-                 onClick={() => this.props.switchToMenu(MENU.NOTE_STATISTIC)}
-                 style={{
-                   float: 'right',
-                   margin: '-30px 5px'
-                 }}/>
+            {/*<img src={NOTEBOOK_STATISTIC_ICON}*/}
+            {/*     width={20}*/}
+            {/*     className='cursor_pointer'*/}
+            {/*     onClick={() => this.props.switchToMenu(MENU.NOTE_STATISTIC)}*/}
+            {/*     style={{*/}
+            {/*       float: 'right',*/}
+            {/*       margin: '-30px 5px'*/}
+            {/*     }}/>*/}
 
             <DirectoryTree
               defaultExpandedKeys={[leftMenu.path]}

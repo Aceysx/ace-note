@@ -188,16 +188,16 @@ class App extends React.Component {
               />
               : ''
           }
-        {/*  {*/}
-        {/*  current === MENU.NOTE_STATISTIC*/}
-        {/*    ? <NoteStatisticBody*/}
-        {/*      notesTags={notesTags}*/}
-        {/*      pushToRepo={this.pushToRepo}*/}
-        {/*      leftMenuVisible={leftMenuVisible}*/}
-        {/*      updateStatus={this.updateStatus}*/}
-        {/*    />*/}
-        {/*    : ''*/}
-        {/*}*/}
+          {
+          current === MENU.NOTE_STATISTIC
+            ? <NoteStatisticBody
+              notesTags={notesTags}
+              pushToRepo={this.pushToRepo}
+              leftMenuVisible={leftMenuVisible}
+              updateStatus={this.updateStatus}
+            />
+            : ''
+        }
           {
             current === MENU.SETTING
               ? <Setting
