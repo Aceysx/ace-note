@@ -18,6 +18,7 @@ import {
   UPDATE_CARDS_REVIEW,
   UPDATE_FILES,
   UPDATE_NOTES_TAGS,
+  UPDATE_PLAN_TEMPLATES,
   UPDATE_SELECTED_DIR,
   UPDATE_STATUS,
   UPDATE_TIMECARD_LABELS,
@@ -100,6 +101,7 @@ class App extends React.Component {
     window.localStorage.setItem('workspace', workspace)
     window.localStorage.removeItem('note')
     window.localStorage.setItem('version', process.env.REACT_APP_VERSION)
+
     return workspace
   }
 
@@ -155,7 +157,10 @@ class App extends React.Component {
   }
 
   render() {
-    const {leftMenu, selectedDir, notesTags, status, cardsReview, timecardPlans, timecardLabels} = this.props
+    const {
+      leftMenu, selectedDir, notesTags, status, cardsReview, timecardPlans, timecardLabels,
+      timecardPlanTemplates
+    } = this.props
     const {current, leftMenuVisible, searchModalVisible} = status
     return <Layout className='layout'>
       <Sider
@@ -189,15 +194,15 @@ class App extends React.Component {
               : ''
           }
           {
-          current === MENU.NOTE_STATISTIC
-            ? <NoteStatisticBody
-              notesTags={notesTags}
-              pushToRepo={this.pushToRepo}
-              leftMenuVisible={leftMenuVisible}
-              updateStatus={this.updateStatus}
-            />
-            : ''
-        }
+            current === MENU.NOTE_STATISTIC
+              ? <NoteStatisticBody
+                notesTags={notesTags}
+                pushToRepo={this.pushToRepo}
+                leftMenuVisible={leftMenuVisible}
+                updateStatus={this.updateStatus}
+              />
+              : ''
+          }
           {
             current === MENU.SETTING
               ? <Setting
@@ -223,10 +228,12 @@ class App extends React.Component {
               ? <TimecardBody
                 timecardLabels={timecardLabels}
                 timecardPlans={timecardPlans}
+                timecardPlanTemplates={timecardPlanTemplates}
                 pushToRepo={this.pushToRepo}
                 leftMenuVisible={leftMenuVisible}
                 updateStatus={this.updateStatus}
                 updateTimecardlabels={this.props.updateTimecardlabels}
+                updatePlanTemplates={this.props.updatePlanTemplates}
                 updateTimecardPlans={this.props.updateTimecardPlans}
               />
               : ''
@@ -272,6 +279,7 @@ const mapDispatchToProps = dispatch => ({
   updateSelectedDir: dir => dispatch(UPDATE_SELECTED_DIR(dir)),
   updateCardsReview: cardsReview => dispatch(UPDATE_CARDS_REVIEW(cardsReview)),
   updateTimecardlabels: (labels) => dispatch(UPDATE_TIMECARD_LABELS(labels)),
+  updatePlanTemplates: (templates) => dispatch(UPDATE_PLAN_TEMPLATES(templates)),
   updateStatus: status => dispatch(UPDATE_STATUS(status)),
 })
 
@@ -282,7 +290,8 @@ const mapStateToProps = ({
                            status,
                            cardsReview,
                            timecardPlans,
-                           timecardLabels
+                           timecardLabels,
+                           timecardPlanTemplates
                          }) => ({
   leftMenu,
   selectedDir,
@@ -290,6 +299,7 @@ const mapStateToProps = ({
   cardsReview,
   timecardPlans,
   timecardLabels,
+  timecardPlanTemplates,
   status
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

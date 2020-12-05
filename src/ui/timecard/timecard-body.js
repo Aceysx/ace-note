@@ -9,7 +9,6 @@ import TimecardModel from "../../model/timecard"
 import {publish} from "../../event/event-listener"
 import {TIMECARD_PLAN_STATUS_CHANGE, TIMECARD_UPDATE_LABEL} from "../../event/event"
 import PLAN_ICON from '../../resources/images/plan.png'
-import STATISTICS_ICON from '../../resources/images/statistics.png'
 import SETTINGS_ICON from '../../resources/images/settings.png'
 import '../../resources/css/timecard.css'
 import SettingBody from "./settings/setting-body";
@@ -25,6 +24,10 @@ export default class TimecardBody extends React.Component {
 
   _updateLabels = () => {
     this.props.updateTimecardlabels(TimecardModel.getLabels())
+  }
+
+  _updatePlanTemplates = () => {
+    this.props.updatePlanTemplates(TimecardModel.getPlanTemplates())
   }
 
   editPlan = plan => {
@@ -70,6 +73,11 @@ export default class TimecardBody extends React.Component {
     this._updateLabels()
   }
 
+  createPlanTemplate = planTemplate => {
+    TimecardModel.createPlanTemplate(planTemplate)
+    this._updatePlanTemplates()
+  }
+
   _filterDailyPlans = plans => {
     return plans.filter(plan => {
       return plan.type === 'day' || !plan.type
@@ -77,7 +85,7 @@ export default class TimecardBody extends React.Component {
   }
 
   render() {
-    const {leftMenuVisible, timecardPlans, timecardLabels} = this.props
+    const {leftMenuVisible, timecardPlans, timecardLabels, timecardPlanTemplates} = this.props
     const {creatorModalVisible, editPlan, isUpdate} = this.state
 
     return <div>
@@ -135,7 +143,9 @@ export default class TimecardBody extends React.Component {
           <SettingBody
             updateLabel={this.updateLabel}
             createLabel={this.createLabel}
+            createPlanTemplate={this.createPlanTemplate}
             labels={timecardLabels}
+            planTemplates={timecardPlanTemplates}
           />
         </TabPane>
       </Tabs>
@@ -145,7 +155,7 @@ export default class TimecardBody extends React.Component {
         title="Create plan"
         visible={creatorModalVisible}
         width='80%'
-        style={{marginTop:'-5%'}}
+        style={{marginTop: '-5%'}}
         footer={null}
         onCancel={this.closeCreateModal}
       >

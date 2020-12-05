@@ -18,7 +18,9 @@ const {
   DELETE_TIMECARD_PLAN,
   GET_TIMECARDS_LABELS,
   UPDATE_TIMECARD_LABEL,
-  CREATE_TIMECARD_LABEL
+  CREATE_TIMECARD_LABEL,
+  CREATE_TIMECARD_PLAN_TEMPLATE,
+  GET_TIMECARD_PLAN_TEMPLATES
 } = require('./constants/listener-event')
 
 const Files = require('./utils/files')
@@ -102,6 +104,9 @@ ipcMain.on(GET_TIMECARDS_BY_YEAR, (event, year) => {
 ipcMain.on(GET_TIMECARDS_LABELS, (event) => {
   event.returnValue = TimecardRepository.getLabels()
 })
+ipcMain.on(GET_TIMECARD_PLAN_TEMPLATES, (event) => {
+  event.returnValue = TimecardRepository.getPlanTemplates()
+})
 
 ipcMain.on(DELETE_TIMECARD_PLAN, (event, date) => {
   event.returnValue = TimecardRepository.delByDate(date)
@@ -113,6 +118,11 @@ ipcMain.on(CREATE_TIMECARD_LABEL, (event, label) => {
 
 ipcMain.on(UPDATE_TIMECARD_LABEL, (event, label) => {
   event.returnValue = TimecardRepository.updateLabel(label)
+})
+
+
+ipcMain.on(CREATE_TIMECARD_PLAN_TEMPLATE, (event, label) => {
+  event.returnValue = TimecardRepository.createPlanTemplate(label)
 })
 
 const openDialogSync = () => dialog.showOpenDialogSync({

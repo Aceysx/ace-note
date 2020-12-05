@@ -8,6 +8,7 @@ import status from './status'
 import cardsReview from './cards-review'
 import timecardPlans from './timecard-plans'
 import timecardLabels from './timecard-labels'
+import timecardPlanTemplates from './timecard-plan-templates'
 import recentlyFiles from './recently-files'
 
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
   status,
   recentlyFiles,
   timecardPlans,
-  timecardLabels
+  timecardLabels,
+  timecardPlanTemplates
 })

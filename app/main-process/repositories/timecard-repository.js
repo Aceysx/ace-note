@@ -20,7 +20,8 @@ const TimecardRepository = {
     Files.createFileWithContent(full, `
     {
         "labels": [],
-        "plans": []
+        "plans": [],
+        "planTemplates":[]
       }`);
     db = low(new FileSync(full))
   },
@@ -49,6 +50,19 @@ const TimecardRepository = {
       .push(label)
       .write()
   },
+  createPlanTemplate: (template) => {
+    template.id = new Date().getTime()
+    return db.get('planTemplates')
+      .push(template)
+      .write()
+  },
+  updatePlanTemplate: (template) => {
+    const {id, title, tasks} = template
+    return db.get('labels')
+      .find({id})
+      .assign({title, tasks})
+      .write()
+  },
   getPlansByYear: (year) => {
     if (db) {
       return db.get('plans')
@@ -62,6 +76,12 @@ const TimecardRepository = {
   getLabels: () => {
     if (db) {
       return db.get('labels').value();
+    }
+    return []
+  },
+  getPlanTemplates: () => {
+    if (db) {
+      return db.get('planTemplates').value();
     }
     return []
   }

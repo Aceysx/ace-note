@@ -4,6 +4,9 @@ const TimecardModel = {
   createPlan: plan => {
     TimecardResource.createPlan(plan)
   },
+  createPlanTemplate: planTemplate => {
+    TimecardResource.createPlanTemplate(planTemplate)
+  },
   delPlan: plan => {
     TimecardResource.delPlan(plan.date)
   },
@@ -18,6 +21,9 @@ const TimecardModel = {
   },
   getLabels: () => {
     return TimecardResource.getPlansLabels()
+  },
+  getPlanTemplates: () => {
+    return TimecardResource.getPlanTemplates()
   }
 }
 

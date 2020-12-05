@@ -90,8 +90,8 @@ emitter.on(RESET_WORKSPACE_EVENT, ({props = {}, workspace}) => {
   // timecard update
   props.updateTimecardPlans(TimecardModel.getPlansByYear('2020'))
   props.updateTimecardlabels(TimecardModel.getLabels())
+  props.updatePlanTemplates(TimecardModel.getPlanTemplates())
 })
-
 
 export const publish = (type, data) => {
   emitter.emit(type, data)
