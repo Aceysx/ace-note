@@ -29,11 +29,8 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
   const statisticTimeCost = (tasks) => {
     const result = {}
     tasks.forEach(task => {
-      const label = task.label
-      if (label) {
-        let key = Object.keys(label)[0];
-        result[key] = (result[key] || 0) + label[key]
-      }
+      const {labelId, cost} = task
+      result[labelId] = (result[labelId] || 0) + cost
     })
     return result
   }
@@ -41,15 +38,15 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
   const calculateTagStatus = (tasks, labels) => {
     const result = []
     tasks.forEach(task => {
-      const foundTask = labels.find(item => parseInt(item.id) === parseInt(Object.keys(task.label)[0])) || {}
-      const value = Object.values(task.label)[0]
-      const foundLabel = result.find(item => parseInt(item.id) === parseInt(foundTask.id))
+      const label = labels.find(item => parseInt(item.id) === parseInt(task.labelId)) || {}
+      const foundCost = task.cost
+      const foundLabel = result.find(item => parseInt(item.id) === parseInt(label.id))
       if (foundLabel) {
-        foundLabel.value += value
+        foundLabel.value += foundCost
       } else {
         result.push({
-          ...foundTask,
-          value
+          ...label,
+          value: foundCost
         })
       }
     })
@@ -120,7 +117,6 @@ const TimecardPlansBody = ({plans, labels, edit, del, create}) => {
                                 </span>
                               : ''
                           }
-
                           <Icon className='cursor_pointer'
                                 style={{fontSize: 16, color: '#2e99ff'}}
                                 type="form"

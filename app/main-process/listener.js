@@ -91,14 +91,7 @@ ipcMain.on(CREATE_TIMECARD_PLAN, (event, data) => {
 })
 
 ipcMain.on(GET_TIMECARDS_BY_YEAR, (event, year) => {
-  event.returnValue = TimecardRepository.getPlansByYear(year).map(plan => {
-    return {
-      ...plan,
-      tasks: (plan.type === 'day' || !plan.type)
-        ? JSON.parse(plan.tasks)
-        : plan.tasks
-    }
-  })
+  event.returnValue = TimecardRepository.getPlansByYear(year)
 })
 
 ipcMain.on(GET_TIMECARDS_LABELS, (event) => {

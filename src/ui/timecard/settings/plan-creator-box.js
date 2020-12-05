@@ -5,7 +5,7 @@ const InputGroup = Input.Group;
 const {Option} = Select;
 
 const DEFAULT_TASK = (index = 0) => {
-  return {index, title: '', label: '', cost: ''}
+  return {index, title: '', labelId: '', cost: ''}
 }
 
 class PlanCreatorBox extends React.Component {
@@ -13,7 +13,7 @@ class PlanCreatorBox extends React.Component {
     let {tasks} = this.props
     let foundTask = tasks.find(task => task.index === index);
     if (foundTask) {
-      foundTask.label = labelId
+      foundTask.labelId = labelId
       this.props.updateTasks(tasks)
       return
     }
@@ -55,14 +55,14 @@ class PlanCreatorBox extends React.Component {
   }
 
   render() {
-    const {labels, tasks} = this.props
+    const {labels = [], tasks = []} = this.props
     return <div style={{margin: '10px 0'}}>
-      <span>Tasks:</span>
       {
         tasks.map((task, i) => {
-            const {index, title, label, cost} = task
+            const {index, title, labelId, cost} = task
+          console.log(task)
             return <InputGroup compact style={{margin: '10px 0'}}>
-              <Select value={label}
+              <Select value={labelId}
                       style={{width: 100}}
                       placeholder='label'
                       onSelect={labelId => this.changeTaskLabel(index, labelId)}>

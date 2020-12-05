@@ -1,5 +1,5 @@
 import React from "react";
-import {Collapse, Icon, Input, message, Modal, Row, Select, Tag} from "antd";
+import {Collapse, Icon, Input, Modal, Row, Tag} from "antd";
 import PlanCreatorBox from "./plan-creator-box";
 
 const {Panel} = Collapse;
@@ -89,6 +89,7 @@ class TemplateManagementBox extends React.Component {
                    onChange={this.changeTemplateTitle}/>
           </span>
         </Row>
+        <span>Tasks:</span>
         <PlanCreatorBox
           updateTasks={this.updateTasks}
           tasks={tasks}

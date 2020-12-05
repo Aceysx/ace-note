@@ -1,39 +1,41 @@
 import React from 'react'
 import moment from "moment"
-import {Button, DatePicker, Divider, Form, Input, message, Radio, Tag} from "antd"
-import PLAN_TEMPLATE from './template/plan-template'
+import {Button, DatePicker, Divider, Form, Input, Radio, Tag} from "antd"
+import PlanCreatorBox from "./settings/plan-creator-box";
 
 const {TextArea} = Input
 
 export default class TimecardPlanCreator extends React.Component {
   state = {
     date: moment(new Date().getTime()),
-    title: moment(new Date()).format("YYYY-MM-DD"),
-    tasks: PLAN_TEMPLATE[0].content,
+    title: '',
+    tasks: [],
     summary: '',
-    template: PLAN_TEMPLATE[0].title
+    templateId: 0
   }
 
   componentDidMount() {
+    this.reset()
     if (this.props.editPlan) {
       const {date, title, tasks, summary} = this.props.editPlan
       this.setState({
         date: moment(date),
         title,
-        tasks: JSON.stringify(tasks),
-        type:'day',
+        tasks,
+        type: 'day',
         summary
       })
     }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
+    this.reset()
     if (nextProps.editPlan) {
       const {date, title, tasks, summary} = nextProps.editPlan
       this.setState({
         date: moment(date),
         title,
-        tasks: JSON.stringify(tasks),
+        tasks,
         summary
       })
     }
@@ -57,17 +59,13 @@ export default class TimecardPlanCreator extends React.Component {
   reset = () => {
     this.setState({
       date: moment(new Date().getTime()),
-      title: moment(new Date()).format("YYYY-MM-DD"),
-      tasks: PLAN_TEMPLATE[0].title,
+      title: [],
+      tasks: [],
       summary: ''
     })
   }
   createPlan = () => {
-    const {title, tasks, summary, date} = this.state
-    if (!this.check(tasks)) {
-      message.error('please check the format of plan')
-      return
-    }
+    let {title, tasks, summary, date} = this.state
     this.props.createPlan(
       {
         date: moment(date).format("YYYY-MM-DD"),
@@ -76,18 +74,20 @@ export default class TimecardPlanCreator extends React.Component {
     )
     this.reset()
   }
-  changeTemplate = template => {
-    let found = PLAN_TEMPLATE.find(item => item.title === template);
-    const {title, content} = found
+
+  changeTemplate = templateId => {
+    const {planTemplates = []} = this.props
+    let found = planTemplates.find(item => item.id === templateId);
+    const {id, tasks} = found
     this.setState({
-      template: title,
-      tasks: content
+      templateId: id,
+      tasks
     })
   }
 
   render() {
-    const {title, tasks, summary, date, template} = this.state
-    const {labels=[], isUpdate} = this.props
+    const {title, tasks, summary, date, templateId} = this.state
+    const {labels = [], isUpdate, planTemplates} = this.props
     return <div>
       {
         labels.map(label => {
@@ -100,12 +100,12 @@ export default class TimecardPlanCreator extends React.Component {
         })
       }
       <Divider/>
-      <label>Template：</label>
-      <Radio.Group value={template}
+      <label>Templates：</label>
+      <Radio.Group value={templateId}
                    onChange={e => this.changeTemplate(e.target.value)}>
         {
-          PLAN_TEMPLATE.map(template => {
-            return <Radio.Button value={template.title}>{template.title}</Radio.Button>
+          planTemplates.map(template => {
+            return <Radio.Button value={template.id}>{template.title}</Radio.Button>
           })
         }
       </Radio.Group>
@@ -122,10 +122,13 @@ export default class TimecardPlanCreator extends React.Component {
                   value={title}
                   onChange={e => this.setState({title: e.target.value})}/>
       </Form.Item>
-      <Form.Item label="Task">
-        <TextArea rows={7}
-                  value={tasks}
-                  onChange={e => this.setState({tasks: e.target.value})}/>
+      <Form.Item label="Tasks">
+        <PlanCreatorBox
+          tasks={tasks}
+          updateTasks={tasks => this.setState({tasks})}
+          planTemplates={planTemplates}
+          labels={labels}
+        />
       </Form.Item>
       <Form.Item label="Summary">
         <TextArea rows={5}

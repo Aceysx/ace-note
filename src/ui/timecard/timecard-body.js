@@ -87,7 +87,6 @@ export default class TimecardBody extends React.Component {
   render() {
     const {leftMenuVisible, timecardPlans, timecardLabels, timecardPlanTemplates} = this.props
     const {creatorModalVisible, editPlan, isUpdate} = this.state
-
     return <div>
       <TitleBar
         title={<span><img src={require('../../resources/images/timecard.png')}/>Timecard</span>}
@@ -163,6 +162,7 @@ export default class TimecardBody extends React.Component {
           isUpdate={isUpdate}
           editPlan={editPlan}
           labels={timecardLabels}
+          planTemplates={timecardPlanTemplates}
           createPlan={timecard => {
             TimecardModel.createPlan(timecard)
             this.closeCreateModal()

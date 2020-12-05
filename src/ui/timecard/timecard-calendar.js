@@ -11,7 +11,7 @@ const TimecardCalendar = ({plans}) => {
   plans.forEach(plan => {
     const key = plan.date
     const value = plan.tasks.reduce((sum, current) => {
-      return sum + Object.values(current.label)[0]
+      return sum + current.cost
     }, 0)
     values[key] = Math.ceil(value / total_part_of_one_day)
   })
