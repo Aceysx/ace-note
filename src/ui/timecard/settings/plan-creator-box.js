@@ -58,9 +58,8 @@ class PlanCreatorBox extends React.Component {
     const {labels = [], tasks = []} = this.props
     return <div style={{margin: '10px 0'}}>
       {
-        tasks.map((task, i) => {
+        tasks.map((task) => {
             const {index, title, labelId, cost} = task
-          console.log(task)
             return <InputGroup compact style={{margin: '10px 0'}}>
               <Select value={labelId}
                       style={{width: 100}}
@@ -84,7 +83,7 @@ class PlanCreatorBox extends React.Component {
                            onChange={cost => this.updateTaskChange(index, cost)}
                            value={cost}/>
               {
-                i > 0
+                tasks.length > 1
                   ? <Tag onClick={() => this.removeTask(index)}
                          className='tag cursor_pointer'
                          style={{background: '#fff', borderStyle: 'dashed', margin: 0}}>

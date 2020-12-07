@@ -15,7 +15,7 @@ const DEFAULT_TEMPLATE = {
 class TemplateManagementBox extends React.Component {
   state = {
     currentTemplate: DEFAULT_TEMPLATE,
-    isCreateTemplateModalOpen: true
+    isCreateTemplateModalOpen: false
   }
 
   changeTemplateTitle = e => {
@@ -48,8 +48,8 @@ class TemplateManagementBox extends React.Component {
             return <Panel header={title} key={id}>
               {
                 tasks.map(task => {
-                  const {index, title, cost, label} = task
-                  const fountLabel = labels.find(item => item.id === label) || {}
+                  const {index, title, cost, labelId} = task
+                  const fountLabel = labels.find(item => item.id === labelId) || {}
                   return <p><Tag key={index}
                                  className='tag'
                                  color={fountLabel.color}>

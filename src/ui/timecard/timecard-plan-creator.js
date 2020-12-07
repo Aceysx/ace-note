@@ -56,6 +56,7 @@ export default class TimecardPlanCreator extends React.Component {
       return false;
     }
   }
+
   reset = () => {
     this.setState({
       date: moment(new Date().getTime()),
@@ -81,7 +82,7 @@ export default class TimecardPlanCreator extends React.Component {
     const {id, tasks} = found
     this.setState({
       templateId: id,
-      tasks
+      tasks: JSON.parse(JSON.stringify(tasks))
     })
   }
 
