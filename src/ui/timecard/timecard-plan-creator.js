@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from "moment"
-import {Button, DatePicker, Divider, Form, Input, Radio, Tag} from "antd"
+import {Button, DatePicker, Form, Input, Radio} from "antd"
 import PlanCreatorBox from "./settings/plan-creator-box";
 
 const {TextArea} = Input
@@ -90,17 +90,6 @@ export default class TimecardPlanCreator extends React.Component {
     const {title, tasks, summary, date, templateId} = this.state
     const {labels = [], isUpdate, planTemplates} = this.props
     return <div>
-      {
-        labels.map(label => {
-          return <Tag
-            key={label.id}
-            className='tag'
-            color={label.color}>
-            {label.id + label.title}
-          </Tag>
-        })
-      }
-      <Divider/>
       <label>Templates：</label>
       <Radio.Group value={templateId}
                    onChange={e => this.changeTemplate(e.target.value)}>

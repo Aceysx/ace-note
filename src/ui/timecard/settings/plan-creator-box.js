@@ -44,7 +44,8 @@ class PlanCreatorBox extends React.Component {
 
   addNewTask = () => {
     let {tasks} = this.props
-    tasks.push(DEFAULT_TASK(tasks.length))
+    const nextIndex = tasks[tasks.length-1].index + 1
+    tasks.push(DEFAULT_TASK(nextIndex))
     this.props.updateTasks(tasks)
   }
 
