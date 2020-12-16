@@ -10,6 +10,7 @@ import timecardPlans from './timecard-plans'
 import timecardLabels from './timecard-labels'
 import timecardPlanTemplates from './timecard-plan-templates'
 import recentlyFiles from './recently-files'
+import timecardYear from './timecard-year'
 
 export default combineReducers({
   leftMenu,
@@ -22,5 +23,6 @@ export default combineReducers({
   recentlyFiles,
   timecardPlans,
   timecardLabels,
-  timecardPlanTemplates
+  timecardPlanTemplates,
+  timecardYear
 })

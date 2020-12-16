@@ -85,7 +85,7 @@ export default class TimecardBody extends React.Component {
   }
 
   render() {
-    const {leftMenuVisible, timecardPlans, timecardLabels, timecardPlanTemplates} = this.props
+    const {leftMenuVisible, timecardPlans, timecardLabels,timecardYear, timecardPlanTemplates} = this.props
     const {creatorModalVisible, editPlan, isUpdate} = this.state
     return <div>
       <TitleBar
@@ -103,6 +103,8 @@ export default class TimecardBody extends React.Component {
           </span>} key="1">
           <div style={{textAlign: 'left'}}>
             <TimecardCalendar
+                timecardYear={timecardYear}
+                updateTimecardYear={this.props.updateTimecardYear}
               plans={this._filterDailyPlans(timecardPlans)}/>
             <Divider/>
             <TimecardPlansBody

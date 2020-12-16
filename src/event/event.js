@@ -10,4 +10,5 @@ export const RESET_WORKSPACE_EVENT = 'reset_workspace_event'
 
 
 export const TIMECARD_PLAN_STATUS_CHANGE = 'timecard_plan_status_change'
+export const TIMECARD_YEAR_CHANGE = 'timecard_year_change'
 export const TIMECARD_UPDATE_LABEL = 'timecard_update_label'

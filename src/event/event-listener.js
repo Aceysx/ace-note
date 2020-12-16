@@ -11,7 +11,7 @@ import {
   FILE_NAME_CHANGE_EVENT,
   OPEN_FILE_EVENT,
   RESET_WORKSPACE_EVENT,
-  TIMECARD_PLAN_STATUS_CHANGE
+  TIMECARD_PLAN_STATUS_CHANGE, TIMECARD_YEAR_CHANGE
 } from "./event"
 import NoteTagModel from "../model/note-tag"
 import TimecardModel from "../model/timecard"
@@ -60,7 +60,7 @@ emitter.on(DELETE_DIR_EVENT, ({props = {}}) => {
 emitter.on(TIMECARD_PLAN_STATUS_CHANGE, ({props = {}}) => {
   console.log('TIMECARD_PLAN_STATUS_CHANGE')
   props.updateTimecardPlans(
-    TimecardModel.getPlansByYear('2020')
+    TimecardModel.getPlansByYear(props.timecardYear || new Date().getFullYear())
   )
 })
 
@@ -88,9 +88,14 @@ emitter.on(RESET_WORKSPACE_EVENT, ({props = {}, workspace}) => {
   props.updateNotesTags(FileResource.getNotesTags(window.getNoteTagsPath()))
 
   // timecard update
-  props.updateTimecardPlans(TimecardModel.getPlansByYear('2020'))
+  props.updateTimecardPlans(TimecardModel.getPlansByYear(props.timecardYear || new Date().getFullYear()))
   props.updateTimecardlabels(TimecardModel.getLabels())
   props.updatePlanTemplates(TimecardModel.getPlanTemplates())
+})
+
+emitter.on(TIMECARD_YEAR_CHANGE, ({props = {}, year=new Date().getFullYear()}) => {
+  console.log('TIMECARD_YEAR_CHANGE')
+  props.updateTimecardPlans(TimecardModel.getPlansByYear(year))
 })
 
 export const publish = (type, data) => {

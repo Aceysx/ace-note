@@ -22,7 +22,7 @@ import {
   UPDATE_SELECTED_DIR,
   UPDATE_STATUS,
   UPDATE_TIMECARD_LABELS,
-  UPDATE_TIMECARD_PLANS
+  UPDATE_TIMECARD_PLANS, UPDATE_TIMECARD_YEAR
 } from '../redux/reducers/dispatch-command/commands'
 
 import '../resources/css/app.css'
@@ -30,7 +30,7 @@ import TagBody from "./tag/tag-body";
 import TimecardBody from "./timecard/timecard-body"
 import NoteStatisticBody from "./note/statistic/note-statistic-body"
 import {publish} from "../event/event-listener";
-import {RESET_WORKSPACE_EVENT} from "../event/event";
+import {RESET_WORKSPACE_EVENT, TIMECARD_PLAN_STATUS_CHANGE, TIMECARD_YEAR_CHANGE} from "../event/event";
 
 const {Sider, Content} = Layout
 
@@ -155,13 +155,18 @@ class App extends React.Component {
     ).content
     this.props.updateCardsReview(JSON.parse(updateCardsReview))
   }
+  updateTimecardYear = year =>{
+    publish(TIMECARD_YEAR_CHANGE, {props: this.props,year})
+    this.props.updateTimecardYear(year)
+  }
 
   render() {
     const {
       leftMenu, selectedDir, notesTags, status, cardsReview, timecardPlans, timecardLabels,
-      timecardPlanTemplates
+      timecardPlanTemplates,timecardYear
     } = this.props
     const {current, leftMenuVisible, searchModalVisible} = status
+    console.log(timecardYear)
     return <Layout className='layout'>
       <Sider
         className={`layout_left_sider ${leftMenuVisible ? 'layout_left_sider_display' : 'layout_left_sider_hide'}`}
@@ -226,12 +231,14 @@ class App extends React.Component {
           {
             current === MENU.TIMECARD
               ? <TimecardBody
+                    timecardYear={timecardYear}
                 timecardLabels={timecardLabels}
                 timecardPlans={timecardPlans}
                 timecardPlanTemplates={timecardPlanTemplates}
                 pushToRepo={this.pushToRepo}
                 leftMenuVisible={leftMenuVisible}
                 updateStatus={this.updateStatus}
+                    updateTimecardYear={this.updateTimecardYear}
                 updateTimecardlabels={this.props.updateTimecardlabels}
                 updatePlanTemplates={this.props.updatePlanTemplates}
                 updateTimecardPlans={this.props.updateTimecardPlans}
@@ -281,6 +288,7 @@ const mapDispatchToProps = dispatch => ({
   updateTimecardlabels: (labels) => dispatch(UPDATE_TIMECARD_LABELS(labels)),
   updatePlanTemplates: (templates) => dispatch(UPDATE_PLAN_TEMPLATES(templates)),
   updateStatus: status => dispatch(UPDATE_STATUS(status)),
+  updateTimecardYear: year => dispatch(UPDATE_TIMECARD_YEAR(year)),
 })
 
 const mapStateToProps = ({
@@ -291,7 +299,8 @@ const mapStateToProps = ({
                            cardsReview,
                            timecardPlans,
                            timecardLabels,
-                           timecardPlanTemplates
+                           timecardPlanTemplates,
+                           timecardYear
                          }) => ({
   leftMenu,
   selectedDir,
@@ -300,6 +309,7 @@ const mapStateToProps = ({
   timecardPlans,
   timecardLabels,
   timecardPlanTemplates,
-  status
+  status,
+  timecardYear
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)
