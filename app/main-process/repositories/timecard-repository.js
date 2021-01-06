@@ -58,7 +58,7 @@ const TimecardRepository = {
   },
   updatePlanTemplate: (template) => {
     const {id, title, tasks} = template
-    return db.get('labels')
+    return db.get('planTemplates')
       .find({id})
       .assign({title, tasks})
       .write()
